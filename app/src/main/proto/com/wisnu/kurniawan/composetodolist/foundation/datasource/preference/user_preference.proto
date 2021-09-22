@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.model;
+
+message UserPreference {
+  string email = 1;
+}

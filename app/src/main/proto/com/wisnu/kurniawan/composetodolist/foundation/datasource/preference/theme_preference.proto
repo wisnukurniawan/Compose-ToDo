@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.model;
+
+enum ThemePreference {
+  SYSTEM = 0;
+  LIGHT = 1;
+  NIGHT = 2;
+  SUNRISE = 3;
+  AURORA = 4;
+  TWILIGHT = 5;
+}

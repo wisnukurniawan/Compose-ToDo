@@ -1,0 +1,76 @@
+<resources>
+    <string name="app_name" translatable="false">To Do X</string>
+
+    <string name="login_login">Log in</string>
+    <string name="login_email">Email</string>
+    <string name="login_email_invalid">Email invalid</string>
+    <string name="login_password">Password</string>
+
+    <string name="setting_title">Main menu</string>
+    <string name="setting_theme">Themes</string>
+    <string name="setting_theme_automatic">Automatic</string>
+    <string name="setting_theme_light">Daylight</string>
+    <string name="setting_theme_twilight">Twilight</string>
+    <string name="setting_theme_night">Midnight</string>
+    <string name="setting_theme_sunrise">Sunrise</string>
+    <string name="setting_theme_aurora">Aurora</string>
+    <string name="setting_logout">Log out</string>
+    <string name="setting_logout_confirm">Log out?</string>
+    <string name="setting_language">Language</string>
+    <string name="setting_language_english" translatable="false">English</string>
+    <string name="setting_language_indonesia" translatable="false">Bahasa Indonesia</string>
+
+    <string name="todo_rename">Rename</string>
+    <string name="todo_skip">Skip</string>
+    <string name="todo_add">Add</string>
+    <string name="todo_new_list">New list</string>
+    <string name="todo_my_list">My lists</string>
+    <string name="todo_no_list">No lists</string>
+    <string name="todo_no_task">No tasks</string>
+    <string name="todo_cancel">Cancel</string>
+    <string name="todo_group_default_name">Untitled group</string>
+    <string name="todo_group_menu">Group menu</string>
+    <string name="todo_group_menu_add_remove_list">Add/remove list</string>
+    <string name="todo_group_menu_rename">Rename group</string>
+    <string name="todo_group_menu_delete">Delete group</string>
+    <string name="todo_group_menu_ungroup">Ungroup lists</string>
+    <string name="todo_create_group">Create a group</string>
+    <string name="todo_create_group_hint">Name this group</string>
+    <string name="todo_create_group_positive">Create group</string>
+    <string name="todo_create_list_default_name">Untitled list</string>
+    <string name="todo_create_list">New list</string>
+    <string name="todo_create_list_hint">Enter list title</string>
+    <string name="todo_create_list_positive">Create list</string>
+    <string name="todo_rename_list">Rename list</string>
+    <string name="todo_rename_list_positive">Save</string>
+    <string name="todo_add_task">Add a task</string>
+    <string name="todo_rename_task">Rename task</string>
+    <string name="todo_add_task_completed">Completed</string>
+    <string name="todo_update_group_list">Add list to group</string>
+    <string name="todo_step_rename">Rename step</string>
+    <string name="todo_step_next">Next step</string>
+    <string name="todo_add_due_date_task">Add due date</string>
+    <string name="todo_add_due_date_time_task">Time</string>
+    <string name="todo_add_due_date_repeat_task">Repeat</string>
+    <string name="todo_repeat_never">Never</string>
+    <string name="todo_repeat_daily">Daily</string>
+    <string name="todo_repeat_weekdays">Weekdays</string>
+    <string name="todo_repeat_weekly">Weekly</string>
+    <string name="todo_repeat_monthly">Monthly</string>
+    <string name="todo_repeat_yearly">Yearly</string>
+
+    <string name="todo_task_item_info">%1$s of %2$s</string>
+    <string name="todo_task_in_progress_date_creation_second">Created a few moments ago</string>
+    <string name="todo_task_in_progress_date_creation_minute">Created %1$s minutes ago</string>
+    <string name="todo_task_in_progress_date_creation_hour">Created %1$s hours ago</string>
+    <string name="todo_task_in_progress_date_creation_date">Created %1$s</string>
+    <string name="todo_task_complete_date_today">Completed today</string>
+    <string name="todo_task_complete_date_yesterday">Completed yesterday</string>
+    <string name="todo_task_complete_date">Completed on %1$s</string>
+
+    <string name="todo_task_due_date_today">Due today</string>
+    <string name="todo_task_due_date_tomorrow">Due tomorrow</string>
+    <string name="todo_task_due_date_yesterday">Due yesterday</string>
+    <string name="todo_task_due_date">Due %1$s</string>
+
+</resources>

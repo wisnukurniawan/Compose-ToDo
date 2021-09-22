@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.model;
+
+enum LanguagePreference {
+  ENGLISH = 0;
+  INDONESIA = 1;
+}

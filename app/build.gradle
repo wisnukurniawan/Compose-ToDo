@@ -1,0 +1,185 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'com.google.devtools.ksp'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'com.squareup.wire'
+    id 'dagger.hilt.android.plugin'
+}
+
+apply from: "$rootDir/gradle/test-report.gradle"
+
+ext.codeCoverage = [
+        enabled      : true,
+        fileBlackList: [
+        ],
+        fileWhiteList: [
+                // UI
+                '**/ui/*ViewModel*',
+                '**/ui/*State*',
+                // Data
+                // '**/data/*Environment*',
+                '**/foundation/datasource/local/*Read*',
+                '**/foundation/datasource/local/*Write*',
+                // '**/foundation/datasource/preference/PreferenceManager*',
+                // Core
+                '**/foundation/extension/*',
+        ]
+]
+
+android {
+    compileSdkVersion project.ext.compileSdkVersion
+    buildToolsVersion project.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion project.ext.minSdkVersion
+        targetSdkVersion project.ext.targetSdkVersion
+        applicationId project.ext.appId
+        versionCode project.ext.versionCode
+        versionName project.ext.versionName
+
+        vectorDrawables {
+            useSupportLibrary true
+        }
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        viewBinding true
+
+        // Fix compose compile error
+        compose true
+    }
+
+    // Fix compose compile error
+    composeOptions {
+        kotlinCompilerExtensionVersion "1.1.0-alpha03"
+    }
+
+    compileOptions {
+        coreLibraryDesugaringEnabled = true
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+}
+
+wire {
+    kotlin {
+        android = true
+    }
+}
+
+dependencies {
+
+    ///////////////
+    // UI SUPPORT
+    //////
+
+    implementation libs.androidx.core
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.lifecycle.viewmodelCompose
+    implementation libs.androidx.activity.compose
+    implementation libs.androidx.navigation.compose
+    implementation libs.androidx.hilt.navigationCompose
+    implementation libs.lottie.compose
+    implementation libs.google.material
+
+    // Use to show UI properly when keyboard shown
+    implementation libs.google.accompanist.insets
+
+    // Use for bottom sheet navigation
+    implementation libs.google.accompanist.navigation
+
+    implementation libs.google.accompanist.systemuicontroller
+
+    // Compose
+    // For Compose runtime by default coroutine runtime already included from ui, foundation, implicitly
+    implementation libs.androidx.compose.material
+    implementation libs.androidx.compose.materialIcon
+    implementation libs.androidx.compose.materialIconExtended
+    implementation libs.androidx.compose.foundation
+    implementation libs.androidx.compose.ui
+
+
+    ///////////////
+    // DATA SUPPORT
+    //////
+
+    // SQL
+    implementation libs.androidx.room.runtime
+    implementation libs.androidx.room.ktx
+    kapt libs.androidx.room.compiler
+
+    // Key-value
+    implementation libs.androidx.datastore
+    implementation libs.google.protobuf
+
+    // Server
+    implementation libs.bundles.networking
+
+
+    ///////////////
+    // CORE
+    //////
+
+    // Concurrent processing
+    implementation libs.jetbrains.coroutines.android
+
+    // Core language
+    implementation libs.jetbrains.kotlin
+
+    // DI
+    implementation libs.google.hilt.android
+    kapt libs.google.hilt.compiler
+
+    coreLibraryDesugaring(libs.android.desugar)
+
+    // Logger
+    implementation projects.coreLogger
+
+
+    ///////////////
+    // DEBUGGING SUPPORT
+    //////
+
+    debugImplementation libs.debugging.compose.uiTooling
+
+    debugImplementation projects.testDebug
+    releaseImplementation projects.testDebug.noOp
+
+
+    ///////////////
+    // UNIT TEST SUPPORT
+    //////
+
+    testImplementation libs.test.androidx
+    testImplementation libs.test.robolectric
+    testImplementation libs.test.junit
+    testImplementation libs.test.coroutines
+    testImplementation libs.test.turbine
+}
+
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    kotlinOptions {
+        freeCompilerArgs += '-Xopt-in=kotlin.RequiresOptIn'
+    }
+}

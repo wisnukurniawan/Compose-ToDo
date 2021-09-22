@@ -1,0 +1,7 @@
+apply from: "$rootDir/gradle/lib-android-module.gradle"
+
+dependencies {
+    implementation projects.coreLogger
+    implementation libs.debugging.okhttp.logging
+    implementation libs.debugging.chucker
+}

@@ -1,0 +1,28 @@
+rootProject.name = "Compose-ToDoList"
+
+///////////////
+// PRODUCT MODULE
+//////
+
+include ':app'
+
+
+///////////////
+// CORE MODULE
+//////
+
+include ':core-logger'
+
+
+///////////////
+// TEST MODULE
+//////
+
+include ':test-debug'
+include ':test-debug:no-op'
+
+
+// Enable Gradle's version catalog support
+// https://docs.gradle.org/current/userguide/platforms.html
+enableFeaturePreview("VERSION_CATALOGS")
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

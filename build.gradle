@@ -1,0 +1,38 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath libs.android.gradlePlugin
+        classpath libs.kotlin.gradlePlugin
+        classpath libs.androidx.navigationGradlePlugin
+        classpath libs.google.hiltGradlePlugin
+        classpath libs.squareup.wireGradlePlugin
+        classpath libs.google.kspPlugin
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+    }
+
+    project.ext {
+        minSdkVersion = 24
+        targetSdkVersion = 31
+        compileSdkVersion = 31
+        buildToolsVersion = "31.0.0"
+        appId = project.properties["application_id"]
+        versionCode = Integer.parseInt(project.properties["version_code"])
+        versionName = project.properties["version_name"]
+    }
+
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

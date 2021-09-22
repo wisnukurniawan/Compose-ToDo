@@ -1,0 +1,71 @@
+<resources>
+    <string name="login_login">Log in</string>
+    <string name="login_email">Email</string>
+    <string name="login_email_invalid">Email tidak valid</string>
+    <string name="login_password">Kata sandi</string>
+
+    <string name="setting_title">Menu utama</string>
+    <string name="setting_theme">Tema</string>
+    <string name="setting_theme_automatic">Otomatis</string>
+    <string name="setting_theme_light">Daylight</string>
+    <string name="setting_theme_twilight">Twilight</string>
+    <string name="setting_theme_night">Midnight</string>
+    <string name="setting_theme_sunrise">Sunrise</string>
+    <string name="setting_theme_aurora">Aurora</string>
+    <string name="setting_logout">Keluar</string>
+    <string name="setting_logout_confirm">Keluar?</string>
+    <string name="setting_language">Bahasa</string>
+
+    <string name="todo_rename">Ganti nama</string>
+    <string name="todo_skip">Batal</string>
+    <string name="todo_add">Pilih</string>
+    <string name="todo_new_list">Daftar baru</string>
+    <string name="todo_my_list">Daftar saya</string>
+    <string name="todo_no_list">Tidak ada daftar</string>
+    <string name="todo_no_task">Tidak ada tugas</string>
+    <string name="todo_cancel">Batal</string>
+    <string name="todo_group_default_name">Grup tanpa judul</string>
+    <string name="todo_group_menu">Menu grup</string>
+    <string name="todo_group_menu_add_remove_list">Tambah/hapus daftar</string>
+    <string name="todo_group_menu_rename">Ubah nama grup</string>
+    <string name="todo_group_menu_delete">Hapus grup</string>
+    <string name="todo_group_menu_ungroup">Pisahkan daftar</string>
+    <string name="todo_create_group">Buat grup</string>
+    <string name="todo_create_group_hint">Beri nama grup ini</string>
+    <string name="todo_create_group_positive">Buat grup</string>
+    <string name="todo_create_list_default_name">Daftar tanpa judul</string>
+    <string name="todo_create_list">Daftar baru</string>
+    <string name="todo_create_list_hint">Masukan judul daftar</string>
+    <string name="todo_create_list_positive">Buat daftar</string>
+    <string name="todo_rename_list">Ganti nama daftar</string>
+    <string name="todo_rename_list_positive">Simpan</string>
+    <string name="todo_add_task">Tambahkan tugas</string>
+    <string name="todo_add_task_completed">Selesai</string>
+    <string name="todo_rename_task">Ganti nama tugas</string>
+    <string name="todo_update_group_list">Tambahkan daftar ke grup</string>
+    <string name="todo_step_rename">Ganti nama step</string>
+    <string name="todo_step_next">Step selanjutnya</string>
+    <string name="todo_add_due_date_task">Tambahkan tanggal jatuh tempo</string>
+    <string name="todo_add_due_date_time_task">Waktu</string>
+    <string name="todo_add_due_date_repeat_task">Ulangi</string>
+    <string name="todo_repeat_never">Janga pernah</string>
+    <string name="todo_repeat_daily">Harian</string>
+    <string name="todo_repeat_weekdays">Hari kerja</string>
+    <string name="todo_repeat_weekly">Mingguan</string>
+    <string name="todo_repeat_monthly">Bulanan</string>
+    <string name="todo_repeat_yearly">Tahunan</string>
+
+    <string name="todo_task_item_info">%1$s dari %2$s</string>
+    <string name="todo_task_in_progress_date_creation_second">Di buat beberapa saat yang lalu</string>
+    <string name="todo_task_in_progress_date_creation_minute">Di buat %1$s menit yang lalu</string>
+    <string name="todo_task_in_progress_date_creation_hour">Di buat %1$s jam yang lalu</string>
+    <string name="todo_task_in_progress_date_creation_date">Di buat pada %1$s</string>
+    <string name="todo_task_complete_date_today">Selesai hari ini</string>
+    <string name="todo_task_complete_date_yesterday">Selesai kemarin</string>
+    <string name="todo_task_complete_date">Selesai pada %1$s</string>
+
+    <string name="todo_task_due_date_today">Jatuh tempo hari ini</string>
+    <string name="todo_task_due_date_tomorrow">Jatuh tempo besok</string>
+    <string name="todo_task_due_date_yesterday">Jatuh tempo kemarin</string>
+    <string name="todo_task_due_date">Jatuh tempo %1$s</string>
+</resources>

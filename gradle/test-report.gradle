@@ -1,0 +1,124 @@
+apply plugin: "jacoco"
+
+jacoco {
+    toolVersion = "0.8.7"
+    reportsDir = file("$rootDir/build/jacoco/$project.name")
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+    jacoco.excludes = ['jdk.internal.*']
+}
+
+tasks.register('jacocoReports') {
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports for all variants"
+}
+
+variants().all { variant ->
+    if (project.ext.codeCoverage.enabled) {
+        def params = prepareJacocoParams(variant)
+        def reportTask = createReportTask(params)
+        if (params.enabled) {
+            jacocoReports.configure { dependsOn reportTask }
+        }
+    }
+}
+
+def variants() {
+    def plugin = findAndroidPlugin()
+    def isLibraryPlugin = plugin.class.name.endsWith('.LibraryPlugin')
+    return project.android[isLibraryPlugin ? "libraryVariants" : "applicationVariants"]
+}
+
+def findAndroidPlugin() {
+    return project.plugins.findPlugin('android') ?: plugins.findPlugin('android-library')
+}
+
+def prepareJacocoParams(variant) {
+    def params = [:]
+    params.variantName = variant.name
+    params.variantCapName = variant.name.capitalize()
+    params.fileBlackList = getFileBlackList()
+    params.fileWhiteList = getFileWhiteList()
+    params.enabled = project.ext.codeCoverage.enabled
+    params.classDirectories = files([getJavaDirectories(variant, params) + getKotlinDirectories(params)])
+    params.package = variant.applicationId
+    params.sourceDirectories = files([
+            "src/main/java",
+            "src/main/kotlin",
+            "src/${params.variantName}/java",
+            "src/${params.variantName}/kotlin"
+    ])
+    params.executionData = files("${buildDir}/jacoco/test${params.variantCapName}UnitTest.exec")
+
+    return params
+}
+
+def createReportTask(params) {
+    return tasks.register("jacoco${params.variantCapName}Report", JacocoReport) { task ->
+        group = "Reporting"
+        description = "Generate Jacoco coverage reports for ${params.variantCapName} variant"
+        reports {
+            xml.enabled = true
+            html.enabled = true
+            csv.enabled = false
+        }
+        task.dependsOn(tasks.named("test${params.variantCapName}UnitTest"))
+        classDirectories.setFrom(params.classDirectories)
+        sourceDirectories.setFrom(params.sourceDirectories)
+        executionData.setFrom(params.executionData)
+    }
+}
+
+def getJavaDirectories(variant, params) {
+    def fileTree = fileTree(dir: classesDir(variant))
+
+    if (!params.fileBlackList.isEmpty()) {
+        fileTree.exclude(params.fileBlackList)
+    }
+
+    if (!params.fileWhiteList.isEmpty()) {
+        fileTree.include(params.fileWhiteList)
+    }
+
+    return fileTree
+}
+
+def getKotlinDirectories(params) {
+    def fileTree = fileTree(dir: "$buildDir/tmp/kotlin-classes/${params.variantName}")
+
+    if (!params.fileBlackList.isEmpty()) {
+        fileTree.exclude(params.fileBlackList)
+    }
+
+    if (!params.fileWhiteList.isEmpty()) {
+        fileTree.include(params.fileWhiteList)
+    }
+
+    return fileTree
+}
+
+static def classesDir(variant) {
+    if (variant.hasProperty('javaCompileProvider')) {
+        return variant.javaCompileProvider.get().destinationDir
+    } else {
+        return variant.javaCompile.destinationDir
+    }
+}
+
+def getFileBlackList() {
+    if (project.ext.codeCoverage.fileBlackList != null) {
+        return project.ext.codeCoverage.fileBlackList
+    } else {
+        return []
+    }
+}
+
+def getFileWhiteList() {
+    if (project.ext.codeCoverage.fileWhiteList != null) {
+        return project.ext.codeCoverage.fileWhiteList
+    } else {
+        return []
+    }
+}
