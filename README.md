@@ -1,4 +1,4 @@
-![build](https://github.com/wisnukurniawan/Compose-ToDo/actions/workflows/main.yml/badge.svg)
+![build](https://github.com/wisnukurniawan/Compose-ToDo/actions/workflows/build.yml/badge.svg)
 
 ## Compose playground: To Do List App
 
