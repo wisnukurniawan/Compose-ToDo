@@ -2,46 +2,54 @@ package com.wisnu.kurniawan.coreLogger
 
 import android.util.Log
 
-object Loggr {
+inline fun Any.LoggrDebug(tag: String? = null, message: () -> Any?) {
+    log(priority = Log.DEBUG, tag = tag, message = message)
+}
 
-    private lateinit var loggingList: List<Logging>
+inline fun Any.LoggrError(tag: String? = null, throwable: Throwable? = null, message: () -> Any?) {
+    log(priority = Log.ERROR, tag = tag, message = message, throwable = throwable)
+}
 
-    fun initialize(logging: List<Logging>) {
-        loggingList = logging
+inline fun Any.LoggrVerbose(tag: String? = null, message: () -> Any?) {
+    log(priority = Log.VERBOSE, tag = tag, message = message)
+}
+
+inline fun Any.LoggrWarn(tag: String? = null, message: () -> Any?) {
+    log(priority = Log.WARN, tag = tag, message = message)
+}
+
+inline fun Any.LoggrInfo(tag: String? = null, message: () -> Any?) {
+    log(priority = Log.INFO, tag = tag, message = message)
+}
+
+inline fun Any.LoggrRecord(tag: String? = null, throwable: Throwable? = null, message: () -> Any?) {
+    log(priority = Log.ASSERT, tag = tag, message = message, throwable = throwable)
+}
+
+inline fun Any.log(
+    priority: Int,
+    tag: String? = null,
+    message: () -> Any?,
+    throwable: Throwable? = null
+) {
+    val tagOrCaller = tag ?: outerClassSimpleNameInternalOnlyDoNotUseKThxBye()
+    Logger.log(
+        priority,
+        tagOrCaller,
+        message()?.toString() ?: "null",
+        throwable
+    )
+}
+
+@PublishedApi
+internal fun Any.outerClassSimpleNameInternalOnlyDoNotUseKThxBye(): String {
+    val javaClass = this::class.java
+    val fullClassName = javaClass.name
+    val outerClassName = fullClassName.substringBefore('$')
+    val simplerOuterClassName = outerClassName.substringAfterLast('.')
+    return if (simplerOuterClassName.isEmpty()) {
+        fullClassName
+    } else {
+        simplerOuterClassName.removeSuffix("Kt")
     }
-
-    fun debug(message: () -> Any?) {
-        log(Log.DEBUG, message)
-    }
-
-    fun error(throwable: Throwable? = null, message: () -> Any?) {
-        log(Log.ERROR, message, throwable)
-    }
-
-    fun verbose(message: () -> Any?) {
-        log(Log.VERBOSE, message)
-    }
-
-    fun warn(message: () -> Any?) {
-        log(Log.WARN, message)
-    }
-
-    fun info(message: () -> Any?) {
-        log(Log.INFO, message)
-    }
-
-    fun record(throwable: Throwable? = null, message: () -> Any?) {
-        log(Log.ASSERT, message, throwable)
-    }
-
-    private fun log(
-        priority: Int,
-        message: () -> Any?,
-        throwable: Throwable? = null
-    ) {
-        loggingList.forEach {
-            it.log(priority, message()?.toString() ?: "null", throwable)
-        }
-    }
-
 }

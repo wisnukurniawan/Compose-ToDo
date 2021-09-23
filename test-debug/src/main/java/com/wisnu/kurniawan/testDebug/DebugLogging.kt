@@ -5,8 +5,7 @@ import com.wisnu.kurniawan.coreLogger.Logging
 
 class DebugLogging : Logging {
 
-    override fun log(priority: Int, message: String, throwable: Throwable?) {
-        val tag = "DebugLogging"
+    override fun log(priority: Int, tag: String, message: String, throwable: Throwable?) {
         when (priority) {
             Log.DEBUG -> Log.d(tag, message)
             Log.VERBOSE -> Log.v(tag, message)

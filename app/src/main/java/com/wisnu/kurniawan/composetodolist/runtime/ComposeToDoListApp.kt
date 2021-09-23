@@ -1,7 +1,7 @@
 package com.wisnu.kurniawan.composetodolist.runtime
 
 import android.app.Application
-import com.wisnu.kurniawan.coreLogger.Loggr
+import com.wisnu.kurniawan.coreLogger.Logger
 import com.wisnu.kurniawan.testDebug.DebugTools
 import dagger.hilt.android.HiltAndroidApp
 
@@ -20,7 +20,7 @@ class ComposeToDoListApp : Application() {
     }
 
     private fun initLogger() {
-        Loggr.initialize(DebugTools.getLoggings())
+        Logger.initialize(DebugTools.getLoggings())
     }
 
 }
