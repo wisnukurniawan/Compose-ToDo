@@ -5,8 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.withStyle
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.displayable
 import com.wisnu.kurniawan.composetodolist.foundation.extension.formatDateTime
@@ -24,25 +22,32 @@ import java.time.temporal.ChronoUnit
 
 @Composable
 fun ToDoTask.itemInfoDisplayable(): AnnotatedString? {
+    val info = mutableListOf<String>()
     val totalStepInfo = totalStepInfo()
     val dueDateInfo = dueDateInfo()
-    val isValid = totalStepInfo.isNotBlank() && dueDateInfo.isNotBlank()
 
-    if (!isValid) return null
+    if (totalStepInfo.isNotBlank()) info.add(totalStepInfo)
+    if (dueDateInfo.isNotBlank()) info.add(dueDateInfo)
 
-    return buildAnnotatedString {
-        if (totalStepInfo.isNotBlank()) append(totalStepInfo)
-        if (isValid) append("・")
-        if (dueDateInfo.isNotBlank()) {
-            if (isExpired()) {
-                withStyle(SpanStyle(color = MaterialTheme.colors.error)) {
-                    append(dueDateInfo)
-                }
-            } else {
-                append(dueDateInfo)
-            }
-        }
-    }
+    if (info.isEmpty()) return null
+
+    val fullText = info.joinToString("・")
+
+    return AnnotatedString(
+        text = fullText,
+        spanStyles = if (isExpired()) {
+            listOf(
+                AnnotatedString.Range(
+                    SpanStyle(color = MaterialTheme.colors.error),
+                    fullText.indexOf(dueDateInfo),
+                    fullText.indexOf(dueDateInfo) + dueDateInfo.length
+                )
+            )
+        } else {
+            listOf()
+        },
+        paragraphStyles = listOf()
+    )
 }
 
 @Composable
