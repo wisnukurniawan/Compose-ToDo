@@ -77,6 +77,20 @@ fun ToDoTask.getNextScheduledDueDate(currentDate: LocalDateTime): LocalDateTime 
     }
 }
 
+fun ToDoTask.getScheduledDueDate(currentDate: LocalDateTime): LocalDateTime {
+    require(dueDate != null)
+
+    return if (repeat != ToDoRepeat.NEVER) {
+        if (isExpired(currentDate)) {
+            currentDate.plusMinutes(1)
+        } else {
+            dueDate
+        }
+    } else {
+        dueDate
+    }
+}
+
 suspend fun ToDoTask.toggleStatusHandler(
     currentDate: LocalDateTime,
     onUpdateStatus: suspend (LocalDateTime?, ToDoStatus) -> Unit,
