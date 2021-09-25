@@ -1,6 +1,7 @@
 package com.wisnu.kurniawan.composetodolist.foundation.extension
 
 import java.text.SimpleDateFormat
+import java.time.DayOfWeek
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZoneOffset
@@ -37,4 +38,13 @@ fun LocalDateTime.formatDateTime(currentDate: LocalDateTime = LocalDateTime.now(
     } else {
         SimpleDateFormat(patternWithYear, Locale.getDefault()).format(atZone(zoneId).toInstant().toEpochMilli())
     }
+}
+
+fun LocalDateTime.toMillis(): Long {
+    val zoneId = ZoneId.ofOffset("UTC", ZoneOffset.UTC)
+    return atZone(zoneId).toInstant().toEpochMilli()
+}
+
+fun LocalDateTime.isFriday(): Boolean {
+    return dayOfWeek == DayOfWeek.FRIDAY
 }
