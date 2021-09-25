@@ -39,6 +39,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -71,6 +75,9 @@ import com.wisnu.kurniawan.composetodolist.model.ToDoStep
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_STEP_ID
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun StepScreen(
@@ -213,15 +220,34 @@ private fun TaskCell(
     onClickTaskName: () -> Unit,
     onClickTaskStatus: () -> Unit
 ) {
+    val coroutineScope = rememberCoroutineScope()
+
     when (task.status) {
         ToDoStatus.IN_PROGRESS -> {
+            var isChecked by remember { mutableStateOf(false) }
+            var debounceJob: Job? by remember { mutableStateOf(null) }
+
             TaskCell(
                 name = task.name,
                 color = color,
-                leftIcon = Icons.Rounded.RadioButtonUnchecked,
+                leftIcon = if (isChecked) {
+                    Icons.Rounded.CheckCircle
+                } else {
+                    Icons.Rounded.RadioButtonUnchecked
+                },
                 textDecoration = TextDecoration.None,
                 onClick = onClickTaskName,
-                onClickStatus = onClickTaskStatus
+                onClickStatus = {
+                    isChecked = !isChecked
+                    debounceJob?.cancel()
+                    if (isChecked) {
+                        debounceJob = coroutineScope.launch {
+                            delay(1000)
+                            onClickTaskStatus()
+                            isChecked = false
+                        }
+                    }
+                }
             )
         }
         ToDoStatus.COMPLETE -> {
@@ -378,7 +404,7 @@ private fun StepContent(
                         )
                     )
                 },
-                titleColor = if (task.isExpired()) {
+                titleColor = if (task.isExpired() && task.isDueDateTimeSet) {
                     MaterialTheme.colors.error
                 } else {
                     Color.Unspecified

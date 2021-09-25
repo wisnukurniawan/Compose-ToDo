@@ -3,6 +3,7 @@ package com.wisnu.kurniawan.composetodolist.features.todo.step.data
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.LocalManager
 import com.wisnu.kurniawan.composetodolist.foundation.di.DiName
 import com.wisnu.kurniawan.composetodolist.foundation.extension.newStatus
+import com.wisnu.kurniawan.composetodolist.foundation.extension.toggleStatusHandler
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeGenerator
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdGenerator
 import com.wisnu.kurniawan.composetodolist.model.ToDoColor
@@ -43,12 +44,15 @@ class StepEnvironment @Inject constructor(
 
     override suspend fun toggleTaskStatus(task: ToDoTask) {
         val currentDate = dateTimeGenerator.now()
-        val newStatus = task.newStatus()
-        val completedAt = when (newStatus) {
-            ToDoStatus.IN_PROGRESS -> null
-            ToDoStatus.COMPLETE -> currentDate
-        }
-        localManager.updateTaskStatus(task.id, newStatus, completedAt, currentDate)
+        task.toggleStatusHandler(
+            currentDate,
+            { completedAt, newStatus ->
+                localManager.updateTaskStatus(task.id, newStatus, completedAt, currentDate)
+            },
+            { nextDueDate ->
+                localManager.updateTaskDueDate(task.id, nextDueDate, task.isDueDateTimeSet, currentDate)
+            }
+        )
     }
 
     override suspend fun setRepeatTask(task: ToDoTask, toDoRepeat: ToDoRepeat) {

@@ -26,7 +26,10 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -36,6 +39,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.wisnu.kurniawan.composetodolist.R
+import com.wisnu.kurniawan.composetodolist.foundation.extension.debounce
 import com.wisnu.kurniawan.composetodolist.foundation.extension.identifier
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgEmpty
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
@@ -44,6 +48,9 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgToDoItemCell
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.itemInfoDisplayable
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.requestFocusImeAware
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
+import com.wisnu.kurniawan.coreLogger.LoggrDebug
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -101,6 +108,8 @@ fun TaskContent(
     onSwipeToDelete: (ToDoTask) -> Unit,
     color: Color
 ) {
+    val coroutineScope = rememberCoroutineScope()
+
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
     ) {
@@ -149,15 +158,32 @@ fun TaskContent(
                         }
                     }
                     is ToDoTaskItem.InProgress -> {
+                        var isChecked by remember { mutableStateOf(false) }
+                        var debounceJob: Job? by remember { mutableStateOf(null) }
+
                         PgToDoItemCell(
                             name = it.toDoTask.name,
                             color = color,
                             contentPaddingValues = PaddingValues(all = 8.dp),
-                            leftIcon = Icons.Rounded.RadioButtonUnchecked,
+                            leftIcon = if (isChecked) {
+                                Icons.Rounded.CheckCircle
+                            } else {
+                                Icons.Rounded.RadioButtonUnchecked
+                            },
                             textDecoration = TextDecoration.None,
                             onClick = { onClick(it.toDoTask) },
                             onSwipeToDelete = { onSwipeToDelete(it.toDoTask) },
-                            onStatusClick = { onStatusClick(it.toDoTask) },
+                            onStatusClick = {
+                                isChecked = !isChecked
+                                debounceJob?.cancel()
+                                if (isChecked) {
+                                    debounceJob = coroutineScope.launch {
+                                        delay(1000)
+                                        onStatusClick(it.toDoTask)
+                                        isChecked = false
+                                    }
+                                }
+                            },
                             info = it.toDoTask.itemInfoDisplayable()
                         )
                     }

@@ -5,11 +5,14 @@ import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToD
 import com.wisnu.kurniawan.composetodolist.foundation.di.DiName
 import com.wisnu.kurniawan.composetodolist.foundation.extension.OnResolveDuplicateName
 import com.wisnu.kurniawan.composetodolist.foundation.extension.duplicateNameResolver
+import com.wisnu.kurniawan.composetodolist.foundation.extension.getNextScheduledDueDate
 import com.wisnu.kurniawan.composetodolist.foundation.extension.newStatus
 import com.wisnu.kurniawan.composetodolist.foundation.extension.resolveListName
+import com.wisnu.kurniawan.composetodolist.foundation.extension.toggleStatusHandler
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeGenerator
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdGenerator
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
+import com.wisnu.kurniawan.composetodolist.model.ToDoRepeat
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import kotlinx.coroutines.CoroutineDispatcher
@@ -76,12 +79,15 @@ class ListDetailEnvironment @Inject constructor(
 
     override suspend fun toggleTaskStatus(toDoTask: ToDoTask) {
         val currentDate = dateTimeGenerator.now()
-        val newStatus = toDoTask.newStatus()
-        val completedAt = when (newStatus) {
-            ToDoStatus.IN_PROGRESS -> null
-            ToDoStatus.COMPLETE -> currentDate
-        }
-        localManager.updateTaskStatus(toDoTask.id, newStatus, completedAt, currentDate)
+        toDoTask.toggleStatusHandler(
+            currentDate,
+            { completedAt, newStatus ->
+                localManager.updateTaskStatus(toDoTask.id, newStatus, completedAt, currentDate)
+            },
+            { nextDueDate ->
+                localManager.updateTaskDueDate(toDoTask.id, nextDueDate, toDoTask.isDueDateTimeSet, currentDate)
+            }
+        )
     }
 
     override suspend fun deleteTask(task: ToDoTask) {
