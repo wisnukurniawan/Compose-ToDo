@@ -76,6 +76,11 @@ class LocalManager @Inject constructor(
             .map { it.toTask() }
     }
 
+    fun getTasksWithDueDate(): Flow<List<ToDoTask>> {
+        return toDoReadDao.getTasksWithDueDate()
+            .map { it.toTask() }
+    }
+
     fun getListWithUnGroupList(groupId: String): Flow<List<GroupIdWithList>> {
         return toDoReadDao.getListWithUnGroupList(groupId)
             .filterNotNull()

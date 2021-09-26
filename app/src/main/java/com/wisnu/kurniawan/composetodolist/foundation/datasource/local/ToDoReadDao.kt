@@ -43,6 +43,9 @@ interface ToDoReadDao {
     @Query("SELECT * FROM ToDoTaskDb")
     fun getTask(): Flow<List<ToDoTaskDb>>
 
+    @Query("SELECT * FROM ToDoTaskDb WHERE dueDate IS NOT NULL")
+    fun getTasksWithDueDate(): Flow<List<ToDoTaskDb>>
+
     @Query("SELECT * FROM ToDoStepDb")
     fun getStep(): Flow<List<ToDoStepDb>>
 
