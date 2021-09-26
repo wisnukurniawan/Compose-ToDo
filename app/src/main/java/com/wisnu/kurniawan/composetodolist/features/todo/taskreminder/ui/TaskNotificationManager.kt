@@ -41,16 +41,6 @@ class TaskNotificationManager @Inject constructor(@ApplicationContext private va
     fun show(task: ToDoTask) {
         val builder = buildNotification(task)
         val id = task.createdAt.toMillis().toInt()
-        builder.addAction(getCompleteAction(id))
-        notificationManager?.notify(
-            id,
-            builder.build()
-        )
-    }
-
-    fun showRepeating(task: ToDoTask) {
-        val builder = buildNotification(task)
-        val id = task.createdAt.toMillis().toInt()
         notificationManager?.notify(
             id,
             builder.build()
@@ -71,6 +61,7 @@ class TaskNotificationManager @Inject constructor(@ApplicationContext private va
             // setContentIntent(buildPendingIntent(id))
             setAutoCancel(true)
             addAction(getSnoozeAction(id))
+            addAction(getCompleteAction(id))
         }
     }
 

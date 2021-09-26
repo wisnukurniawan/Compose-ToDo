@@ -3,6 +3,8 @@ package com.wisnu.kurniawan.composetodolist.features.dashboard.ui
 import androidx.lifecycle.viewModelScope
 import com.wisnu.kurniawan.composetodolist.features.dashboard.data.IDashboardEnvironment
 import com.wisnu.kurniawan.composetodolist.features.todo.taskreminder.ui.TaskAlarmManager
+import com.wisnu.kurniawan.composetodolist.features.todo.taskreminder.ui.TaskNotificationManager
+import com.wisnu.kurniawan.composetodolist.foundation.extension.getScheduledDueDate
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
 import com.wisnu.kurniawan.coreLogger.LoggrDebug
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,6 +16,7 @@ import javax.inject.Inject
 class DashboardViewModel @Inject constructor(
     dashboardEnvironment: IDashboardEnvironment,
     private val taskAlarmManager: TaskAlarmManager,
+    private val notificationManager: TaskNotificationManager
 ) :
     StatefulViewModel<DashboardState, Unit, Unit, IDashboardEnvironment>(DashboardState(), dashboardEnvironment) {
 
@@ -34,28 +37,29 @@ class DashboardViewModel @Inject constructor(
             environment.listenToDoTaskDiff()
                 .collect { todoTaskDiff ->
                     if (todoTaskDiff.addedTask.isNotEmpty()) {
-                        LoggrDebug { "wsnukrn - Added task ${todoTaskDiff.addedTask}" }
+                        LoggrDebug { "DashboardViewModel - Added task ${todoTaskDiff.addedTask}" }
                     }
 
                     if (todoTaskDiff.deletedTask.isNotEmpty()) {
-                        LoggrDebug { "wsnukrn - Deleted task ${todoTaskDiff.deletedTask}" }
+                        LoggrDebug { "DashboardViewModel - Deleted task ${todoTaskDiff.deletedTask}" }
                     }
 
                     if (todoTaskDiff.modifiedTask.isNotEmpty()) {
-                        LoggrDebug { "wsnukrn - Changed task ${todoTaskDiff.modifiedTask}" }
+                        LoggrDebug { "DashboardViewModel - Changed task ${todoTaskDiff.modifiedTask}" }
                     }
 
-//                    todoTaskDiff.addedTask.forEach {
-//                        taskAlarmManager.scheduleTaskAlarm(it.value, it.value.getScheduledDueDate(environment.currentDate()))
-//                    }
-//
-//                    todoTaskDiff.modifiedTask.forEach {
-//                        taskAlarmManager.scheduleTaskAlarm(it.value, it.value.getScheduledDueDate(environment.currentDate()))
-//                    }
-//
-//                    todoTaskDiff.deletedTask.forEach {
-//                        taskAlarmManager.cancelTaskAlarm(it.value)
-//                    }
+                    todoTaskDiff.addedTask.forEach {
+                        taskAlarmManager.scheduleTaskAlarm(it.value, it.value.getScheduledDueDate(environment.dateTimeProvider.now()))
+                    }
+
+                    todoTaskDiff.modifiedTask.forEach {
+                        taskAlarmManager.scheduleTaskAlarm(it.value, it.value.getScheduledDueDate(environment.dateTimeProvider.now()))
+                    }
+
+                    todoTaskDiff.deletedTask.forEach {
+                        taskAlarmManager.cancelTaskAlarm(it.value)
+                        notificationManager.dismiss(it.value)
+                    }
                 }
         }
     }
