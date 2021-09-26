@@ -3,18 +3,30 @@ package com.wisnu.kurniawan.composetodolist.runtime.navigation
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 
-sealed class MainFlow(val route: String) {
-    object Root : MainFlow("main-root")
+sealed class MainFlow(val name: String) {
+    object Root : MainFlow("main-root") {
+        val route = name
+    }
 }
 
-sealed class AuthFlow(val route: String) {
-    object Root : AuthFlow("auth-root")
-    object LoginScreen : AuthFlow("login-screen")
+sealed class AuthFlow(val name: String) {
+    object Root : AuthFlow("auth-root") {
+        val route = name
+    }
+
+    object LoginScreen : AuthFlow("login-screen") {
+        val route = name
+    }
 }
 
-sealed class HomeFlow(val route: String) {
-    object Root : HomeFlow("home-root")
-    object DashboardScreen : HomeFlow("dashboard-screen")
+sealed class HomeFlow(val name: String) {
+    object Root : HomeFlow("home-root") {
+        val route = name
+    }
+
+    object DashboardScreen : HomeFlow("dashboard-screen") {
+        val route = name
+    }
 
     object GroupMenu : HomeFlow("group-menu-screen") {
         val arguments = listOf(
@@ -23,14 +35,17 @@ sealed class HomeFlow(val route: String) {
             }
         )
 
-        val routeRegistry = "$route?$ARG_GROUP_ID={$ARG_GROUP_ID}"
+        val route = "$name?$ARG_GROUP_ID={$ARG_GROUP_ID}"
 
         fun route(groupId: String): String {
-            return "$route?$ARG_GROUP_ID=${groupId}"
+            return "$name?$ARG_GROUP_ID=${groupId}"
         }
     }
 
-    object CreateGroup : HomeFlow("create-group-screen")
+    object CreateGroup : HomeFlow("create-group-screen") {
+        val route = name
+    }
+
     object UpdateGroup : HomeFlow("update-group-screen") {
         val arguments = listOf(
             navArgument(ARG_GROUP_ID) {
@@ -38,10 +53,10 @@ sealed class HomeFlow(val route: String) {
             }
         )
 
-        val routeRegistry = "$route?$ARG_GROUP_ID={$ARG_GROUP_ID}"
+        val route = "$name?$ARG_GROUP_ID={$ARG_GROUP_ID}"
 
         fun route(groupId: String?): String {
-            return "$route?$ARG_GROUP_ID=${groupId}"
+            return "$name?$ARG_GROUP_ID=${groupId}"
         }
     }
 
@@ -52,10 +67,10 @@ sealed class HomeFlow(val route: String) {
             }
         )
 
-        val routeRegistry = "$route?$ARG_GROUP_ID={$ARG_GROUP_ID}"
+        val route = "$name?$ARG_GROUP_ID={$ARG_GROUP_ID}"
 
         fun route(groupId: String): String {
-            return "$route?$ARG_GROUP_ID=${groupId}"
+            return "$name?$ARG_GROUP_ID=${groupId}"
         }
     }
 
@@ -66,20 +81,20 @@ sealed class HomeFlow(val route: String) {
             }
         )
 
-        val routeRegistry = "$route?$ARG_GROUP_ID={$ARG_GROUP_ID}"
+        val route = "$name?$ARG_GROUP_ID={$ARG_GROUP_ID}"
 
         fun route(groupId: String?): String {
-            return "$route?$ARG_GROUP_ID=${groupId}"
+            return "$name?$ARG_GROUP_ID=${groupId}"
         }
     }
 }
 
-sealed class ListDetailFlow(val route: String) {
+sealed class ListDetailFlow(val name: String) {
     object Root : ListDetailFlow("list-detail-root") {
-        val routeRegistry = "$route?$ARG_LIST_ID={$ARG_LIST_ID}"
+        val route = "$name?$ARG_LIST_ID={$ARG_LIST_ID}"
 
         fun route(listId: String = ""): String {
-            return "$route?$ARG_LIST_ID=${listId}"
+            return "$name?$ARG_LIST_ID=${listId}"
         }
     }
 
@@ -90,28 +105,50 @@ sealed class ListDetailFlow(val route: String) {
             }
         )
 
-        val routeRegistry = "$route?$ARG_LIST_ID={$ARG_LIST_ID}"
+        val route = "$name?$ARG_LIST_ID={$ARG_LIST_ID}"
     }
 
-    object CreateList : ListDetailFlow("create-list-screen")
-    object UpdateList : ListDetailFlow("update-list-screen")
-    object CreateTask : ListDetailFlow("create-task-screen")
+    object CreateList : ListDetailFlow("create-list-screen") {
+        val route = name
+    }
+
+    object UpdateList : ListDetailFlow("update-list-screen") {
+        val route = name
+    }
+
+    object CreateTask : ListDetailFlow("create-task-screen") {
+        val route = name
+    }
 }
 
-sealed class SettingFlow(val route: String) {
-    object Root : SettingFlow("setting-root")
-    object Setting : SettingFlow("setting-screen")
-    object Theme : SettingFlow("theme-screen")
-    object Logout : SettingFlow("logout-screen")
-    object Language : SettingFlow("language-screen")
+sealed class SettingFlow(val name: String) {
+    object Root : SettingFlow("setting-root") {
+        val route = name
+    }
+
+    object Setting : SettingFlow("setting-screen") {
+        val route = name
+    }
+
+    object Theme : SettingFlow("theme-screen") {
+        val route = name
+    }
+
+    object Logout : SettingFlow("logout-screen") {
+        val route = name
+    }
+
+    object Language : SettingFlow("language-screen") {
+        val route = name
+    }
 }
 
-sealed class StepFlow(val route: String) {
+sealed class StepFlow(val name: String) {
     object Root : StepFlow("step-root") {
-        val routeRegistry = "$route?$ARG_TASK_ID={$ARG_TASK_ID}&$ARG_LIST_ID={$ARG_LIST_ID}"
+        val route = "$name?$ARG_TASK_ID={$ARG_TASK_ID}&$ARG_LIST_ID={$ARG_LIST_ID}"
 
         fun route(taskId: String, listId: String): String {
-            return route + "?$ARG_TASK_ID=${taskId}&$ARG_LIST_ID=${listId}"
+            return "$name?$ARG_TASK_ID=${taskId}&$ARG_LIST_ID=${listId}"
         }
     }
 
@@ -125,16 +162,19 @@ sealed class StepFlow(val route: String) {
             }
         )
 
-        val routeRegistry = "$route?$ARG_TASK_ID={$ARG_TASK_ID}&$ARG_LIST_ID={$ARG_LIST_ID}"
+        val route = "$name?$ARG_TASK_ID={$ARG_TASK_ID}&$ARG_LIST_ID={$ARG_LIST_ID}"
 
-        val deepLinks = listOf(navDeepLink { uriPattern = "$BASE_DEEPLINK/$routeRegistry" })
+        val deepLinks = listOf(navDeepLink { uriPattern = "$BASE_DEEPLINK/$route" })
 
         fun deeplink(taskId: String, listId: String): String {
-            return "$BASE_DEEPLINK/$route?$ARG_TASK_ID=${taskId}&$ARG_LIST_ID=${listId}"
+            return "$BASE_DEEPLINK/$name?$ARG_TASK_ID=${taskId}&$ARG_LIST_ID=${listId}"
         }
     }
 
-    object CreateStep : StepFlow("create-step-screen")
+    object CreateStep : StepFlow("create-step-screen") {
+        val route = name
+    }
+
     object EditStep : StepFlow("edit-step-screen") {
         val arguments = listOf(
             navArgument(ARG_STEP_ID) {
@@ -142,18 +182,24 @@ sealed class StepFlow(val route: String) {
             }
         )
 
-        val routeRegistry = "$route?$ARG_STEP_ID={$ARG_STEP_ID}"
+        val route = "$name?$ARG_STEP_ID={$ARG_STEP_ID}"
 
         fun route(stepId: String): String {
-            return route + "?$ARG_STEP_ID=${stepId}"
+            return "$name?$ARG_STEP_ID=${stepId}"
         }
     }
 
-    object EditTask : StepFlow("edit-task-screen")
-    object SelectRepeatTask : StepFlow("select-repeat-task-screen")
+    object EditTask : StepFlow("edit-task-screen") {
+        val route = name
+    }
+
+    object SelectRepeatTask : StepFlow("select-repeat-task-screen") {
+        val route = name
+    }
 }
 
 const val BASE_DEEPLINK = "todox://com.wisnu.kurniawan"
+
 const val ARG_STEP_ID = "stepId"
 const val ARG_TASK_ID = "taskId"
 const val ARG_LIST_ID = "listId"

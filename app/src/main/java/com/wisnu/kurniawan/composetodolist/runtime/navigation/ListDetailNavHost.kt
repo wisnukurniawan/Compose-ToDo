@@ -26,11 +26,11 @@ fun NavGraphBuilder.ListDetailNavHost(
     // navController.navigate to ListDetailFlow.Root.route will crash due to not found
     // add "?$ARG_LIST_ID={$ARG_LIST_ID}" in startDestination for workaround
     navigation(
-        startDestination = ListDetailFlow.ListDetailScreen.routeRegistry,
-        route = ListDetailFlow.Root.routeRegistry
+        startDestination = ListDetailFlow.ListDetailScreen.route,
+        route = ListDetailFlow.Root.route
     ) {
         composable(
-            route = ListDetailFlow.ListDetailScreen.routeRegistry,
+            route = ListDetailFlow.ListDetailScreen.route,
             arguments = ListDetailFlow.ListDetailScreen.arguments
         ) {
             val viewModel = hiltViewModel<ListDetailViewModel>()

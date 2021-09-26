@@ -38,7 +38,7 @@ fun NavGraphBuilder.HomeNavHost(
             )
         }
         bottomSheet(
-            route = HomeFlow.GroupMenu.routeRegistry,
+            route = HomeFlow.GroupMenu.route,
             arguments = HomeFlow.GroupMenu.arguments
         ) {
             val viewModel = hiltViewModel<GroupMenuViewModel>()
@@ -57,7 +57,7 @@ fun NavGraphBuilder.HomeNavHost(
             )
         }
         bottomSheet(
-            route = HomeFlow.UpdateGroup.routeRegistry,
+            route = HomeFlow.UpdateGroup.route,
             arguments = HomeFlow.UpdateGroup.arguments
         ) {
             val viewModel = hiltViewModel<CreateGroupViewModel>()
@@ -68,7 +68,7 @@ fun NavGraphBuilder.HomeNavHost(
             )
         }
         bottomSheet(
-            route = HomeFlow.UpdateGroupList.routeRegistry,
+            route = HomeFlow.UpdateGroupList.route,
             arguments = HomeFlow.UpdateGroupList.arguments
         ) {
             val viewModel = hiltViewModel<UpdateGroupListViewModel>()
@@ -79,7 +79,7 @@ fun NavGraphBuilder.HomeNavHost(
             )
         }
         bottomSheet(
-            route = HomeFlow.EditGroupList.routeRegistry,
+            route = HomeFlow.EditGroupList.route,
             arguments = HomeFlow.EditGroupList.arguments
         ) {
             val viewModel = hiltViewModel<UpdateGroupListViewModel>()

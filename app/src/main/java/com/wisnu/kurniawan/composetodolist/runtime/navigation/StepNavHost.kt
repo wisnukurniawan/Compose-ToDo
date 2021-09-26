@@ -24,11 +24,11 @@ fun NavGraphBuilder.StepNavHost(
     bottomSheetConfig: MutableState<MainBottomSheetConfig>
 ) {
     navigation(
-        startDestination = StepFlow.TaskDetailScreen.routeRegistry,
-        route = StepFlow.Root.routeRegistry
+        startDestination = StepFlow.TaskDetailScreen.route,
+        route = StepFlow.Root.route
     ) {
         composable(
-            route = StepFlow.TaskDetailScreen.routeRegistry,
+            route = StepFlow.TaskDetailScreen.route,
             arguments = StepFlow.TaskDetailScreen.arguments,
             deepLinks = StepFlow.TaskDetailScreen.deepLinks
         ) {
@@ -51,7 +51,7 @@ fun NavGraphBuilder.StepNavHost(
             CreateStepScreen(viewModel = viewModel)
         }
         bottomSheet(
-            route = StepFlow.EditStep.routeRegistry,
+            route = StepFlow.EditStep.route,
             arguments = StepFlow.EditStep.arguments
         ) { backStackEntry ->
             val viewModel = if (navController.previousBackStackEntry != null) {
