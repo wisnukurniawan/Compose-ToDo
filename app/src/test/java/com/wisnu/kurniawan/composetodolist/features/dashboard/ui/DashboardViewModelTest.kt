@@ -3,6 +3,7 @@ package com.wisnu.kurniawan.composetodolist.features.dashboard.ui
 import app.cash.turbine.test
 import com.wisnu.kurniawan.composetodolist.BaseViewModelTest
 import com.wisnu.kurniawan.composetodolist.features.dashboard.data.IDashboardEnvironment
+import com.wisnu.kurniawan.composetodolist.model.ToDoTaskDiff
 import com.wisnu.kurniawan.composetodolist.model.User
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -33,6 +34,10 @@ class DashboardViewModelTest : BaseViewModelTest() {
 
         override fun getUser(): Flow<User> {
             return flow { emit(user) }
+        }
+
+        override fun listenToDoTaskDiff(): Flow<ToDoTaskDiff> {
+            return flow { emit(ToDoTaskDiff(mapOf(), mapOf(), mapOf())) }
         }
     }
 }
