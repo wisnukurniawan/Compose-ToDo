@@ -37,19 +37,19 @@ class DashboardViewModel @Inject constructor(
             environment.listenToDoTaskDiff()
                 .collect { todoTaskDiff ->
                     todoTaskDiff.addedTask.forEach {
-                        LoggrDebug { "Alarm121 - Added task $it" }
+                        LoggrDebug("AlarmFlow") { "Added task $it" }
 
                         taskAlarmManager.scheduleTaskAlarm(it.value, it.value.getScheduledDueDate(environment.dateTimeProvider.now()))
                     }
 
                     todoTaskDiff.modifiedTask.forEach {
-                        LoggrDebug { "Alarm121 - Changed task $it" }
+                        LoggrDebug("AlarmFlow") { "Changed task $it" }
 
                         taskAlarmManager.scheduleTaskAlarm(it.value, it.value.getScheduledDueDate(environment.dateTimeProvider.now()))
                     }
 
                     todoTaskDiff.deletedTask.forEach {
-                        LoggrDebug { "Alarm121 - Deleted task $it" }
+                        LoggrDebug("AlarmFlow") { "Deleted task $it" }
 
                         taskAlarmManager.cancelTaskAlarm(it.value)
                         notificationManager.dismiss(it.value)

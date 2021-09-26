@@ -2,6 +2,7 @@ package com.wisnu.kurniawan.composetodolist.features.todo.taskreminder.ui
 
 import com.wisnu.kurniawan.composetodolist.features.todo.taskreminder.data.ITaskReminderEnvironment
 import com.wisnu.kurniawan.composetodolist.foundation.extension.getNextScheduledDueDate
+import com.wisnu.kurniawan.coreLogger.LoggrDebug
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
@@ -23,6 +24,7 @@ class TaskReminderViewModel @Inject constructor(
                 GlobalScope.launch(environment.dispatcher) {
                     environment.getTask(action.taskId)
                         .collect { (task, listId) ->
+                            LoggrDebug("AlarmFlow") { "AlarmShow ${task.id} $listId" }
                             notificationManager.show(task, listId)
                         }
                 }
