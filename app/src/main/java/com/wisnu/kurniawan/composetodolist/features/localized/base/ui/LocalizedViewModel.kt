@@ -13,9 +13,9 @@ import javax.inject.Inject
 class LocalizedViewModel @Inject constructor(localizedEnvironment: ILocalizedEnvironment) :
     StatefulViewModel<LocalizedState, LocalizedEffect, Unit, ILocalizedEnvironment>(LocalizedState(), localizedEnvironment) {
 
-    init {
-        initLanguage()
-    }
+//    init {
+//        initLanguage()
+//    }
 
     override fun dispatch(action: Unit) {
 

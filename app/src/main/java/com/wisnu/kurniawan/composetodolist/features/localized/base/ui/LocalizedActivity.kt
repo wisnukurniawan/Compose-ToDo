@@ -3,6 +3,7 @@ package com.wisnu.kurniawan.composetodolist.features.localized.base.ui
 import android.content.Context
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.wisnu.kurniawan.composetodolist.foundation.di.languageDatastore
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toLanguage
 import com.wisnu.kurniawan.composetodolist.foundation.localization.LocalizationUtil
@@ -22,22 +23,22 @@ abstract class LocalizedActivity : AppCompatActivity() {
     private var currentLocale: Locale? = null
 
     init {
-//        initListenLanguage()
+        initListenLanguage()
     }
 
-//    private fun initListenLanguage() {
-//        lifecycleScope.launchWhenCreated {
-//            localizedViewModel.effect.collect {
-//                when (it) {
-//                    is LocalizedEffect.ApplyLanguage -> {
-//                        currentLocale = Locale(it.language.lang)
-//                        LocalizationUtil.applyLanguageContext(this@LocalizedActivity, this@LocalizedActivity.getLocale())
-//                        applyLanguage()
-//                    }
-//                }
-//            }
-//        }
-//    }
+    private fun initListenLanguage() {
+        lifecycleScope.launchWhenCreated {
+            localizedViewModel.effect.collect {
+                when (it) {
+                    is LocalizedEffect.ApplyLanguage -> {
+                        currentLocale = Locale(it.language.lang)
+                        LocalizationUtil.applyLanguageContext(this@LocalizedActivity, this@LocalizedActivity.getLocale())
+                        // applyLanguage()
+                    }
+                }
+            }
+        }
+    }
 
     override fun getApplicationContext(): Context {
         val context = super.getApplicationContext()

@@ -13,9 +13,11 @@ import androidx.core.net.toUri
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.features.todo.taskreminder.ui.TaskBroadcastReceiver
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toMillis
+import com.wisnu.kurniawan.composetodolist.foundation.localization.LocalizationUtil
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -30,8 +32,8 @@ class TaskNotificationManager @Inject constructor(@ApplicationContext private va
 
     private fun initChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = context.getString(R.string.todo_task_channel_name)
-            val description = context.getString(R.string.todo_task_channel_description)
+            val name = getLocalizedContext().getString(R.string.todo_task_channel_name)
+            val description = getLocalizedContext().getString(R.string.todo_task_channel_description)
             val importance = NotificationManager.IMPORTANCE_HIGH
 
             NotificationChannel(CHANNEL_ID, name, importance).apply {
@@ -58,7 +60,7 @@ class TaskNotificationManager @Inject constructor(@ApplicationContext private va
     private fun buildNotification(task: ToDoTask, listId: String): NotificationCompat.Builder {
         return NotificationCompat.Builder(context, CHANNEL_ID).apply {
             setSmallIcon(R.drawable.ic_round_check_24)
-            setContentTitle(context.getString(R.string.app_name))
+            setContentTitle(getLocalizedContext().getString(R.string.app_name))
             setContentText(task.name)
             setContentIntent(buildPendingIntent(task.id, listId))
             setAutoCancel(true)
@@ -81,13 +83,13 @@ class TaskNotificationManager @Inject constructor(@ApplicationContext private va
     }
 
     private fun getCompleteAction(taskId: String): NotificationCompat.Action {
-        val actionTitle = context.getString(R.string.todo_task_notification_action_completed)
+        val actionTitle = getLocalizedContext().getString(R.string.todo_task_notification_action_completed)
         val intent = getIntent(taskId, TaskBroadcastReceiver.ACTION_NOTIFICATION_COMPLETED, REQUEST_CODE_ACTION_COMPLETE)
         return NotificationCompat.Action(ACTION_NO_ICON, actionTitle, intent)
     }
 
     private fun getSnoozeAction(taskId: String): NotificationCompat.Action {
-        val actionTitle = context.getString(R.string.todo_task_notification_action_snooze)
+        val actionTitle = getLocalizedContext().getString(R.string.todo_task_notification_action_snooze)
         val intent = getIntent(taskId, TaskBroadcastReceiver.ACTION_NOTIFICATION_SNOOZE, REQUEST_CODE_ACTION_SNOOZE)
         return NotificationCompat.Action(ACTION_NO_ICON, actionTitle, intent)
     }
@@ -109,6 +111,10 @@ class TaskNotificationManager @Inject constructor(@ApplicationContext private va
                 receiverIntent,
                 PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
+    }
+
+    private fun getLocalizedContext(): Context {
+        return LocalizationUtil.applyLanguageContext(context, Locale.getDefault())
     }
 
     companion object {
