@@ -73,4 +73,8 @@
     <string name="todo_task_due_date_yesterday">Due yesterday</string>
     <string name="todo_task_due_date">Due %1$s</string>
 
+    <string name="todo_task_channel_name">Task alarms</string>
+    <string name="todo_task_channel_description">Notifications for reminders</string>
+    <string name="todo_task_notification_action_completed">Done</string>
+    <string name="todo_task_notification_action_snooze">In 15 min</string>
 </resources>

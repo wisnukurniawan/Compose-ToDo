@@ -68,4 +68,9 @@
     <string name="todo_task_due_date_tomorrow">Jatuh tempo besok</string>
     <string name="todo_task_due_date_yesterday">Jatuh tempo kemarin</string>
     <string name="todo_task_due_date">Jatuh tempo %1$s</string>
+
+    <string name="todo_task_channel_name">Tugas pengingat</string>
+    <string name="todo_task_channel_description">Notifikasi untuk mengingatkan</string>
+    <string name="todo_task_notification_action_completed">Selesai</string>
+    <string name="todo_task_notification_action_snooze">Dalam 15 menit</string>
 </resources>
