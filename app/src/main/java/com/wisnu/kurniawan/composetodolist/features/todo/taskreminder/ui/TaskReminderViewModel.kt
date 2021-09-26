@@ -22,8 +22,8 @@ class TaskReminderViewModel @Inject constructor(
             is TaskReminderAction.AlarmShow -> {
                 GlobalScope.launch(environment.dispatcher) {
                     environment.getTask(action.taskId)
-                        .collect {
-                            notificationManager.show(it)
+                        .collect { (task, listId) ->
+                            notificationManager.show(task, listId)
                         }
                 }
             }
@@ -40,18 +40,18 @@ class TaskReminderViewModel @Inject constructor(
             is TaskReminderAction.NotificationCompleted -> {
                 GlobalScope.launch(environment.dispatcher) {
                     environment.toggleTaskStatus(action.taskId)
-                        .collect {
-                            alarmManager.cancelTaskAlarm(it)
-                            notificationManager.dismiss(it)
+                        .collect { (task, _) ->
+                            alarmManager.cancelTaskAlarm(task)
+                            notificationManager.dismiss(task)
                         }
                 }
             }
             is TaskReminderAction.NotificationSnooze -> {
                 GlobalScope.launch(environment.dispatcher) {
                     environment.getTask(action.taskId)
-                        .collect {
-                            alarmManager.scheduleTaskAlarm(it, environment.dateTimeProvider.now().plusMinutes(15))
-                            notificationManager.dismiss(it)
+                        .collect { (task, _) ->
+                            alarmManager.scheduleTaskAlarm(task, environment.dateTimeProvider.now().plusMinutes(15))
+                            notificationManager.dismiss(task)
                         }
                 }
             }

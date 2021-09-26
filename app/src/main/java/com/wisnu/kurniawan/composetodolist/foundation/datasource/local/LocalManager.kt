@@ -76,6 +76,12 @@ class LocalManager @Inject constructor(
             .map { it.toTask() }
     }
 
+    fun getTaskWithStepsByIdWithListId(taskId: String): Flow<Pair<ToDoTask, String>> {
+        return toDoReadDao.getTaskWithStepsById(taskId)
+            .filterNotNull()
+            .map { Pair(it.toTask(), it.task.listId) }
+    }
+
     fun getTasksWithDueDate(): Flow<List<ToDoTask>> {
         return toDoReadDao.getTasksWithDueDate()
             .map { it.toTask() }
