@@ -8,7 +8,6 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.ZoneId
-import java.time.ZoneOffset
 
 private const val DATE_PICKER_TAG = "date_picker"
 private const val TIME_PICKER_TAG = "time_picker"
@@ -17,7 +16,7 @@ fun AppCompatActivity.showDatePicker(
     selection: LocalDate? = null,
     selectedDate: (LocalDate) -> Unit
 ) {
-    val zoneId = ZoneId.ofOffset("UTC", ZoneOffset.UTC)
+    val zoneId = ZoneId.systemDefault()
     val picker = MaterialDatePicker
         .Builder
         .datePicker()

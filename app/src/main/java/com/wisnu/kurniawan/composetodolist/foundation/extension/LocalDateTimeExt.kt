@@ -32,7 +32,7 @@ fun LocalDateTime.isSameHour(dateTime: LocalDateTime): Boolean {
 fun LocalDateTime.formatDateTime(currentDate: LocalDateTime = DateTimeProviderImpl().now()): String {
     val patternWithYear = "EEE, dd MMM yyyy"
     val patternWithoutYear = "EEE, dd MMM"
-    val zoneId = ZoneId.ofOffset("UTC", ZoneOffset.UTC)
+    val zoneId = ZoneId.systemDefault()
 
     return if (year == currentDate.year) {
         SimpleDateFormat(patternWithoutYear, Locale.getDefault()).format(atZone(zoneId).toInstant().toEpochMilli())
@@ -42,7 +42,7 @@ fun LocalDateTime.formatDateTime(currentDate: LocalDateTime = DateTimeProviderIm
 }
 
 fun LocalDateTime.toMillis(): Long {
-    val zoneId = ZoneId.ofOffset("UTC", ZoneOffset.UTC)
+    val zoneId = ZoneId.systemDefault()
     return atZone(zoneId).toInstant().toEpochMilli()
 }
 

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wisnu.kurniawan.composetodolist">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:name="com.wisnu.kurniawan.composetodolist.runtime.ComposeToDoListApp"
         android:allowBackup="true"
