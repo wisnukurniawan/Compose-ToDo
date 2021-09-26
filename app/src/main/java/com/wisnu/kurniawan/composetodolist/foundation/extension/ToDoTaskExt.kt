@@ -46,7 +46,7 @@ fun ToDoTask.updatedTime(defaultDate: LocalDate, newLocalTime: LocalTime): Local
 }
 
 fun defaultTaskLocalTime(): LocalTime {
-    return LocalTime.of(9, 0)
+    return LocalTime.of(23, 0)
 }
 
 fun ToDoTask.isExpired(currentDate: LocalDateTime = DateTimeProviderImpl().now()): Boolean {
