@@ -15,7 +15,6 @@ import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_TASK_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -90,7 +89,7 @@ class StepViewModel @Inject constructor(
             }
             StepAction.TaskAction.ResetTime -> {
                 viewModelScope.launch(environment.dispatcher) {
-                    val newDateTime = state.value.task.updatedTime(LocalDate.now(), defaultTaskLocalTime())
+                    val newDateTime = state.value.task.updatedTime(environment.dateTimeProvider.now().toLocalDate(), defaultTaskLocalTime())
                     environment.resetTaskTime(newDateTime, state.value.task.id)
                 }
             }
@@ -102,7 +101,7 @@ class StepViewModel @Inject constructor(
             }
             is StepAction.TaskAction.SelectTime -> {
                 viewModelScope.launch(environment.dispatcher) {
-                    val newDateTime = state.value.task.updatedTime(LocalDate.now(), action.time)
+                    val newDateTime = state.value.task.updatedTime(environment.dateTimeProvider.now().toLocalDate(), action.time)
                     environment.updateTaskDueDate(newDateTime, true, state.value.task.id)
                 }
             }

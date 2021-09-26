@@ -70,6 +70,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.dueDateDisplay
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.timeDisplayable
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.showDatePicker
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.showTimePicker
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.model.ToDoStep
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
@@ -121,7 +122,7 @@ fun StepScreen(
         onClickRepeatItem = { navController.navigate(StepFlow.SelectRepeatTask.route) },
         onCheckedChangeDueDateItem = { checked ->
             if (checked) {
-                activity.showDatePicker { selectedDate ->
+                activity.showDatePicker(DateTimeProviderImpl().now().toLocalDate()) { selectedDate ->
                     viewModel.dispatch(StepAction.TaskAction.SelectDueDate(selectedDate))
                 }
             } else {
@@ -130,7 +131,7 @@ fun StepScreen(
         },
         onCheckedChangeTimeItem = { checked ->
             if (checked) {
-                activity.showTimePicker { selectedTime ->
+                activity.showTimePicker(DateTimeProviderImpl().now().toLocalTime().plusHours(1)) { selectedTime ->
                     viewModel.dispatch(StepAction.TaskAction.SelectTime(selectedTime))
                 }
             } else {
