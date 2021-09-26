@@ -60,7 +60,7 @@ class ListDetailViewModel @Inject constructor(
                 viewModelScope.launch(environment.dispatcher) {
                     environment.createList(
                         state.value.list.copy(
-                            id = environment.idGenerator.generate(),
+                            id = environment.idProvider.generate(),
                             name = state.value.newListName.trim(),
                             color = state.value.colors.selectedColor().toToDoColor()
                         )

@@ -1,7 +1,9 @@
 package com.wisnu.kurniawan.composetodolist.foundation.di
 
-import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeGenerator
-import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdGenerator
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProvider
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProviderImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,14 +16,14 @@ object CommonModule {
 
     @Singleton
     @Provides
-    fun provideIdGenerator(): IdGenerator {
-        return IdGenerator
+    fun provideIdProvider(): IdProvider {
+        return IdProviderImpl()
     }
 
     @Singleton
     @Provides
-    fun provideDateTimeGenerator(): DateTimeGenerator {
-        return DateTimeGenerator
+    fun provideDateTimeProvider(): DateTimeProvider {
+        return DateTimeProviderImpl()
     }
 
 }

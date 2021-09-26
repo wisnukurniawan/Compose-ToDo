@@ -9,8 +9,10 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.update
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListBlue
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListOrange
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListRed
-import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeGenerator
-import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdGenerator
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProvider
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProviderImpl
 import com.wisnu.kurniawan.composetodolist.model.ToDoColor
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
@@ -221,8 +223,8 @@ class CreateListDetailViewModelTest : BaseViewModelTest() {
     }
 
     private fun emptyEnvironment() = object : IListDetailEnvironment {
-        override val idGenerator: IdGenerator = IdGenerator
-        override val dateTimeGenerator: DateTimeGenerator = DateTimeGenerator
+        override val idProvider: IdProvider = IdProviderImpl()
+        override val dateTimeProvider: DateTimeProvider = DateTimeProviderImpl()
         override val dispatcher: CoroutineDispatcher = coroutineDispatcher
         override fun getListWithTasksById(listId: String): Flow<ToDoList> {
             return flow {}
@@ -250,8 +252,8 @@ class CreateListDetailViewModelTest : BaseViewModelTest() {
     }
 
     private fun buildEnvironment(returnedCreatedList: ToDoList) = object : IListDetailEnvironment {
-        override val idGenerator: IdGenerator = IdGenerator
-        override val dateTimeGenerator: DateTimeGenerator = DateTimeGenerator
+        override val idProvider: IdProvider = IdProviderImpl()
+        override val dateTimeProvider: DateTimeProvider = DateTimeProviderImpl()
         override val dispatcher: CoroutineDispatcher = coroutineDispatcher
         override fun getListWithTasksById(listId: String): Flow<ToDoList> {
             return flow {}

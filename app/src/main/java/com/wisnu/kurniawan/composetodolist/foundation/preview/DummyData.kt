@@ -1,6 +1,7 @@
 package com.wisnu.kurniawan.composetodolist.foundation.preview
 
-import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeGenerator
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl
 import com.wisnu.kurniawan.composetodolist.model.ToDoColor
 import com.wisnu.kurniawan.composetodolist.model.ToDoGroup
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
@@ -40,8 +41,8 @@ private fun buildGroup(
             id = "group$it",
             name = "Group$it",
             lists = buildList(muchList, muchTask, muchStep),
-            createdAt = DateTimeGenerator.now(),
-            updatedAt = DateTimeGenerator.now()
+            createdAt = DateTimeProviderImpl().now(),
+            updatedAt = DateTimeProviderImpl().now()
         )
     }
 }
@@ -57,8 +58,8 @@ private fun buildList(
             name = "List$it",
             color = ToDoColor.BLUE,
             tasks = buildTask(muchTask, muchStep),
-            createdAt = DateTimeGenerator.now(),
-            updatedAt = DateTimeGenerator.now()
+            createdAt = DateTimeProviderImpl().now(),
+            updatedAt = DateTimeProviderImpl().now()
         )
     }
 }
@@ -73,8 +74,8 @@ private fun buildTask(
             name = "Task$it",
             status = ToDoStatus.IN_PROGRESS,
             steps = buildStep(muchStep),
-            createdAt = DateTimeGenerator.now(),
-            updatedAt = DateTimeGenerator.now()
+            createdAt = DateTimeProviderImpl().now(),
+            updatedAt = DateTimeProviderImpl().now()
         )
     }
 }
@@ -85,8 +86,8 @@ private fun buildStep(muchStep: Int): List<ToDoStep> {
             id = "step$it",
             name = "Step$it",
             status = ToDoStatus.IN_PROGRESS,
-            createdAt = DateTimeGenerator.now(),
-            updatedAt = DateTimeGenerator.now()
+            createdAt = DateTimeProviderImpl().now(),
+            updatedAt = DateTimeProviderImpl().now()
         )
     }
 }

@@ -5,15 +5,11 @@ import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToD
 import com.wisnu.kurniawan.composetodolist.foundation.di.DiName
 import com.wisnu.kurniawan.composetodolist.foundation.extension.OnResolveDuplicateName
 import com.wisnu.kurniawan.composetodolist.foundation.extension.duplicateNameResolver
-import com.wisnu.kurniawan.composetodolist.foundation.extension.getNextScheduledDueDate
-import com.wisnu.kurniawan.composetodolist.foundation.extension.newStatus
 import com.wisnu.kurniawan.composetodolist.foundation.extension.resolveListName
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toggleStatusHandler
-import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeGenerator
-import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdGenerator
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProvider
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
-import com.wisnu.kurniawan.composetodolist.model.ToDoRepeat
-import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.FlowPreview
@@ -26,8 +22,8 @@ import javax.inject.Named
 class ListDetailEnvironment @Inject constructor(
     @Named(DiName.DISPATCHER_IO) override val dispatcher: CoroutineDispatcher,
     private val localManager: LocalManager,
-    override val idGenerator: IdGenerator,
-    override val dateTimeGenerator: DateTimeGenerator,
+    override val idProvider: IdProvider,
+    override val dateTimeProvider: DateTimeProvider,
 ) : IListDetailEnvironment {
 
     override fun getListWithTasksById(listId: String): Flow<ToDoList> {
@@ -50,7 +46,7 @@ class ListDetailEnvironment @Inject constructor(
     }
 
     override suspend fun updateList(list: ToDoList): Flow<Any> {
-        val currentDate = dateTimeGenerator.now()
+        val currentDate = dateTimeProvider.now()
         val process: OnResolveDuplicateName = { newName ->
             localManager.updateListNameAndColor(list.copy(name = newName), currentDate)
         }
@@ -62,12 +58,12 @@ class ListDetailEnvironment @Inject constructor(
     }
 
     override suspend fun createTask(taskName: String, listId: String) {
-        val currentDate = dateTimeGenerator.now()
+        val currentDate = dateTimeProvider.now()
 
         localManager.insertTask(
             listOf(
                 ToDoTask(
-                    id = idGenerator.generate(),
+                    id = idProvider.generate(),
                     name = taskName,
                     createdAt = currentDate,
                     updatedAt = currentDate
@@ -78,7 +74,7 @@ class ListDetailEnvironment @Inject constructor(
     }
 
     override suspend fun toggleTaskStatus(toDoTask: ToDoTask) {
-        val currentDate = dateTimeGenerator.now()
+        val currentDate = dateTimeProvider.now()
         toDoTask.toggleStatusHandler(
             currentDate,
             { completedAt, newStatus ->

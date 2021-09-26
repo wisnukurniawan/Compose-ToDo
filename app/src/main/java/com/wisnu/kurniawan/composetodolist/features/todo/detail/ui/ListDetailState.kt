@@ -11,7 +11,8 @@ import com.wisnu.kurniawan.composetodolist.foundation.theme.ListOrange
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListPurple
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListRed
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListYellow
-import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeGenerator
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl
 import com.wisnu.kurniawan.composetodolist.model.ToDoColor
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
@@ -19,8 +20,8 @@ import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 @Immutable
 data class ListDetailState(
     val list: ToDoList = ToDoList(
-        createdAt = DateTimeGenerator.now(),
-        updatedAt = DateTimeGenerator.now()
+        createdAt = DateTimeProviderImpl().now(),
+        updatedAt = DateTimeProviderImpl().now()
     ),
     val newListName: String = "",
     val colors: List<ColorItem> = initialColors(),

@@ -2,7 +2,7 @@ package com.wisnu.kurniawan.composetodolist.features.todo.groupmenu.data
 
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.LocalManager
 import com.wisnu.kurniawan.composetodolist.foundation.di.DiName
-import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeGenerator
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +17,7 @@ import javax.inject.Named
 class GroupMenuEnvironment @Inject constructor(
     @Named(DiName.DISPATCHER_IO) override val dispatcher: CoroutineDispatcher,
     private val localManager: LocalManager,
-    override val dateTimeGenerator: DateTimeGenerator
+    override val dateTimeProvider: DateTimeProvider
 ) : IGroupMenuEnvironment {
 
     @OptIn(FlowPreview::class)
@@ -32,7 +32,7 @@ class GroupMenuEnvironment @Inject constructor(
             .filter { !it }
             .flatMapConcat { localManager.getListByGroupId(groupId).take(1) }
             .map { it.map { list -> list.id } }
-            .onEach { localManager.ungroup(groupId, dateTimeGenerator.now(), it) }
+            .onEach { localManager.ungroup(groupId, dateTimeProvider.now(), it) }
     }
 
     override fun hasList(groupId: String): Flow<Boolean> {

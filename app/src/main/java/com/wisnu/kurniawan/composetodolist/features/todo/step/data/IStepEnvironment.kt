@@ -1,7 +1,7 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.step.data
 
-import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeGenerator
-import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdGenerator
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProvider
 import com.wisnu.kurniawan.composetodolist.model.ToDoColor
 import com.wisnu.kurniawan.composetodolist.model.ToDoRepeat
 import com.wisnu.kurniawan.composetodolist.model.ToDoStep
@@ -11,8 +11,8 @@ import kotlinx.coroutines.flow.Flow
 import java.time.LocalDateTime
 
 interface IStepEnvironment {
-    val idGenerator: IdGenerator
-    val dateTimeGenerator: DateTimeGenerator
+    val idProvider: IdProvider
+    val dateTimeProvider: DateTimeProvider
     val dispatcher: CoroutineDispatcher
     fun getTask(taskId: String, listId: String): Flow<Pair<ToDoTask, ToDoColor>>
     suspend fun deleteTask(task: ToDoTask)

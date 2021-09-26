@@ -7,7 +7,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewMode
 import com.wisnu.kurniawan.coreLogger.LoggrDebug
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -37,12 +36,26 @@ class DashboardViewModel @Inject constructor(
                     if (todoTaskDiff.addedTask.isNotEmpty()) {
                         LoggrDebug { "wsnukrn - Added task ${todoTaskDiff.addedTask}" }
                     }
+
                     if (todoTaskDiff.deletedTask.isNotEmpty()) {
                         LoggrDebug { "wsnukrn - Deleted task ${todoTaskDiff.deletedTask}" }
                     }
+
                     if (todoTaskDiff.modifiedTask.isNotEmpty()) {
                         LoggrDebug { "wsnukrn - Changed task ${todoTaskDiff.modifiedTask}" }
                     }
+
+//                    todoTaskDiff.addedTask.forEach {
+//                        taskAlarmManager.scheduleTaskAlarm(it.value, it.value.getScheduledDueDate(environment.currentDate()))
+//                    }
+//
+//                    todoTaskDiff.modifiedTask.forEach {
+//                        taskAlarmManager.scheduleTaskAlarm(it.value, it.value.getScheduledDueDate(environment.currentDate()))
+//                    }
+//
+//                    todoTaskDiff.deletedTask.forEach {
+//                        taskAlarmManager.cancelTaskAlarm(it.value)
+//                    }
                 }
         }
     }

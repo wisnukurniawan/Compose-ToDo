@@ -4,11 +4,10 @@ import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.LocalMana
 import com.wisnu.kurniawan.composetodolist.foundation.di.DiName
 import com.wisnu.kurniawan.composetodolist.foundation.extension.newStatus
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toggleStatusHandler
-import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeGenerator
-import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdGenerator
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProvider
 import com.wisnu.kurniawan.composetodolist.model.ToDoColor
 import com.wisnu.kurniawan.composetodolist.model.ToDoRepeat
-import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.model.ToDoStep
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import kotlinx.coroutines.CoroutineDispatcher
@@ -25,8 +24,8 @@ import javax.inject.Named
 class StepEnvironment @Inject constructor(
     @Named(DiName.DISPATCHER_IO) override val dispatcher: CoroutineDispatcher,
     private val localManager: LocalManager,
-    override val idGenerator: IdGenerator,
-    override val dateTimeGenerator: DateTimeGenerator,
+    override val idProvider: IdProvider,
+    override val dateTimeProvider: DateTimeProvider,
 ) : IStepEnvironment {
 
     override fun getTask(taskId: String, listId: String): Flow<Pair<ToDoTask, ToDoColor>> {
@@ -43,7 +42,7 @@ class StepEnvironment @Inject constructor(
     }
 
     override suspend fun toggleTaskStatus(task: ToDoTask) {
-        val currentDate = dateTimeGenerator.now()
+        val currentDate = dateTimeProvider.now()
         task.toggleStatusHandler(
             currentDate,
             { completedAt, newStatus ->
@@ -56,20 +55,20 @@ class StepEnvironment @Inject constructor(
     }
 
     override suspend fun setRepeatTask(task: ToDoTask, toDoRepeat: ToDoRepeat) {
-        localManager.updateTaskRepeat(task.id, toDoRepeat, dateTimeGenerator.now())
+        localManager.updateTaskRepeat(task.id, toDoRepeat, dateTimeProvider.now())
     }
 
     override suspend fun toggleStepStatus(step: ToDoStep) {
-        localManager.updateStepStatus(step.id, step.newStatus(), dateTimeGenerator.now())
+        localManager.updateStepStatus(step.id, step.newStatus(), dateTimeProvider.now())
     }
 
     override suspend fun createStep(name: String, taskId: String) {
-        val currentDate = dateTimeGenerator.now()
+        val currentDate = dateTimeProvider.now()
 
         localManager.insertStep(
             listOf(
                 ToDoStep(
-                    id = idGenerator.generate(),
+                    id = idProvider.generate(),
                     name = name,
                     createdAt = currentDate,
                     updatedAt = currentDate
@@ -84,11 +83,11 @@ class StepEnvironment @Inject constructor(
     }
 
     override suspend fun updateTask(name: String, taskId: String) {
-        localManager.updateTaskName(taskId, name, dateTimeGenerator.now())
+        localManager.updateTaskName(taskId, name, dateTimeProvider.now())
     }
 
     override suspend fun updateStep(name: String, stepId: String) {
-        localManager.updateStepName(stepId, name, dateTimeGenerator.now())
+        localManager.updateStepName(stepId, name, dateTimeProvider.now())
     }
 
     override suspend fun updateTaskDueDate(
@@ -96,15 +95,15 @@ class StepEnvironment @Inject constructor(
         isDueDateTimeSet: Boolean,
         taskId: String
     ) {
-        localManager.updateTaskDueDate(taskId, date, isDueDateTimeSet, dateTimeGenerator.now())
+        localManager.updateTaskDueDate(taskId, date, isDueDateTimeSet, dateTimeProvider.now())
     }
 
     override suspend fun resetTaskDueDate(taskId: String) {
-        localManager.resetTaskDueDate(taskId, dateTimeGenerator.now())
+        localManager.resetTaskDueDate(taskId, dateTimeProvider.now())
     }
 
     override suspend fun resetTaskTime(date: LocalDateTime, taskId: String) {
-        localManager.updateTaskDueDate(taskId, date, false, dateTimeGenerator.now())
+        localManager.updateTaskDueDate(taskId, date, false, dateTimeProvider.now())
     }
 
 }

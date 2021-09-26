@@ -7,8 +7,10 @@ import com.wisnu.kurniawan.composetodolist.DateFactory
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.data.IListDetailEnvironment
 import com.wisnu.kurniawan.composetodolist.foundation.extension.update
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListPurple
-import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeGenerator
-import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdGenerator
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProvider
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProviderImpl
 import com.wisnu.kurniawan.composetodolist.model.ToDoColor
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
@@ -68,8 +70,8 @@ class UpdateListDetailViewModelTest : BaseViewModelTest() {
     }
 
     private fun buildEnvironment(returnedListWithTasks: ToDoList) = object : IListDetailEnvironment {
-        override val idGenerator: IdGenerator = IdGenerator
-        override val dateTimeGenerator: DateTimeGenerator = DateTimeGenerator
+        override val idProvider: IdProvider = IdProviderImpl()
+        override val dateTimeProvider: DateTimeProvider = DateTimeProviderImpl()
         override val dispatcher: CoroutineDispatcher = coroutineDispatcher
         override fun getListWithTasksById(listId: String): Flow<ToDoList> {
             return flow {

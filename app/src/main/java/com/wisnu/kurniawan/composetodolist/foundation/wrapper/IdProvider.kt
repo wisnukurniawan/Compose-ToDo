@@ -2,8 +2,12 @@ package com.wisnu.kurniawan.composetodolist.foundation.wrapper
 
 import java.util.*
 
-object IdGenerator {
-    fun generate(): String {
+interface IdProvider {
+    fun generate(): String
+}
+
+class IdProviderImpl : IdProvider {
+    override fun generate(): String {
         return UUID.randomUUID().toString()
     }
 }

@@ -5,8 +5,8 @@ import com.wisnu.kurniawan.composetodolist.foundation.di.DiName
 import com.wisnu.kurniawan.composetodolist.foundation.extension.OnResolveDuplicateName
 import com.wisnu.kurniawan.composetodolist.foundation.extension.duplicateNameResolver
 import com.wisnu.kurniawan.composetodolist.foundation.extension.resolveGroupName
-import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeGenerator
-import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdGenerator
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProvider
 import com.wisnu.kurniawan.composetodolist.model.ToDoGroup
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -17,8 +17,8 @@ import javax.inject.Named
 class CreateGroupEnvironment @Inject constructor(
     @Named(DiName.DISPATCHER_IO) override val dispatcher: CoroutineDispatcher,
     private val localManager: LocalManager,
-    override val idGenerator: IdGenerator,
-    override val dateTimeGenerator: DateTimeGenerator
+    override val idProvider: IdProvider,
+    override val dateTimeProvider: DateTimeProvider
 ) : ICreateGroupEnvironment {
 
     override suspend fun getGroup(groupId: String): Flow<ToDoGroup> {
@@ -26,8 +26,8 @@ class CreateGroupEnvironment @Inject constructor(
     }
 
     override suspend fun createGroup(name: String): Flow<String> {
-        val listId = idGenerator.generate()
-        val currentDate = dateTimeGenerator.now()
+        val listId = idProvider.generate()
+        val currentDate = dateTimeProvider.now()
         val process: OnResolveDuplicateName = { newName ->
             localManager.insertGroup(
                 listOf(
@@ -49,7 +49,7 @@ class CreateGroupEnvironment @Inject constructor(
     }
 
     override suspend fun renameGroup(groupId: String, name: String): Flow<Any> {
-        val currentDate = dateTimeGenerator.now()
+        val currentDate = dateTimeProvider.now()
         val process: OnResolveDuplicateName = { newName ->
             localManager.updateGroupName(groupId, newName, currentDate)
         }

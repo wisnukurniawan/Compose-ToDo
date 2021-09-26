@@ -10,7 +10,8 @@ import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToD
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoListDb
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoStepDb
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoTaskDb
-import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeGenerator
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -66,7 +67,7 @@ abstract class ToDoDatabase : RoomDatabase() {
         }
 
         private suspend fun initPrePopulateDefaultGroup(context: Context) {
-            val currentDate = DateTimeGenerator.now()
+            val currentDate = DateTimeProviderImpl().now()
             val defaultGroup = ToDoGroupDb(
                 id = ToDoGroupDb.DEFAULT_ID,
                 name = "Others",

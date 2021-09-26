@@ -2,7 +2,8 @@ package com.wisnu.kurniawan.composetodolist.features.todo.step.ui
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.text.input.TextFieldValue
-import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeGenerator
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl
 import com.wisnu.kurniawan.composetodolist.model.ToDoColor
 import com.wisnu.kurniawan.composetodolist.model.ToDoRepeat
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
@@ -10,8 +11,8 @@ import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 @Immutable
 data class StepState(
     val task: ToDoTask = ToDoTask(
-        createdAt = DateTimeGenerator.now(),
-        updatedAt = DateTimeGenerator.now()
+        createdAt = DateTimeProviderImpl().now(),
+        updatedAt = DateTimeProviderImpl().now()
     ),
     val color: ToDoColor = ToDoColor.BLUE,
     val editTaskName: TextFieldValue = TextFieldValue(),

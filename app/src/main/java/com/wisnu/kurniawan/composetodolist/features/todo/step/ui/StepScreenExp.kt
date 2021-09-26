@@ -51,7 +51,8 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.AnimatedSwipeD
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgBasicTextField
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
-import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdGenerator
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProvider
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProviderImpl
 import com.wisnu.kurniawan.coreLogger.LoggrDebug
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -341,7 +342,7 @@ private fun TaskStepPreview() {
                     if (!focusState.isFocused) {
                         if (value.text.isNotBlank()) {
                             val newData = data.toMutableList()
-                            newData.add(ToDoStepItemExp(IdGenerator.generate(), value))
+                            newData.add(ToDoStepItemExp(IdProviderImpl().generate(), value))
                             data = newData
                         } else {
                             focusManager.clearFocus()
@@ -353,7 +354,7 @@ private fun TaskStepPreview() {
                 onClickImeDone = { value ->
                     if (value.text.isNotBlank()) {
                         val newData = data.toMutableList()
-                        newData.add(ToDoStepItemExp(IdGenerator.generate(), value))
+                        newData.add(ToDoStepItemExp(IdProviderImpl().generate(), value))
                         data = newData
                         creator = creator.copy(value = TextFieldValue())
 
