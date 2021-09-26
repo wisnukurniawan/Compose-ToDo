@@ -61,7 +61,7 @@ class TaskNotificationManager @Inject constructor(@ApplicationContext private va
             setSmallIcon(R.drawable.ic_round_check_24)
             setContentTitle(context.getString(R.string.app_name))
             setContentText(task.name)
-            setContentIntent(buildPendingIntent(id, listId))
+            setContentIntent(buildPendingIntent(task.id, listId))
             setAutoCancel(true)
             addAction(getSnoozeAction(id))
             addAction(getCompleteAction(id))
@@ -69,7 +69,7 @@ class TaskNotificationManager @Inject constructor(@ApplicationContext private va
     }
 
 
-    private fun buildPendingIntent(taskId: Int, listId: String): PendingIntent {
+    private fun buildPendingIntent(taskId: String, listId: String): PendingIntent {
         val openTaskIntent = Intent(
             Intent.ACTION_VIEW,
             "todox://com.wisnu.kurniawan?$ARG_TASK_ID=${taskId}&$ARG_LIST_ID=${listId}".toUri()

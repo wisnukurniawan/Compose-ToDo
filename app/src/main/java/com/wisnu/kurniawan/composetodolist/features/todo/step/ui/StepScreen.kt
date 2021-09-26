@@ -79,6 +79,7 @@ import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.time.LocalTime
 
 @Composable
 fun StepScreen(
@@ -131,7 +132,9 @@ fun StepScreen(
         },
         onCheckedChangeTimeItem = { checked ->
             if (checked) {
-                activity.showTimePicker(DateTimeProviderImpl().now().toLocalTime().plusHours(1)) { selectedTime ->
+                val nextHour = DateTimeProviderImpl().now().toLocalTime().plusHours(1)
+                val initialValue = LocalTime.of(nextHour.hour, 0)
+                activity.showTimePicker(initialValue) { selectedTime ->
                     viewModel.dispatch(StepAction.TaskAction.SelectTime(selectedTime))
                 }
             } else {

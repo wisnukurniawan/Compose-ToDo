@@ -6,6 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
 import androidx.navigation.navigation
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.wisnu.kurniawan.composetodolist.features.todo.step.ui.CreateStepScreen
@@ -37,7 +38,8 @@ fun NavGraphBuilder.StepNavHost(
                 navArgument(ARG_LIST_ID) {
                     defaultValue = ""
                 }
-            )
+            ),
+            deepLinks = listOf(navDeepLink { uriPattern = "todox://com.wisnu.kurniawan?$ARG_TASK_ID={$ARG_TASK_ID}&$ARG_LIST_ID={$ARG_LIST_ID}" })
         ) {
             val viewModel = hiltViewModel<StepViewModel>()
             StepScreen(
