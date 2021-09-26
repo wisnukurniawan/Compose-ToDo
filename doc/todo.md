@@ -10,3 +10,5 @@
 13. Alarm
 15. dashboard header overall task
 16. Move string copies xml to kotlin interface. (postpone maybe until Im sure will use compose 100%)
+17. Overall info
+18. Search

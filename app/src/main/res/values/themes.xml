@@ -2,6 +2,17 @@
 <resources>
 
     <style name="Theme.ComposeToDoList" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#51A4E1</item>
+        <item name="colorPrimaryVariant">#51A4E1</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">#E4E3E9</item>
+        <item name="colorSecondaryVariant">#FFFFFF</item>
+        <item name="colorOnSecondary">#000000</item>
+        <item name="colorSurface">#F3F2F8</item>
+        <item name="colorOnSurface">#000000</item>
+        <item name="colorError">#EA6D7E</item>
+        <item name="colorOnError">#FFFFFF</item>
+        <item name="backgroundColor">#F3F2F8</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
     </style>
@@ -12,6 +23,12 @@
 
     <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="Theme.AppSplash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#F3F2F8</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_logo</item>
+        <item name="postSplashScreenTheme">@style/Theme.ComposeToDoList</item>
     </style>
 
 </resources>
