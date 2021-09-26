@@ -1,5 +1,6 @@
 package com.wisnu.kurniawan.composetodolist.foundation.extension
 
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl
 import java.text.SimpleDateFormat
 import java.time.DayOfWeek
 import java.time.LocalDateTime
@@ -28,7 +29,7 @@ fun LocalDateTime.isSameHour(dateTime: LocalDateTime): Boolean {
     return truncatedTo(ChronoUnit.HOURS).isEqual(dateTime.truncatedTo(ChronoUnit.HOURS))
 }
 
-fun LocalDateTime.formatDateTime(currentDate: LocalDateTime = LocalDateTime.now()): String {
+fun LocalDateTime.formatDateTime(currentDate: LocalDateTime = DateTimeProviderImpl().now()): String {
     val patternWithYear = "EEE, dd MMM yyyy"
     val patternWithoutYear = "EEE, dd MMM"
     val zoneId = ZoneId.ofOffset("UTC", ZoneOffset.UTC)

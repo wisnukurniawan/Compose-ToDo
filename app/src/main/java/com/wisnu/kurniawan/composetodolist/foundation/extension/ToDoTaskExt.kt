@@ -1,6 +1,7 @@
 package com.wisnu.kurniawan.composetodolist.foundation.extension
 
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoTaskDb
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl
 import com.wisnu.kurniawan.composetodolist.model.ToDoRepeat
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
@@ -48,7 +49,7 @@ fun defaultTaskLocalTime(): LocalTime {
     return LocalTime.of(9, 0)
 }
 
-fun ToDoTask.isExpired(currentDate: LocalDateTime = LocalDateTime.now()): Boolean {
+fun ToDoTask.isExpired(currentDate: LocalDateTime = DateTimeProviderImpl().now()): Boolean {
     return dueDate?.isBefore(currentDate) ?: false
 }
 

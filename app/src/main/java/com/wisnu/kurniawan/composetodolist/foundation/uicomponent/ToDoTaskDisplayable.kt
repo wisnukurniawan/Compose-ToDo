@@ -14,6 +14,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.isSameHour
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isSameMinute
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isTomorrow
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isYesterday
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl
 import com.wisnu.kurniawan.composetodolist.model.ToDoRepeat
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
@@ -51,7 +52,7 @@ fun ToDoTask.itemInfoDisplayable(): AnnotatedString? {
 }
 
 @Composable
-fun ToDoTask.dueDateDisplayable(currentDate: LocalDateTime = LocalDateTime.now()): String? {
+fun ToDoTask.dueDateDisplayable(currentDate: LocalDateTime = DateTimeProviderImpl().now()): String? {
     return if (dueDate != null) {
         when {
             dueDate.isSameDay(currentDate) -> stringResource(R.string.todo_task_due_date_today)
@@ -74,7 +75,7 @@ fun ToDoTask.timeDisplayable(): String? {
 }
 
 @Composable
-fun ToDoTask.dateTimeDisplayable(currentDate: LocalDateTime = LocalDateTime.now()): String {
+fun ToDoTask.dateTimeDisplayable(currentDate: LocalDateTime = DateTimeProviderImpl().now()): String {
     return when (status) {
         ToDoStatus.IN_PROGRESS -> {
             if (createdAt.isSameDay(currentDate)) {
