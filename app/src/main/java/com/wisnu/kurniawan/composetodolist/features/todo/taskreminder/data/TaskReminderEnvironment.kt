@@ -22,12 +22,12 @@ class TaskReminderEnvironment @Inject constructor(
     private val localManager: LocalManager,
 ) : ITaskReminderEnvironment {
 
-    override fun getTask(taskId: String): Flow<ToDoTask> {
-        return localManager.getTaskWithStepsById(taskId)
+    override fun getTask(taskId: String): Flow<Pair<ToDoTask, String>> {
+        return localManager.getTaskWithStepsByIdWithListId(taskId)
             .take(1)
-            .filter {
-                it.status != ToDoStatus.COMPLETE &&
-                    it.dueDate != null
+            .filter { (task, _) ->
+                task.status != ToDoStatus.COMPLETE &&
+                    task.dueDate != null
             }
     }
 
@@ -39,9 +39,9 @@ class TaskReminderEnvironment @Inject constructor(
             }
     }
 
-    override suspend fun toggleTaskStatus(taskId: String): Flow<ToDoTask> {
+    override suspend fun toggleTaskStatus(taskId: String): Flow<Pair<ToDoTask, String>> {
         return getTask(taskId)
-            .onEach { task ->
+            .onEach { (task, _) ->
                 val currentDate = dateTimeProvider.now()
                 task.toggleStatusHandler(
                     currentDate,
