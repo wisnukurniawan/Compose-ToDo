@@ -113,7 +113,7 @@ fun PgToDoItemCell(
     onSwipeToDelete: () -> Unit,
     onStatusClick: () -> Unit
 ) {
-    AnimatedSwipeDismiss(
+    SwipeToDismiss(
         backgroundModifier = Modifier
             .background(MaterialTheme.colors.secondary),
         content = {

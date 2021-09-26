@@ -40,10 +40,10 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.identifier
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
 import com.wisnu.kurniawan.composetodolist.foundation.extension.totalTask
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListRed
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.AnimatedSwipeDismiss
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgEmpty
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.SwipeToDismiss
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -160,7 +160,7 @@ private fun ListCell(
     onClick: () -> Unit,
     onSwipeToDelete: () -> Unit,
 ) {
-    AnimatedSwipeDismiss(
+    SwipeToDismiss(
         backgroundModifier = Modifier
             .padding(horizontal = 16.dp)
             .background(MaterialTheme.colors.secondary, shape),

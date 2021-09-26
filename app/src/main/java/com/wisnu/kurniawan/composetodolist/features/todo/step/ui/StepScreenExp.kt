@@ -47,11 +47,10 @@ import com.google.accompanist.insets.ExperimentalAnimatedInsets
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListRed
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.AnimatedSwipeDismiss
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgBasicTextField
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
-import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProvider
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.SwipeToDismiss
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProviderImpl
 import com.wisnu.kurniawan.coreLogger.LoggrDebug
 import kotlinx.coroutines.delay
@@ -127,7 +126,7 @@ private fun StepCell(
     onClickImeDone: () -> Unit,
     onSwipeToDelete: () -> Unit,
 ) {
-    AnimatedSwipeDismiss(
+    SwipeToDismiss(
         modifier = modifier,
         backgroundModifier = Modifier
             .background(MaterialTheme.colors.secondary),

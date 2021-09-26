@@ -65,14 +65,14 @@ object ContentVisibility {
 
 @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class)
 @Composable
-fun AnimatedSwipeDismiss(
+fun SwipeToDismiss(
     modifier: Modifier = Modifier,
     backgroundModifier: Modifier = Modifier,
     backgroundSecondaryModifier: Modifier = Modifier,
     content: @Composable (isDismissed: Boolean) -> Unit,
     onDismiss: () -> Unit,
 ) {
-    AnimatedSwipeDismiss(
+    SwipeToDismiss(
         modifier = modifier,
         background = { _, fraction ->
             val wouldCompleteOnRelease = fraction.absoluteValue >= dismissFraction
@@ -163,7 +163,7 @@ fun AnimatedSwipeDismiss(
 
 @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class)
 @Composable
-fun AnimatedSwipeDismiss(
+fun SwipeToDismiss(
     modifier: Modifier = Modifier,
     background: @Composable (isDismissed: Boolean, fraction: Float) -> Unit,
     content: @Composable (isDismissed: Boolean) -> Unit,
