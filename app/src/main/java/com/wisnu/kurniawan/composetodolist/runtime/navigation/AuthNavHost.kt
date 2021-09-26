@@ -8,9 +8,12 @@ import androidx.navigation.navigation
 import com.wisnu.kurniawan.composetodolist.features.login.ui.LoginScreen
 import com.wisnu.kurniawan.composetodolist.features.login.ui.LoginViewModel
 
-fun NavGraphBuilder.LoginNavHost(navController: NavHostController) {
-    navigation(startDestination = AuthFlow.LoginScreen.route, route = AuthFlow.Root.route) {
-        composable(AuthFlow.LoginScreen.route) {
+fun NavGraphBuilder.AuthNavHost(navController: NavHostController) {
+    navigation(
+        startDestination = AuthFlow.LoginScreen.route,
+        route = AuthFlow.Root.route
+    ) {
+        composable(route = AuthFlow.LoginScreen.route) {
             val viewModel = hiltViewModel<LoginViewModel>()
             LoginScreen(navController = navController, viewModel = viewModel)
         }

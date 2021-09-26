@@ -34,7 +34,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgSecondaryBut
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgTextField
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.collectAsEffect
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.requestFocusImeAware
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_GROUP_ID
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
 import kotlinx.coroutines.launch
 
@@ -53,7 +52,7 @@ fun CreateGroupScreen(
         is CreateGroupEffect.ShowUpdateGroupListScreen -> {
             LaunchedEffect(effect) {
                 navController.navigateUp()
-                navController.navigate(HomeFlow.UpdateGroupList.route + "?$ARG_GROUP_ID=${(effect as CreateGroupEffect.ShowUpdateGroupListScreen).groupId}")
+                navController.navigate(HomeFlow.UpdateGroupList.route((effect as CreateGroupEffect.ShowUpdateGroupListScreen).groupId))
             }
         }
     }

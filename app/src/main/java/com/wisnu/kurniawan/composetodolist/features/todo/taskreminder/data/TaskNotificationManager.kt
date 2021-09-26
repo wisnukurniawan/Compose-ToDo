@@ -14,8 +14,7 @@ import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.features.todo.taskreminder.ui.TaskBroadcastReceiver
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toMillis
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_LIST_ID
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_TASK_ID
+import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -73,7 +72,7 @@ class TaskNotificationManager @Inject constructor(@ApplicationContext private va
     private fun buildPendingIntent(taskId: String, listId: String): PendingIntent {
         val openTaskIntent = Intent(
             Intent.ACTION_VIEW,
-            "todox://com.wisnu.kurniawan?$ARG_TASK_ID=${taskId}&$ARG_LIST_ID=${listId}".toUri()
+            StepFlow.TaskDetailScreen.deeplink(taskId, listId).toUri()
         )
 
         return TaskStackBuilder.create(context).run {

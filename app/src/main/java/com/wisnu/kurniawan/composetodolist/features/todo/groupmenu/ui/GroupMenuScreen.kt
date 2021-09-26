@@ -21,7 +21,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalCell
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalTitle
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_GROUP_ID
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
 
 @Composable
@@ -34,14 +33,14 @@ fun GroupMenuScreen(
     GroupMenuScreen(
         items = state.items,
         onAddRemoveClick = {
-            navController.navigate(HomeFlow.EditGroupList.route + "?$ARG_GROUP_ID=${viewModel.groupId}")
+            navController.navigate(HomeFlow.EditGroupList.route(viewModel.groupId))
         },
         onDeleteClick = {
             navController.navigateUp()
             viewModel.dispatch(GroupMenuAction.ClickDelete)
         },
         onRenameClick = {
-            navController.navigate(HomeFlow.UpdateGroup.route + "?$ARG_GROUP_ID=${viewModel.groupId}")
+            navController.navigate(HomeFlow.UpdateGroup.route(viewModel.groupId))
         }
     )
 }

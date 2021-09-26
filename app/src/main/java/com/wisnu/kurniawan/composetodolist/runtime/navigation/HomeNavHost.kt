@@ -5,7 +5,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.wisnu.kurniawan.composetodolist.features.dashboard.ui.DashboardScreen
@@ -39,12 +38,8 @@ fun NavGraphBuilder.HomeNavHost(
             )
         }
         bottomSheet(
-            route = HomeFlow.GroupMenu.route + "?$ARG_GROUP_ID={$ARG_GROUP_ID}",
-            arguments = listOf(
-                navArgument(ARG_GROUP_ID) {
-                    defaultValue = ""
-                }
-            )
+            route = HomeFlow.GroupMenu.routeRegistry,
+            arguments = HomeFlow.GroupMenu.arguments
         ) {
             val viewModel = hiltViewModel<GroupMenuViewModel>()
             bottomSheetConfig.value = defaultMainBottomSheetConfig
@@ -62,12 +57,8 @@ fun NavGraphBuilder.HomeNavHost(
             )
         }
         bottomSheet(
-            route = HomeFlow.UpdateGroup.route + "?$ARG_GROUP_ID={$ARG_GROUP_ID}",
-            arguments = listOf(
-                navArgument(ARG_GROUP_ID) {
-                    defaultValue = ""
-                }
-            )
+            route = HomeFlow.UpdateGroup.routeRegistry,
+            arguments = HomeFlow.UpdateGroup.arguments
         ) {
             val viewModel = hiltViewModel<CreateGroupViewModel>()
             bottomSheetConfig.value = defaultMainBottomSheetConfig
@@ -77,12 +68,8 @@ fun NavGraphBuilder.HomeNavHost(
             )
         }
         bottomSheet(
-            route = HomeFlow.UpdateGroupList.route + "?$ARG_GROUP_ID={$ARG_GROUP_ID}",
-            arguments = listOf(
-                navArgument(ARG_GROUP_ID) {
-                    defaultValue = ""
-                }
-            )
+            route = HomeFlow.UpdateGroupList.routeRegistry,
+            arguments = HomeFlow.UpdateGroupList.arguments
         ) {
             val viewModel = hiltViewModel<UpdateGroupListViewModel>()
             bottomSheetConfig.value = defaultMainBottomSheetConfig
@@ -92,12 +79,8 @@ fun NavGraphBuilder.HomeNavHost(
             )
         }
         bottomSheet(
-            route = HomeFlow.EditGroupList.route + "?$ARG_GROUP_ID={$ARG_GROUP_ID}",
-            arguments = listOf(
-                navArgument(ARG_GROUP_ID) {
-                    defaultValue = ""
-                }
-            )
+            route = HomeFlow.EditGroupList.routeRegistry,
+            arguments = HomeFlow.EditGroupList.arguments
         ) {
             val viewModel = hiltViewModel<UpdateGroupListViewModel>()
             bottomSheetConfig.value = defaultMainBottomSheetConfig

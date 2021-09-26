@@ -39,12 +39,12 @@ fun MainNavHost() {
             navController = navController,
             startDestination = MainFlow.Root.route
         ) {
-            composable(MainFlow.Root.route) {
+            composable(route = MainFlow.Root.route) {
                 val viewModel = hiltViewModel<SplashViewModel>()
                 SplashScreen(navController = navController, viewModel = viewModel)
             }
 
-            LoginNavHost(navController)
+            AuthNavHost(navController)
 
             HomeNavHost(navController, bottomSheetConfig)
 

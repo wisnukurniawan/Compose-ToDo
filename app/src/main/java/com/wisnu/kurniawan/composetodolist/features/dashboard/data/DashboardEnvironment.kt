@@ -13,12 +13,10 @@ import com.wisnu.kurniawan.composetodolist.model.User
 import com.wisnu.kurniawan.coreLogger.LoggrDebug
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
-import java.time.LocalDateTime
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -35,6 +33,7 @@ class DashboardEnvironment @Inject constructor(
         return preferenceManager.getUser()
     }
 
+    // TODO e2e
     override fun listenToDoTaskDiff(): Flow<ToDoTaskDiff> {
         var tasks: Map<String, ToDoTask> = mapOf()
         return localManager.getTasksWithDueDate()

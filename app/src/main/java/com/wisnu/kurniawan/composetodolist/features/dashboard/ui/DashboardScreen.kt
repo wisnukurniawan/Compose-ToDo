@@ -33,8 +33,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgPageLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgTransparentFooter
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_GROUP_ID
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_LIST_ID
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ListDetailFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.SettingFlow
@@ -52,10 +50,10 @@ fun DashboardScreen(
         email = state.user.email,
         todoData = todoMainState.data,
         onSettingClick = { navController.navigate(SettingFlow.Root.route) },
-        onAddNewListClick = { navController.navigate(ListDetailFlow.Root.route) },
+        onAddNewListClick = { navController.navigate(ListDetailFlow.Root.route()) },
         onAddNewGroupClick = { navController.navigate(HomeFlow.CreateGroup.route) },
-        onClickGroup = { navController.navigate(HomeFlow.GroupMenu.route + "?$ARG_GROUP_ID=${it.group.id}") },
-        onClickList = { navController.navigate(ListDetailFlow.Root.route + "?$ARG_LIST_ID=${it.list.id}") },
+        onClickGroup = { navController.navigate(HomeFlow.GroupMenu.route(it.group.id)) },
+        onClickList = { navController.navigate(ListDetailFlow.Root.route(it.list.id)) },
         onSwipeToDelete = { toDoMainViewModel.dispatch(ToDoMainAction.DeleteList(it)) },
     )
 }

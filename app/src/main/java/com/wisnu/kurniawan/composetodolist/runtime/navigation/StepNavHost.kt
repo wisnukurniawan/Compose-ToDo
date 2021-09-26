@@ -5,8 +5,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
-import androidx.navigation.navDeepLink
 import androidx.navigation.navigation
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.wisnu.kurniawan.composetodolist.features.todo.step.ui.CreateStepScreen
@@ -26,20 +24,13 @@ fun NavGraphBuilder.StepNavHost(
     bottomSheetConfig: MutableState<MainBottomSheetConfig>
 ) {
     navigation(
-        startDestination = StepFlow.TaskDetailScreen.route + "?$ARG_TASK_ID={$ARG_TASK_ID}&$ARG_LIST_ID={$ARG_LIST_ID}",
-        route = StepFlow.Root.route + "?$ARG_TASK_ID={$ARG_TASK_ID}&$ARG_LIST_ID={$ARG_LIST_ID}"
+        startDestination = StepFlow.TaskDetailScreen.routeRegistry,
+        route = StepFlow.Root.routeRegistry
     ) {
         composable(
-            route = StepFlow.TaskDetailScreen.route + "?$ARG_TASK_ID={$ARG_TASK_ID}&$ARG_LIST_ID={$ARG_LIST_ID}",
-            arguments = listOf(
-                navArgument(ARG_TASK_ID) {
-                    defaultValue = ""
-                },
-                navArgument(ARG_LIST_ID) {
-                    defaultValue = ""
-                }
-            ),
-            deepLinks = listOf(navDeepLink { uriPattern = "todox://com.wisnu.kurniawan?$ARG_TASK_ID={$ARG_TASK_ID}&$ARG_LIST_ID={$ARG_LIST_ID}" })
+            route = StepFlow.TaskDetailScreen.routeRegistry,
+            arguments = StepFlow.TaskDetailScreen.arguments,
+            deepLinks = StepFlow.TaskDetailScreen.deepLinks
         ) {
             val viewModel = hiltViewModel<StepViewModel>()
             StepScreen(
@@ -60,12 +51,8 @@ fun NavGraphBuilder.StepNavHost(
             CreateStepScreen(viewModel = viewModel)
         }
         bottomSheet(
-            route = StepFlow.EditStep.route + "?$ARG_STEP_ID={$ARG_STEP_ID}",
-            arguments = listOf(
-                navArgument(ARG_STEP_ID) {
-                    defaultValue = ""
-                }
-            )
+            route = StepFlow.EditStep.routeRegistry,
+            arguments = StepFlow.EditStep.arguments
         ) { backStackEntry ->
             val viewModel = if (navController.previousBackStackEntry != null) {
                 hiltViewModel<StepViewModel>(

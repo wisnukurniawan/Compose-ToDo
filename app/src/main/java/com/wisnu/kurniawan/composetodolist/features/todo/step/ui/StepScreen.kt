@@ -74,7 +74,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderIm
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.model.ToDoStep
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_STEP_ID
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -97,7 +96,7 @@ fun StepScreen(
         onClickTaskName = { navController.navigate(StepFlow.EditTask.route) },
         onClickTaskStatus = { viewModel.dispatch(StepAction.TaskAction.OnToggleStatus) },
         onClickCreateStep = { navController.navigate(StepFlow.CreateStep.route) },
-        onClickStep = { navController.navigate(StepFlow.EditStep.route + "?$ARG_STEP_ID=${it.id}") },
+        onClickStep = { navController.navigate(StepFlow.EditStep.route(it.id)) },
         onClickStepStatus = { viewModel.dispatch(StepAction.StepItemAction.Edit.OnToggleStatus(it)) },
         onSwipeToDeleteStep = { viewModel.dispatch(StepAction.StepItemAction.Edit.Delete(it)) },
         onClickTaskDelete = {

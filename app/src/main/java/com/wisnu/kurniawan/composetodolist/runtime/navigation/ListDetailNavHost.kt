@@ -5,7 +5,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.ui.CreateListEditor
@@ -27,16 +26,12 @@ fun NavGraphBuilder.ListDetailNavHost(
     // navController.navigate to ListDetailFlow.Root.route will crash due to not found
     // add "?$ARG_LIST_ID={$ARG_LIST_ID}" in startDestination for workaround
     navigation(
-        startDestination = ListDetailFlow.ListDetailScreen.route + "?$ARG_LIST_ID={$ARG_LIST_ID}",
-        route = ListDetailFlow.Root.route + "?$ARG_LIST_ID={$ARG_LIST_ID}"
+        startDestination = ListDetailFlow.ListDetailScreen.routeRegistry,
+        route = ListDetailFlow.Root.routeRegistry
     ) {
         composable(
-            route = ListDetailFlow.ListDetailScreen.route + "?$ARG_LIST_ID={$ARG_LIST_ID}",
-            arguments = listOf(
-                navArgument(ARG_LIST_ID) {
-                    defaultValue = ""
-                }
-            )
+            route = ListDetailFlow.ListDetailScreen.routeRegistry,
+            arguments = ListDetailFlow.ListDetailScreen.arguments
         ) {
             val viewModel = hiltViewModel<ListDetailViewModel>()
             ListDetailScreen(

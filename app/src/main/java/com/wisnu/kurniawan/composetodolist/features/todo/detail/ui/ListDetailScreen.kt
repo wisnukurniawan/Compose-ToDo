@@ -44,8 +44,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgSecondaryBut
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgTextField
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.collectAsEffect
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_LIST_ID
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_TASK_ID
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ListDetailFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
 
@@ -78,7 +76,7 @@ fun ListDetailScreen(
         },
         color = state.colors.selectedColor(),
         onAddTaskClick = { navController.navigate(ListDetailFlow.CreateTask.route) },
-        onTaskItemClick = { navController.navigate(StepFlow.Root.route + "?$ARG_TASK_ID=${it.id}&$ARG_LIST_ID=${state.list.id}") },
+        onTaskItemClick = { navController.navigate(StepFlow.Root.route(it.id, state.list.id)) },
         onTaskStatusItemClick = { viewModel.dispatch(ListDetailAction.TaskAction.OnToggleStatus(it)) },
         onTaskSwipeToDelete = { viewModel.dispatch(ListDetailAction.TaskAction.Delete(it)) }
     )
