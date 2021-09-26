@@ -36,27 +36,21 @@ class DashboardViewModel @Inject constructor(
         viewModelScope.launch(environment.dispatcher) {
             environment.listenToDoTaskDiff()
                 .collect { todoTaskDiff ->
-                    if (todoTaskDiff.addedTask.isNotEmpty()) {
-                        LoggrDebug { "DashboardViewModel - Added task ${todoTaskDiff.addedTask}" }
-                    }
-
-                    if (todoTaskDiff.deletedTask.isNotEmpty()) {
-                        LoggrDebug { "DashboardViewModel - Deleted task ${todoTaskDiff.deletedTask}" }
-                    }
-
-                    if (todoTaskDiff.modifiedTask.isNotEmpty()) {
-                        LoggrDebug { "DashboardViewModel - Changed task ${todoTaskDiff.modifiedTask}" }
-                    }
-
                     todoTaskDiff.addedTask.forEach {
+                        LoggrDebug { "Alarm121 - Added task $it" }
+
                         taskAlarmManager.scheduleTaskAlarm(it.value, it.value.getScheduledDueDate(environment.dateTimeProvider.now()))
                     }
 
                     todoTaskDiff.modifiedTask.forEach {
+                        LoggrDebug { "Alarm121 - Changed task $it" }
+
                         taskAlarmManager.scheduleTaskAlarm(it.value, it.value.getScheduledDueDate(environment.dateTimeProvider.now()))
                     }
 
                     todoTaskDiff.deletedTask.forEach {
+                        LoggrDebug { "Alarm121 - Deleted task $it" }
+
                         taskAlarmManager.cancelTaskAlarm(it.value)
                         notificationManager.dismiss(it.value)
                     }

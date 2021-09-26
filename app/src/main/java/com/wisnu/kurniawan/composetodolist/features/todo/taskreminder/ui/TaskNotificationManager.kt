@@ -9,9 +9,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import androidx.core.net.toUri
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toMillis
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
+import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_LIST_ID
+import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_TASK_ID
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -38,8 +41,8 @@ class TaskNotificationManager @Inject constructor(@ApplicationContext private va
         }
     }
 
-    fun show(task: ToDoTask) {
-        val builder = buildNotification(task)
+    fun show(task: ToDoTask, listId: String) {
+        val builder = buildNotification(task, listId)
         val id = task.createdAt.toMillis().toInt()
         notificationManager?.notify(
             id,
@@ -52,13 +55,13 @@ class TaskNotificationManager @Inject constructor(@ApplicationContext private va
         notificationManager?.cancel(id)
     }
 
-    private fun buildNotification(task: ToDoTask): NotificationCompat.Builder {
+    private fun buildNotification(task: ToDoTask, listId: String): NotificationCompat.Builder {
         val id = task.createdAt.toMillis().toInt()
         return NotificationCompat.Builder(context, CHANNEL_ID).apply {
             setSmallIcon(R.drawable.ic_round_check_24)
             setContentTitle(context.getString(R.string.app_name))
             setContentText(task.name)
-            // setContentIntent(buildPendingIntent(id))
+            setContentIntent(buildPendingIntent(id, listId))
             setAutoCancel(true)
             addAction(getSnoozeAction(id))
             addAction(getCompleteAction(id))
@@ -66,10 +69,10 @@ class TaskNotificationManager @Inject constructor(@ApplicationContext private va
     }
 
 
-    private fun buildPendingIntent(taskId: Int): PendingIntent {
+    private fun buildPendingIntent(taskId: Int, listId: String): PendingIntent {
         val openTaskIntent = Intent(
             Intent.ACTION_VIEW,
-            // todo deeplink uri to task detail
+            "todox://com.wisnu.kurniawan?$ARG_TASK_ID=${taskId}&$ARG_LIST_ID=${listId}".toUri()
         )
 
         return TaskStackBuilder.create(context).run {

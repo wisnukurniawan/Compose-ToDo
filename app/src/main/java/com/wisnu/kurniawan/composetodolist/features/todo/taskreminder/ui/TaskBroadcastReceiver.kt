@@ -3,30 +3,32 @@ package com.wisnu.kurniawan.composetodolist.features.todo.taskreminder.ui
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.wisnu.kurniawan.coreLogger.LoggrDebug
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.DelicateCoroutinesApi
 import javax.inject.Inject
 
-@AndroidEntryPoint
+//@AndroidEntryPoint
 class TaskBroadcastReceiver : BroadcastReceiver() {
 
-    @Inject
-    lateinit var taskReminderViewModel: TaskReminderViewModel
+    //@Inject
+    //lateinit var taskReminderViewModel: TaskReminderViewModel
 
-    @OptIn(DelicateCoroutinesApi::class)
     override fun onReceive(context: Context?, intent: Intent?) {
+        LoggrDebug { "Alarm121 - onReceive ${intent?.action}" }
+
         when (intent?.action) {
             ACTION_ALARM_SHOW -> {
-                taskReminderViewModel.dispatch(TaskReminderAction.AlarmShow(getTaskId(intent)))
+                //taskReminderViewModel.dispatch(TaskReminderAction.AlarmShow(getTaskId(intent)))
             }
             ACTION_NOTIFICATION_COMPLETED -> {
-                taskReminderViewModel.dispatch(TaskReminderAction.NotificationCompleted(getTaskId(intent)))
+                //taskReminderViewModel.dispatch(TaskReminderAction.NotificationCompleted(getTaskId(intent)))
             }
             ACTION_NOTIFICATION_SNOOZE -> {
-                taskReminderViewModel.dispatch(TaskReminderAction.NotificationSnooze(getTaskId(intent)))
+                //taskReminderViewModel.dispatch(TaskReminderAction.NotificationSnooze(getTaskId(intent)))
             }
             Intent.ACTION_BOOT_COMPLETED -> {
-                taskReminderViewModel.dispatch(TaskReminderAction.AppBootCompleted)
+                //taskReminderViewModel.dispatch(TaskReminderAction.AppBootCompleted)
             }
         }
     }

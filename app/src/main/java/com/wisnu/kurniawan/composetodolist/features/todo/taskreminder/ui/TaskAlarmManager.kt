@@ -7,6 +7,7 @@ import android.content.Intent
 import androidx.core.app.AlarmManagerCompat
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toMillis
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
+import com.wisnu.kurniawan.coreLogger.LoggrDebug
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.LocalDateTime
 import javax.inject.Inject
@@ -58,6 +59,8 @@ class TaskAlarmManager @Inject constructor(
         }
 
         alarmManager?.let {
+            LoggrDebug { "Alarm121 - setAlarm $triggerAtMillis" }
+
             AlarmManagerCompat.setAndAllowWhileIdle(it, AlarmManager.RTC_WAKEUP, triggerAtMillis, operation)
         }
     }
