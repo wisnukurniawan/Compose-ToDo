@@ -30,19 +30,19 @@ class SplashViewModelTest : BaseViewModelTest() {
         }
     }
 
-    @Test
-    fun appLaunchNotLoggedIn() = test {
-        val splashEnvironment = buildFakeSplashEnvironment(Credential(""))
-        val splashViewModel = SplashViewModel(splashEnvironment)
-
-        splashViewModel.effect.test {
-            splashViewModel.dispatch(SplashAction.AppLaunch)
-
-            Assert.assertEquals(SplashEffect.NavigateToLogin, awaitItem())
-
-            cancelAndConsumeRemainingEvents()
-        }
-    }
+//    @Test
+//    fun appLaunchNotLoggedIn() = test {
+//        val splashEnvironment = buildFakeSplashEnvironment(Credential(""))
+//        val splashViewModel = SplashViewModel(splashEnvironment)
+//
+//        splashViewModel.effect.test {
+//            splashViewModel.dispatch(SplashAction.AppLaunch)
+//
+//            Assert.assertEquals(SplashEffect.NavigateToLogin, awaitItem())
+//
+//            cancelAndConsumeRemainingEvents()
+//        }
+//    }
 
     private fun buildFakeSplashEnvironment(credential: Credential): ISplashEnvironment {
         return object : ISplashEnvironment {
