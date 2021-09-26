@@ -11,7 +11,6 @@ import com.wisnu.kurniawan.coreLogger.LoggrDebug
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
@@ -43,15 +42,30 @@ class TaskReminderEnvironment @Inject constructor(
     }
 
     override suspend fun completeReminder(taskId: String): Flow<Pair<ToDoTask, String>> {
-        return toggleTaskStatus(taskId)
+        return getTask(taskId)
             .onEach { (task, _) ->
+                val currentDate = dateTimeProvider.now()
+                task.toggleStatusHandler(
+                    currentDate,
+                    { completedAt, newStatus ->
+                        localManager.updateTaskStatus(task.id, newStatus, completedAt, currentDate)
+                    },
+                    { nextDueDate ->
+                        localManager.updateTaskDueDate(task.id, nextDueDate, task.isDueDateTimeSet, currentDate)
+                    }
+                )
+
                 alarmManager.cancelTaskAlarm(task)
                 notificationManager.dismiss(task)
             }
     }
 
     override fun restartAllReminder(): Flow<List<ToDoTask>> {
-        return getTasksWithDueDate()
+        return localManager.getTasksWithDueDate()
+            .take(1)
+            .map { tasks ->
+                tasks.filter { it.status != ToDoStatus.COMPLETE }
+            }
             .onEach { tasks ->
                 tasks.forEach {
                     alarmManager.scheduleTaskAlarm(it, it.getNextScheduledDueDate(dateTimeProvider.now()))
@@ -65,30 +79,6 @@ class TaskReminderEnvironment @Inject constructor(
             .filter { (task, _) ->
                 task.status != ToDoStatus.COMPLETE &&
                     task.dueDate != null
-            }
-    }
-
-    private fun getTasksWithDueDate(): Flow<List<ToDoTask>> {
-        return localManager.getTasksWithDueDate()
-            .take(1)
-            .map { tasks ->
-                tasks.filter { it.status != ToDoStatus.COMPLETE }
-            }
-    }
-
-    private suspend fun toggleTaskStatus(taskId: String): Flow<Pair<ToDoTask, String>> {
-        return getTask(taskId)
-            .onEach { (task, _) ->
-                val currentDate = dateTimeProvider.now()
-                task.toggleStatusHandler(
-                    currentDate,
-                    { completedAt, newStatus ->
-                        localManager.updateTaskStatus(task.id, newStatus, completedAt, currentDate)
-                    },
-                    { nextDueDate ->
-                        localManager.updateTaskDueDate(task.id, nextDueDate, task.isDueDateTimeSet, currentDate)
-                    }
-                )
             }
     }
 

@@ -56,15 +56,14 @@ class TaskNotificationManager @Inject constructor(@ApplicationContext private va
     }
 
     private fun buildNotification(task: ToDoTask, listId: String): NotificationCompat.Builder {
-        val id = task.createdAt.toMillis().toInt()
         return NotificationCompat.Builder(context, CHANNEL_ID).apply {
             setSmallIcon(R.drawable.ic_round_check_24)
             setContentTitle(context.getString(R.string.app_name))
             setContentText(task.name)
             setContentIntent(buildPendingIntent(task.id, listId))
             setAutoCancel(true)
-            addAction(getSnoozeAction(id))
-            addAction(getCompleteAction(id))
+            addAction(getSnoozeAction(task.id))
+            addAction(getCompleteAction(task.id))
         }
     }
 
@@ -81,20 +80,20 @@ class TaskNotificationManager @Inject constructor(@ApplicationContext private va
         }
     }
 
-    private fun getCompleteAction(taskId: Int): NotificationCompat.Action {
+    private fun getCompleteAction(taskId: String): NotificationCompat.Action {
         val actionTitle = context.getString(R.string.todo_task_notification_action_completed)
         val intent = getIntent(taskId, TaskBroadcastReceiver.ACTION_NOTIFICATION_COMPLETED, REQUEST_CODE_ACTION_COMPLETE)
         return NotificationCompat.Action(ACTION_NO_ICON, actionTitle, intent)
     }
 
-    private fun getSnoozeAction(taskId: Int): NotificationCompat.Action {
+    private fun getSnoozeAction(taskId: String): NotificationCompat.Action {
         val actionTitle = context.getString(R.string.todo_task_notification_action_snooze)
         val intent = getIntent(taskId, TaskBroadcastReceiver.ACTION_NOTIFICATION_SNOOZE, REQUEST_CODE_ACTION_SNOOZE)
         return NotificationCompat.Action(ACTION_NO_ICON, actionTitle, intent)
     }
 
     private fun getIntent(
-        taskId: Int,
+        taskId: String,
         intentAction: String,
         requestCode: Int
     ): PendingIntent {
