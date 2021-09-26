@@ -2,10 +2,12 @@ package com.wisnu.kurniawan.composetodolist.features.todo.taskreminder.data
 
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.LocalManager
 import com.wisnu.kurniawan.composetodolist.foundation.di.DiName
+import com.wisnu.kurniawan.composetodolist.foundation.extension.getNextScheduledDueDate
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toggleStatusHandler
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
+import com.wisnu.kurniawan.coreLogger.LoggrDebug
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
@@ -18,11 +20,46 @@ import javax.inject.Named
 
 class TaskReminderEnvironment @Inject constructor(
     @Named(DiName.DISPATCHER_IO) override val dispatcher: CoroutineDispatcher,
-    override val dateTimeProvider: DateTimeProvider,
+    private val dateTimeProvider: DateTimeProvider,
     private val localManager: LocalManager,
+    private val alarmManager: TaskAlarmManager,
+    private val notificationManager: TaskNotificationManager
 ) : ITaskReminderEnvironment {
 
-    override fun getTask(taskId: String): Flow<Pair<ToDoTask, String>> {
+    override fun notifyNotification(taskId: String): Flow<Pair<ToDoTask, String>> {
+        return getTask(taskId)
+            .onEach { (task, listId) ->
+                LoggrDebug("AlarmFlow") { "AlarmShow ${task.id} $listId" }
+                notificationManager.show(task, listId)
+            }
+    }
+
+    override fun snoozeReminder(taskId: String): Flow<Pair<ToDoTask, String>> {
+        return getTask(taskId)
+            .onEach { (task, _) ->
+                alarmManager.scheduleTaskAlarm(task, dateTimeProvider.now().plusMinutes(15))
+                notificationManager.dismiss(task)
+            }
+    }
+
+    override suspend fun completeReminder(taskId: String): Flow<Pair<ToDoTask, String>> {
+        return toggleTaskStatus(taskId)
+            .onEach { (task, _) ->
+                alarmManager.cancelTaskAlarm(task)
+                notificationManager.dismiss(task)
+            }
+    }
+
+    override fun restartAllReminder(): Flow<List<ToDoTask>> {
+        return getTasksWithDueDate()
+            .onEach { tasks ->
+                tasks.forEach {
+                    alarmManager.scheduleTaskAlarm(it, it.getNextScheduledDueDate(dateTimeProvider.now()))
+                }
+            }
+    }
+
+    private fun getTask(taskId: String): Flow<Pair<ToDoTask, String>> {
         return localManager.getTaskWithStepsByIdWithListId(taskId)
             .take(1)
             .filter { (task, _) ->
@@ -31,7 +68,7 @@ class TaskReminderEnvironment @Inject constructor(
             }
     }
 
-    override fun getTasksWithDueDate(): Flow<List<ToDoTask>> {
+    private fun getTasksWithDueDate(): Flow<List<ToDoTask>> {
         return localManager.getTasksWithDueDate()
             .take(1)
             .map { tasks ->
@@ -39,7 +76,7 @@ class TaskReminderEnvironment @Inject constructor(
             }
     }
 
-    override suspend fun toggleTaskStatus(taskId: String): Flow<Pair<ToDoTask, String>> {
+    private suspend fun toggleTaskStatus(taskId: String): Flow<Pair<ToDoTask, String>> {
         return getTask(taskId)
             .onEach { (task, _) ->
                 val currentDate = dateTimeProvider.now()

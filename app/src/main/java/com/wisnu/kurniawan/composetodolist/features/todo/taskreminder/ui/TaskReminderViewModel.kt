@@ -1,8 +1,6 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.taskreminder.ui
 
 import com.wisnu.kurniawan.composetodolist.features.todo.taskreminder.data.ITaskReminderEnvironment
-import com.wisnu.kurniawan.composetodolist.foundation.extension.getNextScheduledDueDate
-import com.wisnu.kurniawan.coreLogger.LoggrDebug
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
@@ -14,47 +12,32 @@ import javax.inject.Singleton
 @Singleton
 class TaskReminderViewModel @Inject constructor(
     private val environment: ITaskReminderEnvironment,
-    private val alarmManager: TaskAlarmManager,
-    private val notificationManager: TaskNotificationManager
 ) {
 
     fun dispatch(action: TaskReminderAction) {
         when (action) {
             is TaskReminderAction.AlarmShow -> {
                 GlobalScope.launch(environment.dispatcher) {
-                    environment.getTask(action.taskId)
-                        .collect { (task, listId) ->
-                            LoggrDebug("AlarmFlow") { "AlarmShow ${task.id} $listId" }
-                            notificationManager.show(task, listId)
-                        }
+                    environment.notifyNotification(action.taskId)
+                        .collect()
                 }
             }
             TaskReminderAction.AppBootCompleted -> {
                 GlobalScope.launch(environment.dispatcher) {
-                    environment.getTasksWithDueDate()
-                        .collect { tasks ->
-                            tasks.forEach {
-                                alarmManager.scheduleTaskAlarm(it, it.getNextScheduledDueDate(environment.dateTimeProvider.now()))
-                            }
-                        }
+                    environment.restartAllReminder()
+                        .collect()
                 }
             }
             is TaskReminderAction.NotificationCompleted -> {
                 GlobalScope.launch(environment.dispatcher) {
-                    environment.toggleTaskStatus(action.taskId)
-                        .collect { (task, _) ->
-                            alarmManager.cancelTaskAlarm(task)
-                            notificationManager.dismiss(task)
-                        }
+                    environment.completeReminder(action.taskId)
+                        .collect()
                 }
             }
             is TaskReminderAction.NotificationSnooze -> {
                 GlobalScope.launch(environment.dispatcher) {
-                    environment.getTask(action.taskId)
-                        .collect { (task, _) ->
-                            alarmManager.scheduleTaskAlarm(task, environment.dateTimeProvider.now().plusMinutes(15))
-                            notificationManager.dismiss(task)
-                        }
+                    environment.snoozeReminder(action.taskId)
+                        .collect()
                 }
             }
         }
