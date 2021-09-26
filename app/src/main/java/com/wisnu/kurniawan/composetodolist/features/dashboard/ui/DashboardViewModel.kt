@@ -2,14 +2,20 @@ package com.wisnu.kurniawan.composetodolist.features.dashboard.ui
 
 import androidx.lifecycle.viewModelScope
 import com.wisnu.kurniawan.composetodolist.features.dashboard.data.IDashboardEnvironment
+import com.wisnu.kurniawan.composetodolist.features.todo.taskreminder.ui.TaskAlarmManager
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
+import com.wisnu.kurniawan.coreLogger.LoggrDebug
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DashboardViewModel @Inject constructor(dashboardEnvironment: IDashboardEnvironment) :
+class DashboardViewModel @Inject constructor(
+    dashboardEnvironment: IDashboardEnvironment,
+    private val taskAlarmManager: TaskAlarmManager,
+) :
     StatefulViewModel<DashboardState, Unit, Unit, IDashboardEnvironment>(DashboardState(), dashboardEnvironment) {
 
     init {
@@ -27,7 +33,17 @@ class DashboardViewModel @Inject constructor(dashboardEnvironment: IDashboardEnv
     private fun initToDoTaskDiff() {
         viewModelScope.launch(environment.dispatcher) {
             environment.listenToDoTaskDiff()
-                .collect()
+                .collect { todoTaskDiff ->
+                    if (todoTaskDiff.addedTask.isNotEmpty()) {
+                        LoggrDebug { "wsnukrn - Added task ${todoTaskDiff.addedTask}" }
+                    }
+                    if (todoTaskDiff.deletedTask.isNotEmpty()) {
+                        LoggrDebug { "wsnukrn - Deleted task ${todoTaskDiff.deletedTask}" }
+                    }
+                    if (todoTaskDiff.modifiedTask.isNotEmpty()) {
+                        LoggrDebug { "wsnukrn - Changed task ${todoTaskDiff.modifiedTask}" }
+                    }
+                }
         }
     }
 

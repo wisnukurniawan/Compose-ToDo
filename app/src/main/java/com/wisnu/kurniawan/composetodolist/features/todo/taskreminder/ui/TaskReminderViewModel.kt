@@ -12,6 +12,7 @@ import javax.inject.Singleton
 @Singleton
 class TaskReminderViewModel @Inject constructor(
     private val environment: ITaskReminderEnvironment,
+    private val notificationManager: TaskNotificationManager
 ) {
 
     fun dispatch(action: TaskReminderAction) {
@@ -19,7 +20,9 @@ class TaskReminderViewModel @Inject constructor(
             is TaskReminderAction.AlarmShow -> {
                 GlobalScope.launch(environment.dispatcher) {
                     environment.getTask(action.taskId)
-                        .collect()
+                        .collect {
+                            notificationManager.show(it)
+                        }
                 }
             }
             TaskReminderAction.AppBootCompleted -> {
