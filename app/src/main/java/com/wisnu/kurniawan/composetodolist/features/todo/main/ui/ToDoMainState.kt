@@ -6,7 +6,11 @@ import com.wisnu.kurniawan.composetodolist.model.ToDoList
 
 @Immutable
 data class ToDoMainState(
-    val data: List<ItemMainState> = listOf()
+    val data: List<ItemMainState> = listOf(),
+    val currentDate: String = "0",
+    val allTaskCount: String = "0",
+    val scheduledTodayTaskCount: String = "0",
+    val scheduledTaskCount: String = "0",
 )
 
 sealed class ItemMainState {

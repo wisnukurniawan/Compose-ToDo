@@ -20,6 +20,9 @@
     <string name="setting_language_english" translatable="false">English</string>
     <string name="setting_language_indonesia" translatable="false">Bahasa Indonesia</string>
 
+    <string name="todo_today">Today</string>
+    <string name="todo_scheduled">Scheduled</string>
+    <string name="todo_all">All</string>
     <string name="todo_rename">Rename</string>
     <string name="todo_skip">Skip</string>
     <string name="todo_add">Add</string>

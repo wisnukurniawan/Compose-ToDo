@@ -16,6 +16,9 @@
     <string name="setting_logout_confirm">Keluar?</string>
     <string name="setting_language">Bahasa</string>
 
+    <string name="todo_today">Hari ini</string>
+    <string name="todo_scheduled">Terjadwal</string>
+    <string name="todo_all">Semua</string>
     <string name="todo_rename">Ganti nama</string>
     <string name="todo_skip">Batal</string>
     <string name="todo_add">Pilih</string>

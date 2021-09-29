@@ -40,3 +40,7 @@ val ListGreen = Color(0xFF2FD15C)
 val ListBlue = Color(0xFF0983FF)
 val ListPurple = Color(0xFFD281F3)
 val ListBrown = Color(0xFFC9A676)
+
+val CommonRed = Color(0xFFFB403A)
+val CommonBlue = Color(0xFF0F83F4)
+val CommonGrey = Color(0xFF5D6269)

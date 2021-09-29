@@ -2,39 +2,13 @@ package com.wisnu.kurniawan.composetodolist.features.todo.step.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.Divider
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.LocalContentAlpha
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Switch
-import androidx.compose.material.SwitchDefaults
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material.icons.rounded.CheckCircle
-import androidx.compose.material.icons.rounded.ChevronRight
-import androidx.compose.material.icons.rounded.Delete
-import androidx.compose.material.icons.rounded.Event
-import androidx.compose.material.icons.rounded.RadioButtonUnchecked
-import androidx.compose.material.icons.rounded.Repeat
-import androidx.compose.material.icons.rounded.Schedule
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
@@ -59,15 +33,10 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.displayable
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isDueDateSet
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isExpired
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
+import com.wisnu.kurniawan.composetodolist.foundation.theme.CommonBlue
+import com.wisnu.kurniawan.composetodolist.foundation.theme.CommonRed
 import com.wisnu.kurniawan.composetodolist.foundation.theme.MediumRadius
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalBackButton
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgPageLayout
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgToDoItemCell
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.dateTimeDisplayable
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.dueDateDisplayable
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.timeDisplayable
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.*
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.showDatePicker
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.showTimePicker
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl
@@ -359,7 +328,7 @@ private fun StepContent(
                     topStart = MediumRadius,
                     topEnd = MediumRadius
                 ),
-                iconBgColor = Color(0xFFFB403A),
+                iconBgColor = CommonRed,
                 leftIcon = Icons.Rounded.Event,
                 showDivider = true,
                 onClick = if (task.isDueDateSet()) {
@@ -389,7 +358,7 @@ private fun StepContent(
                     bottomStart = MediumRadius,
                     bottomEnd = MediumRadius
                 ),
-                iconBgColor = Color(0xFF0F83F4),
+                iconBgColor = CommonBlue,
                 leftIcon = Icons.Rounded.Schedule,
                 showDivider = false,
                 onClick = if (task.isDueDateTimeSet) {

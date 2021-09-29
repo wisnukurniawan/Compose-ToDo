@@ -1,12 +1,6 @@
 package com.wisnu.kurniawan.composetodolist.features.dashboard.ui
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -49,12 +43,19 @@ fun DashboardScreen(
     DashboardScreen(
         email = state.user.email,
         todoData = todoMainState.data,
+        currentDate = todoMainState.currentDate,
+        scheduledTodayTaskCount = todoMainState.scheduledTodayTaskCount,
+        scheduledTaskCount = todoMainState.scheduledTaskCount,
+        allTaskCount = todoMainState.allTaskCount,
         onSettingClick = { navController.navigate(SettingFlow.Root.route) },
         onAddNewListClick = { navController.navigate(ListDetailFlow.Root.route()) },
         onAddNewGroupClick = { navController.navigate(HomeFlow.CreateGroup.route) },
         onClickGroup = { navController.navigate(HomeFlow.GroupMenu.route(it.group.id)) },
         onClickList = { navController.navigate(ListDetailFlow.Root.route(it.list.id)) },
         onSwipeToDelete = { toDoMainViewModel.dispatch(ToDoMainAction.DeleteList(it)) },
+        onScheduledTodayTask = {},
+        onScheduledTask = {},
+        onClickAllTask = {},
     )
 }
 
@@ -62,26 +63,40 @@ fun DashboardScreen(
 fun DashboardScreen(
     email: String,
     todoData: List<ItemMainState>,
+    currentDate: String,
+    scheduledTodayTaskCount: String,
+    scheduledTaskCount: String,
+    allTaskCount: String,
     onSettingClick: () -> Unit,
     onAddNewListClick: () -> Unit,
     onAddNewGroupClick: () -> Unit,
     onClickGroup: (ItemMainState.ItemGroup) -> Unit,
     onClickList: (ItemMainState.ItemListType) -> Unit,
     onSwipeToDelete: (ItemMainState.ItemListType) -> Unit,
+    onScheduledTodayTask: () -> Unit,
+    onScheduledTask: () -> Unit,
+    onClickAllTask: () -> Unit,
 ) {
     PgPageLayout {
         Text(
             text = email,
             style = MaterialTheme.typography.subtitle2,
-            modifier = Modifier.padding(all = 16.dp)
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp)
         )
 
         Box(modifier = Modifier.fillMaxSize().weight(1F)) {
             ToDoMainScreen(
                 todoData,
+                currentDate,
+                scheduledTodayTaskCount,
+                scheduledTaskCount,
+                allTaskCount,
                 onClickGroup,
                 onClickList,
-                onSwipeToDelete
+                onSwipeToDelete,
+                onScheduledTodayTask,
+                onScheduledTask,
+                onClickAllTask
             )
 
             Footer(
