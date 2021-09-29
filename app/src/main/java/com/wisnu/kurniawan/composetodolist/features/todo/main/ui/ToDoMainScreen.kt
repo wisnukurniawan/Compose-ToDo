@@ -99,8 +99,8 @@ fun ToDoMainScreen(
             item {
                 PgEmpty(
                     stringResource(R.string.todo_no_list),
-                    modifier = Modifier.fillParentMaxHeight()
-                        .padding(bottom = 100.dp)
+                    modifier = Modifier
+                        .height(300.dp)
                 )
             }
         } else {
