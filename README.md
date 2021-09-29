@@ -37,11 +37,11 @@ Compose playground for learning purpose, especially trying and explore android t
 
 | Deletion | Lang selection | Theme selection |
 | ---- | ---- | ---- |
-| <img src="art/delete-list.gif" width="260"> | <img src="art/change-language.gif" width="260"> | <img src="art/change-theme.gif" width="260"> |
+| <img src="art/swipe-list.gif" width="260"> | <img src="art/select-language.gif" width="260"> | <img src="art/select-theme.gif" width="260"> |
 
 ## List detail screen
 
-| Create list | Due date |
+| Create list | Set reminder |
 | ---- | ---- |
-| <img src="art/create-list.gif" width="260"> | <img src="art/task-due-date.gif" width="260"> |
+| <img src="art/new-list.gif" width="260"> | <img src="art/set-reminder.gif" width="260"> |
 
