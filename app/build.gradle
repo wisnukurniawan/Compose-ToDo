@@ -62,7 +62,7 @@ android {
 
     // Fix compose compile error
     composeOptions {
-        kotlinCompilerExtensionVersion "1.1.0-alpha03"
+        kotlinCompilerExtensionVersion "1.1.0-alpha04"
     }
 
     compileOptions {
