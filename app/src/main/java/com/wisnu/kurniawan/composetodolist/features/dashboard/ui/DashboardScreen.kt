@@ -81,7 +81,7 @@ fun DashboardScreen(
         Text(
             text = email,
             style = MaterialTheme.typography.subtitle2,
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp)
+            modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
         )
 
         Box(modifier = Modifier.fillMaxSize().weight(1F)) {

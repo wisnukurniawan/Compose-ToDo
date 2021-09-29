@@ -163,14 +163,14 @@ private fun ScheduledTodayCell(
             ) {
                 Box(
                     modifier = Modifier
-                        .size(24.dp)
+                        .size(28.dp)
                         .background(shape = CircleShape, color = CommonRed),
                     contentAlignment = Alignment.Center
                 ) {
                     PgIcon(
                         imageVector = Icons.Rounded.CalendarToday,
                         modifier = Modifier
-                            .size(16.dp)
+                            .size(20.dp)
                     )
 
                     Text(
@@ -222,14 +222,14 @@ private fun ScheduledCell(
             ) {
                 Box(
                     modifier = Modifier
-                        .size(24.dp)
+                        .size(28.dp)
                         .background(shape = CircleShape, color = CommonBlue),
                     contentAlignment = Alignment.Center
                 ) {
                     PgIcon(
                         imageVector = Icons.Rounded.Event,
                         modifier = Modifier
-                            .size(16.dp)
+                            .size(20.dp)
                     )
                 }
 
@@ -274,14 +274,14 @@ private fun AllTaskCell(
             ) {
                 Box(
                     modifier = Modifier
-                        .size(24.dp)
+                        .size(28.dp)
                         .background(shape = CircleShape, color = CommonGrey),
                     contentAlignment = Alignment.Center
                 ) {
                     PgIcon(
                         imageVector = Icons.Rounded.Inbox,
                         modifier = Modifier
-                            .size(16.dp)
+                            .size(20.dp)
                     )
                 }
 
@@ -375,14 +375,14 @@ private fun ListCell(
                     ) {
                         Box(
                             modifier = Modifier
-                                .size(24.dp)
+                                .size(28.dp)
                                 .background(shape = CircleShape, color = color),
                             contentAlignment = Alignment.Center
                         ) {
                             PgIcon(
                                 imageVector = Icons.Rounded.List,
                                 modifier = Modifier
-                                    .size(16.dp)
+                                    .size(20.dp)
                             )
                         }
                         Spacer(Modifier.size(8.dp))
