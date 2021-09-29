@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 
 @Composable
 fun PgModalTitle(
@@ -23,8 +24,8 @@ fun PgModalTitle(
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.h6,
-            color = textColor
+            style = MaterialTheme.typography.h6.copy(textAlign = TextAlign.Center),
+            color = textColor,
         )
     }
 }

@@ -1,14 +1,7 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.grouplist.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Divider
@@ -31,14 +24,7 @@ import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isUngroup
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgButton
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgEmpty
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalBackHeader
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalLayout
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalTitle
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgSecondaryButton
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.*
 import com.wisnu.kurniawan.composetodolist.model.GroupIdWithList
 
 @Composable
@@ -155,20 +141,20 @@ private fun Cell(
         Spacer(Modifier.size(16.dp))
         Box(
             modifier = Modifier
-                .size(24.dp)
+                .size(28.dp)
                 .background(shape = CircleShape, color = color),
             contentAlignment = Alignment.Center
         ) {
             PgIcon(
                 imageVector = Icons.Rounded.List,
                 modifier = Modifier
-                    .size(16.dp)
+                    .size(20.dp)
             )
         }
         Spacer(Modifier.size(8.dp))
         Text(
             text = name,
-            style = MaterialTheme.typography.body2,
+            style = MaterialTheme.typography.body1,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.weight(1f)
