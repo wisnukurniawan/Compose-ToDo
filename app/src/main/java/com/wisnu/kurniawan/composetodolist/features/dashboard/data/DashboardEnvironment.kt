@@ -12,11 +12,7 @@ import com.wisnu.kurniawan.composetodolist.model.ToDoTaskDiff
 import com.wisnu.kurniawan.composetodolist.model.User
 import com.wisnu.kurniawan.coreLogger.LoggrDebug
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.drop
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -36,8 +32,8 @@ class DashboardEnvironment @Inject constructor(
     // TODO e2e
     override fun listenToDoTaskDiff(): Flow<ToDoTaskDiff> {
         var tasks: Map<String, ToDoTask> = mapOf()
-        return localManager.getTasksWithDueDate()
-            .distinctUntilChangedBy { newTasks -> newTasks.map { Pair(it.dueDate, it.repeat) } } // Consume when due date and repeat have changes only
+        return localManager.getScheduledTasks()
+            .distinctUntilChangedBy { newTasks -> newTasks.map { Triple(it.dueDate, it.repeat, it.status) } } // Consume when due date, repeat, and status have changes only
             .map { newTasks -> newTasks.associateBy({ it.id }, { it }) }
             .map { newTasks ->
                 ToDoTaskDiff(

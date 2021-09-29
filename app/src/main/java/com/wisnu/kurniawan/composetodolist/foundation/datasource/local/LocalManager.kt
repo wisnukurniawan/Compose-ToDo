@@ -1,22 +1,7 @@
 package com.wisnu.kurniawan.composetodolist.foundation.datasource.local
 
-import com.wisnu.kurniawan.composetodolist.foundation.extension.groupDbToGroup
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toDoGroupWithListToGroup
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toDoListWithTasksToList
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toGroupDp
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toGroupIdWithList
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toList
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toListDb
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toStepDb
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toTask
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toTaskDb
-import com.wisnu.kurniawan.composetodolist.model.GroupIdWithList
-import com.wisnu.kurniawan.composetodolist.model.ToDoGroup
-import com.wisnu.kurniawan.composetodolist.model.ToDoList
-import com.wisnu.kurniawan.composetodolist.model.ToDoRepeat
-import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
-import com.wisnu.kurniawan.composetodolist.model.ToDoStep
-import com.wisnu.kurniawan.composetodolist.model.ToDoTask
+import com.wisnu.kurniawan.composetodolist.foundation.extension.*
+import com.wisnu.kurniawan.composetodolist.model.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
@@ -82,8 +67,8 @@ class LocalManager @Inject constructor(
             .map { Pair(it.toTask(), it.task.listId) }
     }
 
-    fun getTasksWithDueDate(): Flow<List<ToDoTask>> {
-        return toDoReadDao.getTasksWithDueDate()
+    fun getScheduledTasks(): Flow<List<ToDoTask>> {
+        return toDoReadDao.getScheduledTasks()
             .map { it.toTask() }
     }
 

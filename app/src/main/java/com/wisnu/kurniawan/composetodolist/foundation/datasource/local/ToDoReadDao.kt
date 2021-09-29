@@ -3,13 +3,8 @@ package com.wisnu.kurniawan.composetodolist.foundation.datasource.local
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoGroupDb
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoGroupWithList
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoListDb
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoListWithTasks
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoStepDb
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoTaskDb
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoTaskWithSteps
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.*
+import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -43,8 +38,8 @@ interface ToDoReadDao {
     @Query("SELECT * FROM ToDoTaskDb")
     fun getTask(): Flow<List<ToDoTaskDb>>
 
-    @Query("SELECT * FROM ToDoTaskDb WHERE dueDate IS NOT NULL")
-    fun getTasksWithDueDate(): Flow<List<ToDoTaskDb>>
+    @Query("SELECT * FROM ToDoTaskDb WHERE dueDate IS NOT NULL AND status != :status")
+    fun getScheduledTasks(status: ToDoStatus = ToDoStatus.COMPLETE): Flow<List<ToDoTaskDb>>
 
     @Query("SELECT * FROM ToDoStepDb")
     fun getStep(): Flow<List<ToDoStepDb>>

@@ -11,7 +11,6 @@ import com.wisnu.kurniawan.coreLogger.LoggrDebug
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
 import javax.inject.Inject
@@ -61,11 +60,8 @@ class TaskReminderEnvironment @Inject constructor(
     }
 
     override fun restartAllReminder(): Flow<List<ToDoTask>> {
-        return localManager.getTasksWithDueDate()
+        return localManager.getScheduledTasks()
             .take(1)
-            .map { tasks ->
-                tasks.filter { it.status != ToDoStatus.COMPLETE }
-            }
             .onEach { tasks ->
                 tasks.forEach {
                     alarmManager.scheduleTaskAlarm(it, it.getNextScheduledDueDate(dateTimeProvider.now()))
