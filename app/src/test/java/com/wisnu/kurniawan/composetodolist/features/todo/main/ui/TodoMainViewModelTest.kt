@@ -4,6 +4,8 @@ import app.cash.turbine.test
 import com.wisnu.kurniawan.composetodolist.BaseViewModelTest
 import com.wisnu.kurniawan.composetodolist.DateFactory
 import com.wisnu.kurniawan.composetodolist.features.todo.main.data.IToDoMainEnvironment
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl
 import com.wisnu.kurniawan.composetodolist.model.ToDoGroup
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import kotlinx.coroutines.CoroutineDispatcher
@@ -22,6 +24,7 @@ class ToDoMainViewModelTest : BaseViewModelTest() {
     fun init() = test {
         val todoMainEnvironment = object : IToDoMainEnvironment {
             override val dispatcher: CoroutineDispatcher = coroutineDispatcher
+            override val dateTimeProvider: DateTimeProvider = DateTimeProviderImpl()
 
             override fun getGroup(): Flow<List<ToDoGroup>> {
                 return flow {
