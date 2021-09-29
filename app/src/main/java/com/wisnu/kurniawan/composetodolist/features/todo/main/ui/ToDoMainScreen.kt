@@ -17,6 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -147,56 +148,15 @@ private fun ScheduledTodayCell(
     currentDate: String,
     scheduledTaskCount: String
 ) {
-    Surface(
+    OverallTaskCell(
         modifier = modifier,
-        shape = RoundedCornerShape(size = MediumRadius),
-        onClick = onClick,
-        color = MaterialTheme.colors.secondaryVariant
-    ) {
-        Column(
-            modifier = Modifier.padding(all = 16.dp)
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Box(
-                    modifier = Modifier
-                        .size(28.dp)
-                        .background(shape = CircleShape, color = CommonRed),
-                    contentAlignment = Alignment.Center
-                ) {
-                    PgIcon(
-                        imageVector = Icons.Rounded.CalendarToday,
-                        modifier = Modifier
-                            .size(20.dp)
-                    )
-
-                    Text(
-                        currentDate,
-                        fontSize = 8.sp,
-                        style = MaterialTheme.typography.subtitle1,
-                        modifier = Modifier.padding(top = 2.dp)
-                    )
-                }
-
-                Text(
-                    text = scheduledTaskCount,
-                    style = MaterialTheme.typography.h6,
-                )
-            }
-
-            Spacer(Modifier.height(8.dp))
-
-            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
-                Text(
-                    text = stringResource(R.string.todo_today),
-                    style = MaterialTheme.typography.subtitle1,
-                )
-            }
-        }
-    }
+        taskCount = scheduledTaskCount,
+        title = stringResource(R.string.todo_today),
+        iconText = currentDate,
+        icon = Icons.Rounded.CalendarToday,
+        iconColor = CommonRed,
+        onClick = onClick
+    )
 }
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -206,49 +166,14 @@ private fun ScheduledCell(
     onClick: () -> Unit,
     scheduledTaskCount: String
 ) {
-    Surface(
+    OverallTaskCell(
         modifier = modifier,
-        shape = RoundedCornerShape(size = MediumRadius),
-        onClick = onClick,
-        color = MaterialTheme.colors.secondaryVariant
-    ) {
-        Column(
-            modifier = Modifier.padding(all = 16.dp)
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Box(
-                    modifier = Modifier
-                        .size(28.dp)
-                        .background(shape = CircleShape, color = CommonBlue),
-                    contentAlignment = Alignment.Center
-                ) {
-                    PgIcon(
-                        imageVector = Icons.Rounded.Event,
-                        modifier = Modifier
-                            .size(20.dp)
-                    )
-                }
-
-                Text(
-                    text = scheduledTaskCount,
-                    style = MaterialTheme.typography.h6,
-                )
-            }
-
-            Spacer(Modifier.height(8.dp))
-
-            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
-                Text(
-                    text = stringResource(R.string.todo_scheduled),
-                    style = MaterialTheme.typography.subtitle1,
-                )
-            }
-        }
-    }
+        taskCount = scheduledTaskCount,
+        title = stringResource(R.string.todo_scheduled),
+        icon = Icons.Rounded.Event,
+        iconColor = CommonBlue,
+        onClick = onClick
+    )
 }
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -257,6 +182,27 @@ private fun AllTaskCell(
     modifier: Modifier,
     onClick: () -> Unit,
     allTaskCount: String
+) {
+    OverallTaskCell(
+        modifier = modifier,
+        taskCount = allTaskCount,
+        title = stringResource(R.string.todo_all),
+        icon = Icons.Rounded.Inbox,
+        iconColor = CommonGrey,
+        onClick = onClick
+    )
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+private fun OverallTaskCell(
+    modifier: Modifier,
+    taskCount: String,
+    title: String,
+    icon: ImageVector,
+    iconColor: Color,
+    iconText: String = "",
+    onClick: () -> Unit,
 ) {
     Surface(
         modifier = modifier,
@@ -275,19 +221,28 @@ private fun AllTaskCell(
                 Box(
                     modifier = Modifier
                         .size(28.dp)
-                        .background(shape = CircleShape, color = CommonGrey),
+                        .background(shape = CircleShape, color = iconColor),
                     contentAlignment = Alignment.Center
                 ) {
                     PgIcon(
-                        imageVector = Icons.Rounded.Inbox,
+                        imageVector = icon,
                         modifier = Modifier
                             .size(20.dp)
                     )
+
+                    if (iconText.isNotBlank()) {
+                        Text(
+                            text = iconText,
+                            fontSize = 8.sp,
+                            style = MaterialTheme.typography.subtitle1,
+                            modifier = Modifier.padding(top = 2.dp)
+                        )
+                    }
                 }
 
                 Text(
-                    text = allTaskCount,
-                    style = MaterialTheme.typography.h6,
+                    text = taskCount,
+                    style = MaterialTheme.typography.h5,
                 )
             }
 
@@ -295,7 +250,7 @@ private fun AllTaskCell(
 
             CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
                 Text(
-                    text = stringResource(R.string.todo_all),
+                    text = title,
                     style = MaterialTheme.typography.subtitle1,
                 )
             }
