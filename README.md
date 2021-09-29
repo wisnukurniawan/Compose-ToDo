@@ -41,12 +41,7 @@ Compose playground for learning purpose, especially trying and explore android t
 
 ## List detail screen
 
-| Create list |
-| ---- | 
-| <img src="art/create-list.gif" width="260">|
+| Create list | Due date |
+| ---- | ---- |
+| <img src="art/create-list.gif" width="260"> | <img src="art/task-due-date.gif" width="260"> |
 
-## Task detail screen
-
-| Due date |
-| ---- | 
-| <img src="art/task-due-date.gif" width="260"> |
