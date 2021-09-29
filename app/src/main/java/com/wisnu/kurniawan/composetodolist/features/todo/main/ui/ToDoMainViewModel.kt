@@ -49,7 +49,7 @@ class ToDoMainViewModel @Inject constructor(todoMainEnvironment: IToDoMainEnviro
                                 .size
                                 .toString(),
                             scheduledTaskCount = it
-                                .toScheduledTasks()
+                                .toScheduledTasks(environment.dateTimeProvider.now())
                                 .size
                                 .toString(),
                         )

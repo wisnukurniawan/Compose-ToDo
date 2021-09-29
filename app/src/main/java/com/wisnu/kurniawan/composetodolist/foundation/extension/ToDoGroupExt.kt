@@ -27,9 +27,12 @@ fun List<ToDoGroup>.toTasks(): List<ToDoTask> {
     }
 }
 
-fun List<ToDoGroup>.toScheduledTasks(): List<ToDoTask> {
+fun List<ToDoGroup>.toScheduledTasks(currentDateTime: LocalDateTime): List<ToDoTask> {
     return toTasks()
-        .filter { it.dueDate != null }
+        .filter {
+            it.dueDate != null &&
+                it.dueDate.isAfter(currentDateTime)
+        }
 }
 
 fun List<ToDoGroup>.toScheduledTodayTasks(currentDateTime: LocalDateTime): List<ToDoTask> {
