@@ -38,7 +38,7 @@ androidx-compose-material = { module = "androidx.compose.material:material", ver
 androidx-compose-materialIcon = { module = "androidx.compose.material:material-icons-core", version.ref = "compose" }
 androidx-compose-materialIconExtended = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
 androidx-lifecycle-viewmodelCompose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version = "1.0.0-alpha07" }
-androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version = "2.4.0-alpha09" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version = "2.4.0-alpha10" }
 androidx-hilt-navigationCompose = { module = "androidx.hilt:hilt-navigation-compose", version = "1.0.0-alpha03" }
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version = "4.1.0" }
 # accompanist

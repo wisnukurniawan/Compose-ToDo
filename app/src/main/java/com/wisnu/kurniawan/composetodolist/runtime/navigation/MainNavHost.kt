@@ -9,7 +9,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.plusAssign
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
@@ -20,11 +19,10 @@ import com.wisnu.kurniawan.composetodolist.runtime.defaultMainBottomSheetConfig
 @OptIn(ExperimentalMaterialNavigationApi::class)
 @Composable
 fun MainNavHost() {
-    val navController = rememberNavController()
-
     val bottomSheetNavigator = rememberBottomSheetNavigator()
     val bottomSheetConfig = remember { mutableStateOf(defaultMainBottomSheetConfig) }
-    navController.navigatorProvider += bottomSheetNavigator
+
+    val navController = rememberNavController(bottomSheetNavigator)
 
     ModalBottomSheetLayout(
         bottomSheetNavigator = bottomSheetNavigator,
