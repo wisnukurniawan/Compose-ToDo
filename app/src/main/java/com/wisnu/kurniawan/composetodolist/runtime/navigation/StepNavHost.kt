@@ -7,13 +7,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
+import com.google.accompanist.navigation.material.bottomSheet
 import com.wisnu.kurniawan.composetodolist.features.todo.step.ui.CreateStepScreen
 import com.wisnu.kurniawan.composetodolist.features.todo.step.ui.RenameStepScreen
 import com.wisnu.kurniawan.composetodolist.features.todo.step.ui.RenameTaskScreen
 import com.wisnu.kurniawan.composetodolist.features.todo.step.ui.RepeatSelectionScreen
 import com.wisnu.kurniawan.composetodolist.features.todo.step.ui.StepScreen
 import com.wisnu.kurniawan.composetodolist.features.todo.step.ui.StepViewModel
-import com.wisnu.kurniawan.composetodolist.foundation.uiextension.bottomSheet
 import com.wisnu.kurniawan.composetodolist.runtime.MainBottomSheetConfig
 import com.wisnu.kurniawan.composetodolist.runtime.defaultMainBottomSheetConfig
 import com.wisnu.kurniawan.composetodolist.runtime.noScrimSmallShapeMainBottomSheetConfig

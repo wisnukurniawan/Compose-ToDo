@@ -6,7 +6,7 @@ appCompat = "1.3.1"
 retrofit = "2.9.0"
 okhttp = "4.9.1"
 hilt = "2.38.1"
-accompanist = "0.17.0"
+accompanist = "0.18.1-SNAPSHOT"
 
 
 [libraries]
