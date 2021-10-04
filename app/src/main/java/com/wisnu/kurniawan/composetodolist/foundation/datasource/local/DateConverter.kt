@@ -1,20 +1,24 @@
 package com.wisnu.kurniawan.composetodolist.foundation.datasource.local
 
 import androidx.room.TypeConverter
+import com.wisnu.kurniawan.composetodolist.foundation.extension.toLocalDateTime
+import com.wisnu.kurniawan.composetodolist.foundation.extension.toMillis
 import java.time.LocalDateTime
 
 class DateConverter {
 
     @TypeConverter
-    fun toDate(dateString: String?): LocalDateTime? {
-        if (dateString == null) return null
+    fun toDate(date: Long?): LocalDateTime? {
+        if (date == null) return null
 
-        return LocalDateTime.parse(dateString)
+        return date.toLocalDateTime()
     }
 
     @TypeConverter
-    fun toDateString(date: LocalDateTime?): String? {
-        return date?.toString()
+    fun toDateLong(date: LocalDateTime?): Long? {
+        if (date == null) return null
+
+        return date.toMillis()
     }
 
 }

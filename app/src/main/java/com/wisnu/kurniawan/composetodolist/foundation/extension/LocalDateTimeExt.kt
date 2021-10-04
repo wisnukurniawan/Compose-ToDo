@@ -3,9 +3,9 @@ package com.wisnu.kurniawan.composetodolist.foundation.extension
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl
 import java.text.SimpleDateFormat
 import java.time.DayOfWeek
+import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
-import java.time.ZoneOffset
 import java.time.temporal.ChronoUnit
 import java.util.*
 
@@ -44,6 +44,11 @@ fun LocalDateTime.formatDateTime(currentDate: LocalDateTime = DateTimeProviderIm
 fun LocalDateTime.toMillis(): Long {
     val zoneId = ZoneId.systemDefault()
     return atZone(zoneId).toInstant().toEpochMilli()
+}
+
+fun Long.toLocalDateTime(): LocalDateTime {
+    val zoneId = ZoneId.systemDefault()
+    return LocalDateTime.ofInstant(Instant.ofEpochMilli(this), zoneId)
 }
 
 fun LocalDateTime.isFriday(): Boolean {
