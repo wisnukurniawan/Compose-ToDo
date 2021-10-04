@@ -37,6 +37,9 @@ class ToDoMainViewModel @Inject constructor(todoMainEnvironment: IToDoMainEnviro
                 .flowOn(environment.dispatcher)
                 .collect {
                     setState {
+                        // TODO consider get the calculation of
+                        //  allTaskCount, scheduledTodayTaskCount, scheduledTaskCount
+                        //  from database query
                         copy(
                             data = it.toItemGroup(),
                             currentDate = environment.dateTimeProvider.now().dayOfMonth.toString(),

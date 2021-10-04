@@ -39,8 +39,7 @@ fun List<ToDoGroup>.toScheduledTodayTasks(currentDateTime: LocalDateTime): List<
     return toTasks()
         .filter {
             it.dueDate != null &&
-                it.dueDate.toLocalDate() ==
-                currentDateTime.toLocalDate()
+                it.dueDate.toLocalDate().isBefore(currentDateTime.toLocalDate().plusDays(1))
         }
 }
 
