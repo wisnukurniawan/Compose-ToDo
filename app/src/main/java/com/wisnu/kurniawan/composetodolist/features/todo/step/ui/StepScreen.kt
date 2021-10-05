@@ -164,6 +164,8 @@ private fun StepScreen(
     onCheckedChangeDueDateItem: (Boolean) -> Unit,
     onCheckedChangeTimeItem: (Boolean) -> Unit,
 ) {
+    val resources = LocalContext.current.resources
+
     PgPageLayout {
         StepTitle(onClickBack = onClickBack)
 
@@ -177,7 +179,7 @@ private fun StepScreen(
         StepContent(
             modifier = Modifier.weight(1f),
             task = task,
-            dueDateTitle = task.dueDateDisplayable() ?: stringResource(R.string.todo_add_due_date_task),
+            dueDateTitle = task.dueDateDisplayable(resources) ?: stringResource(R.string.todo_add_due_date_task),
             dueDateTimeTitle = task.timeDisplayable() ?: stringResource(R.string.todo_add_due_date_time_task),
             steps = steps,
             color = color,

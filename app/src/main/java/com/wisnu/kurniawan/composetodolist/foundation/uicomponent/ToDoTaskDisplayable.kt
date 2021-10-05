@@ -1,7 +1,8 @@
 package com.wisnu.kurniawan.composetodolist.foundation.uicomponent
 
-import androidx.compose.material.MaterialTheme
+import android.content.res.Resources
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
@@ -21,11 +22,10 @@ import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 
-@Composable
-fun ToDoTask.itemInfoDisplayable(): AnnotatedString? {
+fun ToDoTask.itemInfoDisplayable(resources: Resources, expiredColor: Color): AnnotatedString? {
     val info = mutableListOf<String>()
-    val totalStepInfo = totalStepInfo()
-    val dueDateInfo = dueDateInfo()
+    val totalStepInfo = totalStepInfo(resources)
+    val dueDateInfo = dueDateInfo(resources)
 
     if (totalStepInfo.isNotBlank()) info.add(totalStepInfo)
     if (dueDateInfo.isNotBlank()) info.add(dueDateInfo)
@@ -39,7 +39,7 @@ fun ToDoTask.itemInfoDisplayable(): AnnotatedString? {
         spanStyles = if (isExpired()) {
             listOf(
                 AnnotatedString.Range(
-                    SpanStyle(color = MaterialTheme.colors.error),
+                    SpanStyle(color = expiredColor),
                     fullText.indexOf(dueDateInfo),
                     fullText.indexOf(dueDateInfo) + dueDateInfo.length
                 )
@@ -51,21 +51,19 @@ fun ToDoTask.itemInfoDisplayable(): AnnotatedString? {
     )
 }
 
-@Composable
-fun ToDoTask.dueDateDisplayable(currentDate: LocalDateTime = DateTimeProviderImpl().now()): String? {
+fun ToDoTask.dueDateDisplayable(resources: Resources, currentDate: LocalDateTime = DateTimeProviderImpl().now()): String? {
     return if (dueDate != null) {
         when {
-            dueDate.isSameDay(currentDate) -> stringResource(R.string.todo_task_due_date_today)
-            dueDate.isTomorrow(currentDate) -> stringResource(R.string.todo_task_due_date_tomorrow)
-            dueDate.isYesterday(currentDate) -> stringResource(R.string.todo_task_due_date_yesterday)
-            else -> stringResource(R.string.todo_task_due_date, dueDate.formatDateTime())
+            dueDate.isSameDay(currentDate) -> resources.getString(R.string.todo_task_due_date_today)
+            dueDate.isTomorrow(currentDate) -> resources.getString(R.string.todo_task_due_date_tomorrow)
+            dueDate.isYesterday(currentDate) -> resources.getString(R.string.todo_task_due_date_yesterday)
+            else -> resources.getString(R.string.todo_task_due_date, dueDate.formatDateTime())
         }
     } else {
         null
     }
 }
 
-@Composable
 fun ToDoTask.timeDisplayable(): String? {
     return if (isDueDateTimeSet) {
         dueDate?.toLocalTime().toString()
@@ -107,27 +105,25 @@ fun ToDoTask.dateTimeDisplayable(currentDate: LocalDateTime = DateTimeProviderIm
     }
 }
 
-@Composable
-private fun ToDoTask.totalStepInfo(): String {
+private fun ToDoTask.totalStepInfo(resources: Resources): String {
     val totalStep = steps.size
     return if (totalStep != 0) {
         val totalStepDone = steps.filter { it.status == ToDoStatus.COMPLETE }.size
-        stringResource(R.string.todo_task_item_info, totalStepDone.toString(), totalStep.toString())
+        resources.getString(R.string.todo_task_item_info, totalStepDone.toString(), totalStep.toString())
     } else {
         ""
     }
 }
 
-@Composable
-private fun ToDoTask.dueDateInfo(): String {
+private fun ToDoTask.dueDateInfo(resources: Resources): String {
     val info = StringBuilder()
-    val dueDateInfo = dueDateDisplayable()
+    val dueDateInfo = dueDateDisplayable(resources)
     val timeInfo = timeDisplayable()
 
     return if (dueDateInfo != null) {
         info.append(dueDateInfo)
         if (timeInfo != null) info.append(" $timeInfo")
-        if (repeat != ToDoRepeat.NEVER) info.append(", ${stringResource(repeat.displayable())}")
+        if (repeat != ToDoRepeat.NEVER) info.append(", ${resources.getString(repeat.displayable())}")
         info.toString()
     } else {
         ""

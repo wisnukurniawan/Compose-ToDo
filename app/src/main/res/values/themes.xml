@@ -2,8 +2,8 @@
 <resources>
 
     <style name="Theme.ComposeToDoList" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">#51A4E1</item>
-        <item name="colorPrimaryVariant">#51A4E1</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary</item>
         <item name="colorOnPrimary">#FFFFFF</item>
         <item name="colorSecondary">#E4E3E9</item>
         <item name="colorSecondaryVariant">#FFFFFF</item>

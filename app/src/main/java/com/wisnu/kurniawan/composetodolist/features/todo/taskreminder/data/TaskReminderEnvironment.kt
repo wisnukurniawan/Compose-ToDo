@@ -5,12 +5,16 @@ import com.wisnu.kurniawan.composetodolist.foundation.di.DiName
 import com.wisnu.kurniawan.composetodolist.foundation.extension.getNextScheduledDueDate
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toggleStatusHandler
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
+import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import com.wisnu.kurniawan.coreLogger.LoggrDebug
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
 import javax.inject.Inject
@@ -24,11 +28,17 @@ class TaskReminderEnvironment @Inject constructor(
     private val notificationManager: TaskNotificationManager
 ) : ITaskReminderEnvironment {
 
-    override fun notifyNotification(taskId: String): Flow<Pair<ToDoTask, String>> {
+    @OptIn(FlowPreview::class)
+    override fun notifyNotification(taskId: String): Flow<Pair<ToDoTask, ToDoList>> {
         return getTask(taskId)
-            .onEach { (task, listId) ->
-                LoggrDebug("AlarmFlow") { "AlarmShow ${task.id} $listId" }
-                notificationManager.show(task, listId)
+            .flatMapConcat { (task, listId) ->
+                localManager.getListById(listId)
+                    .take(1)
+                    .map { Pair(task, it) }
+            }
+            .onEach { (task, list) ->
+                LoggrDebug("AlarmFlow") { "AlarmShow $task $list" }
+                notificationManager.show(task, list)
             }
     }
 

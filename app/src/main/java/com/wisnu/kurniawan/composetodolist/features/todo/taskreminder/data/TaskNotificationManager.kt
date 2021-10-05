@@ -9,11 +9,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.net.toUri
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.features.todo.taskreminder.ui.TaskBroadcastReceiver
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toMillis
 import com.wisnu.kurniawan.composetodolist.foundation.localization.LocalizationUtil
+import com.wisnu.kurniawan.composetodolist.foundation.theme.LightError
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.itemInfoDisplayable
+import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -38,13 +42,16 @@ class TaskNotificationManager @Inject constructor(@ApplicationContext private va
 
             NotificationChannel(CHANNEL_ID, name, importance).apply {
                 this.description = description
+                enableLights(true)
+                lightColor = ResourcesCompat.getColor(getLocalizedContext().resources, R.color.primary, null)
+                enableVibration(true)
                 notificationManager?.createNotificationChannel(this)
             }
         }
     }
 
-    fun show(task: ToDoTask, listId: String) {
-        val builder = buildNotification(task, listId)
+    fun show(task: ToDoTask, toDoList: ToDoList) {
+        val builder = buildNotification(task, toDoList)
         val id = task.createdAt.toMillis().toInt()
         notificationManager?.notify(
             id,
@@ -57,13 +64,17 @@ class TaskNotificationManager @Inject constructor(@ApplicationContext private va
         notificationManager?.cancel(id)
     }
 
-    private fun buildNotification(task: ToDoTask, listId: String): NotificationCompat.Builder {
+    private fun buildNotification(task: ToDoTask, toDoList: ToDoList): NotificationCompat.Builder {
         return NotificationCompat.Builder(context, CHANNEL_ID).apply {
             setSmallIcon(R.drawable.ic_round_check_24)
-            setContentTitle(getLocalizedContext().getString(R.string.app_name))
+            setContentTitle(toDoList.name)
             setContentText(task.name)
-            setContentIntent(buildPendingIntent(task.id, listId))
+            setStyle(NotificationCompat.BigTextStyle().bigText(task.name + "\n" + task.itemInfoDisplayable(getLocalizedContext().resources, LightError)))
+            setColor(ResourcesCompat.getColor(getLocalizedContext().resources, R.color.primary, null))
+            setContentIntent(buildPendingIntent(task.id, toDoList.id))
             setAutoCancel(true)
+            setColorized(true)
+            setShowWhen(false)
             addAction(getSnoozeAction(task.id))
             addAction(getCompleteAction(task.id))
         }

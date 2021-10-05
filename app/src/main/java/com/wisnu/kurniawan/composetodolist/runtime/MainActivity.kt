@@ -20,8 +20,8 @@ class MainActivity : LocalizedActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
-            Host {
-                ProvideWindowInsets {
+            ProvideWindowInsets {
+                Host {
                     Surface {
                         MainNavHost()
                     }
