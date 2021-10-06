@@ -114,6 +114,7 @@ fun SwipeSearch(
 
     Box(modifier.nestedScroll(connection = nestedScrollConnection)) {
         Column {
+            // Increase dummy view according to offset
             val pushHeight = with(LocalDensity.current) { (offset / PushBackDropMultiplier).toDp() }
             Spacer(Modifier.height(pushHeight))
 
@@ -126,6 +127,7 @@ fun SwipeSearch(
                 .matchParentSize()
                 .clipToBounds()
         ) {
+            // If the user is currently swiping, we use the state offset directly
             if (state.isSwipeInProgress) {
                 offset = state.offset
             }
@@ -133,7 +135,9 @@ fun SwipeSearch(
             LaunchedEffect(state.isSwipeInProgress, state.currentValue) {
                 if (!state.isSwipeInProgress) {
                     val targetOffset = when (state.currentValue) {
+                        // Snap to max
                         SwipeSearchValue.Opened -> searchHeightPx.toFloat()
+                        // Hide the layout
                         SwipeSearchValue.Closed -> 0f
                     }
 
@@ -144,11 +148,13 @@ fun SwipeSearch(
                         offset = value
                     }
 
+                    // Update offset state
                     state.animateOffsetTo(targetOffset)
                 }
             }
 
             Box {
+                // Calculate alpha in percent according to offset
                 val alpha = offset / searchHeightPx
                 if (alpha != 0f) {
                     LazyColumn(
@@ -176,6 +182,7 @@ fun SwipeSearch(
                         .height(SearchHeight)
                         .padding(start = 16.dp, end = 16.dp)
                         .graphicsLayer {
+                            // Translate the indicator according to offset
                             translationY = offset - searchHeightPx
                         },
                 ) {
@@ -201,7 +208,9 @@ private class SwipeSearchNestedScrollConnection(
         source: NestedScrollSource
     ): Offset {
         return when {
+            // If isn't enabled, return zero
             !enabled -> Offset.Zero
+            // If scroll up, handle it
             source == NestedScrollSource.Drag && available.y < 0 -> {
                 performDrag(available, SCROLL_UP)
             }
@@ -219,9 +228,13 @@ private class SwipeSearchNestedScrollConnection(
         }
 
         return when {
+            // If isn't enabled, return zero
             !enabled -> Offset.Zero
+            // If isn't allowed consume scroll, return zero
             !shouldConsumeScrollDown -> Offset.Zero
+            // If state offset exceed search height return zero
             state.offset >= searchHeightPx -> Offset.Zero
+            // If scroll down, handle it
             source == NestedScrollSource.Drag && available.y > 0 -> {
                 performDrag(available, SCROLL_DOWN)
             }
@@ -232,7 +245,7 @@ private class SwipeSearchNestedScrollConnection(
     override suspend fun onPreFling(available: Velocity): Velocity {
         performFling(available)
 
-        // Reset
+        // Reset to default
         shouldConsumeScrollDown = true
 
         return Velocity.Zero
@@ -242,9 +255,11 @@ private class SwipeSearchNestedScrollConnection(
         when (state.currentValue) {
             SwipeSearchValue.Closed -> {
                 when {
-                    available.y > OpenVelocityThreshold -> {
+                    // If detected as quick scroll, set opened
+                    available.y > OpenVelocityThreshold && shouldConsumeScrollDown -> {
                         onFling(SwipeSearchValue.Opened)
                     }
+                    // If exceed threshold, set opened
                     state.offset >= (searchHeightPx * CloseDragThreshold) -> {
                         onFling(SwipeSearchValue.Opened)
                     }
@@ -255,9 +270,11 @@ private class SwipeSearchNestedScrollConnection(
             }
             SwipeSearchValue.Opened -> {
                 when {
+                    // If detected as quick scroll, set closed
                     available.y < CloseVelocityThreshold -> {
                         onFling(SwipeSearchValue.Closed)
                     }
+                    // If exceed threshold, set closed
                     state.offset >= (searchHeightPx * OpenDragThreshold) -> {
                         onFling(SwipeSearchValue.Opened)
                     }
@@ -286,6 +303,7 @@ private class SwipeSearchNestedScrollConnection(
             state.dispatchScrollDelta(deltaToConsume, searchHeightPx.toFloat())
         }
 
+        // Return the consumed Y
         return Offset(x = 0f, y = deltaToConsume / DragMultiplier)
     }
 }
