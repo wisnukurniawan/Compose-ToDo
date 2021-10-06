@@ -11,9 +11,22 @@ Compose playground for learning purpose, especially trying and explore android t
 * Uses [Kotlin Flow](https://kotlinlang.org/docs/flow.html)
 * Uses many of the [Architecture Components](https://developer.android.com/topic/libraries/architecture/), including: Room, DataStore, Navigation, ViewModel
 * Uses [Hilt](https://dagger.dev/hilt/) for dependency injection
-* Uses [Java 8+ API desugaring support](https://developer.android.com/studio/write/java8-support#library-desugaring), including: date and time
+* Uses [Java 8+ API desugaring support](https://developer.android.com/studio/write/java8-support#library-desugaring) for date and time usage
 
-## Project specification
+<table>
+    <tr>
+        <th> <img src="art/delete.gif" width="70%"> </th>
+        <th> <img src="art/language.gif" width="70%"> </th>
+        <th> <img src="art/theme.gif" width="70%"> </th>
+    </tr>
+    <tr>
+        <th> <img src="art/detail.gif" width="70%"> </th>
+        <th> <img src="art/duedate.gif" width="70%"> </th>
+        <th> <img src="art/search.gif" width="70%"> </th>
+    </tr>
+</table>
+
+## Prerequisites
 
 * Android Studio Arctic Fox | 2020.3.1
 * Min SDK 24
@@ -32,16 +45,3 @@ Compose playground for learning purpose, especially trying and explore android t
 * Generate debug apk `./gradlew assembleDebug`
 * Run unit test `./gradlew testDebug`
 * Install on connected device `./gradlew installDebug`
-
-## Dashboard screen
-
-| Deletion | Lang selection | Theme selection |
-| ---- | ---- | ---- |
-| <img src="art/swipe-list.gif" width="260"> | <img src="art/select-language.gif" width="260"> | <img src="art/select-theme.gif" width="260"> |
-
-## List detail screen
-
-| Create list | Set reminder |
-| ---- | ---- |
-| <img src="art/new-list.gif" width="260"> | <img src="art/set-reminder.gif" width="260"> |
-
