@@ -19,6 +19,7 @@ import com.wisnu.kurniawan.composetodolist.features.todo.grouplist.ui.UpdateGrou
 import com.wisnu.kurniawan.composetodolist.features.todo.groupmenu.ui.GroupMenuScreen
 import com.wisnu.kurniawan.composetodolist.features.todo.groupmenu.ui.GroupMenuViewModel
 import com.wisnu.kurniawan.composetodolist.features.todo.main.ui.ToDoMainViewModel
+import com.wisnu.kurniawan.composetodolist.features.todo.search.ui.SearchViewModel
 import com.wisnu.kurniawan.composetodolist.runtime.MainBottomSheetConfig
 import com.wisnu.kurniawan.composetodolist.runtime.defaultMainBottomSheetConfig
 
@@ -31,10 +32,12 @@ fun NavGraphBuilder.HomeNavHost(
         composable(HomeFlow.DashboardScreen.route) {
             val viewModel = hiltViewModel<DashboardViewModel>()
             val toDoMainViewModel = hiltViewModel<ToDoMainViewModel>()
+            val searchViewModel = hiltViewModel<SearchViewModel>()
             DashboardScreen(
                 navController = navController,
                 viewModel = viewModel,
-                toDoMainViewModel = toDoMainViewModel
+                toDoMainViewModel = toDoMainViewModel,
+                searchViewModel = searchViewModel
             )
         }
         bottomSheet(
