@@ -54,12 +54,14 @@ fun PgTextField(
     placeholderValue: String,
     modifier: Modifier = Modifier,
     trailingIcon: @Composable (() -> Unit)? = null,
+    leadingIcon: @Composable (() -> Unit)? = null,
     isError: Boolean = false,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     shape: Shape = MaterialTheme.shapes.small,
     textColor: Color = LocalContentColor.current.copy(LocalContentAlpha.current),
+    textStyle: TextStyle = MaterialTheme.typography.body2,
     errorLabel: @Composable (() -> Unit)? = null,
 ) {
     var textFieldValueState by remember { mutableStateOf(TextFieldValue(text = value)) }
@@ -78,11 +80,13 @@ fun PgTextField(
         shape = shape,
         visualTransformation = visualTransformation,
         trailingIcon = trailingIcon,
+        leadingIcon = leadingIcon,
         isError = isError,
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         textColor = textColor,
-        errorLabel = errorLabel
+        errorLabel = errorLabel,
+        textStyle = textStyle
     )
 
 }
@@ -94,12 +98,14 @@ fun PgTextField(
     placeholderValue: String,
     modifier: Modifier = Modifier,
     trailingIcon: @Composable (() -> Unit)? = null,
+    leadingIcon: @Composable (() -> Unit)? = null,
     isError: Boolean = false,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     shape: Shape = MaterialTheme.shapes.small,
     textColor: Color = LocalContentColor.current.copy(LocalContentAlpha.current),
+    textStyle: TextStyle = MaterialTheme.typography.body2,
     errorLabel: @Composable (() -> Unit)? = null,
 ) {
     OutlinedTextField(
@@ -109,7 +115,7 @@ fun PgTextField(
             CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
                 Text(
                     text = placeholderValue,
-                    style = MaterialTheme.typography.body2
+                    style = textStyle
                 )
             }
         },
@@ -121,7 +127,8 @@ fun PgTextField(
             ),
         visualTransformation = visualTransformation,
         trailingIcon = trailingIcon,
-        textStyle = MaterialTheme.typography.body2,
+        leadingIcon = leadingIcon,
+        textStyle = textStyle,
         isError = isError,
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
@@ -130,7 +137,7 @@ fun PgTextField(
             focusedBorderColor = Color.Transparent,
             unfocusedBorderColor = Color.Transparent,
             textColor = textColor
-        )
+        ),
     )
 
     if (errorLabel != null && isError) {
