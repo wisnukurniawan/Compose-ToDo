@@ -36,7 +36,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.features.todo.main.ui.ItemMainState
@@ -172,7 +171,7 @@ private fun SearchSection(
             .height(50.dp)
             .focusRequester(focusRequester),
         shape = MaterialTheme.shapes.large,
-        textStyle = MaterialTheme.typography.caption.copy(fontSize = 14.sp),
+        textStyle = MaterialTheme.typography.subtitle2,
         leadingIcon = {
             PgIcon(
                 imageVector = Icons.Rounded.Search
