@@ -3,9 +3,8 @@ package com.wisnu.kurniawan.composetodolist.features.todo.taskreminder.ui
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.wisnu.kurniawan.coreLogger.LoggrDebug
+import com.wisnu.kurniawan.coreLogger.Loggr
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.DelicateCoroutinesApi
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -15,7 +14,7 @@ class TaskBroadcastReceiver : BroadcastReceiver() {
     lateinit var taskReminderViewModel: TaskReminderViewModel
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        LoggrDebug("AlarmFlow") { "onReceive ${intent?.action}" }
+        Loggr.debug("AlarmFlow") { "onReceive ${intent?.action}" }
 
         when (intent?.action) {
             ACTION_ALARM_SHOW -> {

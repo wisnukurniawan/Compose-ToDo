@@ -8,7 +8,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
-import com.wisnu.kurniawan.coreLogger.LoggrDebug
+import com.wisnu.kurniawan.coreLogger.Loggr
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
@@ -37,7 +37,7 @@ class TaskReminderEnvironment @Inject constructor(
                     .map { Pair(task, it) }
             }
             .onEach { (task, list) ->
-                LoggrDebug("AlarmFlow") { "AlarmShow $task $list" }
+                Loggr.debug("AlarmFlow") { "AlarmShow $task $list" }
                 notificationManager.show(task, list)
             }
     }

@@ -2,11 +2,7 @@ package com.wisnu.kurniawan.composetodolist.features.dashboard.ui
 
 import androidx.lifecycle.viewModelScope
 import com.wisnu.kurniawan.composetodolist.features.dashboard.data.IDashboardEnvironment
-import com.wisnu.kurniawan.composetodolist.features.todo.taskreminder.data.TaskAlarmManager
-import com.wisnu.kurniawan.composetodolist.features.todo.taskreminder.data.TaskNotificationManager
-import com.wisnu.kurniawan.composetodolist.foundation.extension.getScheduledDueDate
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
-import com.wisnu.kurniawan.coreLogger.LoggrDebug
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

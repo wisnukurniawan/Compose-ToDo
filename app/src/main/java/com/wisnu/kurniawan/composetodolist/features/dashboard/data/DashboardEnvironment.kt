@@ -10,9 +10,13 @@ import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import com.wisnu.kurniawan.composetodolist.model.ToDoTaskDiff
 import com.wisnu.kurniawan.composetodolist.model.User
-import com.wisnu.kurniawan.coreLogger.LoggrDebug
+import com.wisnu.kurniawan.coreLogger.Loggr
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChangedBy
+import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -48,19 +52,19 @@ class DashboardEnvironment @Inject constructor(
             .drop(1) // Skip initial value
             .onEach { todoTaskDiff ->
                 todoTaskDiff.addedTask.forEach {
-                    LoggrDebug("AlarmFlow") { "Added task $it" }
+                    Loggr.debug("AlarmFlow") { "Added task $it" }
 
                     taskAlarmManager.scheduleTaskAlarm(it.value, it.value.getScheduledDueDate(dateTimeProvider.now()))
                 }
 
                 todoTaskDiff.modifiedTask.forEach {
-                    LoggrDebug("AlarmFlow") { "Changed task $it" }
+                    Loggr.debug("AlarmFlow") { "Changed task $it" }
 
                     taskAlarmManager.scheduleTaskAlarm(it.value, it.value.getScheduledDueDate(dateTimeProvider.now()))
                 }
 
                 todoTaskDiff.deletedTask.forEach {
-                    LoggrDebug("AlarmFlow") { "Deleted task $it" }
+                    Loggr.debug("AlarmFlow") { "Deleted task $it" }
 
                     taskAlarmManager.cancelTaskAlarm(it.value)
                     notificationManager.dismiss(it.value)

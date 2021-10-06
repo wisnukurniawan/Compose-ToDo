@@ -45,7 +45,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.guide2
-import com.wisnu.kurniawan.coreLogger.LoggrDebug
+import com.wisnu.kurniawan.coreLogger.Loggr
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -101,7 +101,7 @@ private fun RepeatingButtonPreview() {
         Column {
             RepeatingButton(
                 onClick = {
-                    LoggrDebug { "wsnkrn resultt" }
+                    Loggr.debug { "wsnkrn resultt" }
                 }
             ) {
                 Text("Click me")
@@ -109,7 +109,7 @@ private fun RepeatingButtonPreview() {
 
             RepeatingButton2(
                 onClick = {
-                    LoggrDebug { "wsnkrn resultt 2" }
+                    Loggr.debug { "wsnkrn resultt 2" }
                 }
             ) {
                 Text("Click me 2")
@@ -128,13 +128,13 @@ fun LaunchedEffectPrev() {
     var text by remember { mutableStateOf("Initial data") }
 
     LaunchedEffect(Unit) {
-        LoggrDebug { "wsnkrn snackbar click 1" }
+        Loggr.debug { "wsnkrn snackbar click 1" }
         snackbarHostState.showSnackbar(
             message = "Are you happy with your input?",
             actionLabel = "Yes",
             duration = SnackbarDuration.Indefinite,
         )
-        LoggrDebug { "wsnkrn snackbar click 2" }
+        Loggr.debug { "wsnkrn snackbar click 2" }
         result = text
     }
 
@@ -203,7 +203,7 @@ fun RepeatingButton(
 
         while (enabled && pressed.value) {
             currentClickListener.value.invoke()
-            LoggrDebug { "wsnkrn click $currentDelayMillis" }
+            Loggr.debug { "wsnkrn click $currentDelayMillis" }
             delay(currentDelayMillis)
             currentDelayMillis = (currentDelayMillis - (currentDelayMillis * delayDecayFactor)).toLong().coerceAtLeast(minDelayMillis)
         }
@@ -242,7 +242,7 @@ fun RepeatingButton2(
                             while (enabled && down.pressed) {
                                 currentClickListener.value()
                                 delay(currentDelayMillis)
-                                LoggrDebug { "wsnkrn click 2 $currentDelayMillis" }
+                                Loggr.debug { "wsnkrn click 2 $currentDelayMillis" }
                                 currentDelayMillis = (currentDelayMillis - (currentDelayMillis * delayDecayFactor)).toLong().coerceAtLeast(minDelayMillis)
                             }
                         }

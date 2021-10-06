@@ -38,7 +38,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.dp
-import com.wisnu.kurniawan.coreLogger.LoggrDebug
+import com.wisnu.kurniawan.coreLogger.Loggr
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -272,7 +272,7 @@ private class SwipeSearchNestedScrollConnection(
 
         if (scrollInfo == SCROLL_UP && deltaToConsume == 0f) return Offset.Zero
 
-        LoggrDebug { "performDrag $deltaToConsume $scrollInfo" }
+        Loggr.debug { "performDrag $deltaToConsume $scrollInfo" }
 
         coroutineScope.launch {
             state.dispatchScrollDelta(deltaToConsume, searchHeightPx.toFloat())

@@ -52,7 +52,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.SwipeToDismiss
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProviderImpl
-import com.wisnu.kurniawan.coreLogger.LoggrDebug
+import com.wisnu.kurniawan.coreLogger.Loggr
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -337,7 +337,7 @@ private fun TaskStepPreview() {
                     }
                 },
                 onFocusChanged = { focusState, value ->
-                    LoggrDebug { "wsnkrn ${focusState.isFocused}" }
+                    Loggr.debug { "wsnkrn ${focusState.isFocused}" }
                     if (!focusState.isFocused) {
                         if (value.text.isNotBlank()) {
                             val newData = data.toMutableList()
