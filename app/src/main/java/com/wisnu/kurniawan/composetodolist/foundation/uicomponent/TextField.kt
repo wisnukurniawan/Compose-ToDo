@@ -272,27 +272,34 @@ fun PgToDoCreator(
                     onSubmit()
                 }
             ),
-            modifier = modifier.weight(0.6F)
+            modifier = modifier
+                .height(50.dp)
+                .weight(0.6F),
+            trailingIcon = {
+                PgIconButton(
+                    onClick = {
+                        onNextSubmit()
+                    },
+                    enabled = isValid,
+                    color = if (isValid) {
+                        MaterialTheme.colors.primary
+                    } else {
+                        MaterialTheme.colors.secondaryVariant
+                    },
+                    modifier = Modifier.size(42.dp)
+                ) {
+                    PgIcon(
+                        imageVector = Icons.Rounded.ArrowUpward,
+                        tint = if (isValid) {
+                            MaterialTheme.colors.onSecondary
+                        } else {
+                            MaterialTheme.colors.onSecondary.copy(alpha = ContentAlpha.disabled)
+                        }
+                    )
+                }
+            }
         )
 
-        Spacer(Modifier.width(8.dp))
-
-        PgIconButton(
-            onClick = {
-                onNextSubmit()
-            },
-            enabled = isValid
-        ) {
-            PgIcon(
-                imageVector = Icons.Rounded.ArrowUpward,
-                modifier = Modifier.size(56.dp),
-                tint = if (isValid) {
-                    MaterialTheme.colors.primary
-                } else {
-                    MaterialTheme.colors.secondaryVariant
-                }
-            )
-        }
     }
 }
 
@@ -322,9 +329,10 @@ fun PgToDoCreateConfirmator(
                     placeholderValue = placeholder,
                     modifier = Modifier
                         .padding(horizontal = 16.dp)
+                        .height(50.dp)
                         .fillMaxWidth()
                         .focusRequester(focusRequester),
-                    shape = MaterialTheme.shapes.large
+                    shape = MaterialTheme.shapes.large,
                 )
             }
 

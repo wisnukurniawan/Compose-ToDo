@@ -253,7 +253,7 @@ fun CreateListEditor(
                     value = name,
                     onValueChange = { onNameChange(it) },
                     placeholderValue = stringResource(R.string.todo_create_list_hint),
-                    modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 8.dp).fillMaxWidth(),
+                    modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 8.dp).height(50.dp).fillMaxWidth(),
                     shape = MaterialTheme.shapes.large,
                     textColor = colorItems.selectedColor()
                 )

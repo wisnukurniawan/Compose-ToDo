@@ -3,6 +3,7 @@ package com.wisnu.kurniawan.composetodolist.features.todo.group.ui
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardActions
@@ -137,7 +138,7 @@ private fun CreateGroup(
                     value = groupName,
                     onValueChange = onGroupNameChange,
                     placeholderValue = hint,
-                    modifier = modifier.padding(horizontal = 16.dp).fillMaxWidth(),
+                    modifier = modifier.padding(horizontal = 16.dp).height(50.dp).fillMaxWidth(),
                     shape = MaterialTheme.shapes.large,
                     keyboardOptions = KeyboardOptions.Default.copy(
                         imeAction = ImeAction.Done
