@@ -265,10 +265,10 @@ fun PgToDoCreator(
             placeholderValue = placeholder,
             shape = MaterialTheme.shapes.large,
             keyboardOptions = KeyboardOptions.Default.copy(
-                imeAction = ImeAction.Next
+                imeAction = ImeAction.Done
             ),
             keyboardActions = KeyboardActions(
-                onNext = {
+                onDone = {
                     onSubmit()
                 }
             ),
