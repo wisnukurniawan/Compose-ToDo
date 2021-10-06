@@ -5,6 +5,8 @@ import androidx.compose.animation.core.animate
 import androidx.compose.foundation.MutatePriority
 import androidx.compose.foundation.MutatorMutex
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -91,6 +93,7 @@ fun SwipeSearch(
     state: SwipeSearchState = rememberSwipeSearchState(SwipeSearchValue.Closed),
     enabled: Boolean = true,
     onFling: (SwipeSearchValue) -> Unit,
+    onSearchAreaClick: () -> Unit,
     content: @Composable () -> Unit,
     searchSection: @Composable RowScope.() -> Unit,
     searchBody: LazyListScope.() -> Unit,
@@ -153,6 +156,11 @@ fun SwipeSearch(
                             .alpha(alpha)
                             .background(MaterialTheme.colors.secondaryVariant)
                             .fillMaxSize()
+                            .clickable(
+                                interactionSource = remember { MutableInteractionSource() },
+                                indication = null,
+                                onClick = onSearchAreaClick
+                            )
                     ) {
                         item {
                             Spacer(Modifier.height(SearchHeight))

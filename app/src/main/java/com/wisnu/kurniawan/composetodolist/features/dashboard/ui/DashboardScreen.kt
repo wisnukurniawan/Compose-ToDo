@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -123,6 +125,7 @@ fun DashboardScreen(
         onFling = {
             swipeSearchValue = it
         },
+        onSearchAreaClick = closeSearch,
         content = {
             DashboardContent(
                 email,
@@ -181,7 +184,9 @@ private fun SearchSection(
 
     Column {
         TextButton(
-            onClick = onCancelClick
+            onClick = onCancelClick,
+            shape = CircleShape,
+            colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colors.onSurface)
         ) {
             Text(
                 text = stringResource(R.string.todo_cancel),
