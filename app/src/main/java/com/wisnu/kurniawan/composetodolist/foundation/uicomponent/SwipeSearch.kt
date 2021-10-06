@@ -19,7 +19,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
@@ -98,7 +97,6 @@ fun SwipeSearch(
     searchSection: @Composable RowScope.() -> Unit,
     searchBody: LazyListScope.() -> Unit,
 ) {
-    Scaffold { }
     val searchHeightPx = with(LocalDensity.current) { SearchHeight.roundToPx() }
     val coroutineScope = rememberCoroutineScope()
     val nestedScrollConnection = remember(state, coroutineScope) {
