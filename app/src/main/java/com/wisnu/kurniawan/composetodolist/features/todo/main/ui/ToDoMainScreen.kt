@@ -1,14 +1,34 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.main.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.Divider
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.LocalContentAlpha
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.*
+import androidx.compose.material.icons.rounded.CalendarToday
+import androidx.compose.material.icons.rounded.Event
+import androidx.compose.material.icons.rounded.Inbox
+import androidx.compose.material.icons.rounded.List
+import androidx.compose.material.icons.rounded.MoreHoriz
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
@@ -28,7 +48,11 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.cellShape
 import com.wisnu.kurniawan.composetodolist.foundation.extension.identifier
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
 import com.wisnu.kurniawan.composetodolist.foundation.extension.totalTask
-import com.wisnu.kurniawan.composetodolist.foundation.theme.*
+import com.wisnu.kurniawan.composetodolist.foundation.theme.CommonBlue
+import com.wisnu.kurniawan.composetodolist.foundation.theme.CommonGrey
+import com.wisnu.kurniawan.composetodolist.foundation.theme.CommonRed
+import com.wisnu.kurniawan.composetodolist.foundation.theme.ListRed
+import com.wisnu.kurniawan.composetodolist.foundation.theme.MediumRadius
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgEmpty
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
@@ -57,7 +81,7 @@ fun ToDoMainScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(all = 16.dp)
+                    .padding(start = 16.dp, end = 16.dp, bottom = 16.dp, top = 8.dp)
             ) {
                 ScheduledTodayCell(
                     modifier = Modifier
@@ -135,7 +159,7 @@ fun ToDoMainScreen(
         }
 
         item {
-            Spacer(Modifier.height(66.dp))
+            Spacer(Modifier.height(56.dp))
         }
     }
 }

@@ -1,10 +1,12 @@
 package com.wisnu.kurniawan.composetodolist.features.dashboard.ui
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -14,8 +16,9 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material.icons.rounded.NoteAdd
-import androidx.compose.material.icons.rounded.Settings
+import androidx.compose.material.icons.rounded.CreateNewFolder
+import androidx.compose.material.icons.rounded.Menu
+import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -110,7 +113,6 @@ private fun DashboardScreen(
 
     val focusManager = LocalFocusManager.current
     val focusRequest = remember { FocusRequester() }
-
     LaunchedEffect(swipeSearchState.currentValue) {
         if (swipeSearchState.currentValue == SwipeSearchValue.Opened) {
             onSearchOpened()
@@ -121,6 +123,7 @@ private fun DashboardScreen(
     }
 
     val closeSearch = { swipeSearchValue = SwipeSearchValue.Closed }
+    val openSearch = { swipeSearchValue = SwipeSearchValue.Opened }
     if (swipeSearchState.currentValue == SwipeSearchValue.Opened) {
         BackHandler(onBack = closeSearch)
     }
@@ -146,6 +149,7 @@ private fun DashboardScreen(
                 onScheduledTask,
                 onClickAllTask,
                 onSettingClick,
+                openSearch,
                 onAddNewListClick,
                 onAddNewGroupClick
             )
@@ -180,15 +184,39 @@ private fun DashboardContent(
     onScheduledTask: () -> Unit,
     onClickAllTask: () -> Unit,
     onSettingClick: () -> Unit,
+    onSearchClick: () -> Unit,
     onAddNewListClick: () -> Unit,
     onAddNewGroupClick: () -> Unit
 ) {
     PgPageLayout {
-        Text(
-            text = email,
-            style = MaterialTheme.typography.subtitle2,
-            modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
-        )
+        Row(
+            modifier = Modifier
+                .padding(horizontal = 4.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                PgIconButton(onClick = onSettingClick, color = Color.Transparent) {
+                    PgIcon(imageVector = Icons.Rounded.Menu)
+                }
+
+                Spacer(Modifier.width(16.dp))
+
+                Text(
+                    text = email,
+                    style = MaterialTheme.typography.subtitle1,
+                    modifier = Modifier.padding(bottom = 4.dp)
+                )
+            }
+
+            PgIconButton(onClick = onSearchClick, color = Color.Transparent) {
+                PgIcon(imageVector = Icons.Rounded.Search)
+            }
+
+        }
 
         Box(modifier = Modifier.fillMaxSize().weight(1F)) {
             ToDoMainScreen(
@@ -206,34 +234,26 @@ private fun DashboardContent(
             )
 
             Footer(
-                onSettingClick = onSettingClick,
                 onAddNewListClick = onAddNewListClick,
                 onAddNewGroupClick = onAddNewGroupClick,
                 modifier = Modifier.align(Alignment.BottomStart)
             )
         }
-
-        Spacer(Modifier.height(36.dp))
     }
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun Footer(
-    onSettingClick: () -> Unit,
     onAddNewListClick: () -> Unit,
     onAddNewGroupClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     PgTransparentFooter(modifier) {
-        PgIconButton(onClick = onSettingClick) {
-            PgIcon(imageVector = Icons.Rounded.Settings)
-        }
-
         Surface(
-            modifier = Modifier.height(48.dp),
+            modifier = Modifier.height(48.dp).weight(1f),
             shape = MaterialTheme.shapes.large,
-            color = MaterialTheme.colors.primary,
+            color = Color.Transparent,
             onClick = onAddNewListClick
         ) {
             Row(
@@ -242,19 +262,19 @@ private fun Footer(
             ) {
                 PgIcon(
                     imageVector = Icons.Rounded.Add,
-                    tint = Color.White
                 )
                 Spacer(Modifier.width(4.dp))
                 Text(
                     text = stringResource(R.string.todo_new_list),
                     style = MaterialTheme.typography.button,
-                    color = Color.White
                 )
             }
         }
 
-        PgIconButton(onClick = onAddNewGroupClick) {
-            PgIcon(imageVector = Icons.Rounded.NoteAdd)
+        Spacer(Modifier.width(8.dp))
+
+        PgIconButton(onClick = onAddNewGroupClick, color = Color.Transparent) {
+            PgIcon(imageVector = Icons.Rounded.CreateNewFolder)
         }
     }
 }
