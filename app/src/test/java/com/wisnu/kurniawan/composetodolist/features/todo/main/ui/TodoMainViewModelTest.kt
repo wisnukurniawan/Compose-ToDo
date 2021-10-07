@@ -8,6 +8,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl
 import com.wisnu.kurniawan.composetodolist.model.ToDoGroup
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
+import com.wisnu.kurniawan.composetodolist.model.ToDoTaskOverallCount
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -40,6 +41,10 @@ class ToDoMainViewModelTest : BaseViewModelTest() {
                         )
                     )
                 }
+            }
+
+            override fun getOverallCount(): Flow<ToDoTaskOverallCount> {
+                return flow { ToDoTaskOverallCount(0, 0, 0) }
             }
 
             override suspend fun deleteList(list: ToDoList) {
