@@ -4,15 +4,23 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.wisnu.kurniawan.composetodolist.DateFactory
 import com.wisnu.kurniawan.composetodolist.expect
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.*
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoGroupDb
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoGroupWithList
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoListDb
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoListWithTasks
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoStepDb
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoTaskDb
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoTaskWithSteps
 import com.wisnu.kurniawan.composetodolist.model.ToDoColor
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
+import com.wisnu.kurniawan.composetodolist.model.ToDoTaskOverallCount
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import java.time.LocalDateTime
 import kotlin.time.ExperimentalTime
 
 @ExperimentalTime
@@ -145,6 +153,114 @@ class ToDoReadTest {
 
         toDoReadDao.getListWithUnGroupList(groupId1).expect(listOf(list3, list4, list1))
         toDoReadDao.getListWithUnGroupList("unknown").expect(listOf(list3, list4))
+    }
+
+    @Test
+    fun getOverallTaskCount() = runBlocking {
+        val today: LocalDateTime = LocalDateTime.of(2021, 1, 19, 1, 0, 0, 0)
+        val todayBefore1: LocalDateTime = LocalDateTime.of(2021, 1, 18, 0, 0, 0, 0)
+        val todayBefore2: LocalDateTime = LocalDateTime.of(2021, 1, 17, 0, 0, 0, 0)
+        val todayAfter1: LocalDateTime = LocalDateTime.of(2021, 1, 20, 0, 0, 0, 0)
+        val todayAfter2: LocalDateTime = LocalDateTime.of(2021, 1, 21, 0, 0, 0, 0)
+        val tomorrow: LocalDateTime = LocalDateTime.of(2021, 1, 20, 0, 0, 0, 0)
+
+        val unknownGroupId = "unknown"
+        val listId1 = "listId1"
+        val listId2 = "listId2"
+        val taskId1 = "taskId1"
+        val taskId2 = "taskId2"
+        val taskId3 = "taskId3"
+        val taskId4 = "taskId4"
+        val taskId5 = "taskId5"
+        val taskId6 = "taskId6"
+
+        val group1 = ToDoGroupDb(
+            id = unknownGroupId,
+            name = "group1",
+            createdAt = DateFactory.constantDate,
+            updatedAt = DateFactory.constantDate,
+        )
+        val list1 = ToDoListDb(
+            color = ToDoColor.BLUE,
+            id = listId1,
+            name = "list1",
+            groupId = unknownGroupId,
+            createdAt = DateFactory.constantDate,
+            updatedAt = DateFactory.constantDate,
+        )
+        val list2 = ToDoListDb(
+            color = ToDoColor.BLUE,
+            id = listId2,
+            name = "list2",
+            groupId = unknownGroupId,
+            createdAt = DateFactory.constantDate,
+            updatedAt = DateFactory.constantDate,
+        )
+        val task1 = ToDoTaskDb(
+            id = taskId1,
+            name = "task1",
+            listId = listId1,
+            status = ToDoStatus.IN_PROGRESS,
+            createdAt = DateFactory.constantDate,
+            updatedAt = DateFactory.constantDate,
+        )
+        val task2 = ToDoTaskDb(
+            id = taskId2,
+            name = "task2",
+            listId = listId2,
+            status = ToDoStatus.IN_PROGRESS,
+            createdAt = DateFactory.constantDate,
+            updatedAt = DateFactory.constantDate,
+            dueDate = today
+        )
+        val task3 = ToDoTaskDb(
+            id = taskId3,
+            name = "task3",
+            listId = listId2,
+            status = ToDoStatus.IN_PROGRESS,
+            createdAt = DateFactory.constantDate,
+            updatedAt = DateFactory.constantDate,
+            dueDate = todayAfter1
+        )
+        val task4 = ToDoTaskDb(
+            id = taskId4,
+            name = "task4",
+            listId = listId2,
+            status = ToDoStatus.IN_PROGRESS,
+            createdAt = DateFactory.constantDate,
+            updatedAt = DateFactory.constantDate,
+            dueDate = todayAfter2
+        )
+        val task5 = ToDoTaskDb(
+            id = taskId5,
+            name = "task5",
+            listId = listId2,
+            status = ToDoStatus.IN_PROGRESS,
+            createdAt = DateFactory.constantDate,
+            updatedAt = DateFactory.constantDate,
+            dueDate = todayBefore1
+        )
+        val task6 = ToDoTaskDb(
+            id = taskId6,
+            name = "task6",
+            listId = listId2,
+            status = ToDoStatus.IN_PROGRESS,
+            createdAt = DateFactory.constantDate,
+            updatedAt = DateFactory.constantDate,
+            dueDate = todayBefore2
+        )
+
+        toDoWriteDao.insertGroup(listOf(group1))
+        toDoWriteDao.insertList(listOf(list1, list2))
+        toDoWriteDao.insertTask(listOf(task1, task2, task3, task4, task5, task6))
+
+        toDoReadDao.getTaskOverallCount(tomorrow).expect(
+            ToDoTaskOverallCount(
+                6,
+                3,
+                5
+            )
+        )
     }
 
     @Test

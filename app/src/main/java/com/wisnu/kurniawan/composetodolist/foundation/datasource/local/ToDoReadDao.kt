@@ -3,9 +3,17 @@ package com.wisnu.kurniawan.composetodolist.foundation.datasource.local
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.*
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoGroupDb
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoGroupWithList
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoListDb
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoListWithTasks
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoStepDb
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoTaskDb
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoTaskWithSteps
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
+import com.wisnu.kurniawan.composetodolist.model.ToDoTaskOverallCount
 import kotlinx.coroutines.flow.Flow
+import java.time.LocalDateTime
 
 /**
  * Return the most recent value for To-Do resource, null if it doesn’t exist.
@@ -37,6 +45,15 @@ interface ToDoReadDao {
 
     @Query("SELECT * FROM ToDoTaskDb")
     fun getTask(): Flow<List<ToDoTaskDb>>
+
+    @Query(
+        """
+            SELECT COUNT(*) AS allTaskCount,
+            (SELECT COUNT(dueDate) FROM ToDoTaskDb WHERE dueDate < :date) AS scheduledTodayTaskCount, 
+            COUNT(dueDate) AS scheduledTaskCount FROM ToDoTaskDb
+        """
+    )
+    fun getTaskOverallCount(date: LocalDateTime): Flow<ToDoTaskOverallCount>
 
     @Query("SELECT * FROM ToDoTaskDb WHERE dueDate IS NOT NULL AND status != :status")
     fun getScheduledTasks(status: ToDoStatus = ToDoStatus.COMPLETE): Flow<List<ToDoTaskDb>>

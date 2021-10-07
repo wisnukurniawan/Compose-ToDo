@@ -6,7 +6,6 @@ import com.wisnu.kurniawan.composetodolist.model.ToDoGroup
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
-import java.time.LocalDateTime
 
 
 fun List<ToDoGroup>.toGroupDp(): List<ToDoGroupDb> {
@@ -25,22 +24,6 @@ fun List<ToDoGroup>.toTasks(): List<ToDoTask> {
         group.lists
             .flatMap { it.tasks }
     }
-}
-
-fun List<ToDoGroup>.toScheduledTasks(currentDateTime: LocalDateTime): List<ToDoTask> {
-    return toTasks()
-        .filter {
-            it.dueDate != null &&
-                it.dueDate.isAfter(currentDateTime)
-        }
-}
-
-fun List<ToDoGroup>.toScheduledTodayTasks(currentDateTime: LocalDateTime): List<ToDoTask> {
-    return toTasks()
-        .filter {
-            it.dueDate != null &&
-                it.dueDate.toLocalDate().isBefore(currentDateTime.toLocalDate().plusDays(1))
-        }
 }
 
 fun List<ToDoGroup>.toItemGroup(): List<ItemMainState> {

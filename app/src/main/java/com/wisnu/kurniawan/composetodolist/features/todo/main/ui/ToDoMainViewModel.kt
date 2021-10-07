@@ -3,9 +3,6 @@ package com.wisnu.kurniawan.composetodolist.features.todo.main.ui
 import androidx.lifecycle.viewModelScope
 import com.wisnu.kurniawan.composetodolist.features.todo.main.data.IToDoMainEnvironment
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toItemGroup
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toScheduledTasks
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toScheduledTodayTasks
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toTasks
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
@@ -19,6 +16,7 @@ class ToDoMainViewModel @Inject constructor(todoMainEnvironment: IToDoMainEnviro
 
     init {
         initToDo()
+        initOverallCount()
     }
 
     override fun dispatch(action: ToDoMainAction) {
@@ -37,24 +35,25 @@ class ToDoMainViewModel @Inject constructor(todoMainEnvironment: IToDoMainEnviro
                 .flowOn(environment.dispatcher)
                 .collect {
                     setState {
-                        // TODO consider get the calculation of
-                        //  allTaskCount, scheduledTodayTaskCount, scheduledTaskCount
-                        //  from database query
                         copy(
                             data = it.toItemGroup(),
-                            currentDate = environment.dateTimeProvider.now().dayOfMonth.toString(),
-                            allTaskCount = it
-                                .toTasks()
-                                .size
-                                .toString(),
-                            scheduledTodayTaskCount = it
-                                .toScheduledTodayTasks(environment.dateTimeProvider.now())
-                                .size
-                                .toString(),
-                            scheduledTaskCount = it
-                                .toScheduledTasks(environment.dateTimeProvider.now())
-                                .size
-                                .toString(),
+                            currentDate = environment.dateTimeProvider.now().dayOfMonth.toString()
+                        )
+                    }
+                }
+        }
+    }
+
+    private fun initOverallCount() {
+        viewModelScope.launch {
+            environment.getOverallCount()
+                .flowOn(environment.dispatcher)
+                .collect {
+                    setState {
+                        copy(
+                            allTaskCount = it.allTaskCount.toString(),
+                            scheduledTodayTaskCount = it.scheduledTodayTaskCount.toString(),
+                            scheduledTaskCount = it.scheduledTaskCount.toString(),
                         )
                     }
                 }
