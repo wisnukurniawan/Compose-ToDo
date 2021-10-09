@@ -41,58 +41,10 @@ fun NavGraphBuilder.HomeNavHost(
                 searchViewModel = searchViewModel
             )
         }
-        bottomSheet(
-            route = HomeFlow.GroupMenu.route,
-            arguments = HomeFlow.GroupMenu.arguments
-        ) {
-            val viewModel = hiltViewModel<GroupMenuViewModel>()
-            bottomSheetConfig.value = defaultMainBottomSheetConfig
-            GroupMenuScreen(
-                viewModel = viewModel,
-                navController = navController
-            )
-        }
-        bottomSheet(HomeFlow.CreateGroup.route) {
-            val viewModel = hiltViewModel<CreateGroupViewModel>()
-            bottomSheetConfig.value = defaultMainBottomSheetConfig
-            CreateGroupScreen(
-                navController = navController,
-                viewModel = viewModel
-            )
-        }
-        bottomSheet(
-            route = HomeFlow.UpdateGroup.route,
-            arguments = HomeFlow.UpdateGroup.arguments
-        ) {
-            val viewModel = hiltViewModel<CreateGroupViewModel>()
-            bottomSheetConfig.value = defaultMainBottomSheetConfig
-            UpdateGroupScreen(
-                navController = navController,
-                viewModel = viewModel
-            )
-        }
-        bottomSheet(
-            route = HomeFlow.UpdateGroupList.route,
-            arguments = HomeFlow.UpdateGroupList.arguments
-        ) {
-            val viewModel = hiltViewModel<UpdateGroupListViewModel>()
-            bottomSheetConfig.value = defaultMainBottomSheetConfig
-            UpdateGroupListScreen(
-                navController = navController,
-                viewModel = viewModel
-            )
-        }
-        bottomSheet(
-            route = HomeFlow.EditGroupList.route,
-            arguments = HomeFlow.EditGroupList.arguments
-        ) {
-            val viewModel = hiltViewModel<UpdateGroupListViewModel>()
-            bottomSheetConfig.value = defaultMainBottomSheetConfig
-            EditGroupListScreen(
-                navController = navController,
-                viewModel = viewModel
-            )
-        }
+        HomeBottomSheetNavHost(
+            bottomSheetConfig = bottomSheetConfig,
+            navController = navController
+        )
     }
 }
 
@@ -117,57 +69,69 @@ fun NavGraphBuilder.HomeTabletNavHost(
                 searchViewModel = searchViewModel
             )
         }
-        bottomSheet(
-            route = HomeFlow.GroupMenu.route,
-            arguments = HomeFlow.GroupMenu.arguments
-        ) {
-            val viewModel = hiltViewModel<GroupMenuViewModel>()
-            bottomSheetConfig.value = defaultMainBottomSheetConfig
-            GroupMenuScreen(
-                viewModel = viewModel,
-                navController = navControllerLeft
-            )
-        }
-        bottomSheet(HomeFlow.CreateGroup.route) {
-            val viewModel = hiltViewModel<CreateGroupViewModel>()
-            bottomSheetConfig.value = defaultMainBottomSheetConfig
-            CreateGroupScreen(
-                navController = navControllerLeft,
-                viewModel = viewModel
-            )
-        }
-        bottomSheet(
-            route = HomeFlow.UpdateGroup.route,
-            arguments = HomeFlow.UpdateGroup.arguments
-        ) {
-            val viewModel = hiltViewModel<CreateGroupViewModel>()
-            bottomSheetConfig.value = defaultMainBottomSheetConfig
-            UpdateGroupScreen(
-                navController = navControllerLeft,
-                viewModel = viewModel
-            )
-        }
-        bottomSheet(
-            route = HomeFlow.UpdateGroupList.route,
-            arguments = HomeFlow.UpdateGroupList.arguments
-        ) {
-            val viewModel = hiltViewModel<UpdateGroupListViewModel>()
-            bottomSheetConfig.value = defaultMainBottomSheetConfig
-            UpdateGroupListScreen(
-                navController = navControllerLeft,
-                viewModel = viewModel
-            )
-        }
-        bottomSheet(
-            route = HomeFlow.EditGroupList.route,
-            arguments = HomeFlow.EditGroupList.arguments
-        ) {
-            val viewModel = hiltViewModel<UpdateGroupListViewModel>()
-            bottomSheetConfig.value = defaultMainBottomSheetConfig
-            EditGroupListScreen(
-                navController = navControllerLeft,
-                viewModel = viewModel
-            )
-        }
+
+        HomeBottomSheetNavHost(
+            bottomSheetConfig = bottomSheetConfig,
+            navController = navControllerLeft
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterialNavigationApi::class)
+private fun NavGraphBuilder.HomeBottomSheetNavHost(
+    bottomSheetConfig: MutableState<MainBottomSheetConfig>,
+    navController: NavHostController
+) {
+    bottomSheet(
+        route = HomeFlow.GroupMenu.route,
+        arguments = HomeFlow.GroupMenu.arguments
+    ) {
+        val viewModel = hiltViewModel<GroupMenuViewModel>()
+        bottomSheetConfig.value = defaultMainBottomSheetConfig
+        GroupMenuScreen(
+            viewModel = viewModel,
+            navController = navController
+        )
+    }
+    bottomSheet(HomeFlow.CreateGroup.route) {
+        val viewModel = hiltViewModel<CreateGroupViewModel>()
+        bottomSheetConfig.value = defaultMainBottomSheetConfig
+        CreateGroupScreen(
+            navController = navController,
+            viewModel = viewModel
+        )
+    }
+    bottomSheet(
+        route = HomeFlow.UpdateGroup.route,
+        arguments = HomeFlow.UpdateGroup.arguments
+    ) {
+        val viewModel = hiltViewModel<CreateGroupViewModel>()
+        bottomSheetConfig.value = defaultMainBottomSheetConfig
+        UpdateGroupScreen(
+            navController = navController,
+            viewModel = viewModel
+        )
+    }
+    bottomSheet(
+        route = HomeFlow.UpdateGroupList.route,
+        arguments = HomeFlow.UpdateGroupList.arguments
+    ) {
+        val viewModel = hiltViewModel<UpdateGroupListViewModel>()
+        bottomSheetConfig.value = defaultMainBottomSheetConfig
+        UpdateGroupListScreen(
+            navController = navController,
+            viewModel = viewModel
+        )
+    }
+    bottomSheet(
+        route = HomeFlow.EditGroupList.route,
+        arguments = HomeFlow.EditGroupList.arguments
+    ) {
+        val viewModel = hiltViewModel<UpdateGroupListViewModel>()
+        bottomSheetConfig.value = defaultMainBottomSheetConfig
+        EditGroupListScreen(
+            navController = navController,
+            viewModel = viewModel
+        )
     }
 }

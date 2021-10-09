@@ -40,47 +40,11 @@ fun NavGraphBuilder.ListDetailNavHost(
                 viewModel = viewModel
             )
         }
-        bottomSheet(ListDetailFlow.CreateList.route) {
-            val viewModel = if (navController.previousBackStackEntry != null) {
-                hiltViewModel<ListDetailViewModel>(
-                    navController.previousBackStackEntry!!
-                )
-            } else {
-                hiltViewModel()
-            }
-            bottomSheetConfig.value = defaultMainBottomSheetConfig
-            CreateListEditor(
-                viewModel = viewModel,
-                navController = navController
-            )
-        }
-        bottomSheet(ListDetailFlow.UpdateList.route) {
-            val viewModel = if (navController.previousBackStackEntry != null) {
-                hiltViewModel<ListDetailViewModel>(
-                    navController.previousBackStackEntry!!
-                )
-            } else {
-                hiltViewModel()
-            }
-            bottomSheetConfig.value = defaultMainBottomSheetConfig
-            UpdateListEditor(
-                viewModel = viewModel,
-                navController = navController
-            )
-        }
-        bottomSheet(ListDetailFlow.CreateTask.route) {
-            val viewModel = if (navController.previousBackStackEntry != null) {
-                hiltViewModel<ListDetailViewModel>(
-                    navController.previousBackStackEntry!!
-                )
-            } else {
-                hiltViewModel()
-            }
-            bottomSheetConfig.value = noScrimSmallShapeMainBottomSheetConfig
-            TaskEditor(
-                viewModel = viewModel
-            )
-        }
+        ListDetailBottomSheetNavHost(
+            navController = navController,
+            bottomSheetConfig = bottomSheetConfig
+        )
+
     }
 }
 
@@ -105,46 +69,57 @@ fun NavGraphBuilder.ListDetailTabletNavHost(
                 viewModel = viewModel
             )
         }
-        bottomSheet(ListDetailFlow.CreateList.route) {
-            val viewModel = if (navController.previousBackStackEntry != null) {
-                hiltViewModel<ListDetailViewModel>(
-                    navController.previousBackStackEntry!!
-                )
-            } else {
-                hiltViewModel()
-            }
-            bottomSheetConfig.value = defaultMainBottomSheetConfig
-            CreateListEditor(
-                viewModel = viewModel,
-                navController = navController
+        ListDetailBottomSheetNavHost(
+            navController = navController,
+            bottomSheetConfig = bottomSheetConfig
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterialNavigationApi::class)
+private fun NavGraphBuilder.ListDetailBottomSheetNavHost(
+    navController: NavHostController,
+    bottomSheetConfig: MutableState<MainBottomSheetConfig>
+) {
+    bottomSheet(ListDetailFlow.CreateList.route) {
+        val viewModel = if (navController.previousBackStackEntry != null) {
+            hiltViewModel<ListDetailViewModel>(
+                navController.previousBackStackEntry!!
             )
+        } else {
+            hiltViewModel()
         }
-        bottomSheet(ListDetailFlow.UpdateList.route) {
-            val viewModel = if (navController.previousBackStackEntry != null) {
-                hiltViewModel<ListDetailViewModel>(
-                    navController.previousBackStackEntry!!
-                )
-            } else {
-                hiltViewModel()
-            }
-            bottomSheetConfig.value = defaultMainBottomSheetConfig
-            UpdateListEditor(
-                viewModel = viewModel,
-                navController = navController
+        bottomSheetConfig.value = defaultMainBottomSheetConfig
+        CreateListEditor(
+            viewModel = viewModel,
+            navController = navController
+        )
+    }
+    bottomSheet(ListDetailFlow.UpdateList.route) {
+        val viewModel = if (navController.previousBackStackEntry != null) {
+            hiltViewModel<ListDetailViewModel>(
+                navController.previousBackStackEntry!!
             )
+        } else {
+            hiltViewModel()
         }
-        bottomSheet(ListDetailFlow.CreateTask.route) {
-            val viewModel = if (navController.previousBackStackEntry != null) {
-                hiltViewModel<ListDetailViewModel>(
-                    navController.previousBackStackEntry!!
-                )
-            } else {
-                hiltViewModel()
-            }
-            bottomSheetConfig.value = noScrimSmallShapeMainBottomSheetConfig
-            TaskEditor(
-                viewModel = viewModel
+        bottomSheetConfig.value = defaultMainBottomSheetConfig
+        UpdateListEditor(
+            viewModel = viewModel,
+            navController = navController
+        )
+    }
+    bottomSheet(ListDetailFlow.CreateTask.route) {
+        val viewModel = if (navController.previousBackStackEntry != null) {
+            hiltViewModel<ListDetailViewModel>(
+                navController.previousBackStackEntry!!
             )
+        } else {
+            hiltViewModel()
         }
+        bottomSheetConfig.value = noScrimSmallShapeMainBottomSheetConfig
+        TaskEditor(
+            viewModel = viewModel
+        )
     }
 }
