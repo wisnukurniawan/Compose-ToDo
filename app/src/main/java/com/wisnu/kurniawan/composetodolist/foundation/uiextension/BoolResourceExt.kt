@@ -6,13 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
-import com.wisnu.kurniawan.composetodolist.R
-
-@Composable
-@ReadOnlyComposable
-fun isTablet(): Boolean {
-    return boolResource(R.bool.isTablet)
-}
 
 @Composable
 @ReadOnlyComposable
