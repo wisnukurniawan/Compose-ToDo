@@ -9,33 +9,43 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ModalBottomSheetDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.window.layout.WindowInfoRepository
+import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import com.wisnu.kurniawan.composetodolist.features.splash.ui.SplashScreen
 import com.wisnu.kurniawan.composetodolist.features.splash.ui.SplashViewModel
-import com.wisnu.kurniawan.composetodolist.foundation.uiextension.isTablet
+import com.wisnu.kurniawan.composetodolist.runtime.MainBottomSheetConfig
 import com.wisnu.kurniawan.composetodolist.runtime.defaultMainBottomSheetConfig
+import kotlinx.coroutines.flow.collect
+
+const val MinLargeScreenWidth = 585
 
 @OptIn(ExperimentalMaterialNavigationApi::class)
 @Composable
-fun MainNavHost() {
+fun MainNavHost(windowInfoRep: WindowInfoRepository) {
     val bottomSheetNavigator = rememberBottomSheetNavigator()
     val bottomSheetConfig = remember { mutableStateOf(defaultMainBottomSheetConfig) }
 
-    val navController = rememberNavController(bottomSheetNavigator)
+    val smallestScreenWidthDp = LocalConfiguration.current.smallestScreenWidthDp
 
-    val isTablet = isTablet()
+    val isLargeScreen = smallestScreenWidthDp > MinLargeScreenWidth
 
     ModalBottomSheetLayout(
         bottomSheetNavigator = bottomSheetNavigator,
@@ -46,29 +56,49 @@ fun MainNavHost() {
             Color.Transparent
         }
     ) {
-        NavHost(
-            navController = navController,
-            startDestination = MainFlow.Root.route
-        ) {
-            composable(route = MainFlow.Root.route) {
-                val viewModel = hiltViewModel<SplashViewModel>()
-                SplashScreen(navController = navController, viewModel = viewModel)
+        if (isLargeScreen) {
+            LargeScreenNavHost(bottomSheetNavigator, windowInfoRep, bottomSheetConfig)
+        } else {
+            SmallScreenNavHost(bottomSheetNavigator, bottomSheetConfig)
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterialNavigationApi::class)
+@Composable
+private fun LargeScreenNavHost(
+    bottomSheetNavigator: BottomSheetNavigator,
+    windowInfoRep: WindowInfoRepository,
+    bottomSheetConfig: MutableState<MainBottomSheetConfig>
+) {
+    val navController = rememberNavController(bottomSheetNavigator)
+    var isAppSpanned by remember { mutableStateOf(false) }
+    LaunchedEffect(windowInfoRep) {
+        windowInfoRep.windowLayoutInfo
+            .collect { newLayoutInfo ->
+                val displayFeatures = newLayoutInfo.displayFeatures
+                isAppSpanned = displayFeatures.isNotEmpty()
             }
+    }
 
-            AuthNavHost(navController)
+    NavHost(
+        navController = navController,
+        startDestination = MainFlow.Root.route
+    ) {
+        composable(route = MainFlow.Root.route) {
+            val viewModel = hiltViewModel<SplashViewModel>()
+            SplashScreen(navController = navController, viewModel = viewModel)
+        }
 
-            SettingNavHost(navController, bottomSheetConfig)
+        AuthNavHost(navController)
 
-            if (isTablet) {
-                composable(HomeFlow.Root.route) {
-                    HomeTabletNavHost(navController)
-                }
+        SettingNavHost(navController, bottomSheetConfig)
+
+        composable(HomeFlow.Root.route) {
+            if (isAppSpanned) {
+                HomeTabletNavHost(navController, 1F, 1F)
             } else {
-                HomeNavHost(navController, bottomSheetConfig)
-
-                ListDetailNavHost(navController, bottomSheetConfig)
-
-                StepNavHost(navController, bottomSheetConfig)
+                HomeTabletNavHost(navController, 0.333F, 0.666F)
             }
         }
     }
@@ -76,7 +106,39 @@ fun MainNavHost() {
 
 @OptIn(ExperimentalMaterialNavigationApi::class)
 @Composable
-private fun HomeTabletNavHost(navController: NavHostController) {
+private fun SmallScreenNavHost(
+    bottomSheetNavigator: BottomSheetNavigator,
+    bottomSheetConfig: MutableState<MainBottomSheetConfig>
+) {
+    val navController = rememberNavController(bottomSheetNavigator)
+    NavHost(
+        navController = navController,
+        startDestination = MainFlow.Root.route
+    ) {
+        composable(route = MainFlow.Root.route) {
+            val viewModel = hiltViewModel<SplashViewModel>()
+            SplashScreen(navController = navController, viewModel = viewModel)
+        }
+
+        AuthNavHost(navController)
+
+        SettingNavHost(navController, bottomSheetConfig)
+
+        HomeNavHost(navController, bottomSheetConfig)
+
+        ListDetailNavHost(navController, bottomSheetConfig)
+
+        StepNavHost(navController, bottomSheetConfig)
+    }
+}
+
+@OptIn(ExperimentalMaterialNavigationApi::class)
+@Composable
+private fun HomeTabletNavHost(
+    navController: NavHostController,
+    weightLeft: Float,
+    weightRight: Float,
+) {
     val bottomSheetNavigatorLeft = rememberBottomSheetNavigator()
     val bottomSheetConfigLeft = remember { mutableStateOf(defaultMainBottomSheetConfig) }
     val navControllerLeft = rememberNavController(bottomSheetNavigatorLeft)
@@ -87,7 +149,7 @@ private fun HomeTabletNavHost(navController: NavHostController) {
 
     Row(modifier = Modifier.fillMaxSize()) {
         // Left column
-        Box(modifier = Modifier.fillMaxHeight().weight(0.333F)) {
+        Box(modifier = Modifier.fillMaxHeight().weight(weightLeft)) {
             ModalBottomSheetLayout(
                 bottomSheetNavigator = bottomSheetNavigatorLeft,
                 sheetShape = bottomSheetConfigLeft.value.sheetShape,
@@ -120,7 +182,7 @@ private fun HomeTabletNavHost(navController: NavHostController) {
         )
 
         // Right column
-        Box(modifier = Modifier.fillMaxHeight().weight(0.666F)) {
+        Box(modifier = Modifier.fillMaxHeight().weight(weightRight)) {
             ModalBottomSheetLayout(
                 bottomSheetNavigator = bottomSheetNavigatorRight,
                 sheetShape = bottomSheetConfigRight.value.sheetShape,
