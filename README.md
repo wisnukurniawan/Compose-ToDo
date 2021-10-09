@@ -13,22 +13,13 @@ Compose playground for learning purpose, especially trying and explore android t
 * Uses [Hilt](https://dagger.dev/hilt/) for dependency injection
 * Uses [Java 8+ API desugaring support](https://developer.android.com/studio/write/java8-support#library-desugaring) for date and time usage
 
-<table>
-    <tr>
-        <th> <img src="art/delete.gif" width="70%"> </th>
-        <th> <img src="art/language.gif" width="70%"> </th>
-        <th> <img src="art/theme.gif" width="70%"> </th>
-    </tr>
-    <tr>
-        <th> <img src="art/detail.gif" width="70%"> </th>
-        <th> <img src="art/duedate.gif" width="70%"> </th>
-        <th> <img src="art/search.gif" width="70%"> </th>
-    </tr>
-    <tr>
-        <th> <img src="art/landscape.gif" width="70%"> </th>
-        <th> <img src="art/foldable.gif" width="70%"> </th>
-    </tr>
-</table>
+| Deletion | Lang selection | Theme selection |
+| ---- | ---- | ---- |
+| <img src="art/delete.gif" width="260"> | <img src="art/language.gif" width="260"> | <img src="art/theme.gif" width="260"> |
+| Task detail | Set due date | Search |
+| <img src="art/detail.gif" width="260"> | <img src="art/duedate.gif" width="260"> | <img src="art/search.gif" width="260"> |
+| Landscape | Foldable |
+| <img src="art/landscape.gif" width="260"> | <img src="art/foldable.gif" width="260"> |
 
 ## Prerequisites
 
