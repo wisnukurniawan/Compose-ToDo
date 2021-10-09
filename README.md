@@ -24,6 +24,10 @@ Compose playground for learning purpose, especially trying and explore android t
         <th> <img src="art/duedate.gif" width="70%"> </th>
         <th> <img src="art/search.gif" width="70%"> </th>
     </tr>
+    <tr>
+        <th> <img src="art/landscape.gif" width="70%"> </th>
+        <th> <img src="art/foldable.gif" width="70%"> </th>
+    </tr>
 </table>
 
 ## Prerequisites
