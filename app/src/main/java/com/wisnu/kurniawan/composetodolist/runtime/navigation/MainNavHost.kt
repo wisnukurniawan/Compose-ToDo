@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -130,9 +129,9 @@ private fun HomeTabletNavHost(navController: NavHostController) {
             ) {
                 NavHost(
                     navController = navControllerRight,
-                    startDestination = EmptyFlow.Root.route
+                    startDestination = ListDetailFlow.RootEmpty.route
                 ) {
-                    composable(route = EmptyFlow.Root.route) {
+                    composable(route = ListDetailFlow.RootEmpty.route) {
 
                     }
 

@@ -50,7 +50,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgTransparentF
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.SwipeSearch
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.SwipeSearchValue
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.rememberSwipeSearchState
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.EmptyFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ListDetailFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.SettingFlow
@@ -114,14 +113,14 @@ fun DashboardTabletScreen(
         onSettingClick = { navController.navigate(SettingFlow.Root.route) },
         onAddNewListClick = {
             navControllerRight.navigate(ListDetailFlow.Root.route()) {
-                popUpTo(EmptyFlow.Root.route)
+                popUpTo(ListDetailFlow.RootEmpty.route)
             }
         },
         onAddNewGroupClick = { navControllerLeft.navigate(HomeFlow.CreateGroup.route) },
         onClickGroup = { navControllerLeft.navigate(HomeFlow.GroupMenu.route(it.group.id)) },
         onClickList = {
             navControllerRight.navigate(ListDetailFlow.Root.route(it.list.id)) {
-                popUpTo(EmptyFlow.Root.route)
+                popUpTo(ListDetailFlow.RootEmpty.route)
             }
         },
         onSwipeToDelete = { toDoMainViewModel.dispatch(ToDoMainAction.DeleteList(it)) },
