@@ -71,7 +71,6 @@ class LocalManager @Inject constructor(
 
     fun getListWithTasksById(listId: String): Flow<ToDoList> {
         return toDoReadDao.getListWithTasksById(listId)
-            .filterNotNull()
             .map { it.toDoListWithTasksToList() }
     }
 

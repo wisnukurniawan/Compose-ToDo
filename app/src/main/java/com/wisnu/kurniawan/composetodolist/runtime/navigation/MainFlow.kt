@@ -9,6 +9,12 @@ sealed class MainFlow(val name: String) {
     }
 }
 
+sealed class EmptyFlow(val name: String) {
+    object Root : MainFlow("empty-root") {
+        val route = name
+    }
+}
+
 sealed class AuthFlow(val name: String) {
     object Root : AuthFlow("auth-root") {
         val route = name

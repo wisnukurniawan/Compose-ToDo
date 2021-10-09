@@ -50,6 +50,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgTransparentF
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.SwipeSearch
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.SwipeSearchValue
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.rememberSwipeSearchState
+import com.wisnu.kurniawan.composetodolist.runtime.navigation.EmptyFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ListDetailFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.SettingFlow
@@ -80,6 +81,49 @@ fun DashboardScreen(
         onAddNewGroupClick = { navController.navigate(HomeFlow.CreateGroup.route) },
         onClickGroup = { navController.navigate(HomeFlow.GroupMenu.route(it.group.id)) },
         onClickList = { navController.navigate(ListDetailFlow.Root.route(it.list.id)) },
+        onSwipeToDelete = { toDoMainViewModel.dispatch(ToDoMainAction.DeleteList(it)) },
+        onScheduledTodayTask = {},
+        onScheduledTask = {},
+        onClickAllTask = {},
+    )
+}
+
+@Composable
+fun DashboardTabletScreen(
+    navController: NavController,
+    navControllerLeft: NavController,
+    navControllerRight: NavController,
+    viewModel: DashboardViewModel,
+    toDoMainViewModel: ToDoMainViewModel,
+    searchViewModel: SearchViewModel,
+) {
+    val state by viewModel.state.collectAsState()
+    val todoMainState by toDoMainViewModel.state.collectAsState()
+    val searchState by searchViewModel.state.collectAsState()
+
+    DashboardScreen(
+        email = state.user.email,
+        searchText = searchState.searchText,
+        todoData = todoMainState.data,
+        currentDate = todoMainState.currentDate,
+        scheduledTodayTaskCount = todoMainState.scheduledTodayTaskCount,
+        scheduledTaskCount = todoMainState.scheduledTaskCount,
+        allTaskCount = todoMainState.allTaskCount,
+        onSearchChange = { searchViewModel.dispatch(SearchAction.ChangeSearchText(it)) },
+        onSearchOpened = { searchViewModel.dispatch(SearchAction.OnShow) },
+        onSettingClick = { navController.navigate(SettingFlow.Root.route) },
+        onAddNewListClick = {
+            navControllerRight.navigate(ListDetailFlow.Root.route()) {
+                popUpTo(EmptyFlow.Root.route)
+            }
+        },
+        onAddNewGroupClick = { navControllerLeft.navigate(HomeFlow.CreateGroup.route) },
+        onClickGroup = { navControllerLeft.navigate(HomeFlow.GroupMenu.route(it.group.id)) },
+        onClickList = {
+            navControllerRight.navigate(ListDetailFlow.Root.route(it.list.id)) {
+                popUpTo(EmptyFlow.Root.route)
+            }
+        },
         onSwipeToDelete = { toDoMainViewModel.dispatch(ToDoMainAction.DeleteList(it)) },
         onScheduledTodayTask = {},
         onScheduledTask = {},

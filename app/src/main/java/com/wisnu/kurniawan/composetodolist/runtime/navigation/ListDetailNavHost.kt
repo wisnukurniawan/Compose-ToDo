@@ -10,6 +10,7 @@ import com.google.accompanist.navigation.material.ExperimentalMaterialNavigation
 import com.google.accompanist.navigation.material.bottomSheet
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.ui.CreateListEditor
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.ui.ListDetailScreen
+import com.wisnu.kurniawan.composetodolist.features.todo.detail.ui.ListDetailTabletScreen
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.ui.ListDetailViewModel
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.ui.TaskEditor
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.ui.UpdateListEditor
@@ -35,6 +36,71 @@ fun NavGraphBuilder.ListDetailNavHost(
         ) {
             val viewModel = hiltViewModel<ListDetailViewModel>()
             ListDetailScreen(
+                navController = navController,
+                viewModel = viewModel
+            )
+        }
+        bottomSheet(ListDetailFlow.CreateList.route) {
+            val viewModel = if (navController.previousBackStackEntry != null) {
+                hiltViewModel<ListDetailViewModel>(
+                    navController.previousBackStackEntry!!
+                )
+            } else {
+                hiltViewModel()
+            }
+            bottomSheetConfig.value = defaultMainBottomSheetConfig
+            CreateListEditor(
+                viewModel = viewModel,
+                navController = navController
+            )
+        }
+        bottomSheet(ListDetailFlow.UpdateList.route) {
+            val viewModel = if (navController.previousBackStackEntry != null) {
+                hiltViewModel<ListDetailViewModel>(
+                    navController.previousBackStackEntry!!
+                )
+            } else {
+                hiltViewModel()
+            }
+            bottomSheetConfig.value = defaultMainBottomSheetConfig
+            UpdateListEditor(
+                viewModel = viewModel,
+                navController = navController
+            )
+        }
+        bottomSheet(ListDetailFlow.CreateTask.route) {
+            val viewModel = if (navController.previousBackStackEntry != null) {
+                hiltViewModel<ListDetailViewModel>(
+                    navController.previousBackStackEntry!!
+                )
+            } else {
+                hiltViewModel()
+            }
+            bottomSheetConfig.value = noScrimSmallShapeMainBottomSheetConfig
+            TaskEditor(
+                viewModel = viewModel
+            )
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterialNavigationApi::class)
+fun NavGraphBuilder.ListDetailTabletNavHost(
+    navController: NavHostController,
+    bottomSheetConfig: MutableState<MainBottomSheetConfig>
+) {
+    // navController.navigate to ListDetailFlow.Root.route will crash due to not found
+    // add "?$ARG_LIST_ID={$ARG_LIST_ID}" in startDestination for workaround
+    navigation(
+        startDestination = ListDetailFlow.ListDetailScreen.route,
+        route = ListDetailFlow.Root.route
+    ) {
+        composable(
+            route = ListDetailFlow.ListDetailScreen.route,
+            arguments = ListDetailFlow.ListDetailScreen.arguments
+        ) {
+            val viewModel = hiltViewModel<ListDetailViewModel>()
+            ListDetailTabletScreen(
                 navController = navController,
                 viewModel = viewModel
             )
