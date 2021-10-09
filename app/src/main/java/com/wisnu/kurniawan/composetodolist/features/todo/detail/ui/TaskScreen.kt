@@ -180,7 +180,6 @@ fun TaskContent(
                                     debounceJob = coroutineScope.launch {
                                         delay(1000)
                                         onStatusClick(it.toDoTask)
-                                        isChecked = false
                                     }
                                 }
                             },

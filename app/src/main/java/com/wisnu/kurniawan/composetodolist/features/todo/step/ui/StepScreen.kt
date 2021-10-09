@@ -251,7 +251,6 @@ private fun TaskCell(
                         debounceJob = coroutineScope.launch {
                             delay(1000)
                             onClickTaskStatus()
-                            isChecked = false
                         }
                     }
                 }
