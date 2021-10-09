@@ -2,16 +2,29 @@ package com.wisnu.kurniawan.composetodolist.foundation.preview
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.guide
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.guide2
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+import javax.inject.Singleton
 
 @Composable
 fun NavPg() {
@@ -44,7 +57,8 @@ fun View1(navController: NavController) {
             modifier = Modifier.weight(1f).guide2()
         ) {
             composable(route = "root1") {
-                View2(navController = navController1, navController2)
+                val vm = hiltViewModel<Vm1>()
+                View2(navController = navController1, navController2, vm)
             }
             composable(route = "root1a") {
                 View3(navController = navController1)
@@ -57,10 +71,13 @@ fun View1(navController: NavController) {
             modifier = Modifier.weight(1f).guide()
         ) {
             composable(route = "root2") {
-                View4(navController = navController2)
+                val vm = hiltViewModel<Vm2>()
+                View4(navController = navController2, vm)
             }
             composable(route = "root2a") {
-                View5(navController = navController2)
+                val vm = hiltViewModel<Vm2>()
+
+                View5(navController = navController2, vm)
             }
         }
 
@@ -68,11 +85,12 @@ fun View1(navController: NavController) {
 }
 
 @Composable
-fun View2(navController: NavController, navController2: NavController) {
+fun View2(navController: NavController, navController2: NavController, vm1: Vm1) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize().padding(50.dp)
     ) {
-        Text("View 2")
+        val state = vm1.data1.state.collectAsState()
+        Text("View 2 ${state.value}")
         Button(
             {
                 // navController.navigate("root1a")
@@ -80,6 +98,14 @@ fun View2(navController: NavController, navController2: NavController) {
             }
         ) {
             Text("Button")
+        }
+
+        Button(
+            {
+                vm1.inc()
+            }
+        ) {
+            Text("Button2")
         }
     }
 }
@@ -101,11 +127,12 @@ fun View3(navController: NavController) {
 }
 
 @Composable
-fun View4(navController: NavController) {
+fun View4(navController: NavController, vm2: Vm2) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize().padding(50.dp)
     ) {
-        Text("View 4")
+        val state = vm2.data1.state.collectAsState()
+        Text("View 4 ${state.value}")
         Button(
             {
                 navController.navigate("root2a")
@@ -113,21 +140,56 @@ fun View4(navController: NavController) {
         ) {
             Text("Button")
         }
+
+        Button(
+            {
+                vm2.inc()
+            }
+        ) {
+            Text("Button2")
+        }
     }
 }
 
 @Composable
-fun View5(navController: NavController) {
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Text("View 5")
-        Button(
-            {
+fun View5(navController: NavController, vm2: Vm2) {
+    val state = vm2.data1.state.collectAsState()
+    Text("View 5 ${state.value}")
 
-            }
-        ) {
-            Text("Button")
+    Button(
+        {
+            vm2.inc()
+        }
+    ) {
+        Text("Button inc")
+    }
+}
+
+@HiltViewModel
+class Vm1 @Inject constructor(val data1: Data1) : ViewModel() {
+    fun inc() {
+        viewModelScope.launch {
+            data1.inc()
         }
     }
+}
+
+@HiltViewModel
+class Vm2 @Inject constructor(val data1: Data1) : ViewModel() {
+
+    fun inc() {
+        viewModelScope.launch {
+            data1.inc()
+        }
+    }
+}
+
+@Singleton
+class Data1 @Inject constructor() {
+    private val _state = MutableStateFlow(0)
+    val state: StateFlow<Int> = _state.asStateFlow()
+    suspend fun inc() {
+        _state.emit(state.value + 1)
+    }
+
 }
