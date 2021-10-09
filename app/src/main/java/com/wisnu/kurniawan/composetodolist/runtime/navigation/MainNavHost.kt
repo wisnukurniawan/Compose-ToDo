@@ -86,7 +86,8 @@ private fun HomeTabletNavHost(navController: NavHostController) {
     val navControllerRight = rememberNavController(bottomSheetNavigatorRight)
 
     Row(modifier = Modifier.fillMaxSize()) {
-        Box(modifier = Modifier.fillMaxHeight().weight(0.4F)) {
+        // Left column
+        Box(modifier = Modifier.fillMaxHeight().weight(0.333F)) {
             ModalBottomSheetLayout(
                 bottomSheetNavigator = bottomSheetNavigatorLeft,
                 sheetShape = bottomSheetConfigLeft.value.sheetShape,
@@ -110,6 +111,7 @@ private fun HomeTabletNavHost(navController: NavHostController) {
             }
         }
 
+        // Divider
         Box(
             modifier = Modifier
                 .fillMaxHeight()
@@ -117,7 +119,8 @@ private fun HomeTabletNavHost(navController: NavHostController) {
                 .background(color = MaterialTheme.colors.onSurface.copy(alpha = 0.12f))
         )
 
-        Box(modifier = Modifier.fillMaxHeight().weight(0.6F)) {
+        // Right column
+        Box(modifier = Modifier.fillMaxHeight().weight(0.666F)) {
             ModalBottomSheetLayout(
                 bottomSheetNavigator = bottomSheetNavigatorRight,
                 sheetShape = bottomSheetConfigRight.value.sheetShape,
