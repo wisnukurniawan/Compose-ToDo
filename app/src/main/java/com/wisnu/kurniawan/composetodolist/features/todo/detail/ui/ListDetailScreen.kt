@@ -18,6 +18,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ChevronLeft
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -28,6 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -61,6 +65,11 @@ fun ListDetailScreen(
                 navController.navigate(ListDetailFlow.CreateList.route)
             }
         }
+        ListDetailEffect.ClosePage -> {
+            LaunchedEffect(effect) {
+                navController.navigateUp()
+            }
+        }
     }
 
     ListDetailContent(
@@ -71,7 +80,50 @@ fun ListDetailScreen(
                 onClick = { navController.navigate(ListDetailFlow.UpdateList.route) },
                 onClickBack = { navController.navigateUp() },
                 text = state.list.name,
-                color = state.colors.selectedColor()
+                color = state.colors.selectedColor(),
+                backIcon = Icons.Rounded.ChevronLeft
+            )
+        },
+        color = state.colors.selectedColor(),
+        onAddTaskClick = { navController.navigate(ListDetailFlow.CreateTask.route) },
+        onTaskItemClick = { navController.navigate(StepFlow.Root.route(it.id, state.list.id)) },
+        onTaskStatusItemClick = { viewModel.dispatch(ListDetailAction.TaskAction.OnToggleStatus(it)) },
+        onTaskSwipeToDelete = { viewModel.dispatch(ListDetailAction.TaskAction.Delete(it)) }
+    )
+
+}
+
+@Composable
+fun ListDetailTabletScreen(
+    navController: NavController,
+    viewModel: ListDetailViewModel
+) {
+    val state by viewModel.state.collectAsState()
+    val effect by viewModel.effect.collectAsEffect()
+
+    when (effect) {
+        ListDetailEffect.ShowCreateListInput -> {
+            LaunchedEffect(effect) {
+                navController.navigate(ListDetailFlow.CreateList.route)
+            }
+        }
+        ListDetailEffect.ClosePage -> {
+            LaunchedEffect(effect) {
+                navController.navigateUp()
+            }
+        }
+    }
+
+    ListDetailContent(
+        tasks = state.listDisplayable.tasks,
+        tempTaskName = state.taskName.text,
+        header = {
+            ListDetailTitle(
+                onClick = { navController.navigate(ListDetailFlow.UpdateList.route) },
+                onClickBack = { navController.navigateUp() },
+                text = state.list.name,
+                color = state.colors.selectedColor(),
+                backIcon = Icons.Rounded.Close
             )
         },
         color = state.colors.selectedColor(),
@@ -88,7 +140,8 @@ private fun ListDetailTitle(
     onClick: () -> Unit,
     onClickBack: () -> Unit,
     text: String,
-    color: Color
+    color: Color,
+    backIcon: ImageVector
 ) {
     Box(
         modifier = Modifier
@@ -101,7 +154,7 @@ private fun ListDetailTitle(
                 .padding(start = 20.dp)
                 .align(Alignment.CenterStart)
         ) {
-            PgModalBackButton(onClickBack)
+            PgModalBackButton(onClickBack, backIcon)
         }
 
         Text(

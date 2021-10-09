@@ -98,6 +98,10 @@ sealed class ListDetailFlow(val name: String) {
         }
     }
 
+    object RootEmpty : MainFlow("list-detail-root-empty") {
+        val route = name
+    }
+
     object ListDetailScreen : ListDetailFlow("list-detail-screen") {
         val arguments = listOf(
             navArgument(ARG_LIST_ID) {

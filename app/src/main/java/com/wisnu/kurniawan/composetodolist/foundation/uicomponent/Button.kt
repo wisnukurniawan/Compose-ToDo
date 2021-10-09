@@ -17,18 +17,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun PgModalBackButton(
     onClick: () -> Unit,
+    imageVector: ImageVector = Icons.Rounded.ChevronLeft
 ) {
     PgIconButton(
         onClick = onClick,
         modifier = Modifier.size(28.dp)
     ) {
         PgIcon(
-            imageVector = Icons.Rounded.ChevronLeft,
+            imageVector = imageVector,
         )
     }
 }

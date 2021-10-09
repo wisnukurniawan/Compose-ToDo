@@ -13,6 +13,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewMode
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_LIST_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
@@ -33,6 +34,12 @@ class ListDetailViewModel @Inject constructor(
             } else {
                 environment.getListWithTasksById(listId)
                     .flowOn(environment.dispatcher)
+                    .catch {
+                        // Handle deleted list on tablet
+                        if (it is NullPointerException) {
+                            setEffect(ListDetailEffect.ClosePage)
+                        }
+                    }
                     .collect {
                         setState {
                             setAllState(it)
@@ -65,6 +72,12 @@ class ListDetailViewModel @Inject constructor(
                             color = state.value.colors.selectedColor().toToDoColor()
                         )
                     )
+                        .catch {
+                            // Handle deleted list on tablet
+                            if (it is NullPointerException) {
+                                setEffect(ListDetailEffect.ClosePage)
+                            }
+                        }
                         .collect {
                             setState {
                                 setAllState(it)

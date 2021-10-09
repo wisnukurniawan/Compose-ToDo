@@ -88,6 +88,49 @@ fun DashboardScreen(
 }
 
 @Composable
+fun DashboardTabletScreen(
+    navController: NavController,
+    navControllerLeft: NavController,
+    navControllerRight: NavController,
+    viewModel: DashboardViewModel,
+    toDoMainViewModel: ToDoMainViewModel,
+    searchViewModel: SearchViewModel,
+) {
+    val state by viewModel.state.collectAsState()
+    val todoMainState by toDoMainViewModel.state.collectAsState()
+    val searchState by searchViewModel.state.collectAsState()
+
+    DashboardScreen(
+        email = state.user.email,
+        searchText = searchState.searchText,
+        todoData = todoMainState.data,
+        currentDate = todoMainState.currentDate,
+        scheduledTodayTaskCount = todoMainState.scheduledTodayTaskCount,
+        scheduledTaskCount = todoMainState.scheduledTaskCount,
+        allTaskCount = todoMainState.allTaskCount,
+        onSearchChange = { searchViewModel.dispatch(SearchAction.ChangeSearchText(it)) },
+        onSearchOpened = { searchViewModel.dispatch(SearchAction.OnShow) },
+        onSettingClick = { navController.navigate(SettingFlow.Root.route) },
+        onAddNewListClick = {
+            navControllerRight.navigate(ListDetailFlow.Root.route()) {
+                popUpTo(ListDetailFlow.RootEmpty.route)
+            }
+        },
+        onAddNewGroupClick = { navControllerLeft.navigate(HomeFlow.CreateGroup.route) },
+        onClickGroup = { navControllerLeft.navigate(HomeFlow.GroupMenu.route(it.group.id)) },
+        onClickList = {
+            navControllerRight.navigate(ListDetailFlow.Root.route(it.list.id)) {
+                popUpTo(ListDetailFlow.RootEmpty.route)
+            }
+        },
+        onSwipeToDelete = { toDoMainViewModel.dispatch(ToDoMainAction.DeleteList(it)) },
+        onScheduledTodayTask = {},
+        onScheduledTask = {},
+        onClickAllTask = {},
+    )
+}
+
+@Composable
 private fun DashboardScreen(
     email: String,
     searchText: TextFieldValue,
