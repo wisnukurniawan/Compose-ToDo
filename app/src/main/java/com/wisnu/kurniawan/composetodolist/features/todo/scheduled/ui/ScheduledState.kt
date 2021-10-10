@@ -7,19 +7,19 @@ import java.time.LocalDate
 
 @Immutable
 data class ScheduledState(
-    val tasks: List<ToDoTaskItem> = listOf()
+    val items: List<ItemScheduledState> = listOf()
 )
 
-sealed class ToDoTaskItem {
-    data class Header(val date: LocalDate) : ToDoTaskItem()
+sealed class ItemScheduledState {
+    data class Header(val date: LocalDate) : ItemScheduledState()
 
     data class Complete(
         val toDoTask: ToDoTask,
         val toDoList: ToDoList
-    ) : ToDoTaskItem()
+    ) : ItemScheduledState()
 
     data class InProgress(
         val toDoTask: ToDoTask,
         val toDoList: ToDoList
-    ) : ToDoTaskItem()
+    ) : ItemScheduledState()
 }

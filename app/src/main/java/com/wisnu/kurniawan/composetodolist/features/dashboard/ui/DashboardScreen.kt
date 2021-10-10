@@ -50,6 +50,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgTransparentF
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.SwipeSearch
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.SwipeSearchValue
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.rememberSwipeSearchState
+import com.wisnu.kurniawan.composetodolist.runtime.navigation.AllFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ListDetailFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.MainFlow
@@ -86,7 +87,7 @@ fun DashboardScreen(
         onSwipeToDelete = { toDoMainViewModel.dispatch(ToDoMainAction.DeleteList(it)) },
         onClickScheduledTodayTask = { navController.navigate(ScheduledTodayFlow.Root.route()) },
         onClickScheduledTask = { navController.navigate(ScheduledFlow.Root.route()) },
-        onClickAllTask = {},
+        onClickAllTask = { navController.navigate(AllFlow.Root.route) },
     )
 }
 
@@ -132,7 +133,11 @@ fun DashboardTabletScreen(
                 popUpTo(MainFlow.RootEmpty.route)
             }
         },
-        onClickAllTask = {},
+        onClickAllTask = {
+            navControllerRight.navigate(AllFlow.Root.route) {
+                popUpTo(MainFlow.RootEmpty.route)
+            }
+        },
         onClickSearch = {}
     )
 }

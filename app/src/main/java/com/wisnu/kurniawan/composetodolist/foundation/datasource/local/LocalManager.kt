@@ -47,6 +47,12 @@ class LocalManager @Inject constructor(
             .map { it.toDoGroupWithListToGroup() }
     }
 
+    fun getListWithTasks(): Flow<List<ToDoList>> {
+        return toDoReadDao.getListWithTasks()
+            .filterNotNull()
+            .map { it.toDoListWithTasksToList() }
+    }
+
     fun getList(): Flow<List<ToDoList>> {
         return toDoReadDao.getList()
             .filterNotNull()

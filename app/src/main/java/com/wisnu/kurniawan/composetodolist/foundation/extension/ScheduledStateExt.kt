@@ -1,29 +1,28 @@
 package com.wisnu.kurniawan.composetodolist.foundation.extension
 
-import com.wisnu.kurniawan.composetodolist.features.todo.scheduled.ui.ToDoTaskItem
+import com.wisnu.kurniawan.composetodolist.features.todo.scheduled.ui.ItemScheduledState
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
-import com.wisnu.kurniawan.coreLogger.Loggr
 
-fun List<Pair<ToDoTask, ToDoList>>.toToDoTaskItem(withHeader: Boolean): List<ToDoTaskItem> {
-    val items = mutableListOf<ToDoTaskItem>()
-    Loggr.debug { "Asdasd withHeader $withHeader" }
+fun List<Pair<ToDoTask, ToDoList>>.toItemScheduledState(withHeader: Boolean): List<ItemScheduledState> {
+    val items = mutableListOf<ItemScheduledState>()
+
     if (isEmpty()) return items
 
     if (withHeader) {
         groupBy { (task, _) -> task.dueDate?.toLocalDate() }
             .filter { it.key != null }
             .forEach { (key, value) ->
-                items.add(ToDoTaskItem.Header(key!!))
+                items.add(ItemScheduledState.Header(key!!))
 
                 value.forEach { (task, list) ->
                     when (task.status) {
                         ToDoStatus.IN_PROGRESS -> {
-                            items.add(ToDoTaskItem.InProgress(task, list))
+                            items.add(ItemScheduledState.InProgress(task, list))
                         }
                         ToDoStatus.COMPLETE -> {
-                            items.add(ToDoTaskItem.Complete(task, list))
+                            items.add(ItemScheduledState.Complete(task, list))
                         }
                     }
                 }
@@ -32,10 +31,10 @@ fun List<Pair<ToDoTask, ToDoList>>.toToDoTaskItem(withHeader: Boolean): List<ToD
         forEach { (task, list) ->
             when (task.status) {
                 ToDoStatus.IN_PROGRESS -> {
-                    items.add(ToDoTaskItem.InProgress(task, list))
+                    items.add(ItemScheduledState.InProgress(task, list))
                 }
                 ToDoStatus.COMPLETE -> {
-                    items.add(ToDoTaskItem.Complete(task, list))
+                    items.add(ItemScheduledState.Complete(task, list))
                 }
             }
         }
@@ -44,8 +43,8 @@ fun List<Pair<ToDoTask, ToDoList>>.toToDoTaskItem(withHeader: Boolean): List<ToD
     return items
 }
 
-fun ToDoTaskItem.identifier() = when (this) {
-    is ToDoTaskItem.Header -> date.toString()
-    is ToDoTaskItem.Complete -> toDoTask.id
-    is ToDoTaskItem.InProgress -> toDoTask.id
+fun ItemScheduledState.identifier() = when (this) {
+    is ItemScheduledState.Header -> date.toString()
+    is ItemScheduledState.Complete -> toDoTask.id
+    is ItemScheduledState.InProgress -> toDoTask.id
 }

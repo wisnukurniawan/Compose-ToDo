@@ -135,6 +135,16 @@ sealed class ScheduledTodayFlow(val name: String) {
     }
 }
 
+sealed class AllFlow(val name: String) {
+    object Root : AllFlow("all-root") {
+        val route = name
+    }
+
+    object AllScreen : AllFlow("all-screen") {
+        val route = name
+    }
+}
+
 sealed class ListDetailFlow(val name: String) {
     object Root : ListDetailFlow("list-detail-root") {
         val route = "$name?$ARG_LIST_ID={$ARG_LIST_ID}"

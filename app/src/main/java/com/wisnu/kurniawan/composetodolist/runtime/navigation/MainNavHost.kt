@@ -133,6 +133,8 @@ private fun SmallScreenNavHost(
         ScheduledNavHost(navController)
 
         ScheduledTodayNavHost(navController)
+
+        AllNavHost(navController)
     }
 }
 
@@ -211,6 +213,8 @@ private fun HomeTabletNavHost(
                     ScheduledTabletNavHost(navControllerRight)
 
                     ScheduledTodayTabletNavHost(navControllerRight)
+
+                    AllTabletNavHost(navControllerRight)
                 }
             }
         }

@@ -1,11 +1,13 @@
 package com.wisnu.kurniawan.composetodolist.foundation.extension
 
+import com.wisnu.kurniawan.composetodolist.features.todo.all.ui.ItemAllState
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.ui.ToDoListState
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.ui.ToDoTaskItem
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoListDb
 import com.wisnu.kurniawan.composetodolist.model.GroupIdWithList
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
+import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 
 fun List<ToDoList>.toListDb(groupId: String): List<ToDoListDb> {
     return map {
@@ -58,3 +60,22 @@ fun ToDoList.toToDoListState(): ToDoListState {
     )
 }
 
+fun List<ToDoList>.toItemAllState(): List<ItemAllState> {
+    val data = mutableListOf<ItemAllState>()
+
+    forEach {
+        data.add(ItemAllState.List(it))
+        data.addAll(it.tasks.toItemListAllState(it))
+    }
+
+    return data
+}
+
+private fun List<ToDoTask>.toItemListAllState(toDoList: ToDoList): List<ItemAllState> {
+    return map {
+        when (it.status) {
+            ToDoStatus.IN_PROGRESS -> ItemAllState.InProgress(it, toDoList)
+            ToDoStatus.COMPLETE -> ItemAllState.Complete(it, toDoList)
+        }
+    }
+}
