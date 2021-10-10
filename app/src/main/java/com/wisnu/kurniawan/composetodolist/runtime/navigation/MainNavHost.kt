@@ -131,6 +131,8 @@ private fun SmallScreenNavHost(
         StepNavHost(navController, bottomSheetConfig)
 
         ScheduledNavHost(navController)
+
+        ScheduledTodayNavHost(navController)
     }
 }
 
@@ -207,6 +209,8 @@ private fun HomeTabletNavHost(
                     StepNavHost(navControllerRight, bottomSheetConfigRight)
 
                     ScheduledTabletNavHost(navControllerRight)
+
+                    ScheduledTodayTabletNavHost(navControllerRight)
                 }
             }
         }

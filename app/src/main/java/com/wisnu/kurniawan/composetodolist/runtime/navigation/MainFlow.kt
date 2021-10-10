@@ -100,11 +100,31 @@ sealed class ScheduledFlow(val name: String) {
         val route = "$name/{$ARG_SCHEDULED_TYPE}"
 
         fun route(): String {
-            return "$name/{${ScheduledType.SCHEDULED}}"
+            return "$name/${ScheduledType.SCHEDULED}"
         }
     }
 
     object ScheduledScreen : ScheduledFlow("scheduled-screen") {
+        val arguments = listOf(
+            navArgument(ARG_SCHEDULED_TYPE) {
+                type = NavType.StringType
+            }
+        )
+
+        val route = "$name/{$ARG_SCHEDULED_TYPE}"
+    }
+}
+
+sealed class ScheduledTodayFlow(val name: String) {
+    object Root : ScheduledTodayFlow("scheduled-today-root") {
+        val route = "$name/{$ARG_SCHEDULED_TYPE}"
+
+        fun route(): String {
+            return "$name/${ScheduledType.TODAY}"
+        }
+    }
+
+    object ScheduledTodayScreen : ScheduledTodayFlow("scheduled-today-screen") {
         val arguments = listOf(
             navArgument(ARG_SCHEDULED_TYPE) {
                 type = NavType.StringType

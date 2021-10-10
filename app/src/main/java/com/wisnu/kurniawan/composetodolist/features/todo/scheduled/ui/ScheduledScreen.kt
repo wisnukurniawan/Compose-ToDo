@@ -41,6 +41,7 @@ import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.identifier
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
 import com.wisnu.kurniawan.composetodolist.foundation.theme.CommonBlue
+import com.wisnu.kurniawan.composetodolist.foundation.theme.CommonRed
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgEmpty
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalBackButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgPageLayout
@@ -62,7 +63,7 @@ fun ScheduledScreen(
     val state by viewModel.state.collectAsState()
 
     ScheduledContent(
-        tasks = state.taskDisplayable,
+        tasks = state.tasks,
         header = {
             ScheduledTitle(
                 onClickBack = { navController.navigateUp() },
@@ -87,12 +88,62 @@ fun ScheduledTabletScreen(
     val state by viewModel.state.collectAsState()
 
     ScheduledContent(
-        tasks = state.taskDisplayable,
+        tasks = state.tasks,
         header = {
             ScheduledTitle(
                 onClickBack = { navController.navigateUp() },
                 text = stringResource(R.string.todo_scheduled),
                 color = CommonBlue,
+                backIcon = Icons.Rounded.Close
+            )
+        },
+        onTaskItemClick = { task, list ->
+            navController.navigate(StepFlow.Root.route(task.id, list.id))
+        },
+        onTaskStatusItemClick = { viewModel.dispatch(ScheduledAction.TaskAction.OnToggleStatus(it)) },
+        onTaskSwipeToDelete = { viewModel.dispatch(ScheduledAction.TaskAction.Delete(it)) }
+    )
+}
+
+@Composable
+fun ScheduledTodayScreen(
+    navController: NavController,
+    viewModel: ScheduledViewModel
+) {
+    val state by viewModel.state.collectAsState()
+
+    ScheduledContent(
+        tasks = state.tasks,
+        header = {
+            ScheduledTitle(
+                onClickBack = { navController.navigateUp() },
+                text = stringResource(R.string.todo_today),
+                color = CommonRed,
+                backIcon = Icons.Rounded.ChevronLeft
+            )
+        },
+        onTaskItemClick = { task, list ->
+            navController.navigate(StepFlow.Root.route(task.id, list.id))
+        },
+        onTaskStatusItemClick = { viewModel.dispatch(ScheduledAction.TaskAction.OnToggleStatus(it)) },
+        onTaskSwipeToDelete = { viewModel.dispatch(ScheduledAction.TaskAction.Delete(it)) }
+    )
+}
+
+@Composable
+fun ScheduledTodayTabletScreen(
+    navController: NavController,
+    viewModel: ScheduledViewModel
+) {
+    val state by viewModel.state.collectAsState()
+
+    ScheduledContent(
+        tasks = state.tasks,
+        header = {
+            ScheduledTitle(
+                onClickBack = { navController.navigateUp() },
+                text = stringResource(R.string.todo_today),
+                color = CommonRed,
                 backIcon = Icons.Rounded.Close
             )
         },

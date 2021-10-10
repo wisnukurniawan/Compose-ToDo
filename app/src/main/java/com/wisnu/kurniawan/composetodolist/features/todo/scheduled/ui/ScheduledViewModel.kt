@@ -3,10 +3,14 @@ package com.wisnu.kurniawan.composetodolist.features.todo.scheduled.ui
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.wisnu.kurniawan.composetodolist.features.todo.scheduled.data.IScheduledEnvironment
+import com.wisnu.kurniawan.composetodolist.foundation.extension.toToDoTaskItem
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
+import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_SCHEDULED_TYPE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.LocalTime
 import javax.inject.Inject
 
 @HiltViewModel
@@ -15,11 +19,20 @@ class ScheduledViewModel @Inject constructor(
     scheduledEnvironment: IScheduledEnvironment,
 ) : StatefulViewModel<ScheduledState, Unit, ScheduledAction, IScheduledEnvironment>(ScheduledState(), scheduledEnvironment) {
 
+    private val scheduledType = savedStateHandle.get<String>(ARG_SCHEDULED_TYPE)
+    private val isScheduled = scheduledType == ScheduledType.SCHEDULED
+
     init {
         viewModelScope.launch(environment.dispatcher) {
-            environment.getToDoTaskWithStepsOrderByDueDateWithList()
+            val maxDate = if (isScheduled) {
+                null
+            } else {
+                LocalDateTime.of(environment.dateTimeProvider.now().toLocalDate().plusDays(1), LocalTime.MIN)
+            }
+
+            environment.getToDoTaskWithStepsOrderByDueDateWithList(maxDate)
                 .collect {
-                    setState { copy(tasks = it) }
+                    setState { copy(tasks = it.toToDoTaskItem(isScheduled)) }
                 }
         }
     }

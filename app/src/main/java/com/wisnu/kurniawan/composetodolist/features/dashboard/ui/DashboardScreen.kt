@@ -54,6 +54,7 @@ import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ListDetailFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.MainFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ScheduledFlow
+import com.wisnu.kurniawan.composetodolist.runtime.navigation.ScheduledTodayFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.SettingFlow
 
 @Composable
@@ -83,7 +84,7 @@ fun DashboardScreen(
         onClickGroup = { navController.navigate(HomeFlow.GroupMenu.route(it.group.id)) },
         onClickList = { navController.navigate(ListDetailFlow.Root.route(it.list.id)) },
         onSwipeToDelete = { toDoMainViewModel.dispatch(ToDoMainAction.DeleteList(it)) },
-        onClickScheduledTodayTask = {},
+        onClickScheduledTodayTask = { navController.navigate(ScheduledTodayFlow.Root.route()) },
         onClickScheduledTask = { navController.navigate(ScheduledFlow.Root.route()) },
         onClickAllTask = {},
     )
@@ -121,7 +122,11 @@ fun DashboardTabletScreen(
             }
         },
         onSwipeToDelete = { toDoMainViewModel.dispatch(ToDoMainAction.DeleteList(it)) },
-        onClickScheduledTodayTask = {},
+        onClickScheduledTodayTask = {
+            navControllerRight.navigate(ScheduledTodayFlow.Root.route()) {
+                popUpTo(MainFlow.RootEmpty.route)
+            }
+        },
         onClickScheduledTask = {
             navControllerRight.navigate(ScheduledFlow.Root.route()) {
                 popUpTo(MainFlow.RootEmpty.route)

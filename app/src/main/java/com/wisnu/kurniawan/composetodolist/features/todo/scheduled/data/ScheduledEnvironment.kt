@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.map
+import java.time.LocalDateTime
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -24,11 +25,16 @@ class ScheduledEnvironment @Inject constructor(
     override val dateTimeProvider: DateTimeProvider,
 ) : IScheduledEnvironment {
 
-    override fun getToDoTaskWithStepsOrderByDueDateWithList(): Flow<List<Pair<ToDoTask, ToDoList>>> {
+    override fun getToDoTaskWithStepsOrderByDueDateWithList(maxDate: LocalDateTime?): Flow<List<Pair<ToDoTask, ToDoList>>> {
         return localManager.getList()
             .map { lists -> lists.associateBy({ it.id }, { it }) }
             .flatMapConcat { lists ->
-                localManager.getToDoTaskWithStepsOrderByDueDateWithListId()
+                val operation = if (maxDate != null) {
+                    localManager.getToDoTaskWithStepsOrderByDueDateTodayWithListId(maxDate)
+                } else {
+                    localManager.getToDoTaskWithStepsOrderByDueDateWithListId()
+                }
+                operation
                     .map {
                         it.map { (task, listId) -> Pair(task, lists[listId]!!) }
                     }
