@@ -69,8 +69,8 @@ fun ToDoMainScreen(
     onClickGroup: (ItemMainState.ItemGroup) -> Unit,
     onClickList: (ItemMainState.ItemListType) -> Unit,
     onSwipeToDelete: (ItemMainState.ItemListType) -> Unit,
-    onScheduledTodayTask: () -> Unit,
-    onScheduledTask: () -> Unit,
+    onClickScheduledTodayTask: () -> Unit,
+    onClickScheduledTask: () -> Unit,
     onClickAllTask: () -> Unit,
 ) {
     LazyColumn(
@@ -87,7 +87,7 @@ fun ToDoMainScreen(
                     modifier = Modifier
                         .weight(1f)
                         .padding(end = 8.dp),
-                    onClick = onScheduledTodayTask,
+                    onClick = onClickScheduledTodayTask,
                     currentDate = currentDate,
                     scheduledTaskCount = scheduledTodayTaskCount
                 )
@@ -96,7 +96,7 @@ fun ToDoMainScreen(
                     modifier = Modifier
                         .weight(1f)
                         .padding(start = 8.dp),
-                    onClick = onScheduledTask,
+                    onClick = onClickScheduledTask,
                     scheduledTaskCount = scheduledTaskCount
                 )
             }

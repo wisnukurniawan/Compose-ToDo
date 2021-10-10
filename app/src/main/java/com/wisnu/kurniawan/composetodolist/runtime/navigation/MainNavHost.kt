@@ -129,6 +129,8 @@ private fun SmallScreenNavHost(
         ListDetailNavHost(navController, bottomSheetConfig)
 
         StepNavHost(navController, bottomSheetConfig)
+
+        ScheduledNavHost(navController)
     }
 }
 
@@ -194,15 +196,17 @@ private fun HomeTabletNavHost(
             ) {
                 NavHost(
                     navController = navControllerRight,
-                    startDestination = ListDetailFlow.RootEmpty.route
+                    startDestination = MainFlow.RootEmpty.route
                 ) {
-                    composable(route = ListDetailFlow.RootEmpty.route) {
+                    composable(route = MainFlow.RootEmpty.route) {
 
                     }
 
                     ListDetailTabletNavHost(navControllerRight, bottomSheetConfigRight)
 
                     StepNavHost(navControllerRight, bottomSheetConfigRight)
+
+                    ScheduledTabletNavHost(navControllerRight)
                 }
             }
         }

@@ -1,10 +1,16 @@
 package com.wisnu.kurniawan.composetodolist.runtime.navigation
 
+import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
+import com.wisnu.kurniawan.composetodolist.features.todo.scheduled.ui.ScheduledType
 
 sealed class MainFlow(val name: String) {
     object Root : MainFlow("main-root") {
+        val route = name
+    }
+
+    object RootEmpty : MainFlow("list-detail-root-empty") {
         val route = name
     }
 }
@@ -89,6 +95,26 @@ sealed class HomeFlow(val name: String) {
     }
 }
 
+sealed class ScheduledFlow(val name: String) {
+    object Root : ScheduledFlow("scheduled-root") {
+        val route = "$name/{$ARG_SCHEDULED_TYPE}"
+
+        fun route(): String {
+            return "$name/{${ScheduledType.SCHEDULED}}"
+        }
+    }
+
+    object ScheduledScreen : ScheduledFlow("scheduled-screen") {
+        val arguments = listOf(
+            navArgument(ARG_SCHEDULED_TYPE) {
+                type = NavType.StringType
+            }
+        )
+
+        val route = "$name/{$ARG_SCHEDULED_TYPE}"
+    }
+}
+
 sealed class ListDetailFlow(val name: String) {
     object Root : ListDetailFlow("list-detail-root") {
         val route = "$name?$ARG_LIST_ID={$ARG_LIST_ID}"
@@ -96,10 +122,6 @@ sealed class ListDetailFlow(val name: String) {
         fun route(listId: String = ""): String {
             return "$name?$ARG_LIST_ID=${listId}"
         }
-    }
-
-    object RootEmpty : MainFlow("list-detail-root-empty") {
-        val route = name
     }
 
     object ListDetailScreen : ListDetailFlow("list-detail-screen") {
@@ -208,3 +230,4 @@ const val ARG_STEP_ID = "stepId"
 const val ARG_TASK_ID = "taskId"
 const val ARG_LIST_ID = "listId"
 const val ARG_GROUP_ID = "groupId"
+const val ARG_SCHEDULED_TYPE = "scheduledType"

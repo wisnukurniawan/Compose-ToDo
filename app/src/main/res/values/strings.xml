@@ -71,6 +71,9 @@
     <string name="todo_task_complete_date_yesterday">Completed yesterday</string>
     <string name="todo_task_complete_date">Completed on %1$s</string>
 
+    <string name="todo_task_today">Today</string>
+    <string name="todo_task_tomorrow">Tomorrow</string>
+    <string name="todo_task_yesterday">Yesterday</string>
     <string name="todo_task_due_date_today">Due today</string>
     <string name="todo_task_due_date_tomorrow">Due tomorrow</string>
     <string name="todo_task_due_date_yesterday">Due yesterday</string>

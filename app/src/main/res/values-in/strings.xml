@@ -67,6 +67,9 @@
     <string name="todo_task_complete_date_yesterday">Selesai kemarin</string>
     <string name="todo_task_complete_date">Selesai pada %1$s</string>
 
+    <string name="todo_task_today">Hari ini</string>
+    <string name="todo_task_tomorrow">Besok</string>
+    <string name="todo_task_yesterday">Kemarin</string>
     <string name="todo_task_due_date_today">Jatuh tempo hari ini</string>
     <string name="todo_task_due_date_tomorrow">Jatuh tempo besok</string>
     <string name="todo_task_due_date_yesterday">Jatuh tempo kemarin</string>

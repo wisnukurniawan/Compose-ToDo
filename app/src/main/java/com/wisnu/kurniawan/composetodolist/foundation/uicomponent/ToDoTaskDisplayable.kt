@@ -19,14 +19,17 @@ import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderIm
 import com.wisnu.kurniawan.composetodolist.model.ToDoRepeat
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
+import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.temporal.ChronoUnit
 
-fun ToDoTask.itemInfoDisplayable(resources: Resources, expiredColor: Color): AnnotatedString? {
+fun ToDoTask.itemInfoDisplayable(resources: Resources, expiredColor: Color, listName: String = ""): AnnotatedString? {
     val info = mutableListOf<String>()
     val totalStepInfo = totalStepInfo(resources)
     val dueDateInfo = dueDateInfo(resources)
 
+    if (listName.isNotBlank()) info.add(listName)
     if (totalStepInfo.isNotBlank()) info.add(totalStepInfo)
     if (dueDateInfo.isNotBlank()) info.add(dueDateInfo)
 
@@ -61,6 +64,16 @@ fun ToDoTask.dueDateDisplayable(resources: Resources, currentDate: LocalDateTime
         }
     } else {
         null
+    }
+}
+
+fun LocalDate.headerDateDisplayable(resources: Resources, currentDate: LocalDateTime = DateTimeProviderImpl().now()): String {
+    val date = LocalDateTime.of(this, LocalTime.MIN)
+    return when {
+        date.isSameDay(currentDate) -> resources.getString(R.string.todo_task_today)
+        date.isTomorrow(currentDate) -> resources.getString(R.string.todo_task_tomorrow)
+        date.isYesterday(currentDate) -> resources.getString(R.string.todo_task_yesterday)
+        else -> date.formatDateTime()
     }
 }
 

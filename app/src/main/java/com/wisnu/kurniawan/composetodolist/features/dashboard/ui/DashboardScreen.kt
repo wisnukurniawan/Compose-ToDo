@@ -52,6 +52,8 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.SwipeSearchVal
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.rememberSwipeSearchState
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ListDetailFlow
+import com.wisnu.kurniawan.composetodolist.runtime.navigation.MainFlow
+import com.wisnu.kurniawan.composetodolist.runtime.navigation.ScheduledFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.SettingFlow
 
 @Composable
@@ -81,8 +83,8 @@ fun DashboardScreen(
         onClickGroup = { navController.navigate(HomeFlow.GroupMenu.route(it.group.id)) },
         onClickList = { navController.navigate(ListDetailFlow.Root.route(it.list.id)) },
         onSwipeToDelete = { toDoMainViewModel.dispatch(ToDoMainAction.DeleteList(it)) },
-        onScheduledTodayTask = {},
-        onScheduledTask = {},
+        onClickScheduledTodayTask = {},
+        onClickScheduledTask = { navController.navigate(ScheduledFlow.Root.route()) },
         onClickAllTask = {},
     )
 }
@@ -108,21 +110,25 @@ fun DashboardTabletScreen(
         onSettingClick = { navController.navigate(SettingFlow.Root.route) },
         onAddNewListClick = {
             navControllerRight.navigate(ListDetailFlow.Root.route()) {
-                popUpTo(ListDetailFlow.RootEmpty.route)
+                popUpTo(MainFlow.RootEmpty.route)
             }
         },
         onAddNewGroupClick = { navControllerLeft.navigate(HomeFlow.CreateGroup.route) },
         onClickGroup = { navControllerLeft.navigate(HomeFlow.GroupMenu.route(it.group.id)) },
         onClickList = {
             navControllerRight.navigate(ListDetailFlow.Root.route(it.list.id)) {
-                popUpTo(ListDetailFlow.RootEmpty.route)
+                popUpTo(MainFlow.RootEmpty.route)
             }
         },
         onSwipeToDelete = { toDoMainViewModel.dispatch(ToDoMainAction.DeleteList(it)) },
-        onScheduledTodayTask = {},
-        onScheduledTask = {},
+        onClickScheduledTodayTask = {},
+        onClickScheduledTask = {
+            navControllerRight.navigate(ScheduledFlow.Root.route()) {
+                popUpTo(MainFlow.RootEmpty.route)
+            }
+        },
         onClickAllTask = {},
-        onSearchClick = {}
+        onClickSearch = {}
     )
 }
 
@@ -143,8 +149,8 @@ private fun DashboardScreen(
     onClickGroup: (ItemMainState.ItemGroup) -> Unit,
     onClickList: (ItemMainState.ItemListType) -> Unit,
     onSwipeToDelete: (ItemMainState.ItemListType) -> Unit,
-    onScheduledTodayTask: () -> Unit,
-    onScheduledTask: () -> Unit,
+    onClickScheduledTodayTask: () -> Unit,
+    onClickScheduledTask: () -> Unit,
     onClickAllTask: () -> Unit,
 ) {
     var swipeSearchValue by remember { mutableStateOf(SwipeSearchValue.Closed) }
@@ -184,8 +190,8 @@ private fun DashboardScreen(
                 onClickGroup,
                 onClickList,
                 onSwipeToDelete,
-                onScheduledTodayTask,
-                onScheduledTask,
+                onClickScheduledTodayTask,
+                onClickScheduledTask,
                 onClickAllTask,
                 onSettingClick,
                 openSearch,
@@ -219,11 +225,11 @@ private fun DashboardContent(
     onClickGroup: (ItemMainState.ItemGroup) -> Unit,
     onClickList: (ItemMainState.ItemListType) -> Unit,
     onSwipeToDelete: (ItemMainState.ItemListType) -> Unit,
-    onScheduledTodayTask: () -> Unit,
-    onScheduledTask: () -> Unit,
+    onClickScheduledTodayTask: () -> Unit,
+    onClickScheduledTask: () -> Unit,
     onClickAllTask: () -> Unit,
     onSettingClick: () -> Unit,
-    onSearchClick: () -> Unit,
+    onClickSearch: () -> Unit,
     onAddNewListClick: () -> Unit,
     onAddNewGroupClick: () -> Unit
 ) {
@@ -251,7 +257,7 @@ private fun DashboardContent(
                 )
             }
 
-            PgIconButton(onClick = onSearchClick, color = Color.Transparent) {
+            PgIconButton(onClick = onClickSearch, color = Color.Transparent) {
                 PgIcon(imageVector = Icons.Rounded.Search)
             }
 
@@ -267,8 +273,8 @@ private fun DashboardContent(
                 onClickGroup,
                 onClickList,
                 onSwipeToDelete,
-                onScheduledTodayTask,
-                onScheduledTask,
+                onClickScheduledTodayTask,
+                onClickScheduledTask,
                 onClickAllTask
             )
 
