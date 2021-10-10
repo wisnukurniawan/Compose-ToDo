@@ -51,7 +51,15 @@ interface ToDoReadDao {
     fun getToDoTaskWithStepsOrderByDueDate(): Flow<List<ToDoTaskWithSteps>>
 
     @Transaction
-    @Query("SELECT * FROM ToDoTaskDb WHERE dueDate IS NOT NULL AND dueDate < :date ORDER BY dueDate ASC")
+    @Query(
+        """
+            SELECT * FROM ToDoTaskDb WHERE 
+            dueDate IS NOT NULL AND 
+            status != "COMPLETE" AND 
+            dueDate < :date 
+            ORDER BY dueDate ASC
+            """
+    )
     fun getToDoTaskWithStepsOrderByDueDateToday(date: LocalDateTime): Flow<List<ToDoTaskWithSteps>>
 
     @Transaction
