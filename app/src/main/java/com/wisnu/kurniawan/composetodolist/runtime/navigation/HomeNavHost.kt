@@ -59,14 +59,12 @@ fun NavGraphBuilder.HomeTabletNavHost(
         composable(HomeFlow.DashboardScreen.route) {
             val viewModel = hiltViewModel<DashboardViewModel>()
             val toDoMainViewModel = hiltViewModel<ToDoMainViewModel>()
-            val searchViewModel = hiltViewModel<SearchViewModel>()
             DashboardTabletScreen(
                 navController = navController,
                 navControllerLeft = navControllerLeft,
                 navControllerRight = navControllerRight,
                 viewModel = viewModel,
-                toDoMainViewModel = toDoMainViewModel,
-                searchViewModel = searchViewModel
+                toDoMainViewModel = toDoMainViewModel
             )
         }
 

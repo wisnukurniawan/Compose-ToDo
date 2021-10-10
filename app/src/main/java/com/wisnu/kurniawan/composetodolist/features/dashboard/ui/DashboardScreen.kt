@@ -93,23 +93,18 @@ fun DashboardTabletScreen(
     navControllerLeft: NavController,
     navControllerRight: NavController,
     viewModel: DashboardViewModel,
-    toDoMainViewModel: ToDoMainViewModel,
-    searchViewModel: SearchViewModel,
+    toDoMainViewModel: ToDoMainViewModel
 ) {
     val state by viewModel.state.collectAsState()
     val todoMainState by toDoMainViewModel.state.collectAsState()
-    val searchState by searchViewModel.state.collectAsState()
 
-    DashboardScreen(
+    DashboardContent(
         email = state.user.email,
-        searchText = searchState.searchText,
         todoData = todoMainState.data,
         currentDate = todoMainState.currentDate,
         scheduledTodayTaskCount = todoMainState.scheduledTodayTaskCount,
         scheduledTaskCount = todoMainState.scheduledTaskCount,
         allTaskCount = todoMainState.allTaskCount,
-        onSearchChange = { searchViewModel.dispatch(SearchAction.ChangeSearchText(it)) },
-        onSearchOpened = { searchViewModel.dispatch(SearchAction.OnShow) },
         onSettingClick = { navController.navigate(SettingFlow.Root.route) },
         onAddNewListClick = {
             navControllerRight.navigate(ListDetailFlow.Root.route()) {
@@ -127,6 +122,7 @@ fun DashboardTabletScreen(
         onScheduledTodayTask = {},
         onScheduledTask = {},
         onClickAllTask = {},
+        onSearchClick = {}
     )
 }
 
