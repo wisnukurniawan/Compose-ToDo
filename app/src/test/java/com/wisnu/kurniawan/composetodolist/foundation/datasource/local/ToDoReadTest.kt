@@ -264,7 +264,7 @@ class ToDoReadTest {
     }
 
     @Test
-    fun getTaskOrderByDueDate() = runBlocking {
+    fun getToDoTaskWithStepsOrderByDueDate() = runBlocking {
         val today: LocalDateTime = LocalDateTime.of(2021, 1, 19, 1, 0, 0, 0)
         val todayBefore1: LocalDateTime = LocalDateTime.of(2021, 1, 18, 0, 0, 0, 0)
         val todayBefore2: LocalDateTime = LocalDateTime.of(2021, 1, 17, 0, 0, 0, 0)
@@ -357,26 +357,42 @@ class ToDoReadTest {
             updatedAt = DateFactory.constantDate,
             dueDate = todayBefore2
         )
-        val task7 = ToDoTaskDb(
-            id = taskId7,
-            name = "task7",
-            listId = listId2,
+        val step1 = ToDoStepDb(
+            id = "1",
+            name = "step1",
+            taskId = taskId2,
             status = ToDoStatus.IN_PROGRESS,
             createdAt = DateFactory.constantDate,
-            updatedAt = DateFactory.constantDate
+            updatedAt = DateFactory.constantDate,
         )
 
         toDoWriteDao.insertGroup(listOf(group1))
         toDoWriteDao.insertList(listOf(list1, list2))
-        toDoWriteDao.insertTask(listOf(task1, task2, task3, task4, task5, task6, task7))
+        toDoWriteDao.insertTask(listOf(task1, task2, task3, task4, task5, task6))
+        toDoWriteDao.insertStep(listOf(step1))
 
-        toDoReadDao.getTaskOrderByDueDate().expect(
+        toDoReadDao.getToDoTaskWithStepsOrderByDueDate().expect(
             listOf(
-                task6,
-                task5,
-                task2,
-                task3,
-                task4
+                ToDoTaskWithSteps(
+                    task6,
+                    listOf()
+                ),
+                ToDoTaskWithSteps(
+                    task5,
+                    listOf()
+                ),
+                ToDoTaskWithSteps(
+                    task2,
+                    listOf(step1)
+                ),
+                ToDoTaskWithSteps(
+                    task3,
+                    listOf()
+                ),
+                ToDoTaskWithSteps(
+                    task4,
+                    listOf()
+                ),
             )
         )
     }
