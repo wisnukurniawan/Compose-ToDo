@@ -46,6 +46,10 @@ interface ToDoReadDao {
     @Query("SELECT * FROM ToDoTaskDb")
     fun getTask(): Flow<List<ToDoTaskDb>>
 
+    @Query("SELECT * FROM ToDoTaskDb WHERE dueDate IS NOT NULL ORDER BY dueDate ASC")
+    fun getTaskOrderByDueDate(): Flow<List<ToDoTaskDb>>
+
+    @Transaction
     @Query(
         """
             SELECT COUNT(*) AS allTaskCount,
