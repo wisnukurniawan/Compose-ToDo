@@ -58,8 +58,8 @@ interface ToDoReadDao {
     @Query(
         """
             SELECT COUNT(*) AS allTaskCount,
-            (SELECT COUNT(dueDate) FROM ToDoTaskDb WHERE dueDate < :date) AS scheduledTodayTaskCount, 
-            COUNT(dueDate) AS scheduledTaskCount FROM ToDoTaskDb
+            (SELECT COUNT(dueDate) FROM ToDoTaskDb WHERE dueDate < :date AND status != "COMPLETE") AS scheduledTodayTaskCount, 
+            COUNT(dueDate) AS scheduledTaskCount FROM ToDoTaskDb WHERE status != "COMPLETE"
         """
     )
     fun getTaskOverallCount(date: LocalDateTime): Flow<ToDoTaskOverallCount>
