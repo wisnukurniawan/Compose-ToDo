@@ -36,7 +36,7 @@ class ScheduledEnvironment @Inject constructor(
                 }
                 operation
                     .map {
-                        it.map { (task, listId) -> Pair(task, lists[listId]!!) }
+                        it.map { task -> Pair(task.task, lists[task.listId]!!) }
                     }
             }
             .distinctUntilChanged()

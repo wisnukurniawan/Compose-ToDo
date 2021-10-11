@@ -11,6 +11,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.toStepDb
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toTask
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toTaskDb
 import com.wisnu.kurniawan.composetodolist.model.GroupIdWithList
+import com.wisnu.kurniawan.composetodolist.model.TaskWithListId
 import com.wisnu.kurniawan.composetodolist.model.ToDoGroup
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoRepeat
@@ -80,20 +81,20 @@ class LocalManager @Inject constructor(
             .map { it.toDoListWithTasksToList() }
     }
 
-    fun getToDoTaskWithStepsOrderByDueDateWithListId(): Flow<List<Pair<ToDoTask, String>>> {
+    fun getToDoTaskWithStepsOrderByDueDateWithListId(): Flow<List<TaskWithListId>> {
         return toDoReadDao.getToDoTaskWithStepsOrderByDueDate()
             .map { tasks ->
                 tasks.map {
-                    Pair(it.toTask(), it.task.listId)
+                    TaskWithListId(it.task.listId, it.toTask())
                 }
             }
     }
 
-    fun getToDoTaskWithStepsOrderByDueDateTodayWithListId(date: LocalDateTime): Flow<List<Pair<ToDoTask, String>>> {
+    fun getToDoTaskWithStepsOrderByDueDateTodayWithListId(date: LocalDateTime): Flow<List<TaskWithListId>> {
         return toDoReadDao.getToDoTaskWithStepsOrderByDueDateToday(date)
             .map { tasks ->
                 tasks.map {
-                    Pair(it.toTask(), it.task.listId)
+                    TaskWithListId(it.task.listId, it.toTask())
                 }
             }
     }
@@ -104,10 +105,10 @@ class LocalManager @Inject constructor(
             .map { it.toTask() }
     }
 
-    fun getTaskWithStepsByIdWithListId(taskId: String): Flow<Pair<ToDoTask, String>> {
+    fun getTaskWithStepsByIdWithListId(taskId: String): Flow<TaskWithListId> {
         return toDoReadDao.getTaskWithStepsById(taskId)
             .filterNotNull()
-            .map { Pair(it.toTask(), it.task.listId) }
+            .map { TaskWithListId(it.task.listId, it.toTask()) }
     }
 
     fun getScheduledTasks(): Flow<List<ToDoTask>> {
