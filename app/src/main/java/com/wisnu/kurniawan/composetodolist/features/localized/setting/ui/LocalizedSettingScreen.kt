@@ -15,12 +15,14 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Check
+import androidx.compose.material.icons.rounded.ChevronLeft
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -28,7 +30,8 @@ import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.features.localized.base.ui.LocalizedEffect
 import com.wisnu.kurniawan.composetodolist.foundation.localization.LocalizationUtil
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalBackButton
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalCell
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgPageLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.collectAsEffect
@@ -80,10 +83,15 @@ private fun LanguageScreen(
         ) {
             Box(
                 modifier = Modifier
-                    .padding(start = 20.dp)
+                    .padding(start = 4.dp)
                     .align(Alignment.CenterStart)
             ) {
-                PgModalBackButton(clickBack)
+                PgIconButton(
+                    onClick = clickBack,
+                    color = Color.Transparent
+                ) {
+                    PgIcon(imageVector = Icons.Rounded.ChevronLeft)
+                }
             }
 
             Text(

@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -54,7 +53,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.theme.Shapes
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgEmpty
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalBackButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgPageLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgToDoItemCell
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.itemInfoDisplayable
@@ -137,10 +135,15 @@ private fun AllTitle(
     ) {
         Box(
             modifier = Modifier
-                .padding(start = 20.dp)
+                .padding(start = 4.dp)
                 .align(Alignment.CenterStart)
         ) {
-            PgModalBackButton(onClickBack, backIcon)
+            PgIconButton(
+                onClick = onClickBack,
+                color = Color.Transparent
+            ) {
+                PgIcon(imageVector = backIcon)
+            }
         }
 
         Text(
@@ -151,12 +154,11 @@ private fun AllTitle(
 
         Box(
             modifier = Modifier
-                .padding(end = 20.dp)
+                .padding(end = 4.dp)
                 .align(Alignment.CenterEnd)
         ) {
             PgIconButton(
                 onClick = { moreMenuExpanded = true },
-                modifier = Modifier.size(28.dp),
                 color = Color.Transparent
             ) {
                 PgIcon(

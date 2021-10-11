@@ -42,8 +42,8 @@ import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.selectedColor
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgButton
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalBackButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalTitle
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgPageLayout
@@ -170,10 +170,15 @@ private fun ListDetailTitle(
     ) {
         Box(
             modifier = Modifier
-                .padding(start = 20.dp)
+                .padding(start = 4.dp)
                 .align(Alignment.CenterStart)
         ) {
-            PgModalBackButton(onClickBack, backIcon)
+            PgIconButton(
+                onClick = onClickBack,
+                color = Color.Transparent
+            ) {
+                PgIcon(imageVector = backIcon)
+            }
         }
 
         Text(

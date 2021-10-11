@@ -31,6 +31,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.CheckCircle
+import androidx.compose.material.icons.rounded.ChevronLeft
 import androidx.compose.material.icons.rounded.ChevronRight
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Event
@@ -67,7 +68,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.theme.CommonRed
 import com.wisnu.kurniawan.composetodolist.foundation.theme.MediumRadius
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalBackButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgPageLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgToDoItemCell
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.dateTimeDisplayable
@@ -230,10 +230,15 @@ private fun StepTitle(
     ) {
         Box(
             modifier = Modifier
-                .padding(start = 20.dp)
+                .padding(start = 4.dp)
                 .align(Alignment.CenterStart)
         ) {
-            PgModalBackButton(onClickBack)
+            PgIconButton(
+                onClick = onClickBack,
+                color = Color.Transparent
+            ) {
+                PgIcon(imageVector = Icons.Rounded.ChevronLeft)
+            }
         }
     }
 }
