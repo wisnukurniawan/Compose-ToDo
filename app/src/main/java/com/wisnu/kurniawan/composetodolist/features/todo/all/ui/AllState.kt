@@ -9,7 +9,7 @@ import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 @Immutable
 data class AllState(
     val lists: List<ToDoList> = listOf(),
-    val hideCompleteTask: Boolean = false,
+    val hideCompleteTask: Boolean = true,
 ) {
     private val listsFiltered = if (hideCompleteTask) {
         lists.map {

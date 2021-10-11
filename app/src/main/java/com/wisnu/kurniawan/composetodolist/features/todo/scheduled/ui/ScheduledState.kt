@@ -10,7 +10,7 @@ import java.time.LocalDate
 @Immutable
 data class ScheduledState(
     val tasks: List<Pair<ToDoTask, ToDoList>> = listOf(),
-    val hideCompleteTask: Boolean = false,
+    val hideCompleteTask: Boolean = true,
     val isScheduled: Boolean = true
 ) {
     private val tasksFiltered = if (hideCompleteTask && isScheduled) {
