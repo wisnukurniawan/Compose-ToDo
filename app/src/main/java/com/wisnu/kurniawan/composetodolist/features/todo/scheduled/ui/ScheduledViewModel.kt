@@ -3,7 +3,6 @@ package com.wisnu.kurniawan.composetodolist.features.todo.scheduled.ui
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.wisnu.kurniawan.composetodolist.features.todo.scheduled.data.IScheduledEnvironment
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toItemScheduledState
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_SCHEDULED_TYPE
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,7 +31,7 @@ class ScheduledViewModel @Inject constructor(
 
             environment.getToDoTaskWithStepsOrderByDueDateWithList(maxDate)
                 .collect {
-                    setState { copy(items = it.toItemScheduledState(isScheduled)) }
+                    setState { copy(tasks = it, isScheduled = isScheduled) }
                 }
         }
     }
@@ -47,6 +46,12 @@ class ScheduledViewModel @Inject constructor(
             is ScheduledAction.TaskAction.OnToggleStatus -> {
                 viewModelScope.launch(environment.dispatcher) {
                     environment.toggleTaskStatus(action.task)
+                }
+            }
+            ScheduledAction.ToggleCompleteTaskVisibility -> {
+                viewModelScope.launch {
+                    val hideCompleteTask = !state.value.hideCompleteTask
+                    setState { copy(hideCompleteTask = hideCompleteTask) }
                 }
             }
         }

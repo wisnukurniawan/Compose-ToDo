@@ -74,8 +74,8 @@ fun List<ToDoList>.toItemAllState(): List<ItemAllState> {
 private fun List<ToDoTask>.toItemListAllState(toDoList: ToDoList): List<ItemAllState> {
     return map {
         when (it.status) {
-            ToDoStatus.IN_PROGRESS -> ItemAllState.InProgress(it, toDoList)
-            ToDoStatus.COMPLETE -> ItemAllState.Complete(it, toDoList)
+            ToDoStatus.IN_PROGRESS -> ItemAllState.Task.InProgress(it, toDoList)
+            ToDoStatus.COMPLETE -> ItemAllState.Task.Complete(it, toDoList)
         }
     }
 }

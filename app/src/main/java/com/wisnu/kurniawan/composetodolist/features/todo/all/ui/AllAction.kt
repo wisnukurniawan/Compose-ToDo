@@ -7,4 +7,6 @@ sealed class AllAction {
         data class Delete(val task: ToDoTask) : TaskAction()
         data class OnToggleStatus(val task: ToDoTask) : TaskAction()
     }
+
+    object ToggleCompleteTaskVisibility : AllAction()
 }

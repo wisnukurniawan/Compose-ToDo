@@ -1,5 +1,6 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.scheduled.ui
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
@@ -9,16 +10,23 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ContentAlpha
+import androidx.compose.material.DropdownMenu
+import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.ChevronLeft
 import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.RadioButtonUnchecked
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -36,19 +44,22 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.identifier
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
 import com.wisnu.kurniawan.composetodolist.foundation.theme.CommonBlue
 import com.wisnu.kurniawan.composetodolist.foundation.theme.CommonRed
+import com.wisnu.kurniawan.composetodolist.foundation.theme.Shapes
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgEmpty
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalBackButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgPageLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgToDoItemCell
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.headerDateDisplayable
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.itemInfoDisplayable
-import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
 import kotlinx.coroutines.Job
@@ -69,11 +80,16 @@ fun ScheduledScreen(
                 onClickBack = { navController.navigateUp() },
                 text = stringResource(R.string.todo_scheduled),
                 color = CommonBlue,
-                backIcon = Icons.Rounded.ChevronLeft
+                backIcon = Icons.Rounded.ChevronLeft,
+                canToggleCompletedTask = true,
+                hideCompleteTask = state.hideCompleteTask,
+                onShowHideCompleteTaskClick = {
+                    viewModel.dispatch(ScheduledAction.ToggleCompleteTaskVisibility)
+                },
             )
         },
-        onTaskItemClick = { task, list ->
-            navController.navigate(StepFlow.Root.route(task.id, list.id))
+        onTaskItemClick = {
+            navController.navigate(StepFlow.Root.route(it.task.id, it.list.id))
         },
         onTaskStatusItemClick = { viewModel.dispatch(ScheduledAction.TaskAction.OnToggleStatus(it)) },
         onTaskSwipeToDelete = { viewModel.dispatch(ScheduledAction.TaskAction.Delete(it)) }
@@ -94,11 +110,16 @@ fun ScheduledTabletScreen(
                 onClickBack = { navController.navigateUp() },
                 text = stringResource(R.string.todo_scheduled),
                 color = CommonBlue,
-                backIcon = Icons.Rounded.Close
+                backIcon = Icons.Rounded.Close,
+                canToggleCompletedTask = true,
+                hideCompleteTask = state.hideCompleteTask,
+                onShowHideCompleteTaskClick = {
+                    viewModel.dispatch(ScheduledAction.ToggleCompleteTaskVisibility)
+                },
             )
         },
-        onTaskItemClick = { task, list ->
-            navController.navigate(StepFlow.Root.route(task.id, list.id))
+        onTaskItemClick = {
+            navController.navigate(StepFlow.Root.route(it.task.id, it.list.id))
         },
         onTaskStatusItemClick = { viewModel.dispatch(ScheduledAction.TaskAction.OnToggleStatus(it)) },
         onTaskSwipeToDelete = { viewModel.dispatch(ScheduledAction.TaskAction.Delete(it)) }
@@ -122,8 +143,8 @@ fun ScheduledTodayScreen(
                 backIcon = Icons.Rounded.ChevronLeft
             )
         },
-        onTaskItemClick = { task, list ->
-            navController.navigate(StepFlow.Root.route(task.id, list.id))
+        onTaskItemClick = {
+            navController.navigate(StepFlow.Root.route(it.task.id, it.list.id))
         },
         onTaskStatusItemClick = { viewModel.dispatch(ScheduledAction.TaskAction.OnToggleStatus(it)) },
         onTaskSwipeToDelete = { viewModel.dispatch(ScheduledAction.TaskAction.Delete(it)) }
@@ -147,8 +168,8 @@ fun ScheduledTodayTabletScreen(
                 backIcon = Icons.Rounded.Close
             )
         },
-        onTaskItemClick = { task, list ->
-            navController.navigate(StepFlow.Root.route(task.id, list.id))
+        onTaskItemClick = {
+            navController.navigate(StepFlow.Root.route(it.task.id, it.list.id))
         },
         onTaskStatusItemClick = { viewModel.dispatch(ScheduledAction.TaskAction.OnToggleStatus(it)) },
         onTaskSwipeToDelete = { viewModel.dispatch(ScheduledAction.TaskAction.Delete(it)) }
@@ -160,7 +181,10 @@ private fun ScheduledTitle(
     onClickBack: () -> Unit,
     text: String,
     color: Color,
-    backIcon: ImageVector
+    backIcon: ImageVector,
+    canToggleCompletedTask: Boolean = false,
+    hideCompleteTask: Boolean = false,
+    onShowHideCompleteTaskClick: () -> Unit = {}
 ) {
     Box(
         modifier = Modifier
@@ -181,6 +205,37 @@ private fun ScheduledTitle(
             style = MaterialTheme.typography.h6,
             modifier = Modifier.align(Alignment.Center)
         )
+
+        if (canToggleCompletedTask) {
+            Box(
+                modifier = Modifier
+                    .padding(end = 20.dp)
+                    .align(Alignment.CenterEnd)
+            ) {
+
+                var moreMenuExpanded by remember { mutableStateOf(false) }
+
+                PgIconButton(
+                    onClick = { moreMenuExpanded = true },
+                    modifier = Modifier.size(28.dp),
+                    color = Color.Transparent
+                ) {
+                    PgIcon(
+                        imageVector = Icons.Rounded.MoreVert,
+                    )
+                }
+
+                MoreMenu(
+                    expanded = moreMenuExpanded,
+                    hideCompleteTask = hideCompleteTask,
+                    onDismissRequest = { moreMenuExpanded = false },
+                    onShowHideCompleteTaskClick = {
+                        onShowHideCompleteTaskClick()
+                        moreMenuExpanded = false
+                    },
+                )
+            }
+        }
     }
 }
 
@@ -188,7 +243,7 @@ private fun ScheduledTitle(
 private fun ScheduledContent(
     items: List<ItemScheduledState>,
     header: @Composable ColumnScope.() -> Unit,
-    onTaskItemClick: (ToDoTask, ToDoList) -> Unit,
+    onTaskItemClick: (ItemScheduledState.Task) -> Unit,
     onTaskStatusItemClick: (ToDoTask) -> Unit,
     onTaskSwipeToDelete: (ToDoTask) -> Unit
 ) {
@@ -213,7 +268,7 @@ private fun ScheduledContent(
 @Composable
 private fun TaskContent(
     items: List<ItemScheduledState>,
-    onClick: (ToDoTask, ToDoList) -> Unit,
+    onClick: (ItemScheduledState.Task) -> Unit,
     onStatusClick: (ToDoTask) -> Unit,
     onSwipeToDelete: (ToDoTask) -> Unit
 ) {
@@ -251,28 +306,28 @@ private fun TaskContent(
                             )
                         }
                     }
-                    is ItemScheduledState.Complete -> {
+                    is ItemScheduledState.Task.Complete -> {
                         CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
                             PgToDoItemCell(
-                                name = it.toDoTask.name,
-                                color = it.toDoList.color.toColor(),
+                                name = it.task.name,
+                                color = it.list.color.toColor(),
                                 contentPaddingValues = PaddingValues(all = 8.dp),
                                 leftIcon = Icons.Rounded.CheckCircle,
                                 textDecoration = TextDecoration.LineThrough,
-                                onClick = { onClick(it.toDoTask, it.toDoList) },
-                                onSwipeToDelete = { onSwipeToDelete(it.toDoTask) },
-                                onStatusClick = { onStatusClick(it.toDoTask) },
-                                info = it.toDoTask.itemInfoDisplayable(resources, MaterialTheme.colors.error, it.toDoList.name)
+                                onClick = { onClick(it) },
+                                onSwipeToDelete = { onSwipeToDelete(it.task) },
+                                onStatusClick = { onStatusClick(it.task) },
+                                info = it.task.itemInfoDisplayable(resources, MaterialTheme.colors.error, it.list.name)
                             )
                         }
                     }
-                    is ItemScheduledState.InProgress -> {
+                    is ItemScheduledState.Task.InProgress -> {
                         var isChecked by remember { mutableStateOf(false) }
                         var debounceJob: Job? by remember { mutableStateOf(null) }
 
                         PgToDoItemCell(
-                            name = it.toDoTask.name,
-                            color = it.toDoList.color.toColor(),
+                            name = it.task.name,
+                            color = it.list.color.toColor(),
                             contentPaddingValues = PaddingValues(all = 8.dp),
                             leftIcon = if (isChecked) {
                                 Icons.Rounded.CheckCircle
@@ -280,19 +335,19 @@ private fun TaskContent(
                                 Icons.Rounded.RadioButtonUnchecked
                             },
                             textDecoration = TextDecoration.None,
-                            onClick = { onClick(it.toDoTask, it.toDoList) },
-                            onSwipeToDelete = { onSwipeToDelete(it.toDoTask) },
+                            onClick = { onClick(it) },
+                            onSwipeToDelete = { onSwipeToDelete(it.task) },
                             onStatusClick = {
                                 isChecked = !isChecked
                                 debounceJob?.cancel()
                                 if (isChecked) {
                                     debounceJob = coroutineScope.launch {
                                         delay(1000)
-                                        onStatusClick(it.toDoTask)
+                                        onStatusClick(it.task)
                                     }
                                 }
                             },
-                            info = it.toDoTask.itemInfoDisplayable(resources, MaterialTheme.colors.error, it.toDoList.name)
+                            info = it.task.itemInfoDisplayable(resources, MaterialTheme.colors.error, it.list.name)
                         )
                     }
                 }
@@ -301,6 +356,46 @@ private fun TaskContent(
 
         item {
             Spacer(Modifier.height(16.dp))
+        }
+    }
+}
+
+@Composable
+private fun MoreMenu(
+    expanded: Boolean,
+    hideCompleteTask: Boolean,
+    onDismissRequest: () -> Unit,
+    onShowHideCompleteTaskClick: () -> Unit
+) {
+    MaterialTheme(
+        shapes = MaterialTheme.shapes.copy(medium = Shapes.small)
+    ) {
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = onDismissRequest,
+            modifier = Modifier.width(220.dp)
+        ) {
+            DropdownMenuItem(onClick = onShowHideCompleteTaskClick) {
+                val icon = if (hideCompleteTask) {
+                    Icons.Filled.Visibility
+                } else {
+                    Icons.Filled.VisibilityOff
+                }
+                val label = if (hideCompleteTask) {
+                    stringResource(id = R.string.todo_show_complete)
+                } else {
+                    stringResource(id = R.string.todo_hide_complete)
+                }
+
+                Row(
+                    Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(label, style = MaterialTheme.typography.body1.copy(fontSize = 14.sp))
+                    PgIcon(imageVector = icon)
+                }
+            }
         }
     }
 }

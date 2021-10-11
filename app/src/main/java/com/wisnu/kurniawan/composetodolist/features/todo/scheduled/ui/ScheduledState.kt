@@ -1,25 +1,44 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.scheduled.ui
 
 import androidx.compose.runtime.Immutable
+import com.wisnu.kurniawan.composetodolist.foundation.extension.toItemScheduledState
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
+import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import java.time.LocalDate
 
 @Immutable
 data class ScheduledState(
-    val items: List<ItemScheduledState> = listOf()
-)
+    val tasks: List<Pair<ToDoTask, ToDoList>> = listOf(),
+    val hideCompleteTask: Boolean = false,
+    val isScheduled: Boolean = true
+) {
+    private val tasksFiltered = if (hideCompleteTask && isScheduled) {
+        tasks.filter { (task, _) ->
+            task.status != ToDoStatus.COMPLETE
+        }
+    } else {
+        tasks
+    }
+
+    val items: List<ItemScheduledState> = tasksFiltered.toItemScheduledState(isScheduled)
+}
 
 sealed class ItemScheduledState {
     data class Header(val date: LocalDate) : ItemScheduledState()
 
-    data class Complete(
-        val toDoTask: ToDoTask,
-        val toDoList: ToDoList
-    ) : ItemScheduledState()
+    sealed class Task(
+        open val task: ToDoTask,
+        open val list: ToDoList
+    ) : ItemScheduledState() {
+        data class Complete(
+            override val task: ToDoTask,
+            override val list: ToDoList
+        ) : Task(task, list)
 
-    data class InProgress(
-        val toDoTask: ToDoTask,
-        val toDoList: ToDoList
-    ) : ItemScheduledState()
+        data class InProgress(
+            override val task: ToDoTask,
+            override val list: ToDoList
+        ) : Task(task, list)
+    }
 }

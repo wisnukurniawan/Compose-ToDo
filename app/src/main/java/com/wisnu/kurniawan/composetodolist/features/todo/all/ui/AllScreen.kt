@@ -1,5 +1,6 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.all.ui
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
@@ -9,16 +10,23 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ContentAlpha
+import androidx.compose.material.DropdownMenu
+import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.ChevronLeft
 import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.RadioButtonUnchecked
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -30,22 +38,26 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.identifier
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
+import com.wisnu.kurniawan.composetodolist.foundation.theme.Shapes
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgEmpty
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalBackButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgPageLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgToDoItemCell
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.itemInfoDisplayable
-import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
 import kotlinx.coroutines.Job
@@ -65,11 +77,15 @@ fun AllScreen(
             AllTitle(
                 onClickBack = { navController.navigateUp() },
                 text = stringResource(R.string.todo_all),
-                backIcon = Icons.Rounded.ChevronLeft
+                backIcon = Icons.Rounded.ChevronLeft,
+                hideCompleteTask = state.hideCompleteTask,
+                onShowHideCompleteTaskClick = {
+                    viewModel.dispatch(AllAction.ToggleCompleteTaskVisibility)
+                }
             )
         },
-        onTaskItemClick = { task, list ->
-            navController.navigate(StepFlow.Root.route(task.id, list.id))
+        onTaskItemClick = {
+            navController.navigate(StepFlow.Root.route(it.task.id, it.list.id))
         },
         onTaskStatusItemClick = { viewModel.dispatch(AllAction.TaskAction.OnToggleStatus(it)) },
         onTaskSwipeToDelete = { viewModel.dispatch(AllAction.TaskAction.Delete(it)) }
@@ -89,11 +105,15 @@ fun AllTabletScreen(
             AllTitle(
                 onClickBack = { navController.navigateUp() },
                 text = stringResource(R.string.todo_all),
-                backIcon = Icons.Rounded.Close
+                backIcon = Icons.Rounded.Close,
+                hideCompleteTask = state.hideCompleteTask,
+                onShowHideCompleteTaskClick = {
+                    viewModel.dispatch(AllAction.ToggleCompleteTaskVisibility)
+                }
             )
         },
-        onTaskItemClick = { task, list ->
-            navController.navigate(StepFlow.Root.route(task.id, list.id))
+        onTaskItemClick = {
+            navController.navigate(StepFlow.Root.route(it.task.id, it.list.id))
         },
         onTaskStatusItemClick = { viewModel.dispatch(AllAction.TaskAction.OnToggleStatus(it)) },
         onTaskSwipeToDelete = { viewModel.dispatch(AllAction.TaskAction.Delete(it)) }
@@ -104,8 +124,12 @@ fun AllTabletScreen(
 private fun AllTitle(
     onClickBack: () -> Unit,
     text: String,
-    backIcon: ImageVector
+    backIcon: ImageVector,
+    hideCompleteTask: Boolean,
+    onShowHideCompleteTaskClick: () -> Unit
 ) {
+    var moreMenuExpanded by remember { mutableStateOf(false) }
+
     Box(
         modifier = Modifier
             .height(56.dp)
@@ -124,6 +148,32 @@ private fun AllTitle(
             style = MaterialTheme.typography.h6,
             modifier = Modifier.align(Alignment.Center)
         )
+
+        Box(
+            modifier = Modifier
+                .padding(end = 20.dp)
+                .align(Alignment.CenterEnd)
+        ) {
+            PgIconButton(
+                onClick = { moreMenuExpanded = true },
+                modifier = Modifier.size(28.dp),
+                color = Color.Transparent
+            ) {
+                PgIcon(
+                    imageVector = Icons.Rounded.MoreVert,
+                )
+            }
+
+            MoreMenu(
+                expanded = moreMenuExpanded,
+                hideCompleteTask = hideCompleteTask,
+                onDismissRequest = { moreMenuExpanded = false },
+                onShowHideCompleteTaskClick = {
+                    onShowHideCompleteTaskClick()
+                    moreMenuExpanded = false
+                },
+            )
+        }
     }
 }
 
@@ -131,7 +181,7 @@ private fun AllTitle(
 private fun AllContent(
     items: List<ItemAllState>,
     header: @Composable ColumnScope.() -> Unit,
-    onTaskItemClick: (ToDoTask, ToDoList) -> Unit,
+    onTaskItemClick: (ItemAllState.Task) -> Unit,
     onTaskStatusItemClick: (ToDoTask) -> Unit,
     onTaskSwipeToDelete: (ToDoTask) -> Unit
 ) {
@@ -156,7 +206,7 @@ private fun AllContent(
 @Composable
 private fun TaskContent(
     items: List<ItemAllState>,
-    onClick: (ToDoTask, ToDoList) -> Unit,
+    onClick: (ItemAllState.Task) -> Unit,
     onStatusClick: (ToDoTask) -> Unit,
     onSwipeToDelete: (ToDoTask) -> Unit
 ) {
@@ -197,7 +247,7 @@ private fun TaskContent(
                             )
                         }
                     }
-                    is ItemAllState.Complete -> {
+                    is ItemAllState.Task.Complete -> {
                         CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
                             PgToDoItemCell(
                                 name = it.task.name,
@@ -205,14 +255,14 @@ private fun TaskContent(
                                 contentPaddingValues = PaddingValues(all = 8.dp),
                                 leftIcon = Icons.Rounded.CheckCircle,
                                 textDecoration = TextDecoration.LineThrough,
-                                onClick = { onClick(it.task, it.list) },
+                                onClick = { onClick(it) },
                                 onSwipeToDelete = { onSwipeToDelete(it.task) },
                                 onStatusClick = { onStatusClick(it.task) },
                                 info = it.task.itemInfoDisplayable(resources, MaterialTheme.colors.error)
                             )
                         }
                     }
-                    is ItemAllState.InProgress -> {
+                    is ItemAllState.Task.InProgress -> {
                         var isChecked by remember { mutableStateOf(false) }
                         var debounceJob: Job? by remember { mutableStateOf(null) }
 
@@ -226,7 +276,7 @@ private fun TaskContent(
                                 Icons.Rounded.RadioButtonUnchecked
                             },
                             textDecoration = TextDecoration.None,
-                            onClick = { onClick(it.task, it.list) },
+                            onClick = { onClick(it) },
                             onSwipeToDelete = { onSwipeToDelete(it.task) },
                             onStatusClick = {
                                 isChecked = !isChecked
@@ -247,6 +297,46 @@ private fun TaskContent(
 
         item {
             Spacer(Modifier.height(16.dp))
+        }
+    }
+}
+
+@Composable
+private fun MoreMenu(
+    expanded: Boolean,
+    hideCompleteTask: Boolean,
+    onDismissRequest: () -> Unit,
+    onShowHideCompleteTaskClick: () -> Unit
+) {
+    MaterialTheme(
+        shapes = MaterialTheme.shapes.copy(medium = Shapes.small)
+    ) {
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = onDismissRequest,
+            modifier = Modifier.width(220.dp)
+        ) {
+            DropdownMenuItem(onClick = onShowHideCompleteTaskClick) {
+                val icon = if (hideCompleteTask) {
+                    Icons.Filled.Visibility
+                } else {
+                    Icons.Filled.VisibilityOff
+                }
+                val label = if (hideCompleteTask) {
+                    stringResource(id = R.string.todo_show_complete)
+                } else {
+                    stringResource(id = R.string.todo_hide_complete)
+                }
+
+                Row(
+                    Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(label, style = MaterialTheme.typography.body1.copy(fontSize = 14.sp))
+                    PgIcon(imageVector = icon)
+                }
+            }
         }
     }
 }

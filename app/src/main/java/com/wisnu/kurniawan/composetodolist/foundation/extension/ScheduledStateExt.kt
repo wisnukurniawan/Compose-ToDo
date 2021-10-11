@@ -19,10 +19,10 @@ fun List<Pair<ToDoTask, ToDoList>>.toItemScheduledState(withHeader: Boolean): Li
                 value.forEach { (task, list) ->
                     when (task.status) {
                         ToDoStatus.IN_PROGRESS -> {
-                            items.add(ItemScheduledState.InProgress(task, list))
+                            items.add(ItemScheduledState.Task.InProgress(task, list))
                         }
                         ToDoStatus.COMPLETE -> {
-                            items.add(ItemScheduledState.Complete(task, list))
+                            items.add(ItemScheduledState.Task.Complete(task, list))
                         }
                     }
                 }
@@ -31,10 +31,10 @@ fun List<Pair<ToDoTask, ToDoList>>.toItemScheduledState(withHeader: Boolean): Li
         forEach { (task, list) ->
             when (task.status) {
                 ToDoStatus.IN_PROGRESS -> {
-                    items.add(ItemScheduledState.InProgress(task, list))
+                    items.add(ItemScheduledState.Task.InProgress(task, list))
                 }
                 ToDoStatus.COMPLETE -> {
-                    items.add(ItemScheduledState.Complete(task, list))
+                    items.add(ItemScheduledState.Task.Complete(task, list))
                 }
             }
         }
@@ -45,6 +45,6 @@ fun List<Pair<ToDoTask, ToDoList>>.toItemScheduledState(withHeader: Boolean): Li
 
 fun ItemScheduledState.identifier() = when (this) {
     is ItemScheduledState.Header -> date.toString()
-    is ItemScheduledState.Complete -> toDoTask.id
-    is ItemScheduledState.InProgress -> toDoTask.id
+    is ItemScheduledState.Task.Complete -> task.id
+    is ItemScheduledState.Task.InProgress -> task.id
 }

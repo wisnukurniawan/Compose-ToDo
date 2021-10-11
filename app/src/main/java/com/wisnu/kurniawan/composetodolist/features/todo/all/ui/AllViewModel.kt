@@ -2,7 +2,6 @@ package com.wisnu.kurniawan.composetodolist.features.todo.all.ui
 
 import androidx.lifecycle.viewModelScope
 import com.wisnu.kurniawan.composetodolist.features.todo.all.data.IAllEnvironment
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toItemAllState
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
@@ -18,7 +17,7 @@ class AllViewModel @Inject constructor(
         viewModelScope.launch(environment.dispatcher) {
             environment.getList()
                 .collect {
-                    setState { copy(items = it.toItemAllState()) }
+                    setState { copy(lists = it) }
                 }
         }
     }
@@ -33,6 +32,12 @@ class AllViewModel @Inject constructor(
             is AllAction.TaskAction.OnToggleStatus -> {
                 viewModelScope.launch(environment.dispatcher) {
                     environment.toggleTaskStatus(action.task)
+                }
+            }
+            AllAction.ToggleCompleteTaskVisibility -> {
+                viewModelScope.launch {
+                    val hideCompleteTask = !state.value.hideCompleteTask
+                    setState { copy(hideCompleteTask = hideCompleteTask) }
                 }
             }
         }
