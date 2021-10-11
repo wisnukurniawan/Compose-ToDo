@@ -15,7 +15,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Divider
@@ -37,6 +39,7 @@ import androidx.compose.material.icons.rounded.Repeat
 import androidx.compose.material.icons.rounded.Schedule
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -70,6 +73,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgToDoItemCell
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.dateTimeDisplayable
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.dueDateDisplayable
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.timeDisplayable
+import com.wisnu.kurniawan.composetodolist.foundation.uiextension.collectAsEffect
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.showDatePicker
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.showTimePicker
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl
@@ -88,13 +92,25 @@ fun StepScreen(
     viewModel: StepViewModel
 ) {
     val state by viewModel.state.collectAsState()
+    val effect by viewModel.effect.collectAsEffect()
     val activity = LocalContext.current as AppCompatActivity
+    val listState = rememberLazyListState()
+
+    when (effect) {
+        is StepEffect.ScrollTo -> {
+            val position = (effect as StepEffect.ScrollTo).position
+            LaunchedEffect(position) {
+                listState.animateScrollToItem(position)
+            }
+        }
+    }
 
     StepScreen(
         onClickBack = { navController.navigateUp() },
         task = state.task,
         steps = state.task.steps,
         color = state.color.toColor(),
+        listState = listState,
         onClickTaskName = { navController.navigate(StepFlow.EditTask.route) },
         onClickTaskStatus = { viewModel.dispatch(StepAction.TaskAction.OnToggleStatus) },
         onClickCreateStep = { navController.navigate(StepFlow.CreateStep.route) },
@@ -151,6 +167,7 @@ private fun StepScreen(
     task: ToDoTask,
     steps: List<ToDoStep>,
     color: Color,
+    listState: LazyListState,
     onClickTaskName: () -> Unit,
     onClickTaskStatus: () -> Unit,
     onClickCreateStep: () -> Unit,
@@ -183,6 +200,7 @@ private fun StepScreen(
             dueDateTimeTitle = task.timeDisplayable() ?: stringResource(R.string.todo_add_due_date_time_task),
             steps = steps,
             color = color,
+            listState = listState,
             onClickCreateStep = onClickCreateStep,
             onClickStep = onClickStep,
             onClickStepStatus = onClickStepStatus,
@@ -323,6 +341,7 @@ private fun StepContent(
     dueDateTimeTitle: String,
     steps: List<ToDoStep>,
     color: Color,
+    listState: LazyListState,
     onClickStep: (ToDoStep) -> Unit,
     onClickStepStatus: (ToDoStep) -> Unit,
     onSwipeToDeleteStep: (ToDoStep) -> Unit,
@@ -335,6 +354,7 @@ private fun StepContent(
 ) {
     LazyColumn(
         modifier = modifier.fillMaxSize(),
+        state = listState
     ) {
         items(items = steps, key = { item -> item.id }) { item ->
             StepCell(
@@ -444,6 +464,10 @@ private fun StepContent(
 
                 Spacer(Modifier.height(16.dp))
             }
+        }
+
+        item {
+            Spacer(Modifier.height(70.dp))
         }
     }
 }

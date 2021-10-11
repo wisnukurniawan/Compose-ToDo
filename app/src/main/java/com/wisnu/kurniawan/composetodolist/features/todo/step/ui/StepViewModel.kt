@@ -127,6 +127,9 @@ class StepViewModel @Inject constructor(
                     if (state.value.validCreateStepName) {
                         environment.createStep(state.value.createStepName.text.trim(), state.value.task.id)
                         setState { copy(createStepName = TextFieldValue()) }
+
+                        val lastIndexStep = state.value.task.steps.size
+                        setEffect(StepEffect.ScrollTo(lastIndexStep))
                     }
                 }
             }

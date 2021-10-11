@@ -1,3 +1,5 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.step.ui
 
-object StepEffect
+sealed class StepEffect {
+    data class ScrollTo(val position: Int) : StepEffect()
+}
