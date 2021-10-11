@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.ExperimentalMaterialApi
@@ -101,17 +102,20 @@ fun TaskCreator(
 
 @Composable
 fun TaskContent(
+    modifier: Modifier,
     tasks: List<ToDoTaskItem>,
     onClick: (ToDoTask) -> Unit,
     onStatusClick: (ToDoTask) -> Unit,
     onSwipeToDelete: (ToDoTask) -> Unit,
-    color: Color
+    color: Color,
+    listState: LazyListState
 ) {
     val coroutineScope = rememberCoroutineScope()
     val resources = LocalContext.current.resources
 
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
+        state = listState
     ) {
         if (tasks.isEmpty()) {
             item {
@@ -191,7 +195,7 @@ fun TaskContent(
         }
 
         item {
-            Spacer(Modifier.height(100.dp))
+            Spacer(Modifier.height(250.dp))
         }
     }
 }

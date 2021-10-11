@@ -125,6 +125,9 @@ class ListDetailViewModel @Inject constructor(
                     if (state.value.validTaskName) {
                         environment.createTask(state.value.taskName.text.trim(), state.value.list.id)
                         setState { copy(taskName = TextFieldValue()) }
+
+                        val lastIndexProgressItem = state.value.listDisplayable.tasks.filterIsInstance<ToDoTaskItem.InProgress>().lastIndex
+                        setEffect(ListDetailEffect.ScrollTo(lastIndexProgressItem))
                     }
                 }
             }

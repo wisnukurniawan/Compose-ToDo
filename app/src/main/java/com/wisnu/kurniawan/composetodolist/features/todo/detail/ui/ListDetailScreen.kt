@@ -3,6 +3,7 @@ package com.wisnu.kurniawan.composetodolist.features.todo.detail.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -13,8 +14,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -58,6 +61,7 @@ fun ListDetailScreen(
 ) {
     val state by viewModel.state.collectAsState()
     val effect by viewModel.effect.collectAsEffect()
+    val listState = rememberLazyListState()
 
     when (effect) {
         ListDetailEffect.ShowCreateListInput -> {
@@ -68,6 +72,12 @@ fun ListDetailScreen(
         ListDetailEffect.ClosePage -> {
             LaunchedEffect(effect) {
                 navController.navigateUp()
+            }
+        }
+        is ListDetailEffect.ScrollTo -> {
+            val position = (effect as ListDetailEffect.ScrollTo).position
+            LaunchedEffect(position) {
+                listState.animateScrollToItem(position)
             }
         }
     }
@@ -88,7 +98,8 @@ fun ListDetailScreen(
         onAddTaskClick = { navController.navigate(ListDetailFlow.CreateTask.route) },
         onTaskItemClick = { navController.navigate(StepFlow.Root.route(it.id, state.list.id)) },
         onTaskStatusItemClick = { viewModel.dispatch(ListDetailAction.TaskAction.OnToggleStatus(it)) },
-        onTaskSwipeToDelete = { viewModel.dispatch(ListDetailAction.TaskAction.Delete(it)) }
+        onTaskSwipeToDelete = { viewModel.dispatch(ListDetailAction.TaskAction.Delete(it)) },
+        listState = listState
     )
 
 }
@@ -100,6 +111,7 @@ fun ListDetailTabletScreen(
 ) {
     val state by viewModel.state.collectAsState()
     val effect by viewModel.effect.collectAsEffect()
+    val listState = rememberLazyListState()
 
     when (effect) {
         ListDetailEffect.ShowCreateListInput -> {
@@ -110,6 +122,12 @@ fun ListDetailTabletScreen(
         ListDetailEffect.ClosePage -> {
             LaunchedEffect(effect) {
                 navController.navigateUp()
+            }
+        }
+        is ListDetailEffect.ScrollTo -> {
+            val position = (effect as ListDetailEffect.ScrollTo).position
+            LaunchedEffect(position) {
+                listState.animateScrollToItem(position)
             }
         }
     }
@@ -130,7 +148,8 @@ fun ListDetailTabletScreen(
         onAddTaskClick = { navController.navigate(ListDetailFlow.CreateTask.route) },
         onTaskItemClick = { navController.navigate(StepFlow.Root.route(it.id, state.list.id)) },
         onTaskStatusItemClick = { viewModel.dispatch(ListDetailAction.TaskAction.OnToggleStatus(it)) },
-        onTaskSwipeToDelete = { viewModel.dispatch(ListDetailAction.TaskAction.Delete(it)) }
+        onTaskSwipeToDelete = { viewModel.dispatch(ListDetailAction.TaskAction.Delete(it)) },
+        listState = listState
     )
 
 }
@@ -177,26 +196,27 @@ private fun ListDetailContent(
     onTaskItemClick: (ToDoTask) -> Unit,
     onTaskStatusItemClick: (ToDoTask) -> Unit,
     onTaskSwipeToDelete: (ToDoTask) -> Unit,
-    color: Color
+    color: Color,
+    listState: LazyListState
 ) {
     PgPageLayout {
         header()
 
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
-                .weight(1F)
         ) {
             TaskContent(
+                Modifier.weight(1F),
                 tasks,
                 onTaskItemClick,
                 onTaskStatusItemClick,
                 onTaskSwipeToDelete,
-                color
+                color,
+                listState
             )
 
             TaskCreator(
-                modifier = Modifier.align(Alignment.BottomStart),
                 color = color,
                 onClick = onAddTaskClick,
                 text = tempTaskName
