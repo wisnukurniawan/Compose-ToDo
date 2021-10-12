@@ -254,36 +254,46 @@ private class SwipeSearchNestedScrollConnection(
             SwipeSearchValue.Closed -> {
                 when {
                     // If detected as quick scroll, set opened
-                    available.y > OpenVelocityThreshold && shouldConsumeScrollDown -> {
-                        onFling(SwipeSearchValue.Opened)
+                    available.y > VelocityThreshold && shouldConsumeScrollDown -> {
+                        coroutineScope.launch {
+                            state.animateOffsetTo(searchHeightPx.toFloat())
+                            onFling(SwipeSearchValue.Opened)
+                            state.isSwipeInProgress = false
+                        }
                     }
                     // If exceed threshold, set opened
-                    state.offset >= (searchHeightPx * CloseDragThreshold) -> {
+                    state.offset >= (searchHeightPx * OpenDragThreshold) -> {
                         onFling(SwipeSearchValue.Opened)
+                        state.isSwipeInProgress = false
                     }
                     else -> {
                         onFling(SwipeSearchValue.Closed)
+                        state.isSwipeInProgress = false
                     }
                 }
             }
             SwipeSearchValue.Opened -> {
                 when {
                     // If detected as quick scroll, set closed
-                    available.y < CloseVelocityThreshold -> {
-                        onFling(SwipeSearchValue.Closed)
+                    available.y < -VelocityThreshold -> {
+                        coroutineScope.launch {
+                            state.animateOffsetTo(0f)
+                            onFling(SwipeSearchValue.Closed)
+                            state.isSwipeInProgress = false
+                        }
                     }
                     // If exceed threshold, set closed
-                    state.offset >= (searchHeightPx * OpenDragThreshold) -> {
-                        onFling(SwipeSearchValue.Opened)
+                    state.offset <= (searchHeightPx * CloseDragThreshold) -> {
+                        onFling(SwipeSearchValue.Closed)
+                        state.isSwipeInProgress = false
                     }
                     else -> {
-                        onFling(SwipeSearchValue.Closed)
+                        onFling(SwipeSearchValue.Opened)
+                        state.isSwipeInProgress = false
                     }
                 }
             }
         }
-
-        state.isSwipeInProgress = false
     }
 
 
@@ -311,11 +321,10 @@ private val SearchHeight = 100.dp
 private const val DragMultiplier = 0.5f
 private const val PushBackDropMultiplier = 3f
 
-private const val CloseVelocityThreshold = -5000
-private const val OpenVelocityThreshold = 5000
+private const val VelocityThreshold = 1000F
 
-private const val CloseDragThreshold = 0.76
-private const val OpenDragThreshold = 0.33
+private const val OpenDragThreshold = 0.74
+private const val CloseDragThreshold = 0.34
 
 private const val SCROLL_UP = "UP"
 private const val SCROLL_DOWN = "DOWN"
