@@ -50,7 +50,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.theme.ListRed
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgBasicTextField
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.SwipeToDismiss
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.SwipeDismiss
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProviderImpl
 import com.wisnu.kurniawan.coreLogger.Loggr
 import kotlinx.coroutines.delay
@@ -126,7 +126,7 @@ private fun StepCell(
     onClickImeDone: () -> Unit,
     onSwipeToDelete: () -> Unit,
 ) {
-    SwipeToDismiss(
+    SwipeDismiss(
         modifier = modifier,
         backgroundModifier = Modifier
             .background(MaterialTheme.colors.secondary),
