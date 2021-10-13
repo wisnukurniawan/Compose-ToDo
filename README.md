@@ -28,6 +28,7 @@ Compose playground for learning purpose, especially trying and explore android t
 * Target SDK 31
 * AGP 7.0.2
 * Java 11
+* Kotlin 1.5.31
 
 ## Setup
 
