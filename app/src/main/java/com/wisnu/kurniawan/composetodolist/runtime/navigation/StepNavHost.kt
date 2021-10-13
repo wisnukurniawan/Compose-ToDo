@@ -14,9 +14,6 @@ import com.wisnu.kurniawan.composetodolist.features.todo.step.ui.RenameTaskScree
 import com.wisnu.kurniawan.composetodolist.features.todo.step.ui.RepeatSelectionScreen
 import com.wisnu.kurniawan.composetodolist.features.todo.step.ui.StepScreen
 import com.wisnu.kurniawan.composetodolist.features.todo.step.ui.StepViewModel
-import com.wisnu.kurniawan.composetodolist.runtime.MainBottomSheetConfig
-import com.wisnu.kurniawan.composetodolist.runtime.defaultMainBottomSheetConfig
-import com.wisnu.kurniawan.composetodolist.runtime.noScrimSmallShapeMainBottomSheetConfig
 
 @OptIn(ExperimentalMaterialNavigationApi::class)
 fun NavGraphBuilder.StepNavHost(
@@ -46,7 +43,7 @@ fun NavGraphBuilder.StepNavHost(
             } else {
                 hiltViewModel()
             }
-            bottomSheetConfig.value = noScrimSmallShapeMainBottomSheetConfig
+            bottomSheetConfig.value = NoScrimSmallShapeMainBottomSheetConfig
 
             CreateStepScreen(viewModel = viewModel)
         }
@@ -62,7 +59,7 @@ fun NavGraphBuilder.StepNavHost(
                 hiltViewModel()
             }
             val stepId = backStackEntry.arguments?.getString(ARG_STEP_ID)
-            bottomSheetConfig.value = defaultMainBottomSheetConfig
+            bottomSheetConfig.value = DefaultMainBottomSheetConfig
 
             RenameStepScreen(
                 navController = navController,
@@ -78,7 +75,7 @@ fun NavGraphBuilder.StepNavHost(
             } else {
                 hiltViewModel()
             }
-            bottomSheetConfig.value = defaultMainBottomSheetConfig
+            bottomSheetConfig.value = DefaultMainBottomSheetConfig
 
             RenameTaskScreen(
                 navController = navController,
@@ -93,7 +90,7 @@ fun NavGraphBuilder.StepNavHost(
             } else {
                 hiltViewModel()
             }
-            bottomSheetConfig.value = defaultMainBottomSheetConfig
+            bottomSheetConfig.value = DefaultMainBottomSheetConfig
 
             RepeatSelectionScreen(
                 navController = navController,

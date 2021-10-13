@@ -14,10 +14,6 @@ import com.wisnu.kurniawan.composetodolist.features.todo.detail.ui.ListDetailTab
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.ui.ListDetailViewModel
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.ui.TaskEditor
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.ui.UpdateListEditor
-import com.wisnu.kurniawan.composetodolist.runtime.MainBottomSheetConfig
-import com.wisnu.kurniawan.composetodolist.runtime.defaultMainBottomSheetConfig
-import com.wisnu.kurniawan.composetodolist.runtime.noScrimSmallShapeMainBottomSheetConfig
-
 
 @OptIn(ExperimentalMaterialNavigationApi::class)
 fun NavGraphBuilder.ListDetailNavHost(
@@ -89,7 +85,7 @@ private fun NavGraphBuilder.ListDetailBottomSheetNavHost(
         } else {
             hiltViewModel()
         }
-        bottomSheetConfig.value = defaultMainBottomSheetConfig
+        bottomSheetConfig.value = DefaultMainBottomSheetConfig
         CreateListEditor(
             viewModel = viewModel,
             navController = navController
@@ -103,7 +99,7 @@ private fun NavGraphBuilder.ListDetailBottomSheetNavHost(
         } else {
             hiltViewModel()
         }
-        bottomSheetConfig.value = defaultMainBottomSheetConfig
+        bottomSheetConfig.value = DefaultMainBottomSheetConfig
         UpdateListEditor(
             viewModel = viewModel,
             navController = navController
@@ -117,7 +113,7 @@ private fun NavGraphBuilder.ListDetailBottomSheetNavHost(
         } else {
             hiltViewModel()
         }
-        bottomSheetConfig.value = noScrimSmallShapeMainBottomSheetConfig
+        bottomSheetConfig.value = NoScrimSmallShapeMainBottomSheetConfig
         TaskEditor(
             viewModel = viewModel
         )

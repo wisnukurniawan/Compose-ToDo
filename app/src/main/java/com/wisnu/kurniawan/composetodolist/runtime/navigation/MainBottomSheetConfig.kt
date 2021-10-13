@@ -1,4 +1,4 @@
-package com.wisnu.kurniawan.composetodolist.runtime
+package com.wisnu.kurniawan.composetodolist.runtime.navigation
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Immutable
@@ -12,21 +12,21 @@ data class MainBottomSheetConfig(
     val showScrim: Boolean
 )
 
-val defaultMainBottomSheetConfig = MainBottomSheetConfig(
+val DefaultMainBottomSheetConfig = MainBottomSheetConfig(
     RoundedCornerShape(
         topStart = LargeRadius,
         topEnd = LargeRadius
     ),
     true
 )
-val noScrimMainBottomSheetConfig = MainBottomSheetConfig(
+val NoScrimMainBottomSheetConfig = MainBottomSheetConfig(
     RoundedCornerShape(
         topStart = LargeRadius,
         topEnd = LargeRadius
     ),
     false
 )
-val noScrimSmallShapeMainBottomSheetConfig = MainBottomSheetConfig(
+val NoScrimSmallShapeMainBottomSheetConfig = MainBottomSheetConfig(
     RoundedCornerShape(
         topStart = SmallRadius,
         topEnd = SmallRadius

@@ -16,8 +16,6 @@ import com.wisnu.kurniawan.composetodolist.features.setting.ui.SettingScreen
 import com.wisnu.kurniawan.composetodolist.features.setting.ui.SettingViewModel
 import com.wisnu.kurniawan.composetodolist.features.theme.ui.ThemeScreen
 import com.wisnu.kurniawan.composetodolist.features.theme.ui.ThemeViewModel
-import com.wisnu.kurniawan.composetodolist.runtime.MainBottomSheetConfig
-import com.wisnu.kurniawan.composetodolist.runtime.defaultMainBottomSheetConfig
 
 @OptIn(ExperimentalMaterialNavigationApi::class)
 fun NavGraphBuilder.SettingNavHost(
@@ -27,7 +25,7 @@ fun NavGraphBuilder.SettingNavHost(
     navigation(startDestination = SettingFlow.Setting.route, route = SettingFlow.Root.route) {
         bottomSheet(SettingFlow.Setting.route) {
             val viewModel = hiltViewModel<SettingViewModel>()
-            bottomSheetConfig.value = defaultMainBottomSheetConfig
+            bottomSheetConfig.value = DefaultMainBottomSheetConfig
             SettingScreen(
                 navController = navController,
                 viewModel = viewModel
@@ -35,7 +33,7 @@ fun NavGraphBuilder.SettingNavHost(
         }
         bottomSheet(SettingFlow.Theme.route) {
             val viewModel = hiltViewModel<ThemeViewModel>()
-            bottomSheetConfig.value = defaultMainBottomSheetConfig
+            bottomSheetConfig.value = DefaultMainBottomSheetConfig
             ThemeScreen(
                 navController = navController,
                 viewModel = viewModel
@@ -43,7 +41,7 @@ fun NavGraphBuilder.SettingNavHost(
         }
         bottomSheet(SettingFlow.Logout.route) {
             val viewModel = hiltViewModel<LogoutViewModel>()
-            bottomSheetConfig.value = defaultMainBottomSheetConfig
+            bottomSheetConfig.value = DefaultMainBottomSheetConfig
             LogoutScreen(
                 navController = navController,
                 viewModel = viewModel
@@ -51,7 +49,7 @@ fun NavGraphBuilder.SettingNavHost(
         }
         composable(SettingFlow.Language.route) {
             val viewModel = hiltViewModel<LocalizedSettingViewModel>()
-            bottomSheetConfig.value = defaultMainBottomSheetConfig
+            bottomSheetConfig.value = DefaultMainBottomSheetConfig
             LanguageScreen(
                 navController = navController,
                 viewModel = viewModel

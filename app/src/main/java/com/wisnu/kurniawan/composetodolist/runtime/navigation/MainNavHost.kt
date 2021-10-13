@@ -31,8 +31,6 @@ import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import com.wisnu.kurniawan.composetodolist.features.splash.ui.SplashScreen
 import com.wisnu.kurniawan.composetodolist.features.splash.ui.SplashViewModel
-import com.wisnu.kurniawan.composetodolist.runtime.MainBottomSheetConfig
-import com.wisnu.kurniawan.composetodolist.runtime.defaultMainBottomSheetConfig
 import kotlinx.coroutines.flow.collect
 
 const val MinLargeScreenWidth = 585
@@ -41,7 +39,7 @@ const val MinLargeScreenWidth = 585
 @Composable
 fun MainNavHost(windowInfoRep: WindowInfoRepository) {
     val bottomSheetNavigator = rememberBottomSheetNavigator()
-    val bottomSheetConfig = remember { mutableStateOf(defaultMainBottomSheetConfig) }
+    val bottomSheetConfig = remember { mutableStateOf(DefaultMainBottomSheetConfig) }
 
     val smallestScreenWidthDp = LocalConfiguration.current.smallestScreenWidthDp
 
@@ -146,11 +144,11 @@ private fun HomeTabletNavHost(
     weightRight: Float,
 ) {
     val bottomSheetNavigatorLeft = rememberBottomSheetNavigator()
-    val bottomSheetConfigLeft = remember { mutableStateOf(defaultMainBottomSheetConfig) }
+    val bottomSheetConfigLeft = remember { mutableStateOf(DefaultMainBottomSheetConfig) }
     val navControllerLeft = rememberNavController(bottomSheetNavigatorLeft)
 
     val bottomSheetNavigatorRight = rememberBottomSheetNavigator()
-    val bottomSheetConfigRight = remember { mutableStateOf(defaultMainBottomSheetConfig) }
+    val bottomSheetConfigRight = remember { mutableStateOf(DefaultMainBottomSheetConfig) }
     val navControllerRight = rememberNavController(bottomSheetNavigatorRight)
 
     Row(modifier = Modifier.fillMaxSize()) {

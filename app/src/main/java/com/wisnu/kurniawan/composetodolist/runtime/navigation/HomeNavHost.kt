@@ -21,8 +21,6 @@ import com.wisnu.kurniawan.composetodolist.features.todo.groupmenu.ui.GroupMenuS
 import com.wisnu.kurniawan.composetodolist.features.todo.groupmenu.ui.GroupMenuViewModel
 import com.wisnu.kurniawan.composetodolist.features.todo.main.ui.ToDoMainViewModel
 import com.wisnu.kurniawan.composetodolist.features.todo.search.ui.SearchViewModel
-import com.wisnu.kurniawan.composetodolist.runtime.MainBottomSheetConfig
-import com.wisnu.kurniawan.composetodolist.runtime.defaultMainBottomSheetConfig
 
 @OptIn(ExperimentalMaterialNavigationApi::class)
 fun NavGraphBuilder.HomeNavHost(
@@ -85,7 +83,7 @@ private fun NavGraphBuilder.HomeBottomSheetNavHost(
         arguments = HomeFlow.GroupMenu.arguments
     ) {
         val viewModel = hiltViewModel<GroupMenuViewModel>()
-        bottomSheetConfig.value = defaultMainBottomSheetConfig
+        bottomSheetConfig.value = DefaultMainBottomSheetConfig
         GroupMenuScreen(
             viewModel = viewModel,
             navController = navController
@@ -93,7 +91,7 @@ private fun NavGraphBuilder.HomeBottomSheetNavHost(
     }
     bottomSheet(HomeFlow.CreateGroup.route) {
         val viewModel = hiltViewModel<CreateGroupViewModel>()
-        bottomSheetConfig.value = defaultMainBottomSheetConfig
+        bottomSheetConfig.value = DefaultMainBottomSheetConfig
         CreateGroupScreen(
             navController = navController,
             viewModel = viewModel
@@ -104,7 +102,7 @@ private fun NavGraphBuilder.HomeBottomSheetNavHost(
         arguments = HomeFlow.UpdateGroup.arguments
     ) {
         val viewModel = hiltViewModel<CreateGroupViewModel>()
-        bottomSheetConfig.value = defaultMainBottomSheetConfig
+        bottomSheetConfig.value = DefaultMainBottomSheetConfig
         UpdateGroupScreen(
             navController = navController,
             viewModel = viewModel
@@ -115,7 +113,7 @@ private fun NavGraphBuilder.HomeBottomSheetNavHost(
         arguments = HomeFlow.UpdateGroupList.arguments
     ) {
         val viewModel = hiltViewModel<UpdateGroupListViewModel>()
-        bottomSheetConfig.value = defaultMainBottomSheetConfig
+        bottomSheetConfig.value = DefaultMainBottomSheetConfig
         UpdateGroupListScreen(
             navController = navController,
             viewModel = viewModel
@@ -126,7 +124,7 @@ private fun NavGraphBuilder.HomeBottomSheetNavHost(
         arguments = HomeFlow.EditGroupList.arguments
     ) {
         val viewModel = hiltViewModel<UpdateGroupListViewModel>()
-        bottomSheetConfig.value = defaultMainBottomSheetConfig
+        bottomSheetConfig.value = DefaultMainBottomSheetConfig
         EditGroupListScreen(
             navController = navController,
             viewModel = viewModel
