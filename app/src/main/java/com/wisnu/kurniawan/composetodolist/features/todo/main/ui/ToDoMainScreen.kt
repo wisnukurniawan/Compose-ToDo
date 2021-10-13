@@ -48,9 +48,8 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.cellShape
 import com.wisnu.kurniawan.composetodolist.foundation.extension.identifier
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
 import com.wisnu.kurniawan.composetodolist.foundation.extension.totalTask
-import com.wisnu.kurniawan.composetodolist.foundation.theme.CommonBlue
 import com.wisnu.kurniawan.composetodolist.foundation.theme.CommonGrey
-import com.wisnu.kurniawan.composetodolist.foundation.theme.CommonRed
+import com.wisnu.kurniawan.composetodolist.foundation.theme.ListBlue
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListRed
 import com.wisnu.kurniawan.composetodolist.foundation.theme.MediumRadius
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgEmpty
@@ -178,7 +177,7 @@ private fun ScheduledTodayCell(
         title = stringResource(R.string.todo_today),
         iconText = currentDate,
         icon = Icons.Rounded.CalendarToday,
-        iconColor = CommonRed,
+        iconColor = ListRed,
         onClick = onClick
     )
 }
@@ -195,7 +194,7 @@ private fun ScheduledCell(
         taskCount = scheduledTaskCount,
         title = stringResource(R.string.todo_scheduled),
         icon = Icons.Rounded.Event,
-        iconColor = CommonBlue,
+        iconColor = ListBlue,
         onClick = onClick
     )
 }

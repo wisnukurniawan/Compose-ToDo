@@ -48,8 +48,8 @@ import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.identifier
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
-import com.wisnu.kurniawan.composetodolist.foundation.theme.CommonBlue
-import com.wisnu.kurniawan.composetodolist.foundation.theme.CommonRed
+import com.wisnu.kurniawan.composetodolist.foundation.theme.ListBlue
+import com.wisnu.kurniawan.composetodolist.foundation.theme.ListRed
 import com.wisnu.kurniawan.composetodolist.foundation.theme.Shapes
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgEmpty
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
@@ -77,7 +77,7 @@ fun ScheduledScreen(
             ScheduledTitle(
                 onClickBack = { navController.navigateUp() },
                 text = stringResource(R.string.todo_scheduled),
-                color = CommonBlue,
+                color = ListBlue,
                 backIcon = Icons.Rounded.ChevronLeft,
                 canToggleCompletedTask = true,
                 hideCompleteTask = state.hideCompleteTask,
@@ -107,7 +107,7 @@ fun ScheduledTabletScreen(
             ScheduledTitle(
                 onClickBack = { navController.navigateUp() },
                 text = stringResource(R.string.todo_scheduled),
-                color = CommonBlue,
+                color = ListBlue,
                 backIcon = Icons.Rounded.Close,
                 canToggleCompletedTask = true,
                 hideCompleteTask = state.hideCompleteTask,
@@ -137,7 +137,7 @@ fun ScheduledTodayScreen(
             ScheduledTitle(
                 onClickBack = { navController.navigateUp() },
                 text = stringResource(R.string.todo_today),
-                color = CommonRed,
+                color = ListRed,
                 backIcon = Icons.Rounded.ChevronLeft
             )
         },
@@ -162,7 +162,7 @@ fun ScheduledTodayTabletScreen(
             ScheduledTitle(
                 onClickBack = { navController.navigateUp() },
                 text = stringResource(R.string.todo_today),
-                color = CommonRed,
+                color = ListRed,
                 backIcon = Icons.Rounded.Close
             )
         },

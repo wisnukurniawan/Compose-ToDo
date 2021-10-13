@@ -63,8 +63,8 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.displayable
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isDueDateSet
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isExpired
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
-import com.wisnu.kurniawan.composetodolist.foundation.theme.CommonBlue
-import com.wisnu.kurniawan.composetodolist.foundation.theme.CommonRed
+import com.wisnu.kurniawan.composetodolist.foundation.theme.ListBlue
+import com.wisnu.kurniawan.composetodolist.foundation.theme.ListRed
 import com.wisnu.kurniawan.composetodolist.foundation.theme.MediumRadius
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
@@ -387,7 +387,7 @@ private fun StepContent(
                     topStart = MediumRadius,
                     topEnd = MediumRadius
                 ),
-                iconBgColor = CommonRed,
+                iconBgColor = ListRed,
                 leftIcon = Icons.Rounded.Event,
                 showDivider = true,
                 onClick = if (task.isDueDateSet()) {
@@ -417,7 +417,7 @@ private fun StepContent(
                     bottomStart = MediumRadius,
                     bottomEnd = MediumRadius
                 ),
-                iconBgColor = CommonBlue,
+                iconBgColor = ListBlue,
                 leftIcon = Icons.Rounded.Schedule,
                 showDivider = false,
                 onClick = if (task.isDueDateTimeSet) {
