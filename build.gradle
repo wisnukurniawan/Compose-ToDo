@@ -10,7 +10,8 @@ buildscript {
         classpath libs.androidx.navigationGradlePlugin
         classpath libs.google.hiltGradlePlugin
         classpath libs.squareup.wireGradlePlugin
-        classpath libs.google.kspPlugin
+        // Commented due to not all dep we are use support ksp
+        // classpath libs.google.kspPlugin
     }
 }
 

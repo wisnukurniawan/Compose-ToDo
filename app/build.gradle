@@ -2,7 +2,8 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'com.google.devtools.ksp'
+    // Commented due to not all dep we are use support ksp
+    // id 'com.google.devtools.ksp'
     id 'androidx.navigation.safeargs.kotlin'
     id 'com.squareup.wire'
     id 'dagger.hilt.android.plugin'
