@@ -2,6 +2,7 @@ package com.wisnu.kurniawan.composetodolist.foundation.extension
 
 import com.wisnu.kurniawan.composetodolist.DateFactory
 import com.wisnu.kurniawan.composetodolist.features.todo.main.ui.ItemMainState
+import com.wisnu.kurniawan.composetodolist.features.todo.main.ui.SelectedItemState
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoGroupDb
 import com.wisnu.kurniawan.composetodolist.model.ToDoColor
 import com.wisnu.kurniawan.composetodolist.model.ToDoGroup
@@ -60,10 +61,11 @@ class ToDoGroupExtTest {
                         tasks = listOf(),
                         createdAt = DateFactory.constantDate,
                         updatedAt = DateFactory.constantDate,
-                    )
+                    ),
+                    selected = false
                 )
             ),
-            data.toItemGroup()
+            data.toItemGroup(SelectedItemState.Empty)
         )
     }
 
@@ -148,7 +150,8 @@ class ToDoGroupExtTest {
                         tasks = listOf(),
                         createdAt = DateFactory.constantDate,
                         updatedAt = DateFactory.constantDate,
-                    )
+                    ),
+                    selected = false
                 ),
                 ItemMainState.ItemListType.Middle(
                     list = ToDoList(
@@ -158,7 +161,8 @@ class ToDoGroupExtTest {
                         tasks = listOf(),
                         createdAt = DateFactory.constantDate,
                         updatedAt = DateFactory.constantDate,
-                    )
+                    ),
+                    selected = false
                 ),
                 ItemMainState.ItemListType.Last(
                     list = ToDoList(
@@ -168,10 +172,11 @@ class ToDoGroupExtTest {
                         tasks = listOf(),
                         createdAt = DateFactory.constantDate,
                         updatedAt = DateFactory.constantDate,
-                    )
+                    ),
+                    selected = false
                 )
             ),
-            data.toItemGroup()
+            data.toItemGroup(SelectedItemState.Empty)
         )
     }
 

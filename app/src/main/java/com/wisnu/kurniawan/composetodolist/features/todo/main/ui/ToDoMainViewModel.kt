@@ -2,8 +2,15 @@ package com.wisnu.kurniawan.composetodolist.features.todo.main.ui
 
 import androidx.lifecycle.viewModelScope
 import com.wisnu.kurniawan.composetodolist.features.todo.main.data.IToDoMainEnvironment
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toItemGroup
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
+import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_LIST_ID
+import com.wisnu.kurniawan.composetodolist.runtime.navigation.AllFlow
+import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
+import com.wisnu.kurniawan.composetodolist.runtime.navigation.ListDetailFlow
+import com.wisnu.kurniawan.composetodolist.runtime.navigation.MainFlow
+import com.wisnu.kurniawan.composetodolist.runtime.navigation.ScheduledFlow
+import com.wisnu.kurniawan.composetodolist.runtime.navigation.ScheduledTodayFlow
+import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
@@ -26,6 +33,32 @@ class ToDoMainViewModel @Inject constructor(todoMainEnvironment: IToDoMainEnviro
                     environment.deleteList(action.itemListType.list)
                 }
             }
+            is ToDoMainAction.NavBackStackEntryChanged -> {
+                viewModelScope.launch(environment.dispatcher) {
+                    when (action.route) {
+                        ListDetailFlow.ListDetailScreen.route, StepFlow.TaskDetailScreen.route -> {
+                            val listId = action.arguments?.getString(ARG_LIST_ID)
+                            if (listId.isNullOrBlank()) {
+                                setState { copy(selectedItemState = SelectedItemState.Empty) }
+                            } else {
+                                setState { copy(selectedItemState = SelectedItemState.List(listId)) }
+                            }
+                        }
+                        AllFlow.AllScreen.route -> {
+                            setState { copy(selectedItemState = SelectedItemState.AllTask) }
+                        }
+                        ScheduledTodayFlow.ScheduledTodayScreen.route -> {
+                            setState { copy(selectedItemState = SelectedItemState.ScheduledTodayTask) }
+                        }
+                        ScheduledFlow.ScheduledScreen.route -> {
+                            setState { copy(selectedItemState = SelectedItemState.ScheduledTask) }
+                        }
+                        MainFlow.RootEmpty.route, HomeFlow.DashboardScreen.route -> {
+                            setState { copy(selectedItemState = SelectedItemState.Empty) }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -36,7 +69,7 @@ class ToDoMainViewModel @Inject constructor(todoMainEnvironment: IToDoMainEnviro
                 .collect {
                     setState {
                         copy(
-                            data = it.toItemGroup(),
+                            data = it,
                             currentDate = environment.dateTimeProvider.now().dayOfMonth.toString()
                         )
                     }

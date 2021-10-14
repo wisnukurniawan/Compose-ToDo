@@ -35,6 +35,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.features.todo.main.ui.ItemMainState
 import com.wisnu.kurniawan.composetodolist.features.todo.main.ui.ToDoMainAction
@@ -68,15 +69,23 @@ fun DashboardScreen(
     val state by viewModel.state.collectAsState()
     val todoMainState by toDoMainViewModel.state.collectAsState()
     val searchState by searchViewModel.state.collectAsState()
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+
+    LaunchedEffect(navBackStackEntry) {
+        toDoMainViewModel.dispatch(ToDoMainAction.NavBackStackEntryChanged(navBackStackEntry?.destination?.route, navBackStackEntry?.arguments))
+    }
 
     DashboardScreen(
         email = state.user.email,
         searchText = searchState.searchText,
-        todoData = todoMainState.data,
+        todoData = todoMainState.items,
         currentDate = todoMainState.currentDate,
         scheduledTodayTaskCount = todoMainState.scheduledTodayTaskCount,
         scheduledTaskCount = todoMainState.scheduledTaskCount,
         allTaskCount = todoMainState.allTaskCount,
+        isAllTaskSelected = todoMainState.isAllTaskSelected,
+        isScheduledTodayTaskSelected = todoMainState.isScheduledTodayTaskSelected,
+        isScheduledTaskSelected = todoMainState.isScheduledTaskSelected,
         onSearchChange = { searchViewModel.dispatch(SearchAction.ChangeSearchText(it)) },
         onSearchOpened = { searchViewModel.dispatch(SearchAction.OnShow) },
         onSettingClick = { navController.navigate(SettingFlow.Root.route) },
@@ -101,14 +110,22 @@ fun DashboardTabletScreen(
 ) {
     val state by viewModel.state.collectAsState()
     val todoMainState by toDoMainViewModel.state.collectAsState()
+    val navBackStackEntry by navControllerRight.currentBackStackEntryAsState()
+
+    LaunchedEffect(navBackStackEntry) {
+        toDoMainViewModel.dispatch(ToDoMainAction.NavBackStackEntryChanged(navBackStackEntry?.destination?.route, navBackStackEntry?.arguments))
+    }
 
     DashboardContent(
         email = state.user.email,
-        todoData = todoMainState.data,
+        todoData = todoMainState.items,
         currentDate = todoMainState.currentDate,
         scheduledTodayTaskCount = todoMainState.scheduledTodayTaskCount,
         scheduledTaskCount = todoMainState.scheduledTaskCount,
         allTaskCount = todoMainState.allTaskCount,
+        isAllTaskSelected = todoMainState.isAllTaskSelected,
+        isScheduledTodayTaskSelected = todoMainState.isScheduledTodayTaskSelected,
+        isScheduledTaskSelected = todoMainState.isScheduledTaskSelected,
         onSettingClick = { navController.navigate(SettingFlow.Root.route) },
         onAddNewListClick = {
             navControllerRight.navigate(ListDetailFlow.Root.route()) {
@@ -151,6 +168,9 @@ private fun DashboardScreen(
     scheduledTodayTaskCount: String,
     scheduledTaskCount: String,
     allTaskCount: String,
+    isAllTaskSelected: Boolean,
+    isScheduledTodayTaskSelected: Boolean,
+    isScheduledTaskSelected: Boolean,
     onSettingClick: () -> Unit,
     onAddNewListClick: () -> Unit,
     onAddNewGroupClick: () -> Unit,
@@ -191,22 +211,25 @@ private fun DashboardScreen(
         onSearchAreaClick = closeSearch,
         content = {
             DashboardContent(
-                email,
-                todoData,
-                currentDate,
-                scheduledTodayTaskCount,
-                scheduledTaskCount,
-                allTaskCount,
-                onClickGroup,
-                onClickList,
-                onSwipeToDelete,
-                onClickScheduledTodayTask,
-                onClickScheduledTask,
-                onClickAllTask,
-                onSettingClick,
-                openSearch,
-                onAddNewListClick,
-                onAddNewGroupClick
+                email = email,
+                todoData = todoData,
+                currentDate = currentDate,
+                scheduledTodayTaskCount = scheduledTodayTaskCount,
+                scheduledTaskCount = scheduledTaskCount,
+                allTaskCount = allTaskCount,
+                isAllTaskSelected = isAllTaskSelected,
+                isScheduledTodayTaskSelected = isScheduledTodayTaskSelected,
+                isScheduledTaskSelected = isScheduledTaskSelected,
+                onClickGroup = onClickGroup,
+                onClickList = onClickList,
+                onSwipeToDelete = onSwipeToDelete,
+                onClickScheduledTodayTask = onClickScheduledTodayTask,
+                onClickScheduledTask = onClickScheduledTask,
+                onClickAllTask = onClickAllTask,
+                onSettingClick = onSettingClick,
+                onClickSearch = openSearch,
+                onAddNewListClick = onAddNewListClick,
+                onAddNewGroupClick = onAddNewGroupClick
             )
         },
         searchSection = {
@@ -232,6 +255,9 @@ private fun DashboardContent(
     scheduledTodayTaskCount: String,
     scheduledTaskCount: String,
     allTaskCount: String,
+    isAllTaskSelected: Boolean,
+    isScheduledTodayTaskSelected: Boolean,
+    isScheduledTaskSelected: Boolean,
     onClickGroup: (ItemMainState.ItemGroup) -> Unit,
     onClickList: (ItemMainState.ItemListType) -> Unit,
     onSwipeToDelete: (ItemMainState.ItemListType) -> Unit,
@@ -275,17 +301,20 @@ private fun DashboardContent(
 
         Box(modifier = Modifier.fillMaxSize().weight(1F)) {
             ToDoMainScreen(
-                todoData,
-                currentDate,
-                scheduledTodayTaskCount,
-                scheduledTaskCount,
-                allTaskCount,
-                onClickGroup,
-                onClickList,
-                onSwipeToDelete,
-                onClickScheduledTodayTask,
-                onClickScheduledTask,
-                onClickAllTask
+                data = todoData,
+                currentDate = currentDate,
+                scheduledTodayTaskCount = scheduledTodayTaskCount,
+                scheduledTaskCount = scheduledTaskCount,
+                allTaskCount = allTaskCount,
+                isAllTaskSelected = isAllTaskSelected,
+                isScheduledTodayTaskSelected = isScheduledTodayTaskSelected,
+                isScheduledTaskSelected = isScheduledTaskSelected,
+                onClickGroup = onClickGroup,
+                onClickList = onClickList,
+                onSwipeToDelete = onSwipeToDelete,
+                onClickScheduledTodayTask = onClickScheduledTodayTask,
+                onClickScheduledTask = onClickScheduledTask,
+                onClickAllTask = onClickAllTask,
             )
 
             Footer(

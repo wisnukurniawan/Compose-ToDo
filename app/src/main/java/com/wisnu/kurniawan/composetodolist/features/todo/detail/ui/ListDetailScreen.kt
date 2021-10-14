@@ -51,7 +51,9 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgSecondaryBut
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgTextField
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.collectAsEffect
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
+import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ListDetailFlow
+import com.wisnu.kurniawan.composetodolist.runtime.navigation.MainFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
 
 @Composable
@@ -78,6 +80,14 @@ fun ListDetailScreen(
             val position = (effect as ListDetailEffect.ScrollTo).position
             LaunchedEffect(position) {
                 listState.animateScrollToItem(position)
+            }
+        }
+        is ListDetailEffect.Relaunch -> {
+            LaunchedEffect(effect) {
+                val listId = (effect as ListDetailEffect.Relaunch).listId
+                navController.navigate(ListDetailFlow.Root.route(listId)) {
+                    popUpTo(HomeFlow.DashboardScreen.route)
+                }
             }
         }
     }
@@ -128,6 +138,14 @@ fun ListDetailTabletScreen(
             val position = (effect as ListDetailEffect.ScrollTo).position
             LaunchedEffect(position) {
                 listState.animateScrollToItem(position)
+            }
+        }
+        is ListDetailEffect.Relaunch -> {
+            LaunchedEffect(effect) {
+                val listId = (effect as ListDetailEffect.Relaunch).listId
+                navController.navigate(ListDetailFlow.Root.route(listId)) {
+                    popUpTo(MainFlow.RootEmpty.route)
+                }
             }
         }
     }
