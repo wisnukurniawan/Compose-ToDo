@@ -69,11 +69,6 @@ fun DashboardScreen(
     val state by viewModel.state.collectAsState()
     val todoMainState by toDoMainViewModel.state.collectAsState()
     val searchState by searchViewModel.state.collectAsState()
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-
-    LaunchedEffect(navBackStackEntry) {
-        toDoMainViewModel.dispatch(ToDoMainAction.NavBackStackEntryChanged(navBackStackEntry?.destination?.route, navBackStackEntry?.arguments))
-    }
 
     DashboardScreen(
         email = state.user.email,

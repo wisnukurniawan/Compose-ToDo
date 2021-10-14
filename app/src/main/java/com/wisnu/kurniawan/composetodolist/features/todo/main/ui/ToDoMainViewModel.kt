@@ -5,7 +5,6 @@ import com.wisnu.kurniawan.composetodolist.features.todo.main.data.IToDoMainEnvi
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_LIST_ID
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.AllFlow
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ListDetailFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.MainFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ScheduledFlow
@@ -53,7 +52,7 @@ class ToDoMainViewModel @Inject constructor(todoMainEnvironment: IToDoMainEnviro
                         ScheduledFlow.ScheduledScreen.route -> {
                             setState { copy(selectedItemState = SelectedItemState.ScheduledTask) }
                         }
-                        MainFlow.RootEmpty.route, HomeFlow.DashboardScreen.route -> {
+                        MainFlow.RootEmpty.route -> {
                             setState { copy(selectedItemState = SelectedItemState.Empty) }
                         }
                     }
