@@ -866,6 +866,173 @@ class ToDoReadTest {
     }
 
     @Test
+    fun getTaskWithStepsById() = runBlocking {
+        val groupId1 = "groupId1"
+        val groupId2 = "groupId2"
+        val listId1 = "listId1"
+        val listId2 = "listId2"
+        val taskId1 = "taskId1"
+        val taskId2 = "taskId2"
+        val group1 = ToDoGroupDb(
+            id = groupId1,
+            name = "group1",
+            createdAt = DateFactory.constantDate,
+            updatedAt = DateFactory.constantDate,
+        )
+        val group2 = ToDoGroupDb(
+            id = groupId2,
+            name = "group2",
+            createdAt = DateFactory.constantDate,
+            updatedAt = DateFactory.constantDate,
+        )
+        val list1 = ToDoListDb(
+            color = ToDoColor.BLUE,
+            id = listId1,
+            name = "list1",
+            groupId = groupId1,
+            createdAt = DateFactory.constantDate,
+            updatedAt = DateFactory.constantDate,
+        )
+        val list2 = ToDoListDb(
+            color = ToDoColor.BLUE,
+            id = listId2,
+            name = "list2",
+            groupId = groupId2,
+            createdAt = DateFactory.constantDate,
+            updatedAt = DateFactory.constantDate,
+        )
+        val task1 = ToDoTaskDb(
+            id = taskId1,
+            name = "task1",
+            listId = listId1,
+            status = ToDoStatus.IN_PROGRESS,
+            createdAt = DateFactory.constantDate,
+            updatedAt = DateFactory.constantDate,
+        )
+        val task2 = ToDoTaskDb(
+            id = taskId2,
+            name = "task2",
+            listId = listId2,
+            status = ToDoStatus.IN_PROGRESS,
+            createdAt = DateFactory.constantDate,
+            updatedAt = DateFactory.constantDate,
+        )
+        val step1 = ToDoStepDb(
+            id = "1",
+            name = "step1",
+            taskId = taskId1,
+            status = ToDoStatus.IN_PROGRESS,
+            createdAt = DateFactory.constantDate,
+            updatedAt = DateFactory.constantDate,
+        )
+        val step2 = ToDoStepDb(
+            id = "2",
+            name = "step2",
+            taskId = taskId2,
+            status = ToDoStatus.IN_PROGRESS,
+            createdAt = DateFactory.constantDate,
+            updatedAt = DateFactory.constantDate,
+        )
+
+        toDoWriteDao.insertGroup(listOf(group1, group2))
+        toDoWriteDao.insertList(listOf(list1, list2))
+        toDoWriteDao.insertTask(listOf(task1, task2))
+        toDoWriteDao.insertStep(listOf(step1, step2))
+
+        toDoReadDao.getTaskWithStepsById(taskId1).expect(
+            ToDoTaskWithSteps(
+                task = task1,
+                steps = listOf(step1)
+            )
+        )
+    }
+
+    @Test
+    fun getTaskWithListById() = runBlocking {
+        val groupId1 = "groupId1"
+        val groupId2 = "groupId2"
+        val listId1 = "listId1"
+        val listId2 = "listId2"
+        val taskId1 = "taskId1"
+        val taskId2 = "taskId2"
+        val group1 = ToDoGroupDb(
+            id = groupId1,
+            name = "group1",
+            createdAt = DateFactory.constantDate,
+            updatedAt = DateFactory.constantDate,
+        )
+        val group2 = ToDoGroupDb(
+            id = groupId2,
+            name = "group2",
+            createdAt = DateFactory.constantDate,
+            updatedAt = DateFactory.constantDate,
+        )
+        val list1 = ToDoListDb(
+            color = ToDoColor.BLUE,
+            id = listId1,
+            name = "list1",
+            groupId = groupId1,
+            createdAt = DateFactory.constantDate,
+            updatedAt = DateFactory.constantDate,
+        )
+        val list2 = ToDoListDb(
+            color = ToDoColor.BLUE,
+            id = listId2,
+            name = "list2",
+            groupId = groupId2,
+            createdAt = DateFactory.constantDate,
+            updatedAt = DateFactory.constantDate,
+        )
+        val task1 = ToDoTaskDb(
+            id = taskId1,
+            name = "task1",
+            listId = listId1,
+            status = ToDoStatus.IN_PROGRESS,
+            createdAt = DateFactory.constantDate,
+            updatedAt = DateFactory.constantDate,
+        )
+        val task2 = ToDoTaskDb(
+            id = taskId2,
+            name = "task2",
+            listId = listId2,
+            status = ToDoStatus.IN_PROGRESS,
+            createdAt = DateFactory.constantDate,
+            updatedAt = DateFactory.constantDate,
+        )
+        val step1 = ToDoStepDb(
+            id = "1",
+            name = "step1",
+            taskId = taskId1,
+            status = ToDoStatus.IN_PROGRESS,
+            createdAt = DateFactory.constantDate,
+            updatedAt = DateFactory.constantDate,
+        )
+        val step2 = ToDoStepDb(
+            id = "2",
+            name = "step2",
+            taskId = taskId2,
+            status = ToDoStatus.IN_PROGRESS,
+            createdAt = DateFactory.constantDate,
+            updatedAt = DateFactory.constantDate,
+        )
+
+        toDoWriteDao.insertGroup(listOf(group1, group2))
+        toDoWriteDao.insertList(listOf(list1, list2))
+        toDoWriteDao.insertTask(listOf(task1, task2))
+        toDoWriteDao.insertStep(listOf(step1, step2))
+
+        toDoReadDao.getTaskWithListById(taskId1).expect(
+            ToDoTaskWithList(
+                ToDoTaskWithSteps(
+                    task = task1,
+                    steps = listOf(step1)
+                ),
+                list1
+            )
+        )
+    }
+
+    @Test
     fun getScheduledTasks() = runBlocking {
         val groupId1 = "groupId1"
         val groupId2 = "groupId2"

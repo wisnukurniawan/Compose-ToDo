@@ -12,7 +12,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.toTask
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toTaskDb
 import com.wisnu.kurniawan.composetodolist.model.GroupIdWithList
 import com.wisnu.kurniawan.composetodolist.model.TaskWithList
-import com.wisnu.kurniawan.composetodolist.model.TaskWithListId
 import com.wisnu.kurniawan.composetodolist.model.ToDoGroup
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoRepeat
@@ -106,10 +105,10 @@ class LocalManager @Inject constructor(
             .map { it.toTask() }
     }
 
-    fun getTaskWithStepsByIdWithListId(taskId: String): Flow<TaskWithListId> {
-        return toDoReadDao.getTaskWithStepsById(taskId)
+    fun getTaskWithListById(taskId: String): Flow<TaskWithList> {
+        return toDoReadDao.getTaskWithListById(taskId)
             .filterNotNull()
-            .map { TaskWithListId(it.task.listId, it.toTask()) }
+            .map { TaskWithList(it.list.toList(), it.task.toTask()) }
     }
 
     fun getScheduledTasks(): Flow<List<ToDoTask>> {

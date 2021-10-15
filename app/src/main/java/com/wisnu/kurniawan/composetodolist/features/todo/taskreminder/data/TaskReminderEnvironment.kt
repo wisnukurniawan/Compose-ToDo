@@ -5,8 +5,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.di.DiName
 import com.wisnu.kurniawan.composetodolist.foundation.extension.getNextScheduledDueDate
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toggleStatusHandler
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
-import com.wisnu.kurniawan.composetodolist.model.TaskWithListId
-import com.wisnu.kurniawan.composetodolist.model.ToDoList
+import com.wisnu.kurniawan.composetodolist.model.TaskWithList
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import com.wisnu.kurniawan.coreLogger.Loggr
@@ -14,8 +13,6 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.flatMapConcat
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
 import javax.inject.Inject
@@ -30,20 +27,15 @@ class TaskReminderEnvironment @Inject constructor(
 ) : ITaskReminderEnvironment {
 
     @OptIn(FlowPreview::class)
-    override fun notifyNotification(taskId: String): Flow<Pair<ToDoTask, ToDoList>> {
+    override fun notifyNotification(taskId: String): Flow<TaskWithList> {
         return getTask(taskId)
-            .flatMapConcat { task ->
-                localManager.getListById(task.listId)
-                    .take(1)
-                    .map { Pair(task.task, it) }
-            }
-            .onEach { (task, list) ->
+            .onEach { (list, task) ->
                 Loggr.debug("AlarmFlow") { "AlarmShow $task $list" }
                 notificationManager.show(task, list)
             }
     }
 
-    override fun snoozeReminder(taskId: String): Flow<TaskWithListId> {
+    override fun snoozeReminder(taskId: String): Flow<TaskWithList> {
         return getTask(taskId)
             .onEach { task ->
                 alarmManager.scheduleTaskAlarm(task.task, dateTimeProvider.now().plusMinutes(15))
@@ -51,7 +43,7 @@ class TaskReminderEnvironment @Inject constructor(
             }
     }
 
-    override suspend fun completeReminder(taskId: String): Flow<TaskWithListId> {
+    override suspend fun completeReminder(taskId: String): Flow<TaskWithList> {
         return getTask(taskId)
             .onEach { task ->
                 val currentDate = dateTimeProvider.now()
@@ -80,8 +72,8 @@ class TaskReminderEnvironment @Inject constructor(
             }
     }
 
-    private fun getTask(taskId: String): Flow<TaskWithListId> {
-        return localManager.getTaskWithStepsByIdWithListId(taskId)
+    private fun getTask(taskId: String): Flow<TaskWithList> {
+        return localManager.getTaskWithListById(taskId)
             .take(1)
             .filter { task ->
                 task.task.status != ToDoStatus.COMPLETE &&

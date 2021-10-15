@@ -129,4 +129,21 @@ interface ToDoReadDao {
     @Query("SELECT * FROM ToDoTaskDb WHERE id = :id")
     fun getTaskWithStepsById(id: String): Flow<ToDoTaskWithSteps>
 
+    @Transaction
+    @Query(
+        """
+            SELECT ToDoTaskDb.*, 
+            ToDoListDb.id AS list_id,
+            ToDoListDb.name AS list_name,
+            ToDoListDb.color AS list_color,
+            ToDoListDb.groupId AS list_groupId,
+            ToDoListDb.createdAt AS list_createdAt,
+            ToDoListDb.updatedAt AS list_updatedAt
+            FROM ToDoTaskDb 
+            LEFT JOIN ToDoListDb ON listId = ToDoListDb.id
+            WHERE ToDoTaskDb.id = :id
+            """
+    )
+    fun getTaskWithListById(id: String): Flow<ToDoTaskWithList>
+
 }
