@@ -65,6 +65,9 @@ fun ToDoMainScreen(
     scheduledTodayTaskCount: String,
     scheduledTaskCount: String,
     allTaskCount: String,
+    isAllTaskSelected: Boolean,
+    isScheduledTodayTaskSelected: Boolean,
+    isScheduledTaskSelected: Boolean,
     onClickGroup: (ItemMainState.ItemGroup) -> Unit,
     onClickList: (ItemMainState.ItemListType) -> Unit,
     onSwipeToDelete: (ItemMainState.ItemListType) -> Unit,
@@ -88,7 +91,8 @@ fun ToDoMainScreen(
                         .padding(end = 8.dp),
                     onClick = onClickScheduledTodayTask,
                     currentDate = currentDate,
-                    scheduledTaskCount = scheduledTodayTaskCount
+                    scheduledTaskCount = scheduledTodayTaskCount,
+                    isSelected = isScheduledTodayTaskSelected
                 )
 
                 ScheduledCell(
@@ -96,7 +100,8 @@ fun ToDoMainScreen(
                         .weight(1f)
                         .padding(start = 8.dp),
                     onClick = onClickScheduledTask,
-                    scheduledTaskCount = scheduledTaskCount
+                    scheduledTaskCount = scheduledTaskCount,
+                    isSelected = isScheduledTaskSelected
                 )
             }
         }
@@ -107,7 +112,8 @@ fun ToDoMainScreen(
                     .fillMaxWidth()
                     .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
                 onClick = onClickAllTask,
-                allTaskCount = allTaskCount
+                allTaskCount = allTaskCount,
+                isSelected = isAllTaskSelected
             )
         }
 
@@ -143,6 +149,7 @@ fun ToDoMainScreen(
                             totalTask = item.list.totalTask().toString(),
                             color = item.list.color.toColor(),
                             shouldShowDivider = item is ItemMainState.ItemListType.First || item is ItemMainState.ItemListType.Middle,
+                            isSelected = item.selected,
                             onClick = { onClickList(item) },
                             onSwipeToDelete = { onSwipeToDelete(item) }
                         )
@@ -169,7 +176,8 @@ private fun ScheduledTodayCell(
     modifier: Modifier,
     onClick: () -> Unit,
     currentDate: String,
-    scheduledTaskCount: String
+    scheduledTaskCount: String,
+    isSelected: Boolean
 ) {
     OverallTaskCell(
         modifier = modifier,
@@ -178,7 +186,8 @@ private fun ScheduledTodayCell(
         iconText = currentDate,
         icon = Icons.Rounded.CalendarToday,
         iconColor = ListRed,
-        onClick = onClick
+        onClick = onClick,
+        isSelected = isSelected
     )
 }
 
@@ -187,7 +196,8 @@ private fun ScheduledTodayCell(
 private fun ScheduledCell(
     modifier: Modifier,
     onClick: () -> Unit,
-    scheduledTaskCount: String
+    scheduledTaskCount: String,
+    isSelected: Boolean
 ) {
     OverallTaskCell(
         modifier = modifier,
@@ -195,7 +205,8 @@ private fun ScheduledCell(
         title = stringResource(R.string.todo_scheduled),
         icon = Icons.Rounded.Event,
         iconColor = ListBlue,
-        onClick = onClick
+        onClick = onClick,
+        isSelected = isSelected
     )
 }
 
@@ -204,7 +215,8 @@ private fun ScheduledCell(
 private fun AllTaskCell(
     modifier: Modifier,
     onClick: () -> Unit,
-    allTaskCount: String
+    allTaskCount: String,
+    isSelected: Boolean
 ) {
     OverallTaskCell(
         modifier = modifier,
@@ -212,7 +224,8 @@ private fun AllTaskCell(
         title = stringResource(R.string.todo_all),
         icon = Icons.Rounded.Inbox,
         iconColor = CommonGrey,
-        onClick = onClick
+        onClick = onClick,
+        isSelected = isSelected
     )
 }
 
@@ -226,12 +239,17 @@ private fun OverallTaskCell(
     iconColor: Color,
     iconText: String = "",
     onClick: () -> Unit,
+    isSelected: Boolean
 ) {
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(size = MediumRadius),
         onClick = onClick,
-        color = MaterialTheme.colors.secondaryVariant
+        color = if (isSelected) {
+            iconColor
+        } else {
+            MaterialTheme.colors.secondaryVariant
+        }
     ) {
         Column(
             modifier = Modifier.padding(all = 16.dp)
@@ -244,13 +262,25 @@ private fun OverallTaskCell(
                 Box(
                     modifier = Modifier
                         .size(28.dp)
-                        .background(shape = CircleShape, color = iconColor),
+                        .background(
+                            shape = CircleShape, color =
+                            if (isSelected) {
+                                MaterialTheme.colors.onSecondary.copy(alpha = LocalContentAlpha.current)
+                            } else {
+                                iconColor
+                            }
+                        ),
                     contentAlignment = Alignment.Center
                 ) {
                     PgIcon(
                         imageVector = icon,
                         modifier = Modifier
-                            .size(20.dp)
+                            .size(20.dp),
+                        tint = if (isSelected) {
+                            iconColor
+                        } else {
+                            MaterialTheme.colors.onSecondary.copy(alpha = LocalContentAlpha.current)
+                        }
                     )
 
                     if (iconText.isNotBlank()) {
@@ -258,7 +288,12 @@ private fun OverallTaskCell(
                             text = iconText,
                             fontSize = 8.sp,
                             style = MaterialTheme.typography.subtitle1,
-                            modifier = Modifier.padding(top = 2.dp)
+                            modifier = Modifier.padding(top = 2.dp),
+                            color = if (isSelected) {
+                                iconColor
+                            } else {
+                                Color.Unspecified
+                            }
                         )
                     }
                 }
@@ -271,7 +306,12 @@ private fun OverallTaskCell(
 
             Spacer(Modifier.height(8.dp))
 
-            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
+            val alpha = if (isSelected) {
+                ContentAlpha.high
+            } else {
+                ContentAlpha.disabled
+            }
+            CompositionLocalProvider(LocalContentAlpha provides alpha) {
                 Text(
                     text = title,
                     style = MaterialTheme.typography.subtitle1,
@@ -328,6 +368,7 @@ private fun ListCell(
     totalTask: String,
     color: Color,
     shouldShowDivider: Boolean,
+    isSelected: Boolean,
     onClick: () -> Unit,
     onSwipeToDelete: () -> Unit,
 ) {
@@ -343,7 +384,11 @@ private fun ListCell(
                     .padding(horizontal = 16.dp),
                 shape = shape,
                 onClick = onClick,
-                color = MaterialTheme.colors.secondaryVariant
+                color = if (isSelected) {
+                    MaterialTheme.colors.primaryVariant
+                } else {
+                    MaterialTheme.colors.secondaryVariant
+                }
             ) {
                 Column {
                     Row(
@@ -382,7 +427,14 @@ private fun ListCell(
                     }
 
                     if (shouldShowDivider) {
-                        PgDivider()
+                        PgDivider(
+                            needSpacer = !isSelected,
+                            color = if (isSelected) {
+                                MaterialTheme.colors.primaryVariant
+                            } else {
+                                MaterialTheme.colors.onSurface.copy(alpha = 0.12f)
+                            }
+                        )
                     }
                 }
             }
@@ -392,15 +444,20 @@ private fun ListCell(
 }
 
 @Composable
-private fun PgDivider() {
+private fun PgDivider(
+    needSpacer: Boolean,
+    color: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.12f),
+) {
     Row {
-        Spacer(
-            Modifier
-                .width(48.dp)
-                .height(1.dp)
-                .background(color = MaterialTheme.colors.secondaryVariant)
-        )
-        Divider()
+        if (needSpacer) {
+            Spacer(
+                Modifier
+                    .width(48.dp)
+                    .height(1.dp)
+                    .background(color = MaterialTheme.colors.secondaryVariant)
+            )
+        }
+        Divider(color = color)
     }
 }
 
@@ -413,6 +470,7 @@ fun CellPreview() {
         "23",
         ListRed,
         true,
+        false,
         {},
         {}
     )

@@ -5,7 +5,6 @@ import app.cash.turbine.test
 import com.wisnu.kurniawan.composetodolist.BaseViewModelTest
 import com.wisnu.kurniawan.composetodolist.DateFactory
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.data.IListDetailEnvironment
-import com.wisnu.kurniawan.composetodolist.foundation.extension.update
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListBlue
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListOrange
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListRed
@@ -16,6 +15,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProviderImpl
 import com.wisnu.kurniawan.composetodolist.model.ToDoColor
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
+import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_LIST_ID
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -85,22 +85,9 @@ class CreateListDetailViewModelTest : BaseViewModelTest() {
 
         viewModel.dispatch(ListDetailAction.ListAction.Create)
 
-        viewModel.state.test {
-            Assert.assertEquals(
-                ListDetailState(
-                    list = ToDoList(
-                        id = "id",
-                        name = "name",
-                        color = ToDoColor.ORANGE,
-                        tasks = listOf(),
-                        createdAt = DateFactory.constantDate,
-                        updatedAt = DateFactory.constantDate,
-                    ),
-                    newListName = "name",
-                    colors = viewModel.state.value.colors.update(ListOrange)
-                ),
-                awaitItem()
-            )
+        viewModel.effect.test {
+            Assert.assertEquals(ListDetailEffect.ShowCreateListInput, awaitItem())
+            Assert.assertEquals(ListDetailEffect.Relaunch("id"), awaitItem())
 
             cancelAndConsumeRemainingEvents()
         }
@@ -130,16 +117,7 @@ class CreateListDetailViewModelTest : BaseViewModelTest() {
 
     @Test
     fun updateList() = test {
-        val environment = buildEnvironment(
-            ToDoList(
-                id = "id",
-                name = "name",
-                color = ToDoColor.ORANGE,
-                tasks = listOf(),
-                createdAt = DateFactory.constantDate,
-                updatedAt = DateFactory.constantDate,
-            )
-        )
+        val environment = emptyEnvironment()
         val savedStateHandle = SavedStateHandle()
 
         val viewModel = ListDetailViewModel(
@@ -170,7 +148,7 @@ class CreateListDetailViewModelTest : BaseViewModelTest() {
     @Test
     fun cancelUpdateList() = test {
         val environment = buildEnvironment(
-            ToDoList(
+            returnedList = ToDoList(
                 id = "id",
                 name = "name",
                 color = ToDoColor.ORANGE,
@@ -179,14 +157,14 @@ class CreateListDetailViewModelTest : BaseViewModelTest() {
                 updatedAt = DateFactory.constantDate,
             )
         )
-        val savedStateHandle = SavedStateHandle()
+        val savedStateHandle = SavedStateHandle().apply {
+            set(ARG_LIST_ID, "id")
+        }
 
         val viewModel = ListDetailViewModel(
             savedStateHandle,
             environment
         )
-
-        viewModel.dispatch(ListDetailAction.ListAction.Create)
 
         viewModel.state.test {
             viewModel.dispatch(ListDetailAction.ListAction.ApplyColor(ColorItem(ListRed, false)))
@@ -251,17 +229,22 @@ class CreateListDetailViewModelTest : BaseViewModelTest() {
         }
     }
 
-    private fun buildEnvironment(returnedCreatedList: ToDoList) = object : IListDetailEnvironment {
+    private fun buildEnvironment(
+        returnedCreatedList: ToDoList? = null,
+        returnedList: ToDoList? = null,
+    ) = object : IListDetailEnvironment {
         override val idProvider: IdProvider = IdProviderImpl()
         override val dateTimeProvider: DateTimeProvider = DateTimeProviderImpl()
         override val dispatcher: CoroutineDispatcher = coroutineDispatcher
         override fun getListWithTasksById(listId: String): Flow<ToDoList> {
-            return flow {}
+            return flow {
+                if (returnedList != null) emit(returnedList)
+            }
         }
 
         override suspend fun createList(toDoList: ToDoList): Flow<ToDoList> {
             return flow {
-                emit(returnedCreatedList)
+                if (returnedCreatedList != null) emit(returnedCreatedList)
             }
         }
 

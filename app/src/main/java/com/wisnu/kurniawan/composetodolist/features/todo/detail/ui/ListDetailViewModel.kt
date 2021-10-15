@@ -72,16 +72,8 @@ class ListDetailViewModel @Inject constructor(
                             color = state.value.colors.selectedColor().toToDoColor()
                         )
                     )
-                        .catch {
-                            // Handle deleted list on tablet
-                            if (it is NullPointerException) {
-                                setEffect(ListDetailEffect.ClosePage)
-                            }
-                        }
                         .collect {
-                            setState {
-                                setAllState(it)
-                            }
+                            setEffect(ListDetailEffect.Relaunch(it.id))
                         }
                 }
             }

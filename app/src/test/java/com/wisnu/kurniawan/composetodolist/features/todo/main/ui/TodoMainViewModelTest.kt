@@ -68,7 +68,7 @@ class ToDoMainViewModelTest : BaseViewModelTest() {
                         )
                     )
                 ),
-                awaitItem().data
+                awaitItem().items
             )
 
             cancelAndConsumeRemainingEvents()
