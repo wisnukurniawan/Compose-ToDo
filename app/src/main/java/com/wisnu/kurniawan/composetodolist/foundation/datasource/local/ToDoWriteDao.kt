@@ -33,7 +33,7 @@ abstract class ToDoWriteDao {
     @Delete
     abstract suspend fun deleteGroup(data: List<ToDoGroupDb>)
 
-    @Query("DELETE FROM ToDoGroupDb WHERE id = :id")
+    @Query("DELETE FROM ToDoGroupDb WHERE group_id = :id")
     abstract suspend fun deleteGroup(id: String)
 
     @Transaction
@@ -42,7 +42,7 @@ abstract class ToDoWriteDao {
         deleteGroup(groupId)
     }
 
-    @Query("UPDATE ToDoGroupDb SET name = :name, updatedAt = :updatedAt WHERE id = :id")
+    @Query("UPDATE ToDoGroupDb SET group_name = :name, group_updatedAt = :updatedAt WHERE group_id = :id")
     abstract suspend fun updateGroupName(id: String, name: String, updatedAt: LocalDateTime)
 
     @Transaction
@@ -59,16 +59,16 @@ abstract class ToDoWriteDao {
     @Delete
     abstract suspend fun deleteList(data: List<ToDoListDb>)
 
-    @Query("DELETE FROM ToDoListDb WHERE id = :id")
+    @Query("DELETE FROM ToDoListDb WHERE list_id = :id")
     abstract suspend fun deleteListById(id: String)
 
     @Update
     abstract suspend fun updateList(data: List<ToDoListDb>)
 
-    @Query("UPDATE ToDoListDb SET name = :name, color = :color, updatedAt = :updatedAt WHERE id = :id")
+    @Query("UPDATE ToDoListDb SET list_name = :name, list_color = :color, list_updatedAt = :updatedAt WHERE list_id = :id")
     abstract suspend fun updateListNameAndColor(id: String, name: String, color: ToDoColor, updatedAt: LocalDateTime)
 
-    @Query("UPDATE ToDoListDb SET groupId = :groupId, updatedAt = :updatedAt WHERE id IN (:ids)")
+    @Query("UPDATE ToDoListDb SET list_groupId = :groupId, list_updatedAt = :updatedAt WHERE list_id IN (:ids)")
     abstract suspend fun updateListGroup(ids: List<String>, groupId: String, updatedAt: LocalDateTime)
 
     @Transaction
@@ -85,25 +85,25 @@ abstract class ToDoWriteDao {
     @Delete
     abstract suspend fun deleteTask(data: List<ToDoTaskDb>)
 
-    @Query("DELETE FROM ToDoTaskDb WHERE id = :id")
+    @Query("DELETE FROM ToDoTaskDb WHERE task_id = :id")
     abstract suspend fun deleteTaskById(id: String)
 
-    @Query("UPDATE ToDoTaskDb SET name = :name, updatedAt = :updatedAt WHERE id = :id")
+    @Query("UPDATE ToDoTaskDb SET task_name = :name, task_updatedAt = :updatedAt WHERE task_id = :id")
     abstract suspend fun updateTaskName(id: String, name: String, updatedAt: LocalDateTime)
 
-    @Query("UPDATE ToDoTaskDb SET dueDate = :dueDate, isDueDateTimeSet = :isDueDateTimeSet, updatedAt = :updatedAt WHERE id = :id")
+    @Query("UPDATE ToDoTaskDb SET task_dueDate = :dueDate, task_isDueDateTimeSet = :isDueDateTimeSet, task_updatedAt = :updatedAt WHERE task_id = :id")
     abstract suspend fun updateTaskDueDate(id: String, dueDate: LocalDateTime?, isDueDateTimeSet: Boolean, updatedAt: LocalDateTime)
 
-    @Query("UPDATE ToDoTaskDb SET dueDate = :dueDate, isDueDateTimeSet = :isDueDateTimeSet, repeat = :repeat, updatedAt = :updatedAt WHERE id = :id")
+    @Query("UPDATE ToDoTaskDb SET task_dueDate = :dueDate, task_isDueDateTimeSet = :isDueDateTimeSet, task_repeat = :repeat, task_updatedAt = :updatedAt WHERE task_id = :id")
     abstract suspend fun resetTaskDueDate(id: String, dueDate: LocalDateTime?, isDueDateTimeSet: Boolean, repeat: ToDoRepeat, updatedAt: LocalDateTime)
 
-    @Query("UPDATE ToDoTaskDb SET status = :status, completedAt = :completedAt, updatedAt = :updatedAt WHERE id = :id")
+    @Query("UPDATE ToDoTaskDb SET task_status = :status, task_completedAt = :completedAt, task_updatedAt = :updatedAt WHERE task_id = :id")
     abstract suspend fun updateTaskStatus(id: String, status: ToDoStatus, completedAt: LocalDateTime?, updatedAt: LocalDateTime)
 
-    @Query("UPDATE ToDoTaskDb SET repeat = :repeat, updatedAt = :updatedAt WHERE id = :id")
+    @Query("UPDATE ToDoTaskDb SET task_repeat = :repeat, task_updatedAt = :updatedAt WHERE task_id = :id")
     abstract suspend fun updateTaskRepeat(id: String, repeat: ToDoRepeat, updatedAt: LocalDateTime)
 
-    @Query("UPDATE ToDoTaskDb SET listId = :listId, updatedAt = :updatedAt WHERE id IN (:ids)")
+    @Query("UPDATE ToDoTaskDb SET task_listId = :listId, task_updatedAt = :updatedAt WHERE task_id IN (:ids)")
     abstract suspend fun updateTaskList(ids: List<String>, listId: String, updatedAt: LocalDateTime)
 
     @Transaction
@@ -120,13 +120,13 @@ abstract class ToDoWriteDao {
     @Delete
     abstract suspend fun deleteStep(data: List<ToDoStepDb>)
 
-    @Query("UPDATE ToDoStepDb SET name = :name, updatedAt = :updatedAt WHERE id = :id")
+    @Query("UPDATE ToDoStepDb SET step_name = :name, step_updatedAt = :updatedAt WHERE step_id = :id")
     abstract suspend fun updateStepName(id: String, name: String, updatedAt: LocalDateTime)
 
-    @Query("UPDATE ToDoStepDb SET status = :status, updatedAt = :updatedAt WHERE id = :id")
+    @Query("UPDATE ToDoStepDb SET step_status = :status, step_updatedAt = :updatedAt WHERE step_id = :id")
     abstract suspend fun updateStepStatus(id: String, status: ToDoStatus, updatedAt: LocalDateTime)
 
-    @Query("DELETE FROM ToDoStepDb WHERE id = :id")
+    @Query("DELETE FROM ToDoStepDb WHERE step_id = :id")
     abstract suspend fun deleteStepById(id: String)
 
     @Transaction

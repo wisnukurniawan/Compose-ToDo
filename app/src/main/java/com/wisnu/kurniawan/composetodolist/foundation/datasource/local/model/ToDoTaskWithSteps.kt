@@ -6,8 +6,8 @@ import androidx.room.Relation
 data class ToDoTaskWithSteps(
     @Embedded val task: ToDoTaskDb,
     @Relation(
-        parentColumn = "id",
-        entityColumn = "taskId"
+        parentColumn = "task_id",
+        entityColumn = "step_taskId"
     )
     val steps: List<ToDoStepDb>
 )

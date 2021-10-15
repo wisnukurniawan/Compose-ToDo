@@ -7,8 +7,8 @@ data class ToDoGroupWithList(
     @Embedded val group: ToDoGroupDb,
     @Relation(
         entity = ToDoListDb::class,
-        parentColumn = "id",
-        entityColumn = "groupId"
+        parentColumn = "group_id",
+        entityColumn = "list_groupId"
     )
     val listWithTasks: List<ToDoListWithTasks>
 )

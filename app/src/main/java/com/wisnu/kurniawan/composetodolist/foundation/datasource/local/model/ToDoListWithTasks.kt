@@ -7,8 +7,8 @@ data class ToDoListWithTasks(
     @Embedded val list: ToDoListDb,
     @Relation(
         entity = ToDoTaskDb::class,
-        parentColumn = "id",
-        entityColumn = "listId"
+        parentColumn = "list_id",
+        entityColumn = "task_listId"
     )
     val taskWithSteps: List<ToDoTaskWithSteps>
 )

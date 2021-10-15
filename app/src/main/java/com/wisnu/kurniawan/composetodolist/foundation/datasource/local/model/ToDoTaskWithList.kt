@@ -4,5 +4,5 @@ import androidx.room.Embedded
 
 data class ToDoTaskWithList(
     @Embedded val task: ToDoTaskWithSteps,
-    @Embedded(prefix = "list_") val list: ToDoListDb
+    @Embedded val list: ToDoListDb
 )
