@@ -9,7 +9,6 @@ import com.wisnu.kurniawan.composetodolist.runtime.navigation.ListDetailFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.MainFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ScheduledFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ScheduledTodayFlow
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
@@ -35,7 +34,7 @@ class ToDoMainViewModel @Inject constructor(todoMainEnvironment: IToDoMainEnviro
             is ToDoMainAction.NavBackStackEntryChanged -> {
                 viewModelScope.launch(environment.dispatcher) {
                     when (action.route) {
-                        ListDetailFlow.ListDetailScreen.route, StepFlow.TaskDetailScreen.route -> {
+                        ListDetailFlow.ListDetailScreen.route -> {
                             val listId = action.arguments?.getString(ARG_LIST_ID)
                             if (listId.isNullOrBlank()) {
                                 setState { copy(selectedItemState = SelectedItemState.Empty) }

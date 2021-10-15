@@ -25,7 +25,7 @@ class ListDetailViewModel @Inject constructor(
     listDetailEnvironment: IListDetailEnvironment,
 ) : StatefulViewModel<ListDetailState, ListDetailEffect, ListDetailAction, IListDetailEnvironment>(ListDetailState(), listDetailEnvironment) {
 
-    val listId = savedStateHandle.get<String>(ARG_LIST_ID)
+    private val listId = savedStateHandle.get<String>(ARG_LIST_ID)
 
     init {
         viewModelScope.launch {
