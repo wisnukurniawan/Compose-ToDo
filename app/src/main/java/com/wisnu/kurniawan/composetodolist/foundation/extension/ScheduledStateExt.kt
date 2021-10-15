@@ -1,22 +1,21 @@
 package com.wisnu.kurniawan.composetodolist.foundation.extension
 
 import com.wisnu.kurniawan.composetodolist.features.todo.scheduled.ui.ItemScheduledState
-import com.wisnu.kurniawan.composetodolist.model.ToDoList
+import com.wisnu.kurniawan.composetodolist.model.TaskWithList
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
-import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 
-fun List<Pair<ToDoTask, ToDoList>>.toItemScheduledState(withHeader: Boolean): List<ItemScheduledState> {
+fun List<TaskWithList>.toItemScheduledState(withHeader: Boolean): List<ItemScheduledState> {
     val items = mutableListOf<ItemScheduledState>()
 
     if (isEmpty()) return items
 
     if (withHeader) {
-        groupBy { (task, _) -> task.dueDate?.toLocalDate() }
+        groupBy { it.task.dueDate?.toLocalDate() }
             .filter { it.key != null }
             .forEach { (key, value) ->
                 items.add(ItemScheduledState.Header(key!!))
 
-                value.forEach { (task, list) ->
+                value.forEach { (list, task) ->
                     when (task.status) {
                         ToDoStatus.IN_PROGRESS -> {
                             items.add(ItemScheduledState.Task.InProgress(task, list))
@@ -28,7 +27,7 @@ fun List<Pair<ToDoTask, ToDoList>>.toItemScheduledState(withHeader: Boolean): Li
                 }
             }
     } else {
-        forEach { (task, list) ->
+        forEach { (list, task) ->
             when (task.status) {
                 ToDoStatus.IN_PROGRESS -> {
                     items.add(ItemScheduledState.Task.InProgress(task, list))
