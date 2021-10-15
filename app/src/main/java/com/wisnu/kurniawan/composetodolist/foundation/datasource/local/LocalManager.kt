@@ -11,6 +11,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.toStepDb
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toTask
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toTaskDb
 import com.wisnu.kurniawan.composetodolist.model.GroupIdWithList
+import com.wisnu.kurniawan.composetodolist.model.TaskWithList
 import com.wisnu.kurniawan.composetodolist.model.TaskWithListId
 import com.wisnu.kurniawan.composetodolist.model.ToDoGroup
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
@@ -81,20 +82,20 @@ class LocalManager @Inject constructor(
             .map { it.toDoListWithTasksToList() }
     }
 
-    fun getToDoTaskWithStepsOrderByDueDateWithListId(): Flow<List<TaskWithListId>> {
-        return toDoReadDao.getToDoTaskWithStepsOrderByDueDate()
+    fun getTaskWithListOrderByDueDate(): Flow<List<TaskWithList>> {
+        return toDoReadDao.getTaskWithListOrderByDueDate()
             .map { tasks ->
                 tasks.map {
-                    TaskWithListId(it.task.listId, it.toTask())
+                    TaskWithList(it.list.toList(), it.task.toTask())
                 }
             }
     }
 
-    fun getToDoTaskWithStepsOrderByDueDateTodayWithListId(date: LocalDateTime): Flow<List<TaskWithListId>> {
-        return toDoReadDao.getToDoTaskWithStepsOrderByDueDateToday(date)
+    fun getTaskWithListOrderByDueDateToday(date: LocalDateTime): Flow<List<TaskWithList>> {
+        return toDoReadDao.getTaskWithListOrderByDueDateToday(date)
             .map { tasks ->
                 tasks.map {
-                    TaskWithListId(it.task.listId, it.toTask())
+                    TaskWithList(it.list.toList(), it.task.toTask())
                 }
             }
     }

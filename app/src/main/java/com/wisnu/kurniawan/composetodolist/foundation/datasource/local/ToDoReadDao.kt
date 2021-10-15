@@ -9,6 +9,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToD
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoListWithTasks
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoStepDb
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoTaskDb
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoTaskWithList
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoTaskWithSteps
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.model.ToDoTaskOverallCount
@@ -47,20 +48,43 @@ interface ToDoReadDao {
     fun getTask(): Flow<List<ToDoTaskDb>>
 
     @Transaction
-    @Query("SELECT * FROM ToDoTaskDb WHERE dueDate IS NOT NULL ORDER BY dueDate ASC")
-    fun getToDoTaskWithStepsOrderByDueDate(): Flow<List<ToDoTaskWithSteps>>
+    @Query(
+        """
+            SELECT ToDoTaskDb.*, 
+            ToDoListDb.id AS list_id,
+            ToDoListDb.name AS list_name,
+            ToDoListDb.color AS list_color,
+            ToDoListDb.groupId AS list_groupId,
+            ToDoListDb.createdAt AS list_createdAt,
+            ToDoListDb.updatedAt AS list_updatedAt FROM ToDoTaskDb 
+            LEFT JOIN ToDoListDb ON listId = ToDoListDb.id
+            WHERE 
+            dueDate IS NOT NULL
+            ORDER BY dueDate ASC
+            """
+    )
+    fun getTaskWithListOrderByDueDate(): Flow<List<ToDoTaskWithList>>
 
     @Transaction
     @Query(
         """
-            SELECT * FROM ToDoTaskDb WHERE 
+            SELECT ToDoTaskDb.*, 
+            ToDoListDb.id AS list_id,
+            ToDoListDb.name AS list_name,
+            ToDoListDb.color AS list_color,
+            ToDoListDb.groupId AS list_groupId,
+            ToDoListDb.createdAt AS list_createdAt,
+            ToDoListDb.updatedAt AS list_updatedAt
+            FROM ToDoTaskDb 
+            LEFT JOIN ToDoListDb ON listId = ToDoListDb.id
+            WHERE 
             dueDate IS NOT NULL AND 
             status != "COMPLETE" AND 
             dueDate < :date 
             ORDER BY dueDate ASC
             """
     )
-    fun getToDoTaskWithStepsOrderByDueDateToday(date: LocalDateTime): Flow<List<ToDoTaskWithSteps>>
+    fun getTaskWithListOrderByDueDateToday(date: LocalDateTime): Flow<List<ToDoTaskWithList>>
 
     @Transaction
     @Query(

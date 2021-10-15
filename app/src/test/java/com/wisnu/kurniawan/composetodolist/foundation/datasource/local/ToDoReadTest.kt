@@ -10,6 +10,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToD
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoListWithTasks
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoStepDb
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoTaskDb
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoTaskWithList
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoTaskWithSteps
 import com.wisnu.kurniawan.composetodolist.model.ToDoColor
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
@@ -280,7 +281,6 @@ class ToDoReadTest {
         val taskId4 = "taskId4"
         val taskId5 = "taskId5"
         val taskId6 = "taskId6"
-        val taskId7 = "taskId7"
 
         val group1 = ToDoGroupDb(
             id = unknownGroupId,
@@ -371,27 +371,42 @@ class ToDoReadTest {
         toDoWriteDao.insertTask(listOf(task1, task2, task3, task4, task5, task6))
         toDoWriteDao.insertStep(listOf(step1))
 
-        toDoReadDao.getToDoTaskWithStepsOrderByDueDate().expect(
+        toDoReadDao.getTaskWithListOrderByDueDate().expect(
             listOf(
-                ToDoTaskWithSteps(
-                    task6,
-                    listOf()
+                ToDoTaskWithList(
+                    ToDoTaskWithSteps(
+                        task6,
+                        listOf()
+                    ),
+                    list2
                 ),
-                ToDoTaskWithSteps(
-                    task5,
-                    listOf()
+                ToDoTaskWithList(
+                    ToDoTaskWithSteps(
+                        task5,
+                        listOf()
+                    ),
+                    list2
                 ),
-                ToDoTaskWithSteps(
-                    task2,
-                    listOf(step1)
+                ToDoTaskWithList(
+                    ToDoTaskWithSteps(
+                        task2,
+                        listOf(step1)
+                    ),
+                    list2
                 ),
-                ToDoTaskWithSteps(
-                    task3,
-                    listOf()
+                ToDoTaskWithList(
+                    ToDoTaskWithSteps(
+                        task3,
+                        listOf()
+                    ),
+                    list2
                 ),
-                ToDoTaskWithSteps(
-                    task4,
-                    listOf()
+                ToDoTaskWithList(
+                    ToDoTaskWithSteps(
+                        task4,
+                        listOf()
+                    ),
+                    list2
                 ),
             )
         )
