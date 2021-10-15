@@ -5,14 +5,12 @@ import com.wisnu.kurniawan.composetodolist.foundation.di.DiName
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toggleStatusHandler
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProvider
-import com.wisnu.kurniawan.composetodolist.model.ToDoList
+import com.wisnu.kurniawan.composetodolist.model.TaskWithList
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.flatMapConcat
-import kotlinx.coroutines.flow.map
 import java.time.LocalDateTime
 import javax.inject.Inject
 import javax.inject.Named
@@ -25,20 +23,14 @@ class ScheduledEnvironment @Inject constructor(
     override val dateTimeProvider: DateTimeProvider,
 ) : IScheduledEnvironment {
 
-    override fun getToDoTaskWithStepsOrderByDueDateWithList(maxDate: LocalDateTime?): Flow<List<Pair<ToDoTask, ToDoList>>> {
-        return localManager.getList()
-            .map { lists -> lists.associateBy({ it.id }, { it }) }
-            .flatMapConcat { lists ->
-                val operation = if (maxDate != null) {
-                    localManager.getToDoTaskWithStepsOrderByDueDateTodayWithListId(maxDate)
-                } else {
-                    localManager.getToDoTaskWithStepsOrderByDueDateWithListId()
-                }
-                operation
-                    .map {
-                        it.map { task -> Pair(task.task, lists[task.listId]!!) }
-                    }
-            }
+    override fun getToDoTaskWithStepsOrderByDueDateWithList(maxDate: LocalDateTime?): Flow<List<TaskWithList>> {
+        val operation = if (maxDate != null) {
+            localManager.getTaskWithListOrderByDueDateToday(maxDate)
+        } else {
+            localManager.getTaskWithListOrderByDueDate()
+        }
+
+        return operation
             .distinctUntilChanged()
     }
 

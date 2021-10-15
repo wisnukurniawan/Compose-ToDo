@@ -2,6 +2,7 @@ package com.wisnu.kurniawan.composetodolist.features.todo.scheduled.ui
 
 import androidx.compose.runtime.Immutable
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toItemScheduledState
+import com.wisnu.kurniawan.composetodolist.model.TaskWithList
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
@@ -9,12 +10,12 @@ import java.time.LocalDate
 
 @Immutable
 data class ScheduledState(
-    val tasks: List<Pair<ToDoTask, ToDoList>> = listOf(),
+    val tasks: List<TaskWithList> = listOf(),
     val hideCompleteTask: Boolean = true,
     val isScheduled: Boolean = true
 ) {
     private val tasksFiltered = if (hideCompleteTask && isScheduled) {
-        tasks.filter { (task, _) ->
+        tasks.filter { (_, task) ->
             task.status != ToDoStatus.COMPLETE
         }
     } else {
