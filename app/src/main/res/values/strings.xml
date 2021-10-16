@@ -84,7 +84,7 @@
     <string name="todo_task_notification_action_completed">Done</string>
     <string name="todo_task_notification_action_snooze">In 15 min</string>
 
-    <string name="todo_search">Search</string>
+    <string name="todo_search">Search task</string>
 
     <string name="todo_show_complete">Show completed task</string>
     <string name="todo_hide_complete">Hide completed task</string>
