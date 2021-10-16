@@ -213,6 +213,8 @@ private fun HomeTabletNavHost(
                     ScheduledTodayTabletNavHost(navControllerRight)
 
                     AllTabletNavHost(navControllerRight)
+
+                    SearchNavHost(navControllerRight)
                 }
             }
         }

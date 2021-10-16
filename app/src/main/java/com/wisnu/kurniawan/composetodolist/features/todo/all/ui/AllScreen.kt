@@ -206,7 +206,7 @@ private fun AllContent(
 }
 
 @Composable
-private fun TaskContent(
+fun TaskContent(
     items: List<ItemAllState>,
     onClick: (ItemAllState.Task) -> Unit,
     onStatusClick: (ToDoTask) -> Unit,

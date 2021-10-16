@@ -57,6 +57,7 @@ import com.wisnu.kurniawan.composetodolist.runtime.navigation.ListDetailFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.MainFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ScheduledFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ScheduledTodayFlow
+import com.wisnu.kurniawan.composetodolist.runtime.navigation.SearchFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.SettingFlow
 
 @Composable
@@ -150,7 +151,11 @@ fun DashboardTabletScreen(
                 popUpTo(MainFlow.RootEmpty.route)
             }
         },
-        onClickSearch = {}
+        onClickSearch = {
+            navControllerRight.navigate(SearchFlow.Root.route) {
+                popUpTo(MainFlow.RootEmpty.route)
+            }
+        }
     )
 }
 
