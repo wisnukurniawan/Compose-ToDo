@@ -69,4 +69,11 @@ class StringExtTest {
         Assert.assertEquals("namee 1", "namee 1".resolveDuplicate(list3))
     }
 
+    @Test
+    fun sanitizeQuery() {
+        Assert.assertEquals("\"First*\" \"task*\"", "First task".sanitizeQuery())
+        Assert.assertEquals("\"First*\" \"task*\"", " First  task ".sanitizeQuery())
+        Assert.assertEquals("\"-X*\"", "-X".sanitizeQuery())
+    }
+
 }
