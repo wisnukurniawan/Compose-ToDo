@@ -111,6 +111,15 @@ class LocalManager @Inject constructor(
             .map { TaskWithList(it.list.toList(), it.task.toTask()) }
     }
 
+    fun searchTaskWithList(query: String): Flow<List<TaskWithList>> {
+        return toDoReadDao.searchTaskWithList(query)
+            .map { tasks ->
+                tasks.map {
+                    TaskWithList(it.list.toList(), it.task.toTask())
+                }
+            }
+    }
+
     fun getScheduledTasks(): Flow<List<ToDoTask>> {
         return toDoReadDao.getScheduledTasks()
             .map { it.toTask() }

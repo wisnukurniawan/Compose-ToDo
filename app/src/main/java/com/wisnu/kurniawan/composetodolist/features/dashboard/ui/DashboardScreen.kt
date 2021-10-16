@@ -37,11 +37,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.wisnu.kurniawan.composetodolist.R
+import com.wisnu.kurniawan.composetodolist.features.todo.all.ui.ItemAllState
 import com.wisnu.kurniawan.composetodolist.features.todo.main.ui.ItemMainState
 import com.wisnu.kurniawan.composetodolist.features.todo.main.ui.ToDoMainAction
 import com.wisnu.kurniawan.composetodolist.features.todo.main.ui.ToDoMainScreen
 import com.wisnu.kurniawan.composetodolist.features.todo.main.ui.ToDoMainViewModel
 import com.wisnu.kurniawan.composetodolist.features.todo.search.ui.SearchAction
+import com.wisnu.kurniawan.composetodolist.features.todo.search.ui.SearchContent
 import com.wisnu.kurniawan.composetodolist.features.todo.search.ui.SearchViewModel
 import com.wisnu.kurniawan.composetodolist.features.todo.search.ui.SearchWidget
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
@@ -51,13 +53,16 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgTransparentF
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.SwipeSearch
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.SwipeSearchValue
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.rememberSwipeSearchState
+import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.AllFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ListDetailFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.MainFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ScheduledFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ScheduledTodayFlow
+import com.wisnu.kurniawan.composetodolist.runtime.navigation.SearchFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.SettingFlow
+import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
 
 @Composable
 fun DashboardScreen(
@@ -81,8 +86,9 @@ fun DashboardScreen(
         isAllTaskSelected = todoMainState.isAllTaskSelected,
         isScheduledTodayTaskSelected = todoMainState.isScheduledTodayTaskSelected,
         isScheduledTaskSelected = todoMainState.isScheduledTaskSelected,
+        searchResultItems = searchState.items,
         onSearchChange = { searchViewModel.dispatch(SearchAction.ChangeSearchText(it)) },
-        onSearchOpened = { searchViewModel.dispatch(SearchAction.OnShow) },
+        onSearchClosed = { searchViewModel.dispatch(SearchAction.ChangeSearchText(TextFieldValue())) },
         onSettingClick = { navController.navigate(SettingFlow.Root.route) },
         onAddNewListClick = { navController.navigate(ListDetailFlow.Root.route()) },
         onAddNewGroupClick = { navController.navigate(HomeFlow.CreateGroup.route) },
@@ -92,6 +98,9 @@ fun DashboardScreen(
         onClickScheduledTodayTask = { navController.navigate(ScheduledTodayFlow.Root.route()) },
         onClickScheduledTask = { navController.navigate(ScheduledFlow.Root.route()) },
         onClickAllTask = { navController.navigate(AllFlow.Root.route) },
+        onSearchTaskItemClick = { navController.navigate(StepFlow.Root.route(it.task.id, it.list.id)) },
+        onSearchTaskStatusItemClick = { searchViewModel.dispatch(SearchAction.TaskAction.OnToggleStatus(it)) },
+        onSearchTaskSwipeToDelete = { searchViewModel.dispatch(SearchAction.TaskAction.Delete(it)) },
     )
 }
 
@@ -150,7 +159,11 @@ fun DashboardTabletScreen(
                 popUpTo(MainFlow.RootEmpty.route)
             }
         },
-        onClickSearch = {}
+        onClickSearch = {
+            navControllerRight.navigate(SearchFlow.Root.route) {
+                popUpTo(MainFlow.RootEmpty.route)
+            }
+        }
     )
 }
 
@@ -166,17 +179,21 @@ private fun DashboardScreen(
     isAllTaskSelected: Boolean,
     isScheduledTodayTaskSelected: Boolean,
     isScheduledTaskSelected: Boolean,
+    searchResultItems: List<ItemAllState>,
     onSettingClick: () -> Unit,
     onAddNewListClick: () -> Unit,
     onAddNewGroupClick: () -> Unit,
     onSearchChange: (TextFieldValue) -> Unit,
-    onSearchOpened: () -> Unit,
+    onSearchClosed: () -> Unit,
     onClickGroup: (ItemMainState.ItemGroup) -> Unit,
     onClickList: (ItemMainState.ItemListType) -> Unit,
     onSwipeToDelete: (ItemMainState.ItemListType) -> Unit,
     onClickScheduledTodayTask: () -> Unit,
     onClickScheduledTask: () -> Unit,
     onClickAllTask: () -> Unit,
+    onSearchTaskItemClick: (ItemAllState.Task) -> Unit,
+    onSearchTaskStatusItemClick: (ToDoTask) -> Unit,
+    onSearchTaskSwipeToDelete: (ToDoTask) -> Unit
 ) {
     var swipeSearchValue by remember { mutableStateOf(SwipeSearchValue.Closed) }
     val swipeSearchState = rememberSwipeSearchState(swipeSearchValue)
@@ -185,10 +202,10 @@ private fun DashboardScreen(
     val focusRequest = remember { FocusRequester() }
     LaunchedEffect(swipeSearchState.currentValue) {
         if (swipeSearchState.currentValue == SwipeSearchValue.Opened) {
-            onSearchOpened()
             focusRequest.requestFocus()
         } else {
             focusManager.clearFocus()
+            onSearchClosed()
         }
     }
 
@@ -237,7 +254,12 @@ private fun DashboardScreen(
             )
         },
         searchBody = {
-
+            SearchContent(
+                items = searchResultItems,
+                onTaskItemClick = onSearchTaskItemClick,
+                onTaskStatusItemClick = onSearchTaskStatusItemClick,
+                onTaskSwipeToDelete = onSearchTaskSwipeToDelete,
+            )
         }
     )
 }

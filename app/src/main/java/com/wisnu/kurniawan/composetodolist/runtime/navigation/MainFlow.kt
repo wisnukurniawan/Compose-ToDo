@@ -254,6 +254,16 @@ sealed class StepFlow(val name: String) {
     }
 }
 
+sealed class SearchFlow(val name: String) {
+    object Root : SearchFlow("search-root") {
+        val route = name
+    }
+
+    object SearchScreen : SearchFlow("search-screen") {
+        val route = name
+    }
+}
+
 const val BASE_DEEPLINK = "todox://com.wisnu.kurniawan"
 
 const val ARG_STEP_ID = "stepId"

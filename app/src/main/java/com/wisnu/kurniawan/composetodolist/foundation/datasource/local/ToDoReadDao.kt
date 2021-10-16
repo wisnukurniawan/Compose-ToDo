@@ -102,8 +102,16 @@ interface ToDoReadDao {
     fun getListWithTasks(): Flow<List<ToDoListWithTasks>>
 
     @Transaction
-    @Query("SELECT * FROM ToDoTaskDb WHERE task_name LIKE :query || '%' ORDER by task_listId")
-    fun searchTaskWithList(query: String): Flow<List<ToDoTaskWithSteps>>
+    @Query(
+        """
+            SELECT ToDoTaskDb.*, ToDoListDb.*
+            FROM ToDoTaskDb 
+            LEFT JOIN ToDoListDb ON task_listId = ToDoListDb.list_id
+            JOIN ToDoTaskFtsDb ON ToDoTaskDb.task_name = ToDoTaskFtsDb.task_name
+            WHERE ToDoTaskFtsDb MATCH :query
+            """
+    )
+    fun searchTaskWithList(query: String): Flow<List<ToDoTaskWithList>>
 
     @Transaction
     @Query("SELECT * FROM ToDoListDb WHERE list_groupId = :groupId")
