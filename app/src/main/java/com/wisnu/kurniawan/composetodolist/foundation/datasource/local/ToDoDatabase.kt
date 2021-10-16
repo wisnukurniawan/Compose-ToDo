@@ -10,7 +10,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToD
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoListDb
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoStepDb
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoTaskDb
-import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoTaskFtsDb
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -22,6 +22,7 @@ import kotlinx.coroutines.launch
         ToDoGroupDb::class,
         ToDoListDb::class,
         ToDoTaskDb::class,
+        ToDoTaskFtsDb::class,
         ToDoStepDb::class
     ],
     version = 1

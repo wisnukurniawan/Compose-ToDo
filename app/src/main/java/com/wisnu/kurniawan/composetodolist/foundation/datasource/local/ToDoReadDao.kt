@@ -104,11 +104,11 @@ interface ToDoReadDao {
     @Transaction
     @Query(
         """
-            SELECT ToDoTaskDb.*, 
-            ToDoListDb.*
+            SELECT ToDoTaskDb.*, ToDoListDb.*
             FROM ToDoTaskDb 
             LEFT JOIN ToDoListDb ON task_listId = ToDoListDb.list_id
-            WHERE ToDoTaskDb.task_name LIKE :query || '%' ORDER by ToDoTaskDb.task_listId
+            JOIN ToDoTaskFtsDb ON ToDoTaskDb.task_name = ToDoTaskFtsDb.task_name
+            WHERE ToDoTaskFtsDb MATCH :query
             """
     )
     fun searchTaskWithList(query: String): Flow<List<ToDoTaskWithList>>
