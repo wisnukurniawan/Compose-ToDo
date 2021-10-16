@@ -196,10 +196,17 @@ private fun AllContent(
                 .weight(1F)
         ) {
             TaskContent(
-                items,
-                onTaskItemClick,
-                onTaskStatusItemClick,
-                onTaskSwipeToDelete
+                items = items,
+                onClick = onTaskItemClick,
+                onStatusClick = onTaskStatusItemClick,
+                onSwipeToDelete = onTaskSwipeToDelete,
+                emptyPage = {
+                    PgEmpty(
+                        stringResource(R.string.todo_no_task),
+                        modifier = Modifier.fillMaxSize()
+                            .padding(bottom = 100.dp)
+                    )
+                }
             )
         }
     }
@@ -210,23 +217,18 @@ fun TaskContent(
     items: List<ItemAllState>,
     onClick: (ItemAllState.Task) -> Unit,
     onStatusClick: (ToDoTask) -> Unit,
-    onSwipeToDelete: (ToDoTask) -> Unit
+    onSwipeToDelete: (ToDoTask) -> Unit,
+    emptyPage: @Composable () -> Unit = {}
 ) {
     val coroutineScope = rememberCoroutineScope()
     val resources = LocalContext.current.resources
 
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-    ) {
-        if (items.isEmpty()) {
-            item {
-                PgEmpty(
-                    stringResource(R.string.todo_no_task),
-                    modifier = Modifier.fillParentMaxHeight()
-                        .padding(bottom = 100.dp)
-                )
-            }
-        } else {
+    if (items.isEmpty()) {
+        emptyPage()
+    } else {
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+        ) {
             this.items(
                 items = items,
                 key = { item -> item.identifier() },
@@ -295,10 +297,10 @@ fun TaskContent(
                     }
                 }
             }
-        }
 
-        item {
-            Spacer(Modifier.height(16.dp))
+            item {
+                Spacer(Modifier.height(16.dp))
+            }
         }
     }
 }

@@ -88,7 +88,7 @@ fun DashboardScreen(
         isScheduledTaskSelected = todoMainState.isScheduledTaskSelected,
         searchResultItems = searchState.items,
         onSearchChange = { searchViewModel.dispatch(SearchAction.ChangeSearchText(it)) },
-        onSearchOpened = { searchViewModel.dispatch(SearchAction.OnShow) },
+        onSearchClosed = { searchViewModel.dispatch(SearchAction.ChangeSearchText(TextFieldValue())) },
         onSettingClick = { navController.navigate(SettingFlow.Root.route) },
         onAddNewListClick = { navController.navigate(ListDetailFlow.Root.route()) },
         onAddNewGroupClick = { navController.navigate(HomeFlow.CreateGroup.route) },
@@ -184,7 +184,7 @@ private fun DashboardScreen(
     onAddNewListClick: () -> Unit,
     onAddNewGroupClick: () -> Unit,
     onSearchChange: (TextFieldValue) -> Unit,
-    onSearchOpened: () -> Unit,
+    onSearchClosed: () -> Unit,
     onClickGroup: (ItemMainState.ItemGroup) -> Unit,
     onClickList: (ItemMainState.ItemListType) -> Unit,
     onSwipeToDelete: (ItemMainState.ItemListType) -> Unit,
@@ -202,10 +202,10 @@ private fun DashboardScreen(
     val focusRequest = remember { FocusRequester() }
     LaunchedEffect(swipeSearchState.currentValue) {
         if (swipeSearchState.currentValue == SwipeSearchValue.Opened) {
-            onSearchOpened()
             focusRequest.requestFocus()
         } else {
             focusManager.clearFocus()
+            onSearchClosed()
         }
     }
 

@@ -1,6 +1,5 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.search.ui
 
-import androidx.compose.ui.text.TextRange
 import androidx.lifecycle.viewModelScope
 import com.wisnu.kurniawan.composetodolist.features.todo.search.data.ISearchEnvironment
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
@@ -30,11 +29,6 @@ class SearchViewModel @Inject constructor(
                         .collect {
                             setState { copy(lists = it) }
                         }
-                }
-            }
-            SearchAction.OnShow -> {
-                viewModelScope.launch {
-                    setState { copy(searchText = searchText.copy(selection = TextRange(searchText.text.length))) }
                 }
             }
             is SearchAction.TaskAction.Delete -> {

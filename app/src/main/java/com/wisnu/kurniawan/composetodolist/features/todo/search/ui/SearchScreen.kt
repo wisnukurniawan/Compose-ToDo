@@ -144,7 +144,7 @@ fun SearchWidget(
             )
         }
 
-        Spacer(Modifier.height(6.dp))
+        Spacer(Modifier.height(4.dp))
     }
 }
 

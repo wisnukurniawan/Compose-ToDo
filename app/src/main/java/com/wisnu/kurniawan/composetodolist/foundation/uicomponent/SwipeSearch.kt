@@ -157,7 +157,7 @@ fun SwipeSearch(
                     Column(
                         modifier = Modifier
                             .alpha(alpha)
-                            .background(MaterialTheme.colors.secondaryVariant)
+                            .background(MaterialTheme.colors.surface)
                             .fillMaxSize()
                             .clickable(
                                 interactionSource = remember { MutableInteractionSource() },
