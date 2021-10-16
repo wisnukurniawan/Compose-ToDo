@@ -2,6 +2,7 @@ package com.wisnu.kurniawan.composetodolist.features.todo.search.data
 
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.LocalManager
 import com.wisnu.kurniawan.composetodolist.foundation.di.DiName
+import com.wisnu.kurniawan.composetodolist.foundation.extension.sanitizeQuery
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toggleStatusHandler
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
@@ -21,7 +22,7 @@ class SearchEnvironment @Inject constructor(
 
     override fun searchList(query: String): Flow<List<ToDoList>> {
         return if (query.isNotBlank()) {
-            val wildcardQuery = "*$query*"
+            val wildcardQuery = query.sanitizeQuery()
             localManager.searchTaskWithList(wildcardQuery)
                 .map {
                     it.groupBy { taskWithList -> taskWithList.list.id }
