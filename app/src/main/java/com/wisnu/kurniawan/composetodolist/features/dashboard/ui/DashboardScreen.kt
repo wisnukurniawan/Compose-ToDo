@@ -37,11 +37,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.wisnu.kurniawan.composetodolist.R
+import com.wisnu.kurniawan.composetodolist.features.todo.all.ui.ItemAllState
 import com.wisnu.kurniawan.composetodolist.features.todo.main.ui.ItemMainState
 import com.wisnu.kurniawan.composetodolist.features.todo.main.ui.ToDoMainAction
 import com.wisnu.kurniawan.composetodolist.features.todo.main.ui.ToDoMainScreen
 import com.wisnu.kurniawan.composetodolist.features.todo.main.ui.ToDoMainViewModel
 import com.wisnu.kurniawan.composetodolist.features.todo.search.ui.SearchAction
+import com.wisnu.kurniawan.composetodolist.features.todo.search.ui.SearchContent
 import com.wisnu.kurniawan.composetodolist.features.todo.search.ui.SearchViewModel
 import com.wisnu.kurniawan.composetodolist.features.todo.search.ui.SearchWidget
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
@@ -51,6 +53,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgTransparentF
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.SwipeSearch
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.SwipeSearchValue
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.rememberSwipeSearchState
+import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.AllFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ListDetailFlow
@@ -59,6 +62,7 @@ import com.wisnu.kurniawan.composetodolist.runtime.navigation.ScheduledFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ScheduledTodayFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.SearchFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.SettingFlow
+import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
 
 @Composable
 fun DashboardScreen(
@@ -82,6 +86,7 @@ fun DashboardScreen(
         isAllTaskSelected = todoMainState.isAllTaskSelected,
         isScheduledTodayTaskSelected = todoMainState.isScheduledTodayTaskSelected,
         isScheduledTaskSelected = todoMainState.isScheduledTaskSelected,
+        searchResultItems = searchState.items,
         onSearchChange = { searchViewModel.dispatch(SearchAction.ChangeSearchText(it)) },
         onSearchOpened = { searchViewModel.dispatch(SearchAction.OnShow) },
         onSettingClick = { navController.navigate(SettingFlow.Root.route) },
@@ -93,6 +98,9 @@ fun DashboardScreen(
         onClickScheduledTodayTask = { navController.navigate(ScheduledTodayFlow.Root.route()) },
         onClickScheduledTask = { navController.navigate(ScheduledFlow.Root.route()) },
         onClickAllTask = { navController.navigate(AllFlow.Root.route) },
+        onSearchTaskItemClick = { navController.navigate(StepFlow.Root.route(it.task.id, it.list.id)) },
+        onSearchTaskStatusItemClick = { searchViewModel.dispatch(SearchAction.TaskAction.OnToggleStatus(it)) },
+        onSearchTaskSwipeToDelete = { searchViewModel.dispatch(SearchAction.TaskAction.Delete(it)) },
     )
 }
 
@@ -171,6 +179,7 @@ private fun DashboardScreen(
     isAllTaskSelected: Boolean,
     isScheduledTodayTaskSelected: Boolean,
     isScheduledTaskSelected: Boolean,
+    searchResultItems: List<ItemAllState>,
     onSettingClick: () -> Unit,
     onAddNewListClick: () -> Unit,
     onAddNewGroupClick: () -> Unit,
@@ -182,6 +191,9 @@ private fun DashboardScreen(
     onClickScheduledTodayTask: () -> Unit,
     onClickScheduledTask: () -> Unit,
     onClickAllTask: () -> Unit,
+    onSearchTaskItemClick: (ItemAllState.Task) -> Unit,
+    onSearchTaskStatusItemClick: (ToDoTask) -> Unit,
+    onSearchTaskSwipeToDelete: (ToDoTask) -> Unit
 ) {
     var swipeSearchValue by remember { mutableStateOf(SwipeSearchValue.Closed) }
     val swipeSearchState = rememberSwipeSearchState(swipeSearchValue)
@@ -242,7 +254,12 @@ private fun DashboardScreen(
             )
         },
         searchBody = {
-
+            SearchContent(
+                items = searchResultItems,
+                onTaskItemClick = onSearchTaskItemClick,
+                onTaskStatusItemClick = onSearchTaskStatusItemClick,
+                onTaskSwipeToDelete = onSearchTaskSwipeToDelete,
+            )
         }
     )
 }
