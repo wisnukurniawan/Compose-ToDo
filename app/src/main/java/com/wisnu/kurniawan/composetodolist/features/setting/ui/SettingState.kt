@@ -11,7 +11,7 @@ data class SettingState(
         private fun initial() = listOf(
             SettingItem.Theme(R.string.setting_theme),
             SettingItem.Language(R.string.setting_language),
-            SettingItem.Logout(R.string.setting_logout),
+            // SettingItem.Logout(R.string.setting_logout),
         )
     }
 }
