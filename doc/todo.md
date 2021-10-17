@@ -7,5 +7,4 @@
 8. learn gesture
 10. Check proguard, especially wire
 16. Move string copies xml to kotlin interface. (postpone maybe until Im sure will use compose 100%)
-18. Search result
 19. Release prep, integrate firebase crashlytics
