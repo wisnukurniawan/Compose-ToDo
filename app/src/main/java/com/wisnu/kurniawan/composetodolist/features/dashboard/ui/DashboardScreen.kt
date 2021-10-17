@@ -304,7 +304,7 @@ private fun DashboardContent(
                 Spacer(Modifier.width(16.dp))
 
                 Text(
-                    text = email,
+                    text = stringResource(R.string.app_name),
                     style = MaterialTheme.typography.subtitle1,
                     modifier = Modifier.padding(bottom = 4.dp)
                 )

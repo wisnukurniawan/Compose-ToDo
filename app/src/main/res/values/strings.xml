@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">To Do X</string>
+    <string name="app_name" translatable="false">ToDo Lite</string>
 
     <string name="login_login">Log in</string>
     <string name="login_email">Email</string>
