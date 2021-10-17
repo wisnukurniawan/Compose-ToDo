@@ -28,7 +28,7 @@ class SplashViewModel @Inject constructor(
                             // if (it.isLoggedIn()) {
                                 setEffect(SplashEffect.NavigateToDashboard)
 //                            } else {
-                                setEffect(SplashEffect.NavigateToLogin)
+//                                setEffect(SplashEffect.NavigateToLogin)
 //                            }
                         }
                 }
