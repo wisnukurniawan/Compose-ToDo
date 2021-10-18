@@ -89,22 +89,24 @@ fun ToDoTask.timeDisplayable(): String? {
 fun ToDoTask.dateTimeDisplayable(currentDate: LocalDateTime = DateTimeProviderImpl().now()): String {
     return when (status) {
         ToDoStatus.IN_PROGRESS -> {
-            if (createdAt.isSameDay(currentDate)) {
-                when {
-                    createdAt.isSameMinute(currentDate) -> {
-                        stringResource(R.string.todo_task_in_progress_date_creation_second)
-                    }
-                    createdAt.isSameHour(currentDate) -> {
-                        val minutes = ChronoUnit.MINUTES.between(createdAt, currentDate)
-                        stringResource(R.string.todo_task_in_progress_date_creation_minute, minutes.toString())
-                    }
-                    else -> {
-                        val hours = ChronoUnit.HOURS.between(createdAt, currentDate)
-                        stringResource(R.string.todo_task_in_progress_date_creation_hour, hours.toString())
+            when {
+                createdAt.isSameDay(currentDate) -> {
+                    when {
+                        createdAt.isSameMinute(currentDate) -> {
+                            stringResource(R.string.todo_task_in_progress_date_creation_second)
+                        }
+                        createdAt.isSameHour(currentDate) -> {
+                            val minutes = ChronoUnit.MINUTES.between(createdAt, currentDate)
+                            stringResource(R.string.todo_task_in_progress_date_creation_minute, minutes.toString())
+                        }
+                        else -> {
+                            val hours = ChronoUnit.HOURS.between(createdAt, currentDate)
+                            stringResource(R.string.todo_task_in_progress_date_creation_hour, hours.toString())
+                        }
                     }
                 }
-            } else {
-                stringResource(R.string.todo_task_in_progress_date_creation_date, createdAt.formatDateTime())
+                createdAt.isYesterday(currentDate) -> stringResource(R.string.todo_task_in_progress_date_creation_date, createdAt.formatDateTime())
+                else -> stringResource(R.string.todo_task_in_progress_date_creation_yesterday)
             }
         }
         ToDoStatus.COMPLETE -> {
@@ -115,6 +117,30 @@ fun ToDoTask.dateTimeDisplayable(currentDate: LocalDateTime = DateTimeProviderIm
                 else -> stringResource(R.string.todo_task_complete_date, completedAt.formatDateTime())
             }
         }
+    }
+}
+
+@Composable
+fun ToDoTask.noteUpdatedAtDisplayable(currentDate: LocalDateTime = DateTimeProviderImpl().now()): String {
+    return when {
+        noteUpdatedAt == null -> ""
+        noteUpdatedAt.isSameDay(currentDate) -> {
+            when {
+                noteUpdatedAt.isSameMinute(currentDate) -> {
+                    stringResource(R.string.todo_task_note_update_second)
+                }
+                noteUpdatedAt.isSameHour(currentDate) -> {
+                    val minutes = ChronoUnit.MINUTES.between(noteUpdatedAt, currentDate)
+                    stringResource(R.string.todo_task_note_update_minute, minutes.toString())
+                }
+                else -> {
+                    val hours = ChronoUnit.HOURS.between(noteUpdatedAt, currentDate)
+                    stringResource(R.string.todo_task_note_update_hour, hours.toString())
+                }
+            }
+        }
+        noteUpdatedAt.isYesterday(currentDate) -> stringResource(R.string.todo_task_note_update_yesterday, createdAt.formatDateTime())
+        else -> stringResource(R.string.todo_task_note_update_date)
     }
 }
 

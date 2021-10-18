@@ -22,6 +22,7 @@
     <string name="todo_rename">Ganti nama</string>
     <string name="todo_skip">Batal</string>
     <string name="todo_add">Pilih</string>
+    <string name="todo_add_note">Tambahkan catatan</string>
     <string name="todo_new_list">Daftar baru</string>
     <string name="todo_my_list">Daftar saya</string>
     <string name="todo_no_list">Tidak ada daftar</string>
@@ -62,10 +63,16 @@
     <string name="todo_task_in_progress_date_creation_second">Di buat beberapa saat yang lalu</string>
     <string name="todo_task_in_progress_date_creation_minute">Di buat %1$s menit yang lalu</string>
     <string name="todo_task_in_progress_date_creation_hour">Di buat %1$s jam yang lalu</string>
+    <string name="todo_task_in_progress_date_creation_yesterday">Di buat kemarin</string>
     <string name="todo_task_in_progress_date_creation_date">Di buat pada %1$s</string>
     <string name="todo_task_complete_date_today">Selesai hari ini</string>
     <string name="todo_task_complete_date_yesterday">Selesai kemarin</string>
     <string name="todo_task_complete_date">Selesai pada %1$s</string>
+    <string name="todo_task_note_update_second">Diperbarui beberapa saat yang lalu</string>
+    <string name="todo_task_note_update_minute">Diperbarui %1$s menit yang lalu</string>
+    <string name="todo_task_note_update_hour">Diperbarui %1$s jam yang lalu</string>
+    <string name="todo_task_note_update_yesterday">Diperbarui kemarin</string>
+    <string name="todo_task_note_update_date">Diperbarui pada %1$s</string>
 
     <string name="todo_task_today">Hari ini</string>
     <string name="todo_task_tomorrow">Besok</string>

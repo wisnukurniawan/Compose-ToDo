@@ -56,6 +56,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
@@ -63,6 +64,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.displayable
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isDueDateSet
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isExpired
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
+import com.wisnu.kurniawan.composetodolist.foundation.theme.CommonGrey
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListBlue
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListRed
 import com.wisnu.kurniawan.composetodolist.foundation.theme.MediumRadius
@@ -72,6 +74,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgPageLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgToDoItemCell
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.dateTimeDisplayable
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.dueDateDisplayable
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.noteUpdatedAtDisplayable
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.timeDisplayable
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.collectAsEffect
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.showDatePicker
@@ -84,6 +87,7 @@ import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 import java.time.LocalTime
 
 @Composable
@@ -200,6 +204,8 @@ private fun StepScreen(
             dueDateTimeTitle = task.timeDisplayable() ?: stringResource(R.string.todo_add_due_date_time_task),
             steps = steps,
             color = color,
+            note = task.note,
+            noteUpdatedAtTitle = task.noteUpdatedAtDisplayable(),
             listState = listState,
             onClickCreateStep = onClickCreateStep,
             onClickStep = onClickStep,
@@ -345,6 +351,8 @@ private fun StepContent(
     dueDateTitle: String,
     dueDateTimeTitle: String,
     steps: List<ToDoStep>,
+    note: String,
+    noteUpdatedAtTitle: String,
     color: Color,
     listState: LazyListState,
     onClickStep: (ToDoStep) -> Unit,
@@ -447,7 +455,7 @@ private fun StepContent(
                 ActionCell(
                     title = stringResource(R.string.todo_add_due_date_repeat_task),
                     shape = RoundedCornerShape(size = MediumRadius),
-                    iconBgColor = Color(0xFF656567),
+                    iconBgColor = CommonGrey,
                     leftIcon = Icons.Rounded.Repeat,
                     showDivider = false,
                     onClick = onClickRepeatItem,
@@ -468,6 +476,44 @@ private fun StepContent(
                 )
 
                 Spacer(Modifier.height(16.dp))
+            }
+        }
+
+        item {
+            Surface(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                shape = RoundedCornerShape(size = MediumRadius),
+                onClick = {},
+                color = MaterialTheme.colors.secondaryVariant
+            ) {
+                Column(
+                    modifier = Modifier.padding(all = 16.dp)
+                ) {
+                    if (note.isBlank()) {
+                        Text(
+                            text = stringResource(R.string.todo_add_note),
+                            style = MaterialTheme.typography.body1,
+                        )
+                    } else {
+                        Text(
+                            text = note,
+                            style = MaterialTheme.typography.body1,
+                            maxLines = 6,
+                            overflow = TextOverflow.Ellipsis
+                        )
+
+                        Spacer(Modifier.size(16.dp))
+
+                        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                            Text(
+                                text = noteUpdatedAtTitle,
+                                style = MaterialTheme.typography.caption,
+                            )
+                        }
+                    }
+                }
             }
         }
 

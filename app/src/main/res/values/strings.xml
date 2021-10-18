@@ -26,6 +26,7 @@
     <string name="todo_rename">Rename</string>
     <string name="todo_skip">Skip</string>
     <string name="todo_add">Add</string>
+    <string name="todo_add_note">Add note</string>
     <string name="todo_new_list">New list</string>
     <string name="todo_my_list">My lists</string>
     <string name="todo_no_list">No lists</string>
@@ -66,10 +67,16 @@
     <string name="todo_task_in_progress_date_creation_second">Created a few moments ago</string>
     <string name="todo_task_in_progress_date_creation_minute">Created %1$s minutes ago</string>
     <string name="todo_task_in_progress_date_creation_hour">Created %1$s hours ago</string>
+    <string name="todo_task_in_progress_date_creation_yesterday">Created yesterday</string>
     <string name="todo_task_in_progress_date_creation_date">Created %1$s</string>
     <string name="todo_task_complete_date_today">Completed today</string>
     <string name="todo_task_complete_date_yesterday">Completed yesterday</string>
     <string name="todo_task_complete_date">Completed on %1$s</string>
+    <string name="todo_task_note_update_second">Updated a few moments ago</string>
+    <string name="todo_task_note_update_minute">Updated %1$s hours ago</string>
+    <string name="todo_task_note_update_hour">Updated %1$s hours ago</string>
+    <string name="todo_task_note_update_yesterday">Updated yesterday</string>
+    <string name="todo_task_note_update_date">Updated on %1$s</string>
 
     <string name="todo_task_today">Today</string>
     <string name="todo_task_tomorrow">Tomorrow</string>

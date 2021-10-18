@@ -11,6 +11,8 @@ data class ToDoTask(
     val dueDate: LocalDateTime? = null,
     val isDueDateTimeSet: Boolean = false,
     val repeat: ToDoRepeat = ToDoRepeat.NEVER,
+    val note: String = "",
+    val noteUpdatedAt: LocalDateTime? = null,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime,
 )
