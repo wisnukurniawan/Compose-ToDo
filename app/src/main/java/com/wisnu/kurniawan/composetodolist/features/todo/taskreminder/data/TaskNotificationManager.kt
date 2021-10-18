@@ -95,7 +95,7 @@ class TaskNotificationManager @Inject constructor(@ApplicationContext private va
     }
 
     private fun getCompleteAction(taskId: String): NotificationCompat.Action {
-        val actionTitle = getLocalizedContext().getString(R.string.todo_task_notification_action_completed)
+        val actionTitle = getLocalizedContext().getString(R.string.todo_done)
         val intent = getIntent(taskId, TaskBroadcastReceiver.ACTION_NOTIFICATION_COMPLETED, REQUEST_CODE_ACTION_COMPLETE)
         return NotificationCompat.Action(ACTION_NO_ICON, actionTitle, intent)
     }

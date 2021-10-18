@@ -1,9 +1,12 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.step.ui
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.LocalContentAlpha
@@ -19,10 +22,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalTitle
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.requestFocusImeAware
@@ -30,6 +36,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun UpdateTaskNoteScreen(
+    navController: NavController,
     viewModel: StepViewModel,
 ) {
     val state by viewModel.state.collectAsState()
@@ -46,28 +53,42 @@ fun UpdateTaskNoteScreen(
         },
     ) {
         item {
-            Box(
+            Column(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
             ) {
-                BasicTextField(
-                    value = state.editNote,
-                    onValueChange = { viewModel.dispatch(StepAction.NoteAction.ChangeNote(it)) },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(200.dp)
-                        .focusRequester(focusRequest),
-                    textStyle = MaterialTheme.typography.body1.copy(color = LocalContentColor.current),
-                    cursorBrush = SolidColor(MaterialTheme.colors.primaryVariant)
-                )
+                Box {
+                    BasicTextField(
+                        value = state.editNote,
+                        onValueChange = { viewModel.dispatch(StepAction.NoteAction.ChangeNote(it)) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(150.dp)
+                            .focusRequester(focusRequest),
+                        textStyle = MaterialTheme.typography.body1.copy(color = LocalContentColor.current),
+                        cursorBrush = SolidColor(MaterialTheme.colors.primaryVariant)
+                    )
 
-                if (state.editNote.text.isBlank()) {
-                    CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
-                        Text(
-                            text = stringResource(R.string.todo_add_note),
-                            style = MaterialTheme.typography.body1
-                        )
+                    if (state.editNote.text.isBlank()) {
+                        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
+                            Text(
+                                text = stringResource(R.string.todo_add_note),
+                                style = MaterialTheme.typography.body1
+                            )
+                        }
                     }
+                }
+
+                Spacer(Modifier.size(16.dp))
+
+                PgButton(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = { navController.navigateUp() },
+                ) {
+                    Text(
+                        text = stringResource(R.string.todo_done),
+                        color = Color.White
+                    )
                 }
             }
         }

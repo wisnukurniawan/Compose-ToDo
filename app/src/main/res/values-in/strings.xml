@@ -16,6 +16,7 @@
     <string name="setting_logout_confirm">Keluar?</string>
     <string name="setting_language">Bahasa</string>
 
+    <string name="todo_done">Selesai</string>
     <string name="todo_today">Hari ini</string>
     <string name="todo_scheduled">Terjadwal</string>
     <string name="todo_all">Semua</string>
@@ -85,7 +86,6 @@
 
     <string name="todo_task_channel_name">Tugas pengingat</string>
     <string name="todo_task_channel_description">Notifikasi untuk mengingatkan</string>
-    <string name="todo_task_notification_action_completed">Selesai</string>
     <string name="todo_task_notification_action_snooze">Dalam 15 menit</string>
 
     <string name="todo_search">Cari tugas</string>

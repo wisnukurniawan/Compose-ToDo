@@ -109,6 +109,7 @@ fun NavGraphBuilder.StepNavHost(
             bottomSheetConfig.value = DefaultMainBottomSheetConfig
 
             UpdateTaskNoteScreen(
+                navController = navController,
                 viewModel = viewModel
             )
         }
