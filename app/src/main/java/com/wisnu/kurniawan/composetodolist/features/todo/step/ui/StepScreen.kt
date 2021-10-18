@@ -507,7 +507,7 @@ private fun StepContent(
                             overflow = TextOverflow.Ellipsis
                         )
 
-                        Spacer(Modifier.size(16.dp))
+                        Spacer(Modifier.size(8.dp))
 
                         CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
                             Text(
