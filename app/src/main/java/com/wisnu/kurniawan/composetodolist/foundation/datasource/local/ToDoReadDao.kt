@@ -50,7 +50,7 @@ interface ToDoReadDao {
     @Transaction
     @Query(
         """
-            SELECT ToDoTaskDb.*, ToDoListDb.* 
+            SELECT *
             FROM ToDoTaskDb 
             LEFT JOIN ToDoListDb ON task_listId = ToDoListDb.list_id
             WHERE task_dueDate IS NOT NULL
@@ -62,7 +62,7 @@ interface ToDoReadDao {
     @Transaction
     @Query(
         """
-            SELECT ToDoTaskDb.*, ToDoListDb.*
+            SELECT *
             FROM ToDoTaskDb 
             LEFT JOIN ToDoListDb ON task_listId = ToDoListDb.list_id
             WHERE 
@@ -104,7 +104,7 @@ interface ToDoReadDao {
     @Transaction
     @Query(
         """
-            SELECT ToDoTaskDb.*, ToDoListDb.*
+            SELECT *
             FROM ToDoTaskDb 
             LEFT JOIN ToDoListDb ON task_listId = ToDoListDb.list_id
             JOIN ToDoTaskFtsDb ON ToDoTaskDb.task_name = ToDoTaskFtsDb.task_name
@@ -132,8 +132,7 @@ interface ToDoReadDao {
     @Transaction
     @Query(
         """
-            SELECT ToDoTaskDb.*, 
-            ToDoListDb.*
+            SELECT *
             FROM ToDoTaskDb 
             LEFT JOIN ToDoListDb ON task_listId = ToDoListDb.list_id
             WHERE ToDoTaskDb.task_id = :id

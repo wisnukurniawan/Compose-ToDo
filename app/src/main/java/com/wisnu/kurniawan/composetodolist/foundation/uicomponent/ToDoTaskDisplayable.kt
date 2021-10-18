@@ -8,6 +8,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.displayable
+import com.wisnu.kurniawan.composetodolist.foundation.extension.ellipsisAt
 import com.wisnu.kurniawan.composetodolist.foundation.extension.formatDateTime
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isExpired
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isSameDay
@@ -15,6 +16,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.isSameHour
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isSameMinute
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isTomorrow
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isYesterday
+import com.wisnu.kurniawan.composetodolist.foundation.extension.joinToString
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl
 import com.wisnu.kurniawan.composetodolist.model.ToDoRepeat
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
@@ -26,16 +28,24 @@ import java.time.temporal.ChronoUnit
 
 fun ToDoTask.itemInfoDisplayable(resources: Resources, expiredColor: Color, listName: String = ""): AnnotatedString? {
     val info = mutableListOf<String>()
+    val noteInfo = note.ellipsisAt(255)
     val totalStepInfo = totalStepInfo(resources)
     val dueDateInfo = dueDateInfo(resources)
 
+    if (noteInfo.isNotBlank()) info.add(noteInfo)
     if (listName.isNotBlank()) info.add(listName)
     if (totalStepInfo.isNotBlank()) info.add(totalStepInfo)
     if (dueDateInfo.isNotBlank()) info.add(dueDateInfo)
 
     if (info.isEmpty()) return null
 
-    val fullText = info.joinToString("・")
+    val fullText = info.joinToString {
+        if (it == 1 && noteInfo.isNotBlank()) {
+            "\n"
+        } else {
+            "・"
+        }
+    }
 
     return AnnotatedString(
         text = fullText,

@@ -13,6 +13,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.net.toUri
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.features.todo.taskreminder.ui.TaskBroadcastReceiver
+import com.wisnu.kurniawan.composetodolist.foundation.extension.ellipsisAt
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toMillis
 import com.wisnu.kurniawan.composetodolist.foundation.localization.LocalizationUtil
 import com.wisnu.kurniawan.composetodolist.foundation.theme.LightError
@@ -69,7 +70,7 @@ class TaskNotificationManager @Inject constructor(@ApplicationContext private va
             setSmallIcon(R.drawable.ic_round_check_24)
             setContentTitle(toDoList.name)
             setContentText(task.name)
-            setStyle(NotificationCompat.BigTextStyle().bigText(task.name + "\n" + task.itemInfoDisplayable(getLocalizedContext().resources, LightError)))
+            setStyle(NotificationCompat.BigTextStyle().bigText(task.name.ellipsisAt(100) + "\n" + task.itemInfoDisplayable(getLocalizedContext().resources, LightError)))
             setColor(ResourcesCompat.getColor(getLocalizedContext().resources, R.color.primary, null))
             setContentIntent(buildPendingIntent(task.id, toDoList.id))
             setAutoCancel(true)

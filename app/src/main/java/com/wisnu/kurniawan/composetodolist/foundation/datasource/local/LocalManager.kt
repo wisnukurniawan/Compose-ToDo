@@ -83,6 +83,7 @@ class LocalManager @Inject constructor(
 
     fun getTaskWithListOrderByDueDate(): Flow<List<TaskWithList>> {
         return toDoReadDao.getTaskWithListOrderByDueDate()
+            .filterNotNull()
             .map { tasks ->
                 tasks.map {
                     TaskWithList(it.list.toList(), it.task.toTask())
@@ -92,6 +93,7 @@ class LocalManager @Inject constructor(
 
     fun getTaskWithListOrderByDueDateToday(date: LocalDateTime): Flow<List<TaskWithList>> {
         return toDoReadDao.getTaskWithListOrderByDueDateToday(date)
+            .filterNotNull()
             .map { tasks ->
                 tasks.map {
                     TaskWithList(it.list.toList(), it.task.toTask())
@@ -193,7 +195,7 @@ class LocalManager @Inject constructor(
         toDoWriteDao.updateTaskStatus(id, status, completedAt, updatedAt)
     }
 
-    fun updateTaskNote(id: String, note: String, updatedAt: LocalDateTime) {
+    suspend fun updateTaskNote(id: String, note: String, updatedAt: LocalDateTime) {
         toDoWriteDao.updateTaskNote(id, note, updatedAt)
     }
 

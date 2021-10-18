@@ -113,7 +113,7 @@ abstract class ToDoWriteDao {
     }
 
     @Query("UPDATE ToDoTaskDb SET task_note = :note, task_noteUpdatedAt = :updatedAt,task_updatedAt = :updatedAt WHERE task_id = :id")
-    abstract fun updateTaskNote(id: String, note: String, updatedAt: LocalDateTime)
+    abstract suspend fun updateTaskNote(id: String, note: String, updatedAt: LocalDateTime)
 
     // Step section
 
