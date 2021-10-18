@@ -40,6 +40,10 @@ data class ToDoTaskDb(
     val isDueDateTimeSet: Boolean = false,
     @ColumnInfo(name = "task_repeat")
     val repeat: ToDoRepeat = ToDoRepeat.NEVER,
+    @ColumnInfo(name = "task_note", defaultValue = "")
+    val note: String = "",
+    @ColumnInfo(name = "task_noteUpdatedAt")
+    val noteUpdatedAt: LocalDateTime? = null,
     @ColumnInfo(name = "task_createdAt")
     val createdAt: LocalDateTime,
     @ColumnInfo(name = "task_updatedAt")

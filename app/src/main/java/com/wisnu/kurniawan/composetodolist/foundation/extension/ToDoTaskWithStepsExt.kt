@@ -18,6 +18,8 @@ fun ToDoTaskWithSteps.toTask(): ToDoTask {
         isDueDateTimeSet = this.task.isDueDateTimeSet,
         repeat = this.task.repeat,
         steps = this.steps.toStep(),
+        note = this.task.note,
+        noteUpdatedAt = this.task.noteUpdatedAt,
         createdAt = this.task.createdAt,
         updatedAt = this.task.updatedAt
     )

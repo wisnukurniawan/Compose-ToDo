@@ -20,6 +20,8 @@ fun List<ToDoTask>.toTaskDb(listId: String): List<ToDoTaskDb> {
             completedAt = it.completedAt,
             isDueDateTimeSet = it.isDueDateTimeSet,
             repeat = it.repeat,
+            note = it.note,
+            noteUpdatedAt = it.noteUpdatedAt,
             createdAt = it.createdAt,
             updatedAt = it.updatedAt
         )

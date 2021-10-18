@@ -1,0 +1,341 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "c55c363b6cd2d6d75330817055d33f5f",
+    "entities": [
+      {
+        "tableName": "ToDoGroupDb",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`group_id` TEXT NOT NULL, `group_name` TEXT NOT NULL, `group_createdAt` INTEGER NOT NULL, `group_updatedAt` INTEGER NOT NULL, PRIMARY KEY(`group_id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "group_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "group_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "group_createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "group_updatedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "group_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_ToDoGroupDb_group_name",
+            "unique": true,
+            "columnNames": [
+              "group_name"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_ToDoGroupDb_group_name` ON `${TABLE_NAME}` (`group_name`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ToDoListDb",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`list_id` TEXT NOT NULL, `list_name` TEXT NOT NULL, `list_color` TEXT NOT NULL, `list_groupId` TEXT NOT NULL, `list_createdAt` INTEGER NOT NULL, `list_updatedAt` INTEGER NOT NULL, PRIMARY KEY(`list_id`), FOREIGN KEY(`list_groupId`) REFERENCES `ToDoGroupDb`(`group_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "list_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "list_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "color",
+            "columnName": "list_color",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "groupId",
+            "columnName": "list_groupId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "list_createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "list_updatedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "list_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_ToDoListDb_list_groupId",
+            "unique": false,
+            "columnNames": [
+              "list_groupId"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_ToDoListDb_list_groupId` ON `${TABLE_NAME}` (`list_groupId`)"
+          },
+          {
+            "name": "index_ToDoListDb_list_name",
+            "unique": true,
+            "columnNames": [
+              "list_name"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_ToDoListDb_list_name` ON `${TABLE_NAME}` (`list_name`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "ToDoGroupDb",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "list_groupId"
+            ],
+            "referencedColumns": [
+              "group_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "ToDoTaskDb",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`task_id` TEXT NOT NULL, `task_name` TEXT NOT NULL, `task_listId` TEXT NOT NULL, `task_status` TEXT NOT NULL, `task_dueDate` INTEGER, `task_completedAt` INTEGER, `task_isDueDateTimeSet` INTEGER NOT NULL, `task_repeat` TEXT NOT NULL, `task_createdAt` INTEGER NOT NULL, `task_updatedAt` INTEGER NOT NULL, PRIMARY KEY(`task_id`), FOREIGN KEY(`task_listId`) REFERENCES `ToDoListDb`(`list_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "task_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "task_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "listId",
+            "columnName": "task_listId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "task_status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dueDate",
+            "columnName": "task_dueDate",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "completedAt",
+            "columnName": "task_completedAt",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isDueDateTimeSet",
+            "columnName": "task_isDueDateTimeSet",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "repeat",
+            "columnName": "task_repeat",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "task_createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "task_updatedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "task_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_ToDoTaskDb_task_listId",
+            "unique": false,
+            "columnNames": [
+              "task_listId"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_ToDoTaskDb_task_listId` ON `${TABLE_NAME}` (`task_listId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "ToDoListDb",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "task_listId"
+            ],
+            "referencedColumns": [
+              "list_id"
+            ]
+          }
+        ]
+      },
+      {
+        "ftsVersion": "FTS4",
+        "ftsOptions": {
+          "tokenizer": "simple",
+          "tokenizerArgs": [],
+          "contentTable": "ToDoTaskDb",
+          "languageIdColumnName": "",
+          "matchInfo": "FTS4",
+          "notIndexedColumns": [],
+          "prefixSizes": [],
+          "preferredOrder": "ASC"
+        },
+        "contentSyncTriggers": [
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_ToDoTaskFtsDb_BEFORE_UPDATE BEFORE UPDATE ON `ToDoTaskDb` BEGIN DELETE FROM `ToDoTaskFtsDb` WHERE `docid`=OLD.`rowid`; END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_ToDoTaskFtsDb_BEFORE_DELETE BEFORE DELETE ON `ToDoTaskDb` BEGIN DELETE FROM `ToDoTaskFtsDb` WHERE `docid`=OLD.`rowid`; END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_ToDoTaskFtsDb_AFTER_UPDATE AFTER UPDATE ON `ToDoTaskDb` BEGIN INSERT INTO `ToDoTaskFtsDb`(`docid`, `task_name`) VALUES (NEW.`rowid`, NEW.`task_name`); END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_ToDoTaskFtsDb_AFTER_INSERT AFTER INSERT ON `ToDoTaskDb` BEGIN INSERT INTO `ToDoTaskFtsDb`(`docid`, `task_name`) VALUES (NEW.`rowid`, NEW.`task_name`); END"
+        ],
+        "tableName": "ToDoTaskFtsDb",
+        "createSql": "CREATE VIRTUAL TABLE IF NOT EXISTS `${TABLE_NAME}` USING FTS4(`task_name` TEXT NOT NULL, content=`ToDoTaskDb`)",
+        "fields": [
+          {
+            "fieldPath": "name",
+            "columnName": "task_name",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ToDoStepDb",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`step_id` TEXT NOT NULL, `step_name` TEXT NOT NULL, `step_taskId` TEXT NOT NULL, `step_status` TEXT NOT NULL, `step_createdAt` INTEGER NOT NULL, `step_updatedAt` INTEGER NOT NULL, PRIMARY KEY(`step_id`), FOREIGN KEY(`step_taskId`) REFERENCES `ToDoTaskDb`(`task_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "step_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "step_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "taskId",
+            "columnName": "step_taskId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "step_status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "step_createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "step_updatedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "step_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_ToDoStepDb_step_taskId",
+            "unique": false,
+            "columnNames": [
+              "step_taskId"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_ToDoStepDb_step_taskId` ON `${TABLE_NAME}` (`step_taskId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "ToDoTaskDb",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "step_taskId"
+            ],
+            "referencedColumns": [
+              "task_id"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c55c363b6cd2d6d75330817055d33f5f')"
+    ]
+  }
+}

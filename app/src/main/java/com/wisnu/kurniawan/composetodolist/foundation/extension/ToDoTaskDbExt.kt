@@ -13,6 +13,8 @@ fun ToDoTaskDb.toTask(): ToDoTask {
         dueDate = dueDate,
         isDueDateTimeSet = isDueDateTimeSet,
         repeat = repeat,
+        note = note,
+        noteUpdatedAt = noteUpdatedAt,
         createdAt = createdAt,
         updatedAt = updatedAt
     )
