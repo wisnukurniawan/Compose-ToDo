@@ -193,6 +193,10 @@ class LocalManager @Inject constructor(
         toDoWriteDao.updateTaskStatus(id, status, completedAt, updatedAt)
     }
 
+    fun updateTaskNote(id: String, note: String, updatedAt: LocalDateTime) {
+        toDoWriteDao.updateTaskNote(id, note, updatedAt)
+    }
+
     suspend fun updateStepStatus(id: String, status: ToDoStatus, updatedAt: LocalDateTime) {
         toDoWriteDao.updateStepStatus(id, status, updatedAt)
     }

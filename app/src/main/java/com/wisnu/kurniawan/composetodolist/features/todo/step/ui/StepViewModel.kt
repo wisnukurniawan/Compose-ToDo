@@ -13,6 +13,8 @@ import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewMode
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_LIST_ID
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_TASK_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,6 +28,8 @@ class StepViewModel @Inject constructor(
 
     private val taskId = savedStateHandle.get<String>(ARG_TASK_ID)
     private val listId = savedStateHandle.get<String>(ARG_LIST_ID)
+
+    private var updateNoteJob: Job? = null
 
     init {
         initTask()
@@ -46,6 +50,7 @@ class StepViewModel @Inject constructor(
         when (action) {
             is StepAction.TaskAction -> handleTaskAction(action)
             is StepAction.StepItemAction -> handleStepItemAction(action)
+            is StepAction.NoteAction -> handleStepNoteAction(action)
         }
     }
 
@@ -170,6 +175,25 @@ class StepViewModel @Inject constructor(
             is StepAction.StepItemAction.Edit.Delete -> {
                 viewModelScope.launch(environment.dispatcher) {
                     environment.deleteStep(action.step)
+                }
+            }
+        }
+    }
+
+    private fun handleStepNoteAction(action: StepAction.NoteAction) {
+        when (action) {
+            is StepAction.NoteAction.ChangeNote -> {
+                updateNoteJob?.cancel()
+                updateNoteJob = viewModelScope.launch(environment.dispatcher) {
+                    setState { copy(editNote = action.note) }
+                    delay(250)
+                    environment.updateTaskNote(state.value.editNote.text, state.value.task.id)
+                }
+            }
+            is StepAction.NoteAction.OnShow -> {
+                viewModelScope.launch {
+                    val note = state.value.task.note
+                    setState { copy(editNote = editNote.copy(text = note, selection = TextRange(note.length))) }
                 }
             }
         }

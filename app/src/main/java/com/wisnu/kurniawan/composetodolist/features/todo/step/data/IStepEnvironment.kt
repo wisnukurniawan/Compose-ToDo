@@ -29,6 +29,7 @@ interface IStepEnvironment {
         taskId: String
     )
 
+    suspend fun updateTaskNote(note: String, taskId: String)
     suspend fun resetTaskDueDate(taskId: String)
     suspend fun resetTaskTime(date: LocalDateTime, taskId: String)
 }

@@ -14,6 +14,7 @@ import com.wisnu.kurniawan.composetodolist.features.todo.step.ui.RenameTaskScree
 import com.wisnu.kurniawan.composetodolist.features.todo.step.ui.RepeatSelectionScreen
 import com.wisnu.kurniawan.composetodolist.features.todo.step.ui.StepScreen
 import com.wisnu.kurniawan.composetodolist.features.todo.step.ui.StepViewModel
+import com.wisnu.kurniawan.composetodolist.features.todo.step.ui.UpdateTaskNoteScreen
 
 @OptIn(ExperimentalMaterialNavigationApi::class)
 fun NavGraphBuilder.StepNavHost(
@@ -94,6 +95,20 @@ fun NavGraphBuilder.StepNavHost(
 
             RepeatSelectionScreen(
                 navController = navController,
+                viewModel = viewModel
+            )
+        }
+        bottomSheet(StepFlow.UpdateTaskNote.route) {
+            val viewModel = if (navController.previousBackStackEntry != null) {
+                hiltViewModel<StepViewModel>(
+                    navController.previousBackStackEntry!!
+                )
+            } else {
+                hiltViewModel()
+            }
+            bottomSheetConfig.value = DefaultMainBottomSheetConfig
+
+            UpdateTaskNoteScreen(
                 viewModel = viewModel
             )
         }

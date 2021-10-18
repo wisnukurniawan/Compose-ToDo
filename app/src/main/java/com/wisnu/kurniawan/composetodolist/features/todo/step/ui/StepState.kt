@@ -17,7 +17,8 @@ data class StepState(
     val editTaskName: TextFieldValue = TextFieldValue(),
     val editStepName: TextFieldValue = TextFieldValue(),
     val createStepName: TextFieldValue = TextFieldValue(),
-    val repeatItems: List<ToDoRepeatItem> = initialRepeatItem()
+    val repeatItems: List<ToDoRepeatItem> = initialRepeatItem(),
+    val editNote: TextFieldValue = TextFieldValue(),
 ) {
     val validEditTaskName = editTaskName.text.isNotBlank()
     val validEditStepName = editStepName.text.isNotBlank()

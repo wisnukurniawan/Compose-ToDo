@@ -252,6 +252,10 @@ sealed class StepFlow(val name: String) {
     object SelectRepeatTask : StepFlow("select-repeat-task-screen") {
         val route = name
     }
+
+    object UpdateTaskNote : StepFlow("update-task-note-screen") {
+        val route = name
+    }
 }
 
 sealed class SearchFlow(val name: String) {

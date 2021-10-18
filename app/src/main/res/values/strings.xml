@@ -26,6 +26,7 @@
     <string name="todo_rename">Rename</string>
     <string name="todo_skip">Skip</string>
     <string name="todo_add">Add</string>
+    <string name="todo_note">Note</string>
     <string name="todo_add_note">Add note</string>
     <string name="todo_new_list">New list</string>
     <string name="todo_my_list">My lists</string>

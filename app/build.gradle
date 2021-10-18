@@ -44,7 +44,6 @@ android {
             useSupportLibrary true
         }
 
-
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments += ["room.schemaLocation": "$projectDir/room-schemas".toString()]

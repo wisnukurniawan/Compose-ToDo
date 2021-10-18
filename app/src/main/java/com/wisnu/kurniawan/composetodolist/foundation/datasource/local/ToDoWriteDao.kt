@@ -112,6 +112,9 @@ abstract class ToDoWriteDao {
         insertTask(data)
     }
 
+    @Query("UPDATE ToDoTaskDb SET task_note = :note, task_noteUpdatedAt = :updatedAt,task_updatedAt = :updatedAt WHERE task_id = :id")
+    abstract fun updateTaskNote(id: String, note: String, updatedAt: LocalDateTime)
+
     // Step section
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

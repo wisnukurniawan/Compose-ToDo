@@ -87,7 +87,6 @@ import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
 import java.time.LocalTime
 
 @Composable
@@ -161,7 +160,8 @@ fun StepScreen(
             } else {
                 viewModel.dispatch(StepAction.TaskAction.ResetTime)
             }
-        }
+        },
+        onClickUpdateNote = { navController.navigate(StepFlow.UpdateTaskNote.route) }
     )
 }
 
@@ -184,6 +184,7 @@ private fun StepScreen(
     onClickRepeatItem: () -> Unit,
     onCheckedChangeDueDateItem: (Boolean) -> Unit,
     onCheckedChangeTimeItem: (Boolean) -> Unit,
+    onClickUpdateNote: () -> Unit,
 ) {
     val resources = LocalContext.current.resources
 
@@ -215,7 +216,8 @@ private fun StepScreen(
             onClickTimeItem = onClickTimeItem,
             onClickRepeatItem = onClickRepeatItem,
             onCheckedChangeDueDateItem = onCheckedChangeDueDateItem,
-            onCheckedChangeTimeItem = onCheckedChangeTimeItem
+            onCheckedChangeTimeItem = onCheckedChangeTimeItem,
+            onClickUpdateNote = onClickUpdateNote
         )
 
         StepFooter(
@@ -364,6 +366,7 @@ private fun StepContent(
     onClickRepeatItem: () -> Unit,
     onCheckedChangeDueDateItem: (Boolean) -> Unit,
     onCheckedChangeTimeItem: (Boolean) -> Unit,
+    onClickUpdateNote: () -> Unit,
 ) {
     LazyColumn(
         modifier = modifier.fillMaxSize(),
@@ -485,7 +488,7 @@ private fun StepContent(
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
                 shape = RoundedCornerShape(size = MediumRadius),
-                onClick = {},
+                onClick = onClickUpdateNote,
                 color = MaterialTheme.colors.secondaryVariant
             ) {
                 Column(
@@ -508,7 +511,7 @@ private fun StepContent(
 
                         CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
                             Text(
-                                text = noteUpdatedAtTitle,
+                                text = stringResource(R.string.todo_note) + "・" + noteUpdatedAtTitle,
                                 style = MaterialTheme.typography.caption,
                             )
                         }

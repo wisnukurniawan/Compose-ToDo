@@ -36,4 +36,9 @@ sealed class StepAction {
             data class ChangeStepName(val name: TextFieldValue) : Create()
         }
     }
+
+    sealed class NoteAction : StepAction() {
+        object OnShow : NoteAction()
+        data class ChangeNote(val note: TextFieldValue) : NoteAction()
+    }
 }

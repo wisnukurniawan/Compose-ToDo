@@ -98,6 +98,11 @@ class StepEnvironment @Inject constructor(
         localManager.updateTaskDueDate(taskId, date, isDueDateTimeSet, dateTimeProvider.now())
     }
 
+    override suspend fun updateTaskNote(note: String, taskId: String) {
+        val currentDate = dateTimeProvider.now()
+        localManager.updateTaskNote(taskId, note, currentDate)
+    }
+
     override suspend fun resetTaskDueDate(taskId: String) {
         localManager.resetTaskDueDate(taskId, dateTimeProvider.now())
     }
