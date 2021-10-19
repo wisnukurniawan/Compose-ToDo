@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.LocalContentColor
@@ -25,6 +26,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
@@ -66,7 +68,8 @@ fun UpdateTaskNoteScreen(
                             .height(150.dp)
                             .focusRequester(focusRequest),
                         textStyle = MaterialTheme.typography.body1.copy(color = LocalContentColor.current),
-                        cursorBrush = SolidColor(MaterialTheme.colors.primaryVariant)
+                        cursorBrush = SolidColor(MaterialTheme.colors.primaryVariant),
+                        keyboardOptions = KeyboardOptions.Default.copy(capitalization = KeyboardCapitalization.Sentences),
                     )
 
                     if (state.editNote.text.isBlank()) {
