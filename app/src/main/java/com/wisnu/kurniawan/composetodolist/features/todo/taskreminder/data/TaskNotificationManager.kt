@@ -87,10 +87,15 @@ class TaskNotificationManager @Inject constructor(@ApplicationContext private va
             Intent.ACTION_VIEW,
             StepFlow.TaskDetailScreen.deeplink(taskId, listId).toUri()
         )
+        val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        } else {
+            PendingIntent.FLAG_UPDATE_CURRENT
+        }
 
         return TaskStackBuilder.create(context).run {
             addNextIntentWithParentStack(openTaskIntent)
-            getPendingIntent(REQUEST_CODE_OPEN_TASK, PendingIntent.FLAG_UPDATE_CURRENT)
+            getPendingIntent(REQUEST_CODE_OPEN_TASK, flags)
         }
     }
 
