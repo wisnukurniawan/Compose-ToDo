@@ -10,4 +10,5 @@ fun ThemePreference.toTheme() = when (this) {
     ThemePreference.NIGHT -> Theme.NIGHT
     ThemePreference.SUNRISE -> Theme.SUNRISE
     ThemePreference.AURORA -> Theme.AURORA
+    ThemePreference.WALLPAPER -> Theme.WALLPAPER
 }

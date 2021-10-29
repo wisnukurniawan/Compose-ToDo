@@ -1,5 +1,6 @@
 package com.wisnu.kurniawan.composetodolist.features.theme.ui
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -15,6 +16,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -22,6 +26,7 @@ import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalBackHeader
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalCell
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalLayout
+import com.wisnu.kurniawan.composetodolist.model.Theme
 
 @Composable
 fun ThemeScreen(
@@ -53,6 +58,7 @@ fun ThemeScreen(
     )
 }
 
+@SuppressLint("InlinedApi")
 @Composable
 private fun ThemeItem(
     onClick: () -> Unit,
@@ -67,10 +73,21 @@ private fun ThemeItem(
             MaterialTheme.colorScheme.secondary
         },
         leftIcon = @Composable {
+            val brush = if (item.theme == Theme.WALLPAPER) {
+                val context = LocalContext.current
+                Brush.linearGradient(
+                    colors = listOf(
+                        Color(context.resources.getColor(android.R.color.system_accent1_200, context.theme)),
+                        Color(context.resources.getColor(android.R.color.system_accent2_700, context.theme)),
+                    )
+                )
+            } else {
+                item.brush
+            }
             Box(
                 modifier = Modifier.size(34.dp)
                     .background(
-                        brush = item.brush,
+                        brush = brush,
                         shape = CircleShape
                     )
             )

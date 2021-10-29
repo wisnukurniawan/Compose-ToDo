@@ -9,4 +9,5 @@ enum ThemePreference {
   SUNRISE = 3;
   AURORA = 4;
   TWILIGHT = 5;
+  WALLPAPER = 6;
 }
