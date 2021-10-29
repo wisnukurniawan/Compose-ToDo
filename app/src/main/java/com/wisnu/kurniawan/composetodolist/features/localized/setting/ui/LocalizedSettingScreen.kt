@@ -9,13 +9,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.ChevronLeft
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -96,7 +95,7 @@ private fun LanguageScreen(
 
             Text(
                 text = stringResource(R.string.setting_language),
-                style = MaterialTheme.typography.h6,
+                style = MaterialTheme.typography.headlineSmall,
                 modifier = Modifier.align(Alignment.Center)
             )
         }
@@ -118,7 +117,6 @@ private fun LanguageScreen(
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun LanguageItem(
     onClick: () -> Unit,
@@ -128,9 +126,9 @@ private fun LanguageItem(
         onClick = onClick,
         text = stringResource(item.title),
         color = if (item.applied) {
-            MaterialTheme.colors.primary
+            MaterialTheme.colorScheme.primary
         } else {
-            MaterialTheme.colors.secondary
+            MaterialTheme.colorScheme.secondary
         },
         rightIcon = if (item.applied) {
             @Composable {

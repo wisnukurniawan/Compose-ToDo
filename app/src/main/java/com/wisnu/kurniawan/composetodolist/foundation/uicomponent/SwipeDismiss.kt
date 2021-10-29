@@ -16,15 +16,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Button
 import androidx.compose.material.DismissDirection
 import androidx.compose.material.DismissValue
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FractionalThreshold
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.SwipeToDismiss
-import androidx.compose.material.Text
 import androidx.compose.material.rememberDismissState
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -130,7 +130,7 @@ fun SwipeDismiss(
                     modifier = backgroundSecondaryModifier
                         .fillMaxSize()
                         .drawGrowingCircle(
-                            color = MaterialTheme.colors.error,
+                            color = MaterialTheme.colorScheme.error,
                             center = iconCenter,
                             radius = lerp(
                                 startValue = 0f,

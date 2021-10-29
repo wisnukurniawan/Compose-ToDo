@@ -1,21 +1,25 @@
 package com.wisnu.kurniawan.composetodolist.foundation.theme
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.wisnu.kurniawan.composetodolist.model.Theme
 
-val LightColorPalette = lightColors(
+val LightColorPalette = lightColorScheme(
     primary = LightPrimary,
-    primaryVariant = LightPrimary,
+    primaryContainer = LightPrimary,
     onPrimary = Color.White,
     secondary = LightSecondary,
-    secondaryVariant = LightSecondaryVariant,
+    secondaryContainer = LightSecondaryVariant,
     onSecondary = Color.Black,
     background = LightBackground,
     onBackground = Color.Black,
@@ -25,12 +29,12 @@ val LightColorPalette = lightColors(
     onError = Color.White
 )
 
-val TwilightColorPalette = lightColors(
+val TwilightColorPalette = lightColorScheme(
     primary = TwilightPrimary,
-    primaryVariant = TwilightPrimary,
+    primaryContainer = TwilightPrimary,
     onPrimary = TwilightOn,
     secondary = TwilightSecondary,
-    secondaryVariant = TwilightSecondaryVariant,
+    secondaryContainer = TwilightSecondaryVariant,
     onSecondary = TwilightOn,
     background = TwilightBackground,
     onBackground = TwilightOn,
@@ -40,12 +44,12 @@ val TwilightColorPalette = lightColors(
     onError = Color.White
 )
 
-val NightColorPalette = darkColors(
+val NightColorPalette = darkColorScheme(
     primary = NightPrimary,
-    primaryVariant = NightPrimary,
+    primaryContainer = NightPrimary,
     onPrimary = Color.White,
     secondary = NightSecondary,
-    secondaryVariant = NightSecondaryVariant,
+    secondaryContainer = NightSecondaryVariant,
     onSecondary = Color.White,
     background = Color.Black,
     onBackground = Color.White,
@@ -55,12 +59,12 @@ val NightColorPalette = darkColors(
     onError = Color.White
 )
 
-val SunriseColorPalette = darkColors(
+val SunriseColorPalette = darkColorScheme(
     primary = SunrisePrimary,
-    primaryVariant = SunrisePrimary,
+    primaryContainer = SunrisePrimary,
     onPrimary = SunriseOn,
     secondary = SunriseSecondary,
-    secondaryVariant = SunriseSecondaryVariant,
+    secondaryContainer = SunriseSecondaryVariant,
     onSecondary = SunriseOn,
     background = SunriseBackground,
     onBackground = SunriseOn,
@@ -70,12 +74,12 @@ val SunriseColorPalette = darkColors(
     onError = Color.White
 )
 
-val AuroraColorPalette = darkColors(
+val AuroraColorPalette = darkColorScheme(
     primary = AuroraPrimary,
-    primaryVariant = AuroraPrimary,
+    primaryContainer = AuroraPrimary,
     onPrimary = AuroraOn,
     secondary = AuroraSecondary,
-    secondaryVariant = AuroraSecondaryVariant,
+    secondaryContainer = AuroraSecondaryVariant,
     onSecondary = AuroraOn,
     background = AuroraBackground,
     onBackground = AuroraOn,
@@ -85,6 +89,7 @@ val AuroraColorPalette = darkColors(
     onError = Color.White
 )
 
+@SuppressLint("NewApi")
 @Composable
 fun Theme(
     theme: Theme,
@@ -96,6 +101,13 @@ fun Theme(
                 NightColorPalette
             } else {
                 LightColorPalette
+            }
+        }
+        Theme.WALLPAPER -> {
+            if (isSystemInDarkTheme()) {
+                dynamicDarkColorScheme(LocalContext.current)
+            } else {
+                dynamicLightColorScheme(LocalContext.current)
             }
         }
         Theme.LIGHT -> LightColorPalette
@@ -116,9 +128,10 @@ fun Theme(
     }
 
     MaterialTheme(
-        colors = colors,
+        colorScheme = colors,
         typography = Typography,
-        shapes = Shapes,
+        // TODO - material3
+        // shapes = Shapes,
         content = content
     )
 }

@@ -150,7 +150,7 @@ fun ToDoTask.noteUpdatedAtDisplayable(currentDate: LocalDateTime = DateTimeProvi
             }
         }
         noteUpdatedAt.isYesterday(currentDate) -> stringResource(R.string.todo_task_note_update_yesterday, createdAt.formatDateTime())
-        else -> stringResource(R.string.todo_task_note_update_date)
+        else -> stringResource(R.string.todo_task_note_update_date, noteUpdatedAt.formatDateTime())
     }
 }
 

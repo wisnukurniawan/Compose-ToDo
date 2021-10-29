@@ -4,6 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.core.app.AlarmManagerCompat
 import com.wisnu.kurniawan.composetodolist.features.todo.taskreminder.ui.TaskBroadcastReceiver
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toMillis
@@ -19,6 +20,11 @@ class TaskAlarmManager @Inject constructor(
 ) {
 
     private val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
+    private val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+    } else {
+        PendingIntent.FLAG_UPDATE_CURRENT
+    }
 
     fun scheduleTaskAlarm(task: ToDoTask, time: LocalDateTime) {
         val receiverIntent = Intent(context, TaskBroadcastReceiver::class.java).apply {
@@ -30,7 +36,7 @@ class TaskAlarmManager @Inject constructor(
             context,
             task.createdAt.toMillis().toInt(),
             receiverIntent,
-            PendingIntent.FLAG_CANCEL_CURRENT
+            flags
         )
 
         setAlarm(time.toMillis(), pendingIntent)
@@ -44,7 +50,7 @@ class TaskAlarmManager @Inject constructor(
             context,
             task.createdAt.toMillis().toInt(),
             receiverIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            flags
         )
 
         cancelAlarm(pendingIntent)

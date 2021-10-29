@@ -9,8 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,15 +27,15 @@ fun Profile(email: String, modifier: Modifier = Modifier) {
             modifier = Modifier
                 .defaultMinSize(minWidth = 60.dp, minHeight = 60.dp)
                 .background(
-                    color = MaterialTheme.colors.onBackground,
+                    color = MaterialTheme.colorScheme.onBackground,
                     shape = CircleShape
                 ),
             contentAlignment = Alignment.Center
         ) {
             Text(
                 text = email.firstOrEmpty(),
-                style = MaterialTheme.typography.h4,
-                color = MaterialTheme.colors.background,
+                style = MaterialTheme.typography.headlineLarge,
+                color = MaterialTheme.colorScheme.background,
                 modifier = Modifier.padding(bottom = 4.dp)
             )
         }
@@ -44,7 +44,7 @@ fun Profile(email: String, modifier: Modifier = Modifier) {
 
         Text(
             text = email,
-            style = MaterialTheme.typography.h6
+            style = MaterialTheme.typography.headlineSmall
         )
     }
 }

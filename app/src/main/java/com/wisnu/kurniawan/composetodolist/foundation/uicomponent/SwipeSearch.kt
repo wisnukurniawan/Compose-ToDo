@@ -17,7 +17,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
@@ -157,7 +157,7 @@ fun SwipeSearch(
                     Column(
                         modifier = Modifier
                             .alpha(alpha)
-                            .background(MaterialTheme.colors.surface)
+                            .background(MaterialTheme.colorScheme.surface)
                             .fillMaxSize()
                             .clickable(
                                 interactionSource = remember { MutableInteractionSource() },

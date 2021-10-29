@@ -5,20 +5,21 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ChevronLeft
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaDisabled
+import com.wisnu.kurniawan.composetodolist.foundation.theme.SmallShape
 
 @Composable
 fun PgModalBackButton(
@@ -40,7 +41,7 @@ fun PgIconButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    color: Color = MaterialTheme.colors.secondary,
+    color: Color = MaterialTheme.colorScheme.secondary,
     content: @Composable () -> Unit
 ) {
     val shape = CircleShape
@@ -67,10 +68,10 @@ fun PgButton(
         modifier = modifier.height(56.dp),
         enabled = enabled,
         onClick = onClick,
-        shape = MaterialTheme.shapes.small,
+        shape = SmallShape,
         content = content,
         colors = ButtonDefaults.buttonColors(
-            disabledBackgroundColor = MaterialTheme.colors.primary.copy(alpha = ContentAlpha.disabled)
+            disabledContentColor = MaterialTheme.colorScheme.primary.copy(alpha = AlphaDisabled)
         ),
     )
 }
@@ -84,7 +85,7 @@ fun PgSecondaryButton(
     OutlinedButton(
         modifier = modifier.height(56.dp),
         onClick = onClick,
-        shape = MaterialTheme.shapes.small,
+        shape = SmallShape,
         content = content
     )
 }

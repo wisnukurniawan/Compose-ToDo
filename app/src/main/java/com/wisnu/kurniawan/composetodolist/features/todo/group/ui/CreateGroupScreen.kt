@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isValidGroupName
+import com.wisnu.kurniawan.composetodolist.foundation.theme.LargeShape
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalBackHeader
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalLayout
@@ -140,7 +141,7 @@ private fun CreateGroup(
                     onValueChange = onGroupNameChange,
                     placeholderValue = hint,
                     modifier = modifier.padding(horizontal = 16.dp).height(50.dp).fillMaxWidth(),
-                    shape = MaterialTheme.shapes.large,
+                    shape = LargeShape,
                     keyboardOptions = KeyboardOptions.Default.copy(
                         imeAction = ImeAction.Done,
                         capitalization = KeyboardCapitalization.Sentences
@@ -156,7 +157,7 @@ private fun CreateGroup(
                     PgSecondaryButton(
                         modifier = Modifier.weight(1F),
                         onClick = onCancelClick,
-                    ) { Text(text = stringResource(R.string.todo_cancel), color = MaterialTheme.colors.onSecondary) }
+                    ) { Text(text = stringResource(R.string.todo_cancel), color = MaterialTheme.colorScheme.onSecondary) }
 
                     Spacer(Modifier.width(16.dp))
 

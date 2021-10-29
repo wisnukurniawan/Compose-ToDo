@@ -69,7 +69,7 @@ android {
 
     // Fix compose compile error
     composeOptions {
-        kotlinCompilerExtensionVersion "1.1.0-alpha06"
+        kotlinCompilerExtensionVersion "1.1.0-beta01"
     }
 
     compileOptions {
@@ -121,7 +121,19 @@ dependencies {
 
     // Compose
     // For Compose runtime by default coroutine runtime already included from ui, foundation, implicitly
+    // Not able to get rid of material lib due to we still use these component and not available yet in material3
+    // androidx.compose.material.Shapes
+    // androidx.compose.material.ContentAlpha
+    // androidx.compose.material.Switch
+    // androidx.compose.material.SwipeToDismiss
+    // androidx.compose.material.Divider
+    // androidx.compose.material.DropdownMenu
+    // androidx.compose.material.DropdownMenuItem
+    // androidx.compose.material.OutlinedTextField
+    // androidx.compose.material.TextFieldDefaults
+    // androidx.compose.material.ModalBottomSheetLayout
     implementation libs.androidx.compose.material
+    implementation libs.androidx.compose.material3
     implementation libs.androidx.compose.materialIcon
     implementation libs.androidx.compose.materialIconExtended
     implementation libs.androidx.compose.foundation

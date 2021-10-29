@@ -9,6 +9,7 @@
     <string name="setting_title">Main menu</string>
     <string name="setting_theme">Themes</string>
     <string name="setting_theme_automatic">Automatic</string>
+    <string name="setting_theme_wallpaper" translatable="false">Wallpaper</string>
     <string name="setting_theme_light">Daylight</string>
     <string name="setting_theme_twilight">Twilight</string>
     <string name="setting_theme_night">Midnight</string>

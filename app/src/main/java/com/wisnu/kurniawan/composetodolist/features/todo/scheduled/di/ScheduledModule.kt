@@ -1,4 +1,4 @@
-package com.wisnu.kurniawan.composetodolist.features.todo.scheduled.module
+package com.wisnu.kurniawan.composetodolist.features.todo.scheduled.di
 
 import com.wisnu.kurniawan.composetodolist.features.todo.scheduled.data.IScheduledEnvironment
 import com.wisnu.kurniawan.composetodolist.features.todo.scheduled.data.ScheduledEnvironment

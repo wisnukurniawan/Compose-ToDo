@@ -1,5 +1,6 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.all.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
@@ -13,12 +14,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.ContentAlpha
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.LocalContentAlpha
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
@@ -27,8 +24,9 @@ import androidx.compose.material.icons.rounded.ChevronLeft
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.RadioButtonUnchecked
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -49,7 +47,7 @@ import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.identifier
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
-import com.wisnu.kurniawan.composetodolist.foundation.theme.Shapes
+import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaDisabled
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgEmpty
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
@@ -148,7 +146,7 @@ private fun AllTitle(
 
         Text(
             text = text,
-            style = MaterialTheme.typography.h6,
+            style = MaterialTheme.typography.headlineSmall,
             modifier = Modifier.align(Alignment.Center)
         )
 
@@ -247,24 +245,22 @@ fun TaskContent(
                                 maxLines = 1,
                                 color = it.list.color.toColor(),
                                 overflow = TextOverflow.Ellipsis,
-                                style = MaterialTheme.typography.body1
+                                style = MaterialTheme.typography.bodyLarge
                             )
                         }
                     }
                     is ItemAllState.Task.Complete -> {
-                        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
-                            PgToDoItemCell(
-                                name = it.task.name,
-                                color = it.list.color.toColor(),
-                                contentPaddingValues = PaddingValues(all = 8.dp),
-                                leftIcon = Icons.Rounded.CheckCircle,
-                                textDecoration = TextDecoration.LineThrough,
-                                onClick = { onClick(it) },
-                                onSwipeToDelete = { onSwipeToDelete(it.task) },
-                                onStatusClick = { onStatusClick(it.task) },
-                                info = it.task.itemInfoDisplayable(resources, MaterialTheme.colors.error)
-                            )
-                        }
+                        PgToDoItemCell(
+                            name = it.task.name,
+                            color = it.list.color.toColor().copy(alpha = AlphaDisabled),
+                            contentPaddingValues = PaddingValues(all = 8.dp),
+                            leftIcon = Icons.Rounded.CheckCircle,
+                            textDecoration = TextDecoration.LineThrough,
+                            onClick = { onClick(it) },
+                            onSwipeToDelete = { onSwipeToDelete(it.task) },
+                            onStatusClick = { onStatusClick(it.task) },
+                            info = it.task.itemInfoDisplayable(resources, MaterialTheme.colorScheme.error)
+                        )
                     }
                     is ItemAllState.Task.InProgress -> {
                         var isChecked by remember { mutableStateOf(false) }
@@ -292,7 +288,7 @@ fun TaskContent(
                                     }
                                 }
                             },
-                            info = it.task.itemInfoDisplayable(resources, MaterialTheme.colors.error)
+                            info = it.task.itemInfoDisplayable(resources, MaterialTheme.colorScheme.error)
                         )
                     }
                 }
@@ -313,12 +309,13 @@ private fun MoreMenu(
     onShowHideCompleteTaskClick: () -> Unit
 ) {
     MaterialTheme(
-        shapes = MaterialTheme.shapes.copy(medium = Shapes.small)
+        // TODO - material3
+        // shapes = MaterialTheme.shapes.copy(medium = Shapes.small)
     ) {
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = onDismissRequest,
-            modifier = Modifier.width(220.dp)
+            modifier = Modifier.width(220.dp).background(MaterialTheme.colorScheme.secondaryContainer)
         ) {
             DropdownMenuItem(onClick = onShowHideCompleteTaskClick) {
                 val icon = if (hideCompleteTask) {
@@ -337,7 +334,11 @@ private fun MoreMenu(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(label, style = MaterialTheme.typography.body1.copy(fontSize = 14.sp))
+                    Text(
+                        label,
+                        style = MaterialTheme.typography.bodyLarge.copy(fontSize = 14.sp),
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
                     PgIcon(imageVector = icon)
                 }
             }

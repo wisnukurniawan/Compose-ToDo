@@ -92,7 +92,7 @@
 //            modifier = Modifier
 //                .fillMaxHeight()
 //                .width(1.dp)
-//                .background(color = MaterialTheme.colors.onSurface.copy(alpha = 0.12f))
+//                .background(color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f))
 //        )
 //
 //        Box(

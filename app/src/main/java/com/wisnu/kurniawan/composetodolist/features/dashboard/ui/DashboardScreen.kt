@@ -10,15 +10,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.CreateNewFolder
 import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -46,6 +45,7 @@ import com.wisnu.kurniawan.composetodolist.features.todo.search.ui.SearchAction
 import com.wisnu.kurniawan.composetodolist.features.todo.search.ui.SearchContent
 import com.wisnu.kurniawan.composetodolist.features.todo.search.ui.SearchViewModel
 import com.wisnu.kurniawan.composetodolist.features.todo.search.ui.SearchWidget
+import com.wisnu.kurniawan.composetodolist.foundation.theme.LargeShape
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgPageLayout
@@ -305,7 +305,7 @@ private fun DashboardContent(
 
                 Text(
                     text = stringResource(R.string.app_name),
-                    style = MaterialTheme.typography.subtitle1,
+                    style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(bottom = 4.dp)
                 )
             }
@@ -343,7 +343,6 @@ private fun DashboardContent(
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun Footer(
     onAddNewListClick: () -> Unit,
@@ -353,7 +352,7 @@ private fun Footer(
     PgTransparentFooter(modifier) {
         Surface(
             modifier = Modifier.height(48.dp).weight(1f),
-            shape = MaterialTheme.shapes.large,
+            shape = LargeShape,
             color = Color.Transparent,
             onClick = onAddNewListClick
         ) {
@@ -367,7 +366,7 @@ private fun Footer(
                 Spacer(Modifier.width(4.dp))
                 Text(
                     text = stringResource(R.string.todo_new_list),
-                    style = MaterialTheme.typography.button,
+                    style = MaterialTheme.typography.bodyMedium,
                 )
             }
         }
