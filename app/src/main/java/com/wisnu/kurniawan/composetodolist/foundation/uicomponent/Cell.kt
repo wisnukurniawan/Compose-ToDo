@@ -25,8 +25,9 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaDisabled
-import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaHight
+import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaHigh
 import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaMedium
+import com.wisnu.kurniawan.composetodolist.foundation.theme.DividerAlpha
 import com.wisnu.kurniawan.composetodolist.foundation.theme.MediumShape
 
 @Composable
@@ -40,7 +41,7 @@ fun PgModalCell(
     rightIcon: @Composable (() -> Unit)? = null
 ) {
     val colorAlpha = if (enabled) {
-        AlphaHight
+        AlphaHigh
     } else {
         AlphaDisabled
     }
@@ -148,7 +149,10 @@ fun PgToDoItemCell(
                         }
                     }
 
-                    Divider(modifier = Modifier.padding(start = 56.dp))
+                    Divider(
+                        modifier = Modifier.padding(start = 56.dp),
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = DividerAlpha)
+                    )
                 }
             }
         },

@@ -63,6 +63,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
 import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaDisabled
 import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaMedium
 import com.wisnu.kurniawan.composetodolist.foundation.theme.CommonGrey
+import com.wisnu.kurniawan.composetodolist.foundation.theme.DividerAlpha
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListBlue
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListRed
 import com.wisnu.kurniawan.composetodolist.foundation.theme.MediumRadius
@@ -335,7 +336,10 @@ private fun TaskCell(
                 )
             }
 
-            Divider(modifier = Modifier.padding(start = 56.dp))
+            Divider(
+                modifier = Modifier.padding(start = 56.dp),
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = DividerAlpha)
+            )
         }
     }
 }

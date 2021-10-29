@@ -31,6 +31,7 @@ import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isUngroup
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
+import com.wisnu.kurniawan.composetodolist.foundation.theme.DividerAlpha
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgEmpty
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
@@ -115,7 +116,10 @@ private fun UpdateGroupListScreen(
                         onClick = { onItemChange(it) }
                     )
 
-                    Divider(modifier = Modifier.padding(start = 48.dp))
+                    Divider(
+                        modifier = Modifier.padding(start = 48.dp),
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = DividerAlpha)
+                    )
                 }
             }
 

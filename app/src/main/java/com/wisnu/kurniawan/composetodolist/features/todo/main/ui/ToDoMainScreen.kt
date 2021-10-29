@@ -45,8 +45,9 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.identifier
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
 import com.wisnu.kurniawan.composetodolist.foundation.extension.totalTask
 import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaDisabled
-import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaHight
+import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaHigh
 import com.wisnu.kurniawan.composetodolist.foundation.theme.CommonGrey
+import com.wisnu.kurniawan.composetodolist.foundation.theme.DividerAlpha
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListBlue
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListRed
 import com.wisnu.kurniawan.composetodolist.foundation.theme.MediumRadius
@@ -301,7 +302,7 @@ private fun OverallTaskCell(
             Spacer(Modifier.height(8.dp))
 
             val alpha = if (isSelected) {
-                AlphaHight
+                AlphaHigh
             } else {
                 AlphaDisabled
             }
@@ -437,7 +438,7 @@ private fun ListCell(
 @Composable
 private fun PgDivider(
     needSpacer: Boolean,
-    color: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f),
+    color: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = DividerAlpha),
 ) {
     Row {
         if (needSpacer) {
