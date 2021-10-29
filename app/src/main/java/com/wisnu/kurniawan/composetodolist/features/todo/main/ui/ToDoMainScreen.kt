@@ -16,21 +16,17 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Divider
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.LocalContentAlpha
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.CalendarToday
 import androidx.compose.material.icons.rounded.Event
 import androidx.compose.material.icons.rounded.Inbox
 import androidx.compose.material.icons.rounded.List
 import androidx.compose.material.icons.rounded.MoreHoriz
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -57,7 +53,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.SwipeDismiss
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ToDoMainScreen(
     data: List<ItemMainState>,
@@ -120,7 +115,7 @@ fun ToDoMainScreen(
         item {
             Text(
                 text = stringResource(R.string.todo_my_list),
-                style = MaterialTheme.typography.h6,
+                style = MaterialTheme.typography.headlineSmall,
                 modifier = Modifier.padding(start = 32.dp, bottom = 8.dp)
             )
         }
@@ -170,7 +165,6 @@ fun ToDoMainScreen(
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun ScheduledTodayCell(
     modifier: Modifier,
@@ -191,7 +185,6 @@ private fun ScheduledTodayCell(
     )
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun ScheduledCell(
     modifier: Modifier,
@@ -210,7 +203,6 @@ private fun ScheduledCell(
     )
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun AllTaskCell(
     modifier: Modifier,
@@ -229,7 +221,6 @@ private fun AllTaskCell(
     )
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun OverallTaskCell(
     modifier: Modifier,
@@ -248,7 +239,7 @@ private fun OverallTaskCell(
         color = if (isSelected) {
             iconColor
         } else {
-            MaterialTheme.colors.secondaryVariant
+            MaterialTheme.colorScheme.secondaryContainer
         }
     ) {
         Column(
@@ -263,9 +254,9 @@ private fun OverallTaskCell(
                     modifier = Modifier
                         .size(28.dp)
                         .background(
-                            shape = CircleShape, color =
-                            if (isSelected) {
-                                MaterialTheme.colors.onSecondary.copy(alpha = LocalContentAlpha.current)
+                            shape = CircleShape,
+                            color = if (isSelected) {
+                                MaterialTheme.colorScheme.onSecondary
                             } else {
                                 iconColor
                             }
@@ -279,7 +270,7 @@ private fun OverallTaskCell(
                         tint = if (isSelected) {
                             iconColor
                         } else {
-                            MaterialTheme.colors.onSecondary.copy(alpha = LocalContentAlpha.current)
+                            MaterialTheme.colorScheme.onSecondary
                         }
                     )
 
@@ -287,12 +278,12 @@ private fun OverallTaskCell(
                         Text(
                             text = iconText,
                             fontSize = 8.sp,
-                            style = MaterialTheme.typography.subtitle1,
+                            style = MaterialTheme.typography.titleMedium,
                             modifier = Modifier.padding(top = 2.dp),
                             color = if (isSelected) {
                                 iconColor
                             } else {
-                                Color.Unspecified
+                                MaterialTheme.colorScheme.onSurface
                             }
                         )
                     }
@@ -300,28 +291,27 @@ private fun OverallTaskCell(
 
                 Text(
                     text = taskCount,
-                    style = MaterialTheme.typography.h5,
+                    style = MaterialTheme.typography.headlineMedium,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             }
 
             Spacer(Modifier.height(8.dp))
 
             val alpha = if (isSelected) {
-                ContentAlpha.high
+                1F
             } else {
-                ContentAlpha.disabled
+                0.3F
             }
-            CompositionLocalProvider(LocalContentAlpha provides alpha) {
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.subtitle1,
-                )
-            }
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha)
+            )
         }
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun GroupCell(
     onClickGroup: () -> Unit,
@@ -340,7 +330,7 @@ private fun GroupCell(
         ) {
             Text(
                 text = name,
-                style = MaterialTheme.typography.subtitle2,
+                style = MaterialTheme.typography.titleSmall,
                 modifier = Modifier.padding(start = 16.dp)
                     .weight(1f),
                 maxLines = 1,
@@ -360,7 +350,6 @@ private fun GroupCell(
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun ListCell(
     shape: Shape,
@@ -375,7 +364,7 @@ private fun ListCell(
     SwipeDismiss(
         backgroundModifier = Modifier
             .padding(horizontal = 16.dp)
-            .background(MaterialTheme.colors.secondary, shape),
+            .background(MaterialTheme.colorScheme.secondary, shape),
         backgroundSecondaryModifier = Modifier.clip(shape),
         content = {
             Surface(
@@ -385,9 +374,9 @@ private fun ListCell(
                 shape = shape,
                 onClick = onClick,
                 color = if (isSelected) {
-                    MaterialTheme.colors.primaryVariant
+                    MaterialTheme.colorScheme.primaryContainer
                 } else {
-                    MaterialTheme.colors.secondaryVariant
+                    MaterialTheme.colorScheme.secondaryContainer
                 }
             ) {
                 Column {
@@ -411,28 +400,28 @@ private fun ListCell(
                         Spacer(Modifier.size(8.dp))
                         Text(
                             text = name,
-                            style = MaterialTheme.typography.body1,
+                            style = MaterialTheme.typography.bodyLarge,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f),
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                         Spacer(Modifier.size(8.dp))
 
-                        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
-                            Text(
-                                text = totalTask,
-                                style = MaterialTheme.typography.body1
-                            )
-                        }
+                        Text(
+                            text = totalTask,
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3F)
+                        )
                     }
 
                     if (shouldShowDivider) {
                         PgDivider(
                             needSpacer = !isSelected,
                             color = if (isSelected) {
-                                MaterialTheme.colors.primaryVariant
+                                MaterialTheme.colorScheme.primaryContainer
                             } else {
-                                MaterialTheme.colors.onSurface.copy(alpha = 0.12f)
+                                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f)
                             }
                         )
                     }
@@ -446,7 +435,7 @@ private fun ListCell(
 @Composable
 private fun PgDivider(
     needSpacer: Boolean,
-    color: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.12f),
+    color: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f),
 ) {
     Row {
         if (needSpacer) {
@@ -454,7 +443,7 @@ private fun PgDivider(
                 Modifier
                     .width(48.dp)
                     .height(1.dp)
-                    .background(color = MaterialTheme.colors.secondaryVariant)
+                    .background(color = MaterialTheme.colorScheme.secondaryContainer)
             )
         }
         Divider(color = color)

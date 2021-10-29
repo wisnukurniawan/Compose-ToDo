@@ -10,12 +10,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -31,6 +31,7 @@ import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.features.todo.all.ui.ItemAllState
 import com.wisnu.kurniawan.composetodolist.features.todo.all.ui.TaskContent
+import com.wisnu.kurniawan.composetodolist.foundation.theme.LargeShape
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgPageLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgTextField
@@ -120,8 +121,8 @@ fun SearchWidget(
         modifier = modifier
             .height(50.dp)
             .focusRequester(focusRequester),
-        shape = MaterialTheme.shapes.large,
-        textStyle = MaterialTheme.typography.subtitle2,
+        shape = LargeShape,
+        textStyle = MaterialTheme.typography.titleSmall,
         leadingIcon = {
             PgIcon(
                 imageVector = Icons.Rounded.Search
@@ -135,12 +136,12 @@ fun SearchWidget(
         TextButton(
             onClick = onCancelClick,
             shape = CircleShape,
-            colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colors.onSurface)
+            colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.onSurface)
         ) {
             Text(
                 text = stringResource(R.string.todo_cancel),
-                style = MaterialTheme.typography.body2,
-                color = MaterialTheme.colors.onSurface
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurface
             )
         }
 

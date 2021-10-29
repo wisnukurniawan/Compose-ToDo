@@ -2,11 +2,9 @@ package com.wisnu.kurniawan.composetodolist.foundation.uicomponent
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.LocalContentAlpha
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
@@ -16,8 +14,10 @@ fun PgEmpty(
     modifier: Modifier = Modifier,
 ) {
     Box(modifier.fillMaxWidth()) {
-        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
-            Text(text, modifier = Modifier.align(Alignment.Center))
-        }
+        Text(
+            text,
+            modifier = Modifier.align(Alignment.Center),
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3F)
+        )
     }
 }

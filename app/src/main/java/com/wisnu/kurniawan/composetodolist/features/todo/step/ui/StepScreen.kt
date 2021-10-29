@@ -19,15 +19,9 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Divider
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.LocalContentAlpha
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Switch
 import androidx.compose.material.SwitchDefaults
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.CheckCircle
@@ -38,8 +32,10 @@ import androidx.compose.material.icons.rounded.Event
 import androidx.compose.material.icons.rounded.RadioButtonUnchecked
 import androidx.compose.material.icons.rounded.Repeat
 import androidx.compose.material.icons.rounded.Schedule
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -288,21 +284,18 @@ private fun TaskCell(
             )
         }
         ToDoStatus.COMPLETE -> {
-            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
-                TaskCell(
-                    name = task.name,
-                    color = color,
-                    leftIcon = Icons.Rounded.CheckCircle,
-                    textDecoration = TextDecoration.LineThrough,
-                    onClick = onClickTaskName,
-                    onClickStatus = onClickTaskStatus
-                )
-            }
+            TaskCell(
+                name = task.name,
+                color = color.copy(alpha = 0.3F),
+                leftIcon = Icons.Rounded.CheckCircle,
+                textDecoration = TextDecoration.LineThrough,
+                onClick = onClickTaskName,
+                onClickStatus = onClickTaskStatus
+            )
         }
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun TaskCell(
     name: String,
@@ -336,7 +329,7 @@ private fun TaskCell(
 
                 Text(
                     text = name,
-                    style = MaterialTheme.typography.h6.copy(textDecoration = textDecoration),
+                    style = MaterialTheme.typography.headlineSmall.copy(textDecoration = textDecoration),
                 )
             }
 
@@ -345,7 +338,6 @@ private fun TaskCell(
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun StepContent(
     modifier: Modifier,
@@ -411,13 +403,13 @@ private fun StepContent(
                         checked = task.isDueDateSet(),
                         onCheckedChange = onCheckedChangeDueDateItem,
                         colors = SwitchDefaults.colors(
-                            checkedThumbColor = MaterialTheme.colors.primary,
-                            uncheckedThumbColor = MaterialTheme.colors.onSurface
+                            checkedThumbColor = MaterialTheme.colorScheme.primary,
+                            uncheckedThumbColor = MaterialTheme.colorScheme.onSurface
                         )
                     )
                 },
                 titleColor = if (task.isExpired()) {
-                    MaterialTheme.colors.error
+                    MaterialTheme.colorScheme.error
                 } else {
                     Color.Unspecified
                 }
@@ -441,13 +433,13 @@ private fun StepContent(
                         checked = task.isDueDateTimeSet,
                         onCheckedChange = onCheckedChangeTimeItem,
                         colors = SwitchDefaults.colors(
-                            checkedThumbColor = MaterialTheme.colors.primary,
-                            uncheckedThumbColor = MaterialTheme.colors.onSurface
+                            checkedThumbColor = MaterialTheme.colorScheme.primary,
+                            uncheckedThumbColor = MaterialTheme.colorScheme.onSurface
                         )
                     )
                 },
                 titleColor = if (task.isExpired() && task.isDueDateTimeSet) {
-                    MaterialTheme.colors.error
+                    MaterialTheme.colorScheme.error
                 } else {
                     Color.Unspecified
                 }
@@ -464,16 +456,16 @@ private fun StepContent(
                     onClick = onClickRepeatItem,
                     trailing = {
                         Row {
-                            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
-                                Text(
-                                    text = stringResource(task.repeat.displayable()),
-                                    style = MaterialTheme.typography.body1.copy(fontWeight = FontWeight.Normal)
-                                )
-                                Spacer(Modifier.width(8.dp))
-                                PgIcon(
-                                    imageVector = Icons.Rounded.ChevronRight,
-                                )
-                            }
+                            Text(
+                                text = stringResource(task.repeat.displayable()),
+                                style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Normal),
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3F)
+                            )
+                            Spacer(Modifier.width(8.dp))
+                            PgIcon(
+                                imageVector = Icons.Rounded.ChevronRight,
+                                tint = MaterialTheme.colorScheme.onSecondary.copy(alpha = 0.3F)
+                            )
                         }
                     }
                 )
@@ -489,7 +481,7 @@ private fun StepContent(
                     .padding(horizontal = 16.dp),
                 shape = RoundedCornerShape(size = MediumRadius),
                 onClick = onClickUpdateNote,
-                color = MaterialTheme.colors.secondaryVariant
+                color = MaterialTheme.colorScheme.secondaryContainer
             ) {
                 Column(
                     modifier = Modifier.padding(all = 16.dp)
@@ -497,24 +489,23 @@ private fun StepContent(
                     if (note.isBlank()) {
                         Text(
                             text = stringResource(R.string.todo_add_note),
-                            style = MaterialTheme.typography.body1,
+                            style = MaterialTheme.typography.bodyLarge,
                         )
                     } else {
                         Text(
                             text = note,
-                            style = MaterialTheme.typography.body1,
+                            style = MaterialTheme.typography.bodyLarge,
                             maxLines = 6,
                             overflow = TextOverflow.Ellipsis
                         )
 
                         Spacer(Modifier.size(8.dp))
 
-                        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                            Text(
-                                text = stringResource(R.string.todo_note) + "・" + noteUpdatedAtTitle,
-                                style = MaterialTheme.typography.caption,
-                            )
-                        }
+                        Text(
+                            text = stringResource(R.string.todo_note) + "・" + noteUpdatedAtTitle,
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7F)
+                        )
                     }
                 }
             }
@@ -548,23 +539,20 @@ private fun StepCell(
             )
         }
         ToDoStatus.COMPLETE -> {
-            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
-                PgToDoItemCell(
-                    name = item.name,
-                    color = color,
-                    contentPaddingValues = PaddingValues(start = 16.dp, end = 8.dp, top = 8.dp, bottom = 8.dp),
-                    leftIcon = Icons.Rounded.CheckCircle,
-                    textDecoration = TextDecoration.LineThrough,
-                    onClick = onClick,
-                    onSwipeToDelete = onSwipeToDelete,
-                    onStatusClick = onClickStatus
-                )
-            }
+            PgToDoItemCell(
+                name = item.name,
+                color = color.copy(alpha = 0.3F),
+                contentPaddingValues = PaddingValues(start = 16.dp, end = 8.dp, top = 8.dp, bottom = 8.dp),
+                leftIcon = Icons.Rounded.CheckCircle,
+                textDecoration = TextDecoration.LineThrough,
+                onClick = onClick,
+                onSwipeToDelete = onSwipeToDelete,
+                onStatusClick = onClickStatus
+            )
         }
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun StepCellCreator(
     color: Color,
@@ -591,13 +579,12 @@ private fun StepCellCreator(
 
             Text(
                 text = stringResource(R.string.todo_step_next),
-                style = MaterialTheme.typography.body1
+                style = MaterialTheme.typography.bodyLarge
             )
         }
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun ActionCell(
     title: String,
@@ -616,7 +603,7 @@ private fun ActionCell(
                 .padding(horizontal = 16.dp),
             shape = shape,
             onClick = onClick,
-            color = MaterialTheme.colors.secondaryVariant
+            color = MaterialTheme.colorScheme.secondaryContainer
         ) {
             ActionContentCell(
                 title = title,
@@ -633,7 +620,7 @@ private fun ActionCell(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
             shape = shape,
-            color = MaterialTheme.colors.secondaryVariant
+            color = MaterialTheme.colorScheme.secondaryContainer
         ) {
             ActionContentCell(
                 title = title,
@@ -678,7 +665,7 @@ private fun ActionContentCell(
             Spacer(Modifier.size(8.dp))
             Text(
                 text = title,
-                style = MaterialTheme.typography.body1,
+                style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.weight(1f),
                 color = titleColor
             )
@@ -693,7 +680,7 @@ private fun ActionContentCell(
                     Modifier
                         .width(52.dp)
                         .height(1.dp)
-                        .background(color = MaterialTheme.colors.secondaryVariant)
+                        .background(color = MaterialTheme.colorScheme.secondaryContainer)
                 )
                 Divider()
             }
@@ -713,7 +700,7 @@ private fun StepFooter(
     ) {
         Text(
             text = title,
-            style = MaterialTheme.typography.caption,
+            style = MaterialTheme.typography.labelMedium,
             modifier = Modifier.align(Alignment.Center)
         )
 

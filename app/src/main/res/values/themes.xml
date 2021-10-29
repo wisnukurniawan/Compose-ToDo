@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.ComposeToDoList" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.ComposeToDoList" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryVariant">@color/primary</item>
+        <item name="colorPrimaryContainer">@color/primary</item>
         <item name="colorOnPrimary">#FFFFFF</item>
         <item name="colorSecondary">#E4E3E9</item>
-        <item name="colorSecondaryVariant">#FFFFFF</item>
+        <item name="colorSecondaryContainer">#FFFFFF</item>
         <item name="colorOnSecondary">#000000</item>
         <item name="colorSurface">#F3F2F8</item>
         <item name="colorOnSurface">#000000</item>

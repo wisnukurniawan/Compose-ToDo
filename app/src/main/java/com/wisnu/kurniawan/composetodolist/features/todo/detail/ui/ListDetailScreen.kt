@@ -19,11 +19,11 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ChevronLeft
 import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.selectedColor
+import com.wisnu.kurniawan.composetodolist.foundation.theme.LargeShape
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
@@ -204,7 +205,7 @@ private fun ListDetailTitle(
             maxLines = 1,
             color = color,
             overflow = TextOverflow.Ellipsis,
-            style = MaterialTheme.typography.h6,
+            style = MaterialTheme.typography.headlineSmall,
             modifier = Modifier.align(Alignment.Center)
         )
     }
@@ -350,7 +351,7 @@ fun CreateListEditor(
                     onValueChange = { onNameChange(it) },
                     placeholderValue = stringResource(R.string.todo_create_list_hint),
                     modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 8.dp).height(50.dp).fillMaxWidth(),
-                    shape = MaterialTheme.shapes.large,
+                    shape = LargeShape,
                     textColor = colorItems.selectedColor()
                 )
             }
@@ -392,7 +393,7 @@ fun CreateListEditor(
                     PgSecondaryButton(
                         modifier = Modifier.weight(1F),
                         onClick = onCancelClick,
-                    ) { Text(text = stringResource(R.string.todo_cancel), color = MaterialTheme.colors.onSecondary) }
+                    ) { Text(text = stringResource(R.string.todo_cancel), color = MaterialTheme.colorScheme.onSecondary) }
 
                     Spacer(Modifier.width(16.dp))
 

@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -68,7 +68,7 @@ fun PgModalLazyColumn(
 ) {
     Box(
         modifier = Modifier.background(
-            color = MaterialTheme.colors.secondaryVariant,
+            color = MaterialTheme.colorScheme.secondaryContainer,
             shape = shape
         )
     ) {
@@ -88,7 +88,7 @@ fun PgModalRow(
 ) {
     Box(
         modifier = Modifier.background(
-            color = MaterialTheme.colors.secondaryVariant
+            color = MaterialTheme.colorScheme.secondaryContainer
         )
     ) {
         Row(

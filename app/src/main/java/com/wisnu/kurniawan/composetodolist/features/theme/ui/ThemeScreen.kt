@@ -7,11 +7,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Check
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -54,7 +53,6 @@ fun ThemeScreen(
     )
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun ThemeItem(
     onClick: () -> Unit,
@@ -64,9 +62,9 @@ private fun ThemeItem(
         onClick = onClick,
         text = stringResource(item.title),
         color = if (item.applied) {
-            MaterialTheme.colors.primary
+            MaterialTheme.colorScheme.primary
         } else {
-            MaterialTheme.colors.secondary
+            MaterialTheme.colorScheme.secondary
         },
         leftIcon = @Composable {
             Box(

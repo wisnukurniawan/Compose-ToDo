@@ -12,15 +12,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Divider
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.LocalContentAlpha
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,22 +24,22 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import com.wisnu.kurniawan.composetodolist.foundation.theme.MediumShape
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun PgModalCell(
     onClick: () -> Unit,
     text: String,
-    color: Color = MaterialTheme.colors.surface,
+    color: Color = MaterialTheme.colorScheme.surface,
     textColor: Color = Color.Unspecified,
     enabled: Boolean = true,
     leftIcon: @Composable (() -> Unit)? = null,
     rightIcon: @Composable (() -> Unit)? = null
 ) {
     val colorAlpha = if (enabled) {
-        ContentAlpha.high
+        1F
     } else {
-        ContentAlpha.disabled
+        0.3F
     }
     val onClickState = if (enabled) {
         onClick
@@ -61,7 +57,7 @@ fun PgModalCell(
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
             .height(56.dp),
-        shape = MaterialTheme.shapes.medium,
+        shape = MediumShape,
         color = color.copy(alpha = colorAlpha),
         onClick = onClickState,
         indication = indication
@@ -71,21 +67,17 @@ fun PgModalCell(
         ) {
             if (leftIcon != null) {
                 Spacer(Modifier.width(8.dp))
-                CompositionLocalProvider(LocalContentAlpha provides colorAlpha) {
-                    leftIcon()
-                }
+                leftIcon()
                 Spacer(Modifier.width(16.dp))
             } else {
                 Spacer(Modifier.width(20.dp))
             }
 
-            CompositionLocalProvider(LocalContentAlpha provides colorAlpha) {
-                Text(
-                    text = text,
-                    style = MaterialTheme.typography.body1,
-                    color = textColor
-                )
-            }
+            Text(
+                text = text,
+                style = MaterialTheme.typography.bodyLarge,
+                color = textColor
+            )
 
             if (rightIcon != null) {
                 Row(
@@ -100,7 +92,6 @@ fun PgModalCell(
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun PgToDoItemCell(
     name: String,
@@ -115,7 +106,7 @@ fun PgToDoItemCell(
 ) {
     SwipeDismiss(
         backgroundModifier = Modifier
-            .background(MaterialTheme.colors.secondary),
+            .background(MaterialTheme.colorScheme.secondary),
         content = {
             Surface(
                 modifier = Modifier
@@ -140,17 +131,16 @@ fun PgToDoItemCell(
                         Column {
                             Text(
                                 text = name,
-                                style = MaterialTheme.typography.body1.copy(textDecoration = textDecoration),
+                                style = MaterialTheme.typography.bodyLarge.copy(textDecoration = textDecoration),
                             )
 
                             if (info != null) {
                                 Spacer(Modifier.height(4.dp))
-                                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                                    Text(
-                                        text = info,
-                                        style = MaterialTheme.typography.caption,
-                                    )
-                                }
+                                Text(
+                                    text = info,
+                                    style = MaterialTheme.typography.labelMedium,
+                                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7F)
+                                )
                             }
                         }
                     }

@@ -9,13 +9,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.LocalContentAlpha
-import androidx.compose.material.LocalContentColor
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -67,18 +63,17 @@ fun UpdateTaskNoteScreen(
                             .fillMaxWidth()
                             .height(150.dp)
                             .focusRequester(focusRequest),
-                        textStyle = MaterialTheme.typography.body1.copy(color = LocalContentColor.current),
-                        cursorBrush = SolidColor(MaterialTheme.colors.primaryVariant),
+                        textStyle = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onSurface),
+                        cursorBrush = SolidColor(MaterialTheme.colorScheme.primaryContainer),
                         keyboardOptions = KeyboardOptions.Default.copy(capitalization = KeyboardCapitalization.Sentences),
                     )
 
                     if (state.editNote.text.isBlank()) {
-                        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
-                            Text(
-                                text = stringResource(R.string.todo_add_note),
-                                style = MaterialTheme.typography.body1
-                            )
-                        }
+                        Text(
+                            text = stringResource(R.string.todo_add_note),
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3F)
+                        )
                     }
                 }
 

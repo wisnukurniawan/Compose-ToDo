@@ -13,17 +13,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.LocalContentAlpha
-import androidx.compose.material.LocalContentColor
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowUpward
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,6 +41,8 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.wisnu.kurniawan.composetodolist.R
+import com.wisnu.kurniawan.composetodolist.foundation.theme.LargeShape
+import com.wisnu.kurniawan.composetodolist.foundation.theme.SmallShape
 
 const val MAX_TEXT_FIELD_CHARACTER = 255
 
@@ -60,9 +58,9 @@ fun PgTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(capitalization = KeyboardCapitalization.Sentences),
     keyboardActions: KeyboardActions = KeyboardActions.Default,
-    shape: Shape = MaterialTheme.shapes.small,
-    textColor: Color = LocalContentColor.current.copy(LocalContentAlpha.current),
-    textStyle: TextStyle = MaterialTheme.typography.body2,
+    shape: Shape = SmallShape,
+    textColor: Color = MaterialTheme.colorScheme.onSurface,
+    textStyle: TextStyle = MaterialTheme.typography.bodyMedium,
     errorLabel: @Composable (() -> Unit)? = null,
 ) {
     var textFieldValueState by remember { mutableStateOf(TextFieldValue(text = value)) }
@@ -104,26 +102,25 @@ fun PgTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(capitalization = KeyboardCapitalization.Sentences),
     keyboardActions: KeyboardActions = KeyboardActions.Default,
-    shape: Shape = MaterialTheme.shapes.small,
-    textColor: Color = LocalContentColor.current.copy(LocalContentAlpha.current),
-    textStyle: TextStyle = MaterialTheme.typography.body2,
+    shape: Shape = SmallShape,
+    textColor: Color = MaterialTheme.colorScheme.onSurface,
+    textStyle: TextStyle = MaterialTheme.typography.bodyMedium,
     errorLabel: @Composable (() -> Unit)? = null,
 ) {
     OutlinedTextField(
         value = value,
         onValueChange = { if (it.text.length <= MAX_TEXT_FIELD_CHARACTER) onValueChange(it) },
         placeholder = {
-            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
-                Text(
-                    text = placeholderValue,
-                    style = textStyle
-                )
-            }
+            Text(
+                text = placeholderValue,
+                style = textStyle,
+                color = MaterialTheme.colorScheme.onSurface.copy(0.3F)
+            )
         },
         modifier = modifier
             .height(56.dp)
             .background(
-                color = MaterialTheme.colors.secondary,
+                color = MaterialTheme.colorScheme.secondary,
                 shape = shape
             ),
         visualTransformation = visualTransformation,
@@ -155,7 +152,7 @@ fun PgBasicTextField(
     placeholderValue: String = "",
     enabled: Boolean = true,
     readOnly: Boolean = false,
-    textStyle: TextStyle = MaterialTheme.typography.body1,
+    textStyle: TextStyle = MaterialTheme.typography.bodyLarge,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     singleLine: Boolean = false,
@@ -203,7 +200,7 @@ fun PgBasicTextField(
     placeholderValue: String = "",
     enabled: Boolean = true,
     readOnly: Boolean = false,
-    textStyle: TextStyle = MaterialTheme.typography.body1,
+    textStyle: TextStyle = MaterialTheme.typography.bodyLarge,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     singleLine: Boolean = false,
@@ -235,12 +232,11 @@ fun PgBasicTextField(
         )
 
         if (value.text.isEmpty()) {
-            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
-                Text(
-                    text = placeholderValue,
-                    style = textStyle
-                )
-            }
+            Text(
+                text = placeholderValue,
+                style = textStyle,
+                color = MaterialTheme.colorScheme.onSurface.copy(0.3F)
+            )
         }
     }
 }
@@ -264,7 +260,7 @@ fun PgToDoCreator(
             value = value,
             onValueChange = { onValueChange(it) },
             placeholderValue = placeholder,
-            shape = MaterialTheme.shapes.large,
+            shape = LargeShape,
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Done,
                 capitalization = KeyboardCapitalization.Sentences
@@ -284,18 +280,18 @@ fun PgToDoCreator(
                     },
                     enabled = isValid,
                     color = if (isValid) {
-                        MaterialTheme.colors.primary
+                        MaterialTheme.colorScheme.primary
                     } else {
-                        MaterialTheme.colors.secondaryVariant
+                        MaterialTheme.colorScheme.secondaryContainer
                     },
                     modifier = Modifier.size(42.dp)
                 ) {
                     PgIcon(
                         imageVector = Icons.Rounded.ArrowUpward,
                         tint = if (isValid) {
-                            MaterialTheme.colors.onSecondary
+                            MaterialTheme.colorScheme.onSecondary
                         } else {
-                            MaterialTheme.colors.onSecondary.copy(alpha = ContentAlpha.disabled)
+                            MaterialTheme.colorScheme.onSecondary.copy(alpha = 0.3F)
                         }
                     )
                 }
@@ -334,7 +330,7 @@ fun PgToDoCreateConfirmator(
                         .height(50.dp)
                         .fillMaxWidth()
                         .focusRequester(focusRequester),
-                    shape = MaterialTheme.shapes.large,
+                    shape = LargeShape,
                 )
             }
 
@@ -343,7 +339,7 @@ fun PgToDoCreateConfirmator(
                     PgSecondaryButton(
                         modifier = Modifier.weight(1F),
                         onClick = onCancelClick,
-                    ) { Text(text = stringResource(R.string.todo_cancel), color = MaterialTheme.colors.onSecondary) }
+                    ) { Text(text = stringResource(R.string.todo_cancel), color = MaterialTheme.colorScheme.onSecondary) }
 
                     Spacer(Modifier.width(16.dp))
 

@@ -4,11 +4,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Check
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -50,7 +49,6 @@ fun RepeatSelectionScreen(
     )
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun RepeatItem(
     onClick: () -> Unit,
@@ -60,9 +58,9 @@ private fun RepeatItem(
         onClick = onClick,
         text = stringResource(item.repeat.displayable()),
         color = if (item.applied) {
-            MaterialTheme.colors.primary
+            MaterialTheme.colorScheme.primary
         } else {
-            MaterialTheme.colors.secondary
+            MaterialTheme.colorScheme.secondary
         },
         rightIcon = if (item.applied) {
             @Composable {

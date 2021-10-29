@@ -1,16 +1,23 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.grouplist.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.List
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -24,7 +31,14 @@ import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isUngroup
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.*
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgButton
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgEmpty
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalBackHeader
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalLayout
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalTitle
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgSecondaryButton
 import com.wisnu.kurniawan.composetodolist.model.GroupIdWithList
 
 @Composable
@@ -110,7 +124,7 @@ private fun UpdateGroupListScreen(
                     PgSecondaryButton(
                         modifier = Modifier.weight(1F),
                         onClick = onSkip,
-                    ) { Text(text = stringResource(R.string.todo_skip), color = MaterialTheme.colors.onSecondary) }
+                    ) { Text(text = stringResource(R.string.todo_skip), color = MaterialTheme.colorScheme.onSecondary) }
 
                     Spacer(Modifier.width(16.dp))
 
@@ -154,7 +168,7 @@ private fun Cell(
         Spacer(Modifier.size(8.dp))
         Text(
             text = name,
-            style = MaterialTheme.typography.body1,
+            style = MaterialTheme.typography.bodyLarge,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.weight(1f)

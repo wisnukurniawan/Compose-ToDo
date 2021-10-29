@@ -3,10 +3,10 @@ package com.wisnu.kurniawan.composetodolist.features.todo.groupmenu.ui
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.DriveFileRenameOutline
 import androidx.compose.material.icons.rounded.List
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -64,7 +64,7 @@ private fun GroupMenuScreen(
                             onClick = onAddRemoveClick,
                             title = stringResource(item.title),
                             imageVector = Icons.Rounded.List,
-                            color = MaterialTheme.colors.secondary,
+                            color = MaterialTheme.colorScheme.secondary,
                             enabled = item.enabled
                         )
                     }
@@ -73,7 +73,7 @@ private fun GroupMenuScreen(
                             onClick = onDeleteClick,
                             title = stringResource(item.title),
                             imageVector = item.icon,
-                            color = MaterialTheme.colors.primary,
+                            color = MaterialTheme.colorScheme.primary,
                             enabled = item.enabled
                         )
                     }
@@ -82,7 +82,7 @@ private fun GroupMenuScreen(
                             onClick = onRenameClick,
                             title = stringResource(item.title),
                             imageVector = Icons.Rounded.DriveFileRenameOutline,
-                            color = MaterialTheme.colors.secondary,
+                            color = MaterialTheme.colorScheme.secondary,
                             enabled = item.enabled
                         )
                     }

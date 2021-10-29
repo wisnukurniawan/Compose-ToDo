@@ -122,6 +122,7 @@ dependencies {
     // Compose
     // For Compose runtime by default coroutine runtime already included from ui, foundation, implicitly
     implementation libs.androidx.compose.material
+    implementation libs.androidx.compose.material3
     implementation libs.androidx.compose.materialIcon
     implementation libs.androidx.compose.materialIconExtended
     implementation libs.androidx.compose.foundation

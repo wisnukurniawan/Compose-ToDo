@@ -12,18 +12,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.LocalContentAlpha
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.RadioButtonUnchecked
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -42,6 +38,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.identifier
+import com.wisnu.kurniawan.composetodolist.foundation.theme.SmallShape
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgEmpty
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgToDoCreator
@@ -53,7 +50,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun TaskCreator(
     modifier: Modifier = Modifier,
@@ -70,8 +66,8 @@ fun TaskCreator(
                 .fillMaxWidth()
                 .padding(top = 8.dp, start = 16.dp, end = 16.dp, bottom = 32.dp)
                 .height(56.dp),
-            shape = MaterialTheme.shapes.small,
-            color = MaterialTheme.colors.secondary,
+            shape = SmallShape,
+            color = MaterialTheme.colorScheme.secondary,
             onClick = onClick
         ) {
             Row(
@@ -92,7 +88,7 @@ fun TaskCreator(
                     } else {
                         text
                     },
-                    style = MaterialTheme.typography.body1,
+                    style = MaterialTheme.typography.bodyLarge,
                     color = color
                 )
             }
@@ -141,25 +137,23 @@ fun TaskContent(
                         ) {
                             Text(
                                 text = stringResource(R.string.todo_add_task_completed),
-                                style = MaterialTheme.typography.body1,
+                                style = MaterialTheme.typography.bodyLarge,
                                 color = color
                             )
                         }
                     }
                     is ToDoTaskItem.Complete -> {
-                        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
-                            PgToDoItemCell(
-                                name = it.toDoTask.name,
-                                color = color,
-                                contentPaddingValues = PaddingValues(all = 8.dp),
-                                leftIcon = Icons.Rounded.CheckCircle,
-                                textDecoration = TextDecoration.LineThrough,
-                                onClick = { onClick(it.toDoTask) },
-                                onSwipeToDelete = { onSwipeToDelete(it.toDoTask) },
-                                onStatusClick = { onStatusClick(it.toDoTask) },
-                                info = it.toDoTask.itemInfoDisplayable(resources, MaterialTheme.colors.error)
-                            )
-                        }
+                        PgToDoItemCell(
+                            name = it.toDoTask.name,
+                            color = color.copy(alpha = 0.3F),
+                            contentPaddingValues = PaddingValues(all = 8.dp),
+                            leftIcon = Icons.Rounded.CheckCircle,
+                            textDecoration = TextDecoration.LineThrough,
+                            onClick = { onClick(it.toDoTask) },
+                            onSwipeToDelete = { onSwipeToDelete(it.toDoTask) },
+                            onStatusClick = { onStatusClick(it.toDoTask) },
+                            info = it.toDoTask.itemInfoDisplayable(resources, MaterialTheme.colorScheme.error)
+                        )
                     }
                     is ToDoTaskItem.InProgress -> {
                         var isChecked by remember { mutableStateOf(false) }
@@ -187,7 +181,7 @@ fun TaskContent(
                                     }
                                 }
                             },
-                            info = it.toDoTask.itemInfoDisplayable(resources, MaterialTheme.colors.error)
+                            info = it.toDoTask.itemInfoDisplayable(resources, MaterialTheme.colorScheme.error)
                         )
                     }
                 }
@@ -200,7 +194,6 @@ fun TaskContent(
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun TaskEditor(
     viewModel: ListDetailViewModel,

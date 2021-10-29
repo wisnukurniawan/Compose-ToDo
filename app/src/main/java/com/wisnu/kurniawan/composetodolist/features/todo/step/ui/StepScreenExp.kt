@@ -1,5 +1,6 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.step.ui
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -8,17 +9,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.relocation.BringIntoViewRequester
+import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.RadioButtonUnchecked
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -35,8 +38,6 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.RelocationRequester
-import androidx.compose.ui.layout.relocationRequester
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -107,7 +108,7 @@ private fun TaskCell(
                 keyboardActions = KeyboardActions(
                     onDone = { focusManager.clearFocus() }
                 ),
-                textStyle = MaterialTheme.typography.h6
+                textStyle = MaterialTheme.typography.headlineSmall
             )
         }
 
@@ -129,7 +130,7 @@ private fun StepCell(
     SwipeDismiss(
         modifier = modifier,
         backgroundModifier = Modifier
-            .background(MaterialTheme.colors.secondary),
+            .background(MaterialTheme.colorScheme.secondary),
         content = {
             Surface(
                 modifier = Modifier
@@ -175,7 +176,7 @@ private fun StepCellCreator(
 
         Text(
             text = stringResource(R.string.todo_step_next),
-            style = MaterialTheme.typography.body1,
+            style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.fillMaxWidth().clickable { onEditModeClick() }
         )
     }
@@ -275,7 +276,7 @@ private fun DueDateCell() {
 }
 
 // Exp https://github.com/google/accompanist/issues/210
-@OptIn(ExperimentalAnimatedInsets::class, ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalAnimatedInsets::class, ExperimentalComposeUiApi::class, ExperimentalFoundationApi::class)
 @Preview
 @Composable
 private fun TaskStepPreview() {
@@ -290,7 +291,7 @@ private fun TaskStepPreview() {
 
     var creator by remember { mutableStateOf(ToDoStepCreatorExp(editMode = false, value = TextFieldValue())) }
     val scope = rememberCoroutineScope()
-    val relocationRequester = remember { RelocationRequester() }
+    val relocationRequester = remember { BringIntoViewRequester() }
 
     Column(
         modifier = Modifier
@@ -328,7 +329,7 @@ private fun TaskStepPreview() {
             StepCellEditor(
                 value = creator,
                 color = ListRed,
-                modifier = Modifier.relocationRequester(relocationRequester),
+                modifier = Modifier.bringIntoViewRequester(relocationRequester),
                 onValueChange = { value ->
                     creator = creator.copy(value = value)
 
