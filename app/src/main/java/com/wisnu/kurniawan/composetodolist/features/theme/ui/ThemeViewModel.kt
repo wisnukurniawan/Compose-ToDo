@@ -88,7 +88,6 @@ class ThemeViewModel @Inject constructor(
             )
         }
 
-
         data.add(
             ThemeItem(
                 R.string.setting_theme_light,

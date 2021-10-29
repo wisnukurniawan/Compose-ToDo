@@ -2,6 +2,7 @@ package com.wisnu.kurniawan.composetodolist.features.theme.ui
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -76,10 +77,17 @@ private fun ThemeItem(
             val brush = if (item.theme == Theme.WALLPAPER) {
                 val context = LocalContext.current
                 Brush.linearGradient(
-                    colors = listOf(
-                        Color(context.resources.getColor(android.R.color.system_accent1_200, context.theme)),
-                        Color(context.resources.getColor(android.R.color.system_accent2_700, context.theme)),
-                    )
+                    colors = if (isSystemInDarkTheme()) {
+                        listOf(
+                            Color(context.resources.getColor(android.R.color.system_accent1_200, context.theme)),
+                            Color(context.resources.getColor(android.R.color.system_accent2_700, context.theme)),
+                        )
+                    } else {
+                        listOf(
+                            Color(context.resources.getColor(android.R.color.system_accent1_600, context.theme)),
+                            Color(context.resources.getColor(android.R.color.system_accent2_100, context.theme)),
+                        )
+                    }
                 )
             } else {
                 item.brush
