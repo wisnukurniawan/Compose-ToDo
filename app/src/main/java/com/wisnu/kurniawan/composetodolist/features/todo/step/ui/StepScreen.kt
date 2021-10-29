@@ -60,6 +60,8 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.displayable
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isDueDateSet
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isExpired
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
+import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaDisabled
+import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaMedium
 import com.wisnu.kurniawan.composetodolist.foundation.theme.CommonGrey
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListBlue
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListRed
@@ -286,7 +288,7 @@ private fun TaskCell(
         ToDoStatus.COMPLETE -> {
             TaskCell(
                 name = task.name,
-                color = color.copy(alpha = 0.3F),
+                color = color.copy(alpha = AlphaDisabled),
                 leftIcon = Icons.Rounded.CheckCircle,
                 textDecoration = TextDecoration.LineThrough,
                 onClick = onClickTaskName,
@@ -459,12 +461,12 @@ private fun StepContent(
                             Text(
                                 text = stringResource(task.repeat.displayable()),
                                 style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Normal),
-                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3F)
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = AlphaDisabled)
                             )
                             Spacer(Modifier.width(8.dp))
                             PgIcon(
                                 imageVector = Icons.Rounded.ChevronRight,
-                                tint = MaterialTheme.colorScheme.onSecondary.copy(alpha = 0.3F)
+                                tint = MaterialTheme.colorScheme.onSecondary.copy(alpha = AlphaDisabled)
                             )
                         }
                     }
@@ -504,7 +506,7 @@ private fun StepContent(
                         Text(
                             text = stringResource(R.string.todo_note) + "・" + noteUpdatedAtTitle,
                             style = MaterialTheme.typography.labelMedium,
-                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7F)
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = AlphaMedium)
                         )
                     }
                 }
@@ -541,7 +543,7 @@ private fun StepCell(
         ToDoStatus.COMPLETE -> {
             PgToDoItemCell(
                 name = item.name,
-                color = color.copy(alpha = 0.3F),
+                color = color.copy(alpha = AlphaDisabled),
                 contentPaddingValues = PaddingValues(start = 16.dp, end = 8.dp, top = 8.dp, bottom = 8.dp),
                 leftIcon = Icons.Rounded.CheckCircle,
                 textDecoration = TextDecoration.LineThrough,

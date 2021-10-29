@@ -38,6 +38,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.identifier
+import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaDisabled
 import com.wisnu.kurniawan.composetodolist.foundation.theme.SmallShape
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgEmpty
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
@@ -145,7 +146,7 @@ fun TaskContent(
                     is ToDoTaskItem.Complete -> {
                         PgToDoItemCell(
                             name = it.toDoTask.name,
-                            color = color.copy(alpha = 0.3F),
+                            color = color.copy(alpha = AlphaDisabled),
                             contentPaddingValues = PaddingValues(all = 8.dp),
                             leftIcon = Icons.Rounded.CheckCircle,
                             textDecoration = TextDecoration.LineThrough,

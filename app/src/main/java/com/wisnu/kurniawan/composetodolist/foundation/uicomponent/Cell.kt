@@ -24,6 +24,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaDisabled
+import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaHight
+import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaMedium
 import com.wisnu.kurniawan.composetodolist.foundation.theme.MediumShape
 
 @Composable
@@ -37,9 +40,9 @@ fun PgModalCell(
     rightIcon: @Composable (() -> Unit)? = null
 ) {
     val colorAlpha = if (enabled) {
-        1F
+        AlphaHight
     } else {
-        0.3F
+        AlphaDisabled
     }
     val onClickState = if (enabled) {
         onClick
@@ -139,7 +142,7 @@ fun PgToDoItemCell(
                                 Text(
                                     text = info,
                                     style = MaterialTheme.typography.labelMedium,
-                                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7F)
+                                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = AlphaMedium)
                                 )
                             }
                         }

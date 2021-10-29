@@ -26,6 +26,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
+import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaDisabled
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalTitle
@@ -72,7 +73,7 @@ fun UpdateTaskNoteScreen(
                         Text(
                             text = stringResource(R.string.todo_add_note),
                             style = MaterialTheme.typography.bodyLarge,
-                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3F)
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = AlphaDisabled)
                         )
                     }
                 }

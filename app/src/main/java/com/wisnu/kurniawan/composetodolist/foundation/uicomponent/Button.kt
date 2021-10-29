@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaDisabled
 import com.wisnu.kurniawan.composetodolist.foundation.theme.SmallShape
 
 @Composable
@@ -70,7 +71,7 @@ fun PgButton(
         shape = SmallShape,
         content = content,
         colors = ButtonDefaults.buttonColors(
-            disabledContentColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.3F)
+            disabledContentColor = MaterialTheme.colorScheme.primary.copy(alpha = AlphaDisabled)
         ),
     )
 }

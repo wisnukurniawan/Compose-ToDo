@@ -44,6 +44,8 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.cellShape
 import com.wisnu.kurniawan.composetodolist.foundation.extension.identifier
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
 import com.wisnu.kurniawan.composetodolist.foundation.extension.totalTask
+import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaDisabled
+import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaHight
 import com.wisnu.kurniawan.composetodolist.foundation.theme.CommonGrey
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListBlue
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListRed
@@ -299,9 +301,9 @@ private fun OverallTaskCell(
             Spacer(Modifier.height(8.dp))
 
             val alpha = if (isSelected) {
-                1F
+                AlphaHight
             } else {
-                0.3F
+                AlphaDisabled
             }
             Text(
                 text = title,
@@ -411,7 +413,7 @@ private fun ListCell(
                         Text(
                             text = totalTask,
                             style = MaterialTheme.typography.bodyLarge,
-                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3F)
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = AlphaDisabled)
                         )
                     }
 

@@ -46,6 +46,7 @@ import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.identifier
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
+import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaDisabled
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListBlue
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListRed
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgEmpty
@@ -307,7 +308,7 @@ private fun TaskContent(
                     is ItemScheduledState.Task.Complete -> {
                         PgToDoItemCell(
                             name = it.task.name,
-                            color = it.list.color.toColor().copy(alpha = 0.3F),
+                            color = it.list.color.toColor().copy(alpha = AlphaDisabled),
                             contentPaddingValues = PaddingValues(all = 8.dp),
                             leftIcon = Icons.Rounded.CheckCircle,
                             textDecoration = TextDecoration.LineThrough,

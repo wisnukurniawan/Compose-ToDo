@@ -41,6 +41,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.wisnu.kurniawan.composetodolist.R
+import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaDisabled
 import com.wisnu.kurniawan.composetodolist.foundation.theme.LargeShape
 import com.wisnu.kurniawan.composetodolist.foundation.theme.SmallShape
 
@@ -114,7 +115,7 @@ fun PgTextField(
             Text(
                 text = placeholderValue,
                 style = textStyle,
-                color = MaterialTheme.colorScheme.onSurface.copy(0.3F)
+                color = MaterialTheme.colorScheme.onSurface.copy(AlphaDisabled)
             )
         },
         modifier = modifier
@@ -235,7 +236,7 @@ fun PgBasicTextField(
             Text(
                 text = placeholderValue,
                 style = textStyle,
-                color = MaterialTheme.colorScheme.onSurface.copy(0.3F)
+                color = MaterialTheme.colorScheme.onSurface.copy(AlphaDisabled)
             )
         }
     }
@@ -291,7 +292,7 @@ fun PgToDoCreator(
                         tint = if (isValid) {
                             MaterialTheme.colorScheme.onSecondary
                         } else {
-                            MaterialTheme.colorScheme.onSecondary.copy(alpha = 0.3F)
+                            MaterialTheme.colorScheme.onSecondary.copy(alpha = AlphaDisabled)
                         }
                     )
                 }
