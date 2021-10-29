@@ -32,6 +32,7 @@ import androidx.compose.material.icons.rounded.Event
 import androidx.compose.material.icons.rounded.RadioButtonUnchecked
 import androidx.compose.material.icons.rounded.Repeat
 import androidx.compose.material.icons.rounded.Schedule
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -470,7 +471,7 @@ private fun StepContent(
                             Spacer(Modifier.width(8.dp))
                             PgIcon(
                                 imageVector = Icons.Rounded.ChevronRight,
-                                tint = MaterialTheme.colorScheme.onSecondary.copy(alpha = AlphaDisabled)
+                                tint = LocalContentColor.current.copy(alpha = AlphaDisabled)
                             )
                         }
                     }

@@ -17,6 +17,7 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowUpward
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -290,9 +291,9 @@ fun PgToDoCreator(
                     PgIcon(
                         imageVector = Icons.Rounded.ArrowUpward,
                         tint = if (isValid) {
-                            MaterialTheme.colorScheme.onSecondary
+                            LocalContentColor.current
                         } else {
-                            MaterialTheme.colorScheme.onSecondary.copy(alpha = AlphaDisabled)
+                            LocalContentColor.current.copy(alpha = AlphaDisabled)
                         }
                     )
                 }
