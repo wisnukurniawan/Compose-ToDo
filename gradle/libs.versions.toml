@@ -58,7 +58,7 @@ google-accompanist-navigation = { module = "com.google.accompanist:accompanist-n
 google-accompanist-insets = { module = "com.google.accompanist:accompanist-insets", version.ref = "accompanist" }
 # retrofit
 squareup-retrofit-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
-squareup-retrofit-converter = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+squareup-retrofit-converter = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
 # okhttp
 squareup-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 # androidx others
