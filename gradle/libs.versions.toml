@@ -12,11 +12,16 @@ appCompat = "1.4.0"
 retrofit = "2.9.0"
 okhttp = "4.9.1"
 hilt = "2.38.1"
-accompanist = "0.21.0-beta"
+accompanist = "0.21.2-beta"
 androidxCore = "1.7.0"
-androidCoroutine = "1.3.9"
+androidCoroutine = "1.5.2"
+androidxWindow = "1.0.0-beta03"
 splash = "1.0.0-alpha02"
 material = "1.5.0-alpha05"
+protoGoogle = "4.0.0-rc-2"
+protoWire = "4.0.0-alpha.17"
+agp = "7.0.3"
+navigationPlugin = "2.4.0-beta02"
 
 
 [libraries]
@@ -24,9 +29,9 @@ material = "1.5.0-alpha05"
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 # plugin others
 google-kspPlugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version = "1.5.30-1.0.0" }
-android-gradlePlugin = { module = "com.android.tools.build:gradle", version = "7.0.3" }
-squareup-wireGradlePlugin = { module = "com.squareup.wire:wire-gradle-plugin", version = "3.7.0" }
-androidx-navigationGradlePlugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version = "2.3.5" }
+android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+squareup-wireGradlePlugin = { module = "com.squareup.wire:wire-gradle-plugin", version.ref = "protoWire" }
+androidx-navigationGradlePlugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigationPlugin" }
 
 # kotlin
 jetbrains-kotlin = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
@@ -68,8 +73,8 @@ android-desugar = { module = "com.android.tools:desugar_jdk_libs", version = "1.
 jetbrains-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "androidCoroutine" }
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
 androidx-splash = { module = "androidx.core:core-splashscreen", version.ref = "splash" }
-androidx-window = { module = "androidx.window:window", version = "1.0.0-beta02" }
-google-protobuf = { module = "com.google.protobuf:protobuf-javalite", version = "3.17.3" }
+androidx-window = { module = "androidx.window:window", version.ref = "androidxWindow" }
+google-protobuf = { module = "com.google.protobuf:protobuf-javalite", version.ref = "protoGoogle" }
 google-material = { module = "com.google.android.material:material", version.ref = "material" }
 
 # debugging compose
@@ -81,8 +86,8 @@ debugging-chucker = { module = "com.github.chuckerteam.chucker:library", version
 
 # test
 test-junit = { module = "junit:junit", version = "4.13.2" }
-test-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version = "1.5.1" }
-test-turbine = { module = "app.cash.turbine:turbine", version = "0.6.0" }
+test-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "androidCoroutine" }
+test-turbine = { module = "app.cash.turbine:turbine", version = "0.7.0" }
 test-androidx = { module = "androidx.test.ext:junit", version = "1.1.3" }
 test-robolectric = { module = "org.robolectric:robolectric", version = "4.5.1" }
 
