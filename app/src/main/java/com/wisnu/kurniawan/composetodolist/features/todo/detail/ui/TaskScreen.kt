@@ -1,5 +1,6 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.detail.ui
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -97,6 +98,7 @@ fun TaskCreator(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TaskContent(
     modifier: Modifier,
@@ -145,6 +147,7 @@ fun TaskContent(
                     }
                     is ToDoTaskItem.Complete -> {
                         PgToDoItemCell(
+                            modifier = Modifier.animateItemPlacement(),
                             name = it.toDoTask.name,
                             color = color.copy(alpha = AlphaDisabled),
                             contentPaddingValues = PaddingValues(all = 8.dp),
@@ -161,6 +164,7 @@ fun TaskContent(
                         var debounceJob: Job? by remember { mutableStateOf(null) }
 
                         PgToDoItemCell(
+                            modifier = Modifier.animateItemPlacement(),
                             name = it.toDoTask.name,
                             color = color,
                             contentPaddingValues = PaddingValues(all = 8.dp),

@@ -98,6 +98,7 @@ fun PgModalCell(
 
 @Composable
 fun PgToDoItemCell(
+    modifier: Modifier = Modifier,
     name: String,
     info: AnnotatedString? = null,
     color: Color,
@@ -109,6 +110,7 @@ fun PgToDoItemCell(
     onStatusClick: () -> Unit
 ) {
     SwipeDismiss(
+        modifier = modifier,
         backgroundModifier = Modifier
             .background(MaterialTheme.colorScheme.secondary),
         content = {

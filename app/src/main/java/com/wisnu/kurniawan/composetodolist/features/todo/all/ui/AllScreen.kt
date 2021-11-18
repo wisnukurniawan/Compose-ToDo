@@ -1,5 +1,6 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.all.ui
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -210,6 +211,7 @@ private fun AllContent(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TaskContent(
     items: List<ItemAllState>,
@@ -251,6 +253,7 @@ fun TaskContent(
                     }
                     is ItemAllState.Task.Complete -> {
                         PgToDoItemCell(
+                            modifier = Modifier.animateItemPlacement(),
                             name = it.task.name,
                             color = it.list.color.toColor().copy(alpha = AlphaDisabled),
                             contentPaddingValues = PaddingValues(all = 8.dp),
@@ -267,6 +270,7 @@ fun TaskContent(
                         var debounceJob: Job? by remember { mutableStateOf(null) }
 
                         PgToDoItemCell(
+                            modifier = Modifier.animateItemPlacement(),
                             name = it.task.name,
                             color = it.list.color.toColor(),
                             contentPaddingValues = PaddingValues(all = 8.dp),

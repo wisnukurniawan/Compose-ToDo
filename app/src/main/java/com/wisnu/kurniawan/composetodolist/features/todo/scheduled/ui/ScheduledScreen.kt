@@ -1,5 +1,6 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.scheduled.ui
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -264,6 +265,7 @@ private fun ScheduledContent(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun TaskContent(
     items: List<ItemScheduledState>,
@@ -307,6 +309,7 @@ private fun TaskContent(
                     }
                     is ItemScheduledState.Task.Complete -> {
                         PgToDoItemCell(
+                            modifier = Modifier.animateItemPlacement(),
                             name = it.task.name,
                             color = it.list.color.toColor().copy(alpha = AlphaDisabled),
                             contentPaddingValues = PaddingValues(all = 8.dp),
@@ -323,6 +326,7 @@ private fun TaskContent(
                         var debounceJob: Job? by remember { mutableStateOf(null) }
 
                         PgToDoItemCell(
+                            modifier = Modifier.animateItemPlacement(),
                             name = it.task.name,
                             color = it.list.color.toColor(),
                             contentPaddingValues = PaddingValues(all = 8.dp),

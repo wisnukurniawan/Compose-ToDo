@@ -1,6 +1,7 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.step.ui
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -345,6 +346,7 @@ private fun TaskCell(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun StepContent(
     modifier: Modifier,
@@ -373,6 +375,7 @@ private fun StepContent(
     ) {
         items(items = steps, key = { item -> item.id }) { item ->
             StepCell(
+                modifier = Modifier.animateItemPlacement(),
                 item = item,
                 color = color,
                 onClick = { onClickStep(item) },
@@ -526,6 +529,7 @@ private fun StepContent(
 
 @Composable
 private fun StepCell(
+    modifier: Modifier,
     item: ToDoStep,
     color: Color,
     onClick: () -> Unit,
@@ -535,6 +539,7 @@ private fun StepCell(
     when (item.status) {
         ToDoStatus.IN_PROGRESS -> {
             PgToDoItemCell(
+                modifier = modifier,
                 name = item.name,
                 color = color,
                 contentPaddingValues = PaddingValues(start = 16.dp, end = 8.dp, top = 8.dp, bottom = 8.dp),
@@ -547,6 +552,7 @@ private fun StepCell(
         }
         ToDoStatus.COMPLETE -> {
             PgToDoItemCell(
+                modifier = modifier,
                 name = item.name,
                 color = color.copy(alpha = AlphaDisabled),
                 contentPaddingValues = PaddingValues(start = 16.dp, end = 8.dp, top = 8.dp, bottom = 8.dp),
