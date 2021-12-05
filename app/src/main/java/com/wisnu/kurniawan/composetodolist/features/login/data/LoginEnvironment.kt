@@ -19,7 +19,7 @@ class LoginEnvironment @Inject constructor(
     private val preferenceManager: PreferenceManager
 ) : ILoginEnvironment {
 
-    @ExperimentalCoroutinesApi
+    @OptIn(ExperimentalCoroutinesApi::class)
     override fun login(email: String, password: String): Flow<Any> {
         return merge(
             serverManager.fetchCredential(),

@@ -1,20 +1,11 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.group.ui
 
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -29,12 +20,7 @@ import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isValidGroupName
 import com.wisnu.kurniawan.composetodolist.foundation.theme.LargeShape
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgButton
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalBackHeader
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalLayout
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalTitle
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgSecondaryButton
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgTextField
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.*
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.collectAsEffect
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.requestFocusImeAware
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
@@ -58,6 +44,7 @@ fun CreateGroupScreen(
                 navController.navigate(HomeFlow.UpdateGroupList.route((effect as CreateGroupEffect.ShowUpdateGroupListScreen).groupId))
             }
         }
+        null -> {}
     }
 
     LaunchedEffect(Unit) {

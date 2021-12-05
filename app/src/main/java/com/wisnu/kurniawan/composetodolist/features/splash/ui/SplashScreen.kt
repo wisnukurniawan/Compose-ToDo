@@ -34,5 +34,6 @@ fun SplashScreen(
                 }
             }
         }
+        null -> {}
     }
 }
