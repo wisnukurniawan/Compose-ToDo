@@ -1,20 +1,13 @@
 package com.wisnu.kurniawan.composetodolist.runtime.navigation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.ModalBottomSheetDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
@@ -24,20 +17,19 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.window.layout.WindowInfoRepository
 import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import com.wisnu.kurniawan.composetodolist.features.splash.ui.SplashScreen
 import com.wisnu.kurniawan.composetodolist.features.splash.ui.SplashViewModel
-import kotlinx.coroutines.flow.collect
+import com.wisnu.kurniawan.composetodolist.foundation.dual.WindowState
 
 const val MinLargeScreenWidth = 585
 
 @OptIn(ExperimentalMaterialNavigationApi::class)
 @Composable
-fun MainNavHost(windowInfoRep: WindowInfoRepository) {
+fun MainNavHost(windowState: WindowState) {
     val bottomSheetNavigator = rememberBottomSheetNavigator()
     val bottomSheetConfig = remember { mutableStateOf(DefaultMainBottomSheetConfig) }
 
@@ -55,7 +47,7 @@ fun MainNavHost(windowInfoRep: WindowInfoRepository) {
         }
     ) {
         if (isLargeScreen) {
-            LargeScreenNavHost(bottomSheetNavigator, windowInfoRep, bottomSheetConfig)
+            LargeScreenNavHost(bottomSheetNavigator, windowState, bottomSheetConfig)
         } else {
             SmallScreenNavHost(bottomSheetNavigator, bottomSheetConfig)
         }
@@ -66,18 +58,10 @@ fun MainNavHost(windowInfoRep: WindowInfoRepository) {
 @Composable
 private fun LargeScreenNavHost(
     bottomSheetNavigator: BottomSheetNavigator,
-    windowInfoRep: WindowInfoRepository,
+    windowState: WindowState,
     bottomSheetConfig: MutableState<MainBottomSheetConfig>
 ) {
     val navController = rememberNavController(bottomSheetNavigator)
-    var isAppSpanned by remember { mutableStateOf(false) }
-    LaunchedEffect(windowInfoRep) {
-        windowInfoRep.windowLayoutInfo
-            .collect { newLayoutInfo ->
-                val displayFeatures = newLayoutInfo.displayFeatures
-                isAppSpanned = displayFeatures.isNotEmpty()
-            }
-    }
 
     NavHost(
         navController = navController,
@@ -93,7 +77,7 @@ private fun LargeScreenNavHost(
         SettingNavHost(navController, bottomSheetConfig)
 
         composable(HomeFlow.Root.route) {
-            if (isAppSpanned) {
+            if (windowState.isDualPortrait()) {
                 HomeTabletNavHost(navController, 1F, 1F)
             } else {
                 HomeTabletNavHost(navController, 0.333F, 0.666F)
