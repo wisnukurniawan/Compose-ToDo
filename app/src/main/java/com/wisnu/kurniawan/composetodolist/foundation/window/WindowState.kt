@@ -1,4 +1,4 @@
-package com.wisnu.kurniawan.composetodolist.foundation.dual
+package com.wisnu.kurniawan.composetodolist.foundation.window
 
 import android.content.res.Configuration
 import android.graphics.Rect

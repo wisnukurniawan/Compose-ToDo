@@ -8,8 +8,8 @@ import androidx.core.view.WindowCompat
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.wisnu.kurniawan.composetodolist.features.host.ui.Host
 import com.wisnu.kurniawan.composetodolist.features.localized.base.ui.LocalizedActivity
-import com.wisnu.kurniawan.composetodolist.foundation.dual.WindowState
-import com.wisnu.kurniawan.composetodolist.foundation.dual.rememberWindowState
+import com.wisnu.kurniawan.composetodolist.foundation.window.WindowState
+import com.wisnu.kurniawan.composetodolist.foundation.window.rememberWindowState
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.MainNavHost
 import dagger.hilt.android.AndroidEntryPoint
 

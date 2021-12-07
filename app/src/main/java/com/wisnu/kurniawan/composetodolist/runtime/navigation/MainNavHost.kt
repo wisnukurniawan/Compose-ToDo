@@ -23,7 +23,7 @@ import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import com.wisnu.kurniawan.composetodolist.features.splash.ui.SplashScreen
 import com.wisnu.kurniawan.composetodolist.features.splash.ui.SplashViewModel
-import com.wisnu.kurniawan.composetodolist.foundation.dual.WindowState
+import com.wisnu.kurniawan.composetodolist.foundation.window.WindowState
 
 const val MinLargeScreenWidth = 585
 

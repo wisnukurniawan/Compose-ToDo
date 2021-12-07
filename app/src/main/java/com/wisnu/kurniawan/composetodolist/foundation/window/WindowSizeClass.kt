@@ -1,4 +1,4 @@
-package com.wisnu.kurniawan.composetodolist.foundation.dual
+package com.wisnu.kurniawan.composetodolist.foundation.window
 
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp

@@ -1,4 +1,4 @@
-package com.wisnu.kurniawan.composetodolist.foundation.dual
+package com.wisnu.kurniawan.composetodolist.foundation.window
 
 enum class WindowMode {
     SINGLE_PORTRAIT,
