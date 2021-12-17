@@ -1,13 +1,14 @@
 [versions]
 kotlin = "1.6.0"
-room = "2.4.0-rc01"
+room = "2.4.0"
 datastore = "1.0.0"
-compose = "1.1.0-beta04"
+compose = "1.1.0-rc01"
 composeMaterial3 = "1.0.0-alpha02"
 composeLottie = "4.2.1"
-composeNavigation = "2.4.0-beta02"
-composeHiltNavigation = "1.0.0-beta01"
+composeNavigation = "2.4.0-rc01"
+composeHiltNavigation = "1.0.0-rc01"
 composeViewmodel = "2.4.0"
+composeWidget = "1.0.0-alpha01"
 appCompat = "1.4.0"
 retrofit = "2.9.0"
 okhttp = "4.9.1"
@@ -15,9 +16,9 @@ hilt = "2.38.1"
 accompanist = "0.21.4-beta"
 androidxCore = "1.7.0"
 androidCoroutine = "1.5.2"
-androidxWindow = "1.0.0-beta04"
+androidxWindow = "1.0.0-rc01"
 splash = "1.0.0-alpha02"
-material = "1.5.0-beta01"
+material = "1.5.0-rc01"
 protoGoogle = "4.0.0-rc-2"
 protoWire = "4.0.0"
 agp = "7.0.3"
@@ -56,6 +57,7 @@ androidx-compose-materialIconExtended = { module = "androidx.compose.material:ma
 androidx-lifecycle-viewmodelCompose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "composeViewmodel" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "composeNavigation" }
 androidx-hilt-navigationCompose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "composeHiltNavigation" }
+androidx-compose-widget = { module = "androidx.glance:glance", version.ref = "composeWidget" }
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "composeLottie" }
 # accompanist
 google-accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }

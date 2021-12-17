@@ -138,6 +138,7 @@ dependencies {
     implementation libs.androidx.compose.materialIconExtended
     implementation libs.androidx.compose.foundation
     implementation libs.androidx.compose.ui
+    implementation libs.androidx.compose.widget
 
 
     ///////////////
