@@ -11,6 +11,8 @@
 - Compose mastering swipeable - https://proandroiddev.com/how-to-master-swipeable-and-nestedscroll-modifiers-in-compose-bb0635d6a760
 - Compose refactoring - https://blog.thefuntasty.com/tricky-refactoring-of-jetpack-compose-code-be-careful-with-side-effects-13768275b3db?gi=17b39f2b7fa7
 - Software design - https://pragprog.com/titles/swdddf/domain-modeling-made-functional
+- Software design - https://increment.com/software-architecture/primer-on-functional-architecture/
+- Software design - https://youtu.be/jdliXz70NtM
 - Software design - https://www.manning.com/books/grokking-simplicity
 - Flow unit test - https://fabiosanto.medium.com/unit-testing-coroutines-state-flow-c6e6de580027
 - Unit test: always inject dispatcher https://medium.com/swlh/unit-testing-with-kotlin-coroutines-the-android-way-19289838d257
