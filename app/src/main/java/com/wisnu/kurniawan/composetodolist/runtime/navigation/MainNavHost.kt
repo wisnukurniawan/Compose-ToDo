@@ -20,9 +20,9 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.ModalBottomSheetLayout
-import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import com.wisnu.kurniawan.composetodolist.features.splash.ui.SplashScreen
 import com.wisnu.kurniawan.composetodolist.features.splash.ui.SplashViewModel
+import com.wisnu.kurniawan.composetodolist.foundation.uiextension.rememberBottomSheetNavigator
 import com.wisnu.kurniawan.composetodolist.foundation.window.WindowState
 
 const val MinLargeScreenWidth = 585
