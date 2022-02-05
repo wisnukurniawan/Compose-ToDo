@@ -39,3 +39,9 @@ Compose playground for learning purpose, especially trying and explore android t
 * Generate debug apk `./gradlew assembleDebug`
 * Run unit test `./gradlew testDebug`
 * Install on connected device `./gradlew installDebug`
+
+## Others
+
+* [Mercury architecture](https://github.com/wisnukurniawan/Compose-ToDo/blob/main/doc/architecture.md)
+* [Project structure](https://github.com/wisnukurniawan/Compose-ToDo/blob/main/doc/project-structure.md)
+* [Modularization](https://github.com/wisnukurniawan/Compose-ToDo/blob/main/doc/module.md)
