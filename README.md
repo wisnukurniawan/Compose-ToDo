@@ -21,7 +21,7 @@ Compose playground for learning purpose, especially trying and explore android t
 
 ## Prerequisites
 
-* Android Studio Arctic Fox | 2021.1.1
+* Android Studio Bumblebee | 2021.1.1
 * Min SDK 21
 * Target SDK 31
 * AGP 7.1.1
