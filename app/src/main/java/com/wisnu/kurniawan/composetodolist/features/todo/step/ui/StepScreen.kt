@@ -3,7 +3,19 @@ package com.wisnu.kurniawan.composetodolist.features.todo.step.ui
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
@@ -12,8 +24,20 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Switch
 import androidx.compose.material.SwitchDefaults
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.*
-import androidx.compose.material3.*
+import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.CheckCircle
+import androidx.compose.material.icons.rounded.ChevronLeft
+import androidx.compose.material.icons.rounded.ChevronRight
+import androidx.compose.material.icons.rounded.Delete
+import androidx.compose.material.icons.rounded.Event
+import androidx.compose.material.icons.rounded.RadioButtonUnchecked
+import androidx.compose.material.icons.rounded.Repeat
+import androidx.compose.material.icons.rounded.Schedule
+import androidx.compose.material3.Divider
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -24,6 +48,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -39,8 +64,21 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.displayable
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isDueDateSet
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isExpired
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
-import com.wisnu.kurniawan.composetodolist.foundation.theme.*
-import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.*
+import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaDisabled
+import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaMedium
+import com.wisnu.kurniawan.composetodolist.foundation.theme.CommonGrey
+import com.wisnu.kurniawan.composetodolist.foundation.theme.DividerAlpha
+import com.wisnu.kurniawan.composetodolist.foundation.theme.ListBlue
+import com.wisnu.kurniawan.composetodolist.foundation.theme.ListRed
+import com.wisnu.kurniawan.composetodolist.foundation.theme.MediumRadius
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgPageLayout
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgToDoItemCell
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.dateTimeDisplayable
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.dueDateDisplayable
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.noteUpdatedAtDisplayable
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.timeDisplayable
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.collectAsEffect
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.showDatePicker
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.showTimePicker
@@ -277,8 +315,8 @@ private fun TaskCell(
 ) {
     Surface(
         modifier = Modifier
-            .fillMaxWidth(),
-        onClick = onClick
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
     ) {
         Column {
             Row(
@@ -453,9 +491,10 @@ private fun StepContent(
             Surface(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
+                    .padding(horizontal = 16.dp)
+                    .clip(RoundedCornerShape(size = MediumRadius))
+                    .clickable(onClick = onClickUpdateNote),
                 shape = RoundedCornerShape(size = MediumRadius),
-                onClick = onClickUpdateNote,
                 color = MaterialTheme.colorScheme.secondaryContainer
             ) {
                 Column(
@@ -538,8 +577,8 @@ private fun StepCellCreator(
 ) {
     Surface(
         modifier = Modifier
-            .fillMaxWidth(),
-        onClick = onClick
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -578,9 +617,10 @@ private fun ActionCell(
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp),
+                .padding(horizontal = 16.dp)
+                .clip(shape)
+                .clickable(onClick = onClick),
             shape = shape,
-            onClick = onClick,
             color = MaterialTheme.colorScheme.secondaryContainer
         ) {
             ActionContentCell(

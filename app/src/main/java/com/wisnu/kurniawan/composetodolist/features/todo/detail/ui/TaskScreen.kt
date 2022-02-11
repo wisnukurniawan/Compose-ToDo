@@ -1,6 +1,7 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.detail.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -30,6 +31,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
@@ -67,10 +69,11 @@ fun TaskCreator(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 8.dp, start = 16.dp, end = 16.dp, bottom = 32.dp)
-                .height(56.dp),
+                .height(56.dp)
+                .clip(SmallShape)
+                .clickable(onClick = onClick),
             shape = SmallShape,
             color = MaterialTheme.colorScheme.secondary,
-            onClick = onClick
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,

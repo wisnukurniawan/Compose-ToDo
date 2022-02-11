@@ -1,6 +1,7 @@
 package com.wisnu.kurniawan.composetodolist.features.dashboard.ui
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -351,10 +352,12 @@ private fun Footer(
 ) {
     PgTransparentFooter(modifier) {
         Surface(
-            modifier = Modifier.height(48.dp).weight(1f),
+            modifier = Modifier
+                .height(48.dp)
+                .weight(1f)
+                .clickable(onClick = onAddNewListClick),
             shape = LargeShape,
             color = Color.Transparent,
-            onClick = onAddNewListClick
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,

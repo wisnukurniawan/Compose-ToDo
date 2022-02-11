@@ -2,7 +2,6 @@ package com.wisnu.kurniawan.composetodolist.features.todo.all.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,8 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
@@ -25,6 +22,8 @@ import androidx.compose.material.icons.rounded.ChevronLeft
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.RadioButtonUnchecked
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -321,31 +320,30 @@ private fun MoreMenu(
             onDismissRequest = onDismissRequest,
             modifier = Modifier.width(220.dp).background(MaterialTheme.colorScheme.secondaryContainer)
         ) {
-            DropdownMenuItem(onClick = onShowHideCompleteTaskClick) {
-                val icon = if (hideCompleteTask) {
-                    Icons.Filled.Visibility
-                } else {
-                    Icons.Filled.VisibilityOff
-                }
-                val label = if (hideCompleteTask) {
-                    stringResource(id = R.string.todo_show_complete)
-                } else {
-                    stringResource(id = R.string.todo_hide_complete)
-                }
-
-                Row(
-                    Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
+            DropdownMenuItem(
+                text = {
+                    val label = if (hideCompleteTask) {
+                        stringResource(id = R.string.todo_show_complete)
+                    } else {
+                        stringResource(id = R.string.todo_hide_complete)
+                    }
                     Text(
                         label,
                         style = MaterialTheme.typography.bodyLarge.copy(fontSize = 14.sp),
                         color = MaterialTheme.colorScheme.onSurface
                     )
+                },
+                onClick = onShowHideCompleteTaskClick,
+                leadingIcon = {
+                    val icon = if (hideCompleteTask) {
+                        Icons.Filled.Visibility
+                    } else {
+                        Icons.Filled.VisibilityOff
+                    }
+
                     PgIcon(imageVector = icon)
                 }
-            }
+            )
         }
     }
 }

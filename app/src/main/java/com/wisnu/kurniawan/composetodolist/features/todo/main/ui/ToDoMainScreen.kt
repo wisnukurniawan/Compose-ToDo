@@ -1,13 +1,28 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.main.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.*
+import androidx.compose.material.icons.rounded.CalendarToday
+import androidx.compose.material.icons.rounded.Event
+import androidx.compose.material.icons.rounded.Inbox
+import androidx.compose.material.icons.rounded.List
+import androidx.compose.material.icons.rounded.MoreHoriz
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -30,7 +45,13 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.cellShape
 import com.wisnu.kurniawan.composetodolist.foundation.extension.identifier
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
 import com.wisnu.kurniawan.composetodolist.foundation.extension.totalTask
-import com.wisnu.kurniawan.composetodolist.foundation.theme.*
+import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaDisabled
+import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaHigh
+import com.wisnu.kurniawan.composetodolist.foundation.theme.CommonGrey
+import com.wisnu.kurniawan.composetodolist.foundation.theme.DividerAlpha
+import com.wisnu.kurniawan.composetodolist.foundation.theme.ListBlue
+import com.wisnu.kurniawan.composetodolist.foundation.theme.ListRed
+import com.wisnu.kurniawan.composetodolist.foundation.theme.MediumRadius
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgEmpty
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
@@ -216,9 +237,8 @@ private fun OverallTaskCell(
     isSelected: Boolean
 ) {
     Surface(
-        modifier = modifier,
+        modifier = modifier.clickable(onClick = onClick),
         shape = RoundedCornerShape(size = MediumRadius),
-        onClick = onClick,
         color = if (isSelected) {
             iconColor
         } else {
@@ -353,9 +373,10 @@ private fun ListCell(
             Surface(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
+                    .padding(horizontal = 16.dp)
+                    .clip(shape)
+                    .clickable(onClick = onClick),
                 shape = shape,
-                onClick = onClick,
                 color = if (isSelected) {
                     MaterialTheme.colorScheme.primaryContainer
                 } else {
