@@ -21,10 +21,10 @@ Compose playground for learning purpose, especially trying and explore android t
 
 ## Prerequisites
 
-* Android Studio Arctic Fox | 2020.3.1
+* Android Studio Arctic Fox | 2021.1.1
 * Min SDK 21
 * Target SDK 31
-* AGP 7.0.4
+* AGP 7.1.1
 * Java 11
 * Kotlin 1.6.10
 
