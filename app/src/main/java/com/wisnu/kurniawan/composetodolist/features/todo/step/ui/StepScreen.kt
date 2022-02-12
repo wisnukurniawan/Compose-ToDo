@@ -488,13 +488,14 @@ private fun StepContent(
         }
 
         item {
+            val shape = RoundedCornerShape(size = MediumRadius)
             Surface(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
-                    .clip(RoundedCornerShape(size = MediumRadius))
+                    .clip(shape)
                     .clickable(onClick = onClickUpdateNote),
-                shape = RoundedCornerShape(size = MediumRadius),
+                shape = shape,
                 color = MaterialTheme.colorScheme.secondaryContainer
             ) {
                 Column(

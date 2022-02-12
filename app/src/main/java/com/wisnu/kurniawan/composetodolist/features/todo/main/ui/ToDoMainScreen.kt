@@ -236,9 +236,12 @@ private fun OverallTaskCell(
     onClick: () -> Unit,
     isSelected: Boolean
 ) {
+    val shape = RoundedCornerShape(size = MediumRadius)
     Surface(
-        modifier = modifier.clickable(onClick = onClick),
-        shape = RoundedCornerShape(size = MediumRadius),
+        modifier = modifier
+            .clip(shape)
+            .clickable(onClick = onClick),
+        shape = shape,
         color = if (isSelected) {
             iconColor
         } else {

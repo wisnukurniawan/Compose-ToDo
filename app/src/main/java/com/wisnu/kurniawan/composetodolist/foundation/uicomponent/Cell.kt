@@ -60,18 +60,19 @@ fun PgModalCell(
         null
     }
 
+    val shape = MediumShape
     Surface(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
             .height(56.dp)
-            .clip(MediumShape)
+            .clip(shape)
             .clickable(
                 onClick = onClickState,
                 indication = indication,
                 interactionSource = remember { MutableInteractionSource() }
             ),
-        shape = MediumShape,
+        shape = shape,
         color = color.copy(alpha = colorAlpha),
     ) {
         Row(

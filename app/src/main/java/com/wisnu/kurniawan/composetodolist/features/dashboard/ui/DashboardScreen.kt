@@ -28,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
@@ -351,12 +352,14 @@ private fun Footer(
     modifier: Modifier = Modifier
 ) {
     PgTransparentFooter(modifier) {
+        val shape = LargeShape
         Surface(
             modifier = Modifier
                 .height(48.dp)
                 .weight(1f)
+                .clip(shape)
                 .clickable(onClick = onAddNewListClick),
-            shape = LargeShape,
+            shape = shape,
             color = Color.Transparent,
         ) {
             Row(
