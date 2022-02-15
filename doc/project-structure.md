@@ -16,16 +16,72 @@ In this project there are three kind of model, UI model, domain model, data sour
 #### Domain model
 
 This is generic model that can be reused in all place. I encourage using model from this package to build a logic where feasible. This will be helpful in case we want to move it into multiplatform
-world we only focus moving this model and it is usage.
+world we only focus moving this model and it is usage. For example a generic ToDoList model:
+
+```kotlin
+data class ToDoList(
+    val id: String,
+    val name: String,
+    val color: ToDoColor,
+    val tasks: List<ToDoTask>,
+    val createdAt: LocalDateTime,
+    val updatedAt: LocalDateTime,
+)
+```
 
 #### Data source model
 
-Each data source has it is own model, eg model from sqlite db, model from data store, model from server. So that whenever any changes not impact each other.
+Each data source has it is own model, eg model from sqlite db, model from data store, model from server. So that whenever any changes not impact each other. For example a model to store ToDoList data
+in local storage using Room database:
+
+```kotlin
+@Entity(
+    foreignKeys = [
+        ForeignKey(
+            entity = ToDoGroupDb::class,
+            parentColumns = ["group_id"],
+            childColumns = ["list_groupId"],
+            onDelete = ForeignKey.CASCADE
+        )
+    ],
+    indices = [
+        Index("list_groupId"),
+        Index("list_name", unique = true)
+    ]
+)
+data class ToDoListDb(
+    @PrimaryKey
+    @ColumnInfo(name = "list_id")
+    val id: String,
+    @ColumnInfo(name = "list_name")
+    val name: String,
+    @ColumnInfo(name = "list_color")
+    val color: ToDoColor,
+    @ColumnInfo(name = "list_groupId")
+    val groupId: String,
+    @ColumnInfo(name = "list_createdAt")
+    val createdAt: LocalDateTime,
+    @ColumnInfo(name = "list_updatedAt")
+    val updatedAt: LocalDateTime,
+)
+```
 
 #### UI model
 
 Used as UI state source of truth. It also to simplify the rendering operation. So that the complex part is not direct in the UI implementation. This model can be useful to understand how the UI looks
-like without running the app.
+like without running the app. For example a model that used in ToDo list detail screen:
+
+```kotlin
+@Immutable
+data class ListDetailState(
+    val list: ToDoList, // List of task, ToDoList domain model
+    val newListName: String, // Configurable title of to do page
+    val colors: List<ColorItem>, // Configurable selected color from list of available color
+    val taskName: TextFieldValue // New introduce task for a to do
+)
+```
+
+<img src="../art/ui-model-preview-1.jpg" width="260"> <img src="../art/ui-model-preview-2.jpg" width="260">
 
 ### Runtime
 
