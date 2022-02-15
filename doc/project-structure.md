@@ -24,7 +24,8 @@ Each data source has it is own model, eg model from sqlite db, model from data s
 
 #### UI model
 
-Used as UI state source of truth. It also to simplify the rendering operation. So that the complex part is not in the UI layer.
+Used as UI state source of truth. It also to simplify the rendering operation. So that the complex part is not direct in the UI implementation. This model can be useful to understand how the UI looks
+like without running the app.
 
 ### Runtime
 
