@@ -79,3 +79,13 @@ private fun List<ToDoTask>.toItemListAllState(toDoList: ToDoList): List<ItemAllS
         }
     }
 }
+
+fun List<ToDoList>.filterCompleteTask(shouldFilter: Boolean): List<ToDoList> {
+    return if (shouldFilter) {
+        this.map {
+            it.copy(tasks = it.tasks.filter { task -> task.status != ToDoStatus.COMPLETE })
+        }.filter { it.tasks.isNotEmpty() }
+    } else {
+        this
+    }
+}

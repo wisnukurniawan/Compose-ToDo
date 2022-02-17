@@ -11,7 +11,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.theme.ListOrange
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListPurple
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListRed
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListYellow
-import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl
 import com.wisnu.kurniawan.composetodolist.model.ToDoColor
 import com.wisnu.kurniawan.composetodolist.model.ToDoList

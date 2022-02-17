@@ -1,9 +1,9 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.all.ui
 
 import androidx.compose.runtime.Immutable
+import com.wisnu.kurniawan.composetodolist.foundation.extension.filterCompleteTask
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toItemAllState
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
-import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 
 @Immutable
@@ -11,15 +11,9 @@ data class AllState(
     val lists: List<ToDoList> = listOf(),
     val hideCompleteTask: Boolean = true,
 ) {
-    private val listsFiltered = if (hideCompleteTask) {
-        lists.map {
-            it.copy(tasks = it.tasks.filter { task -> task.status != ToDoStatus.COMPLETE })
-        }
-            .filter { it.tasks.isNotEmpty() }
-    } else {
-        lists
-    }
-    val items = listsFiltered.toItemAllState()
+    val items = lists
+        .filterCompleteTask(shouldFilter = hideCompleteTask)
+        .toItemAllState()
 }
 
 sealed class ItemAllState {
