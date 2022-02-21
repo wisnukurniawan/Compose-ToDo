@@ -18,8 +18,9 @@ class MainActivity : LocalizedActivity() {
     private lateinit var windowState: WindowState
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         installSplashScreen()
+
+        super.onCreate(savedInstanceState)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
