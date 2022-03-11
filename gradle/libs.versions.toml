@@ -2,15 +2,15 @@
 kotlin = "1.6.10"
 room = "2.5.0-alpha01"
 datastore = "1.0.0"
-compose = "1.2.0-alpha04"
-composeMaterial3 = "1.0.0-alpha06"
-composeLottie = "4.2.2"
-composeNavigation = "2.5.0-alpha02"
+compose = "1.2.0-alpha05"
+composeMaterial3 = "1.0.0-alpha07"
+composeLottie = "5.0.3"
+composeNavigation = "2.5.0-alpha03"
 composeHiltNavigation = "1.0.0"
-composeViewmodel = "2.5.0-alpha03"
+composeViewmodel = "2.5.0-alpha04"
 composeWidget = "1.0.0-alpha02"
 appCompat = "1.6.0-alpha01"
-appCompatCompose = "1.5.0-alpha02"
+activityCompose = "1.5.0-alpha03"
 retrofit = "2.9.0"
 okhttp = "4.9.3"
 hilt = "2.38.1"
@@ -19,7 +19,7 @@ androidxCore = "1.8.0-alpha04"
 androidCoroutine = "1.6.0"
 androidxWindow = "1.0.0"
 splash = "1.0.0-beta01"
-material = "1.6.0-alpha02"
+material = "1.6.0-alpha03"
 protoGoogle = "4.0.0-rc-2"
 protoWire = "4.1.0"
 agp = "7.1.1"
@@ -43,7 +43,7 @@ google-hilt-android = { module = "com.google.dagger:hilt-android", version.ref =
 google-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 # appCompat
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompat" }
-androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "appCompatCompose" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
 # room
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
