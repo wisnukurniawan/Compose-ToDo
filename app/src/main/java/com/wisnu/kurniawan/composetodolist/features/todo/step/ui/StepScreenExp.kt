@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.relocation.BringIntoViewRequester
@@ -44,8 +46,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.insets.ExperimentalAnimatedInsets
-import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListRed
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgBasicTextField
@@ -238,7 +238,8 @@ private fun StepCell(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .padding(start = 16.dp, end = 8.dp, top = 8.dp, bottom = 8.dp)
-            .navigationBarsWithImePadding()
+            .navigationBarsPadding()
+            .imePadding()
     ) {
         PgIconButton(
             onClick = onStatusClick,
@@ -276,7 +277,7 @@ private fun DueDateCell() {
 }
 
 // Exp https://github.com/google/accompanist/issues/210
-@OptIn(ExperimentalAnimatedInsets::class, ExperimentalComposeUiApi::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalFoundationApi::class)
 @Preview
 @Composable
 private fun TaskStepPreview() {

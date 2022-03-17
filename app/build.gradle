@@ -111,9 +111,6 @@ dependencies {
     implementation libs.lottie.compose
     implementation libs.google.material
 
-    // Use to show UI properly when keyboard shown
-    implementation libs.google.accompanist.insets
-
     // Use for bottom sheet navigation
     implementation libs.google.accompanist.navigation
 

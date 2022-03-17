@@ -5,7 +5,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.material3.Surface
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
-import com.google.accompanist.insets.ProvideWindowInsets
 import com.wisnu.kurniawan.composetodolist.features.host.ui.Host
 import com.wisnu.kurniawan.composetodolist.features.localized.base.ui.LocalizedActivity
 import com.wisnu.kurniawan.composetodolist.foundation.window.WindowState
@@ -27,11 +26,9 @@ class MainActivity : LocalizedActivity() {
         setContent {
             windowState = rememberWindowState()
 
-            ProvideWindowInsets {
-                Host {
-                    Surface {
-                        MainNavHost(windowState)
-                    }
+            Host {
+                Surface {
+                    MainNavHost(windowState)
                 }
             }
         }

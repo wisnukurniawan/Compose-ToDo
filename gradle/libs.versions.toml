@@ -63,7 +63,6 @@ lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "
 # accompanist
 google-accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 google-accompanist-navigation = { module = "com.google.accompanist:accompanist-navigation-material", version.ref = "accompanist" }
-google-accompanist-insets = { module = "com.google.accompanist:accompanist-insets", version.ref = "accompanist" }
 # retrofit
 squareup-retrofit-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 squareup-retrofit-converter = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
