@@ -123,8 +123,6 @@ dependencies {
     // androidx.compose.material.ContentAlpha
     // androidx.compose.material.Switch
     // androidx.compose.material.SwipeToDismiss
-    // androidx.compose.material.OutlinedTextField
-    // androidx.compose.material.TextFieldDefaults
     // androidx.compose.material.ModalBottomSheetLayout
     implementation libs.androidx.compose.material
     implementation libs.androidx.compose.material3
