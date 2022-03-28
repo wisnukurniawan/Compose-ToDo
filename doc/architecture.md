@@ -1,7 +1,7 @@
 # Mercury architecture
 
 Mercury is a chemical element, which usually used in traditional mining processes to find gold. I named this mercury to pretend the gold as "[Pure function](https://en.wikipedia.org/wiki/Pure_function)". With intention to
-encourage maximal use of pure functions when using this architecture. The more pure function we have, the more gold we have.
+encourage maximal use of pure functions when using this. The more pure function we have, the more gold we have.
 
 <img src="/doc/arch-images/arch-diagram.png">
 
