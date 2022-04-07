@@ -1,6 +1,5 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.step.ui
 
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -15,7 +14,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgToDoCreator
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.requestFocusImeAware
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CreateStepScreen(
     viewModel: StepViewModel,
