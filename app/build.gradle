@@ -121,7 +121,6 @@ dependencies {
     // Not able to get rid of material lib due to we still use these component and not available yet in material3
     // androidx.compose.material.Shapes
     // androidx.compose.material.ContentAlpha
-    // androidx.compose.material.Switch
     // androidx.compose.material.SwipeToDismiss
     // androidx.compose.material.ModalBottomSheetLayout
     implementation libs.androidx.compose.material
