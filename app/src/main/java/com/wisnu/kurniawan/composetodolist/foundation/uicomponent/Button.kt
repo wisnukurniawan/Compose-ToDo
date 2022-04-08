@@ -19,7 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaDisabled
-import com.wisnu.kurniawan.composetodolist.foundation.theme.SmallShape
+import com.wisnu.kurniawan.composetodolist.foundation.theme.Shapes
 
 @Composable
 fun PgModalBackButton(
@@ -68,7 +68,7 @@ fun PgButton(
         modifier = modifier.height(56.dp),
         enabled = enabled,
         onClick = onClick,
-        shape = SmallShape,
+        shape = Shapes.small,
         content = content,
         colors = ButtonDefaults.buttonColors(
             disabledContentColor = MaterialTheme.colorScheme.primary.copy(alpha = AlphaDisabled)
@@ -85,7 +85,7 @@ fun PgSecondaryButton(
     OutlinedButton(
         modifier = modifier.height(56.dp),
         onClick = onClick,
-        shape = SmallShape,
+        shape = Shapes.small,
         content = content
     )
 }

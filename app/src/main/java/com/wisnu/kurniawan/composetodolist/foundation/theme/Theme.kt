@@ -140,8 +140,7 @@ fun Theme(
     MaterialTheme(
         colorScheme = colors,
         typography = Typography,
-        // TODO - material3
-        // shapes = Shapes,
+        shapes = Shapes,
         content = content
     )
 }

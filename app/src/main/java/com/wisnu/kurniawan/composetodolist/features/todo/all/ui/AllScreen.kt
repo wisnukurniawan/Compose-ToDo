@@ -48,6 +48,7 @@ import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.identifier
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
 import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaDisabled
+import com.wisnu.kurniawan.composetodolist.foundation.theme.Shapes
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgEmpty
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
@@ -312,8 +313,7 @@ private fun MoreMenu(
     onShowHideCompleteTaskClick: () -> Unit
 ) {
     MaterialTheme(
-        // TODO - material3
-        // shapes = MaterialTheme.shapes.copy(medium = Shapes.small)
+        shapes = MaterialTheme.shapes.copy(medium = Shapes.small)
     ) {
         DropdownMenu(
             expanded = expanded,
