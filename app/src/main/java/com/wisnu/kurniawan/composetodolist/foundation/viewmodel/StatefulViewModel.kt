@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.update
 
 /**
  * State: A type that describes the data your feature needs to perform its logic and render its UI.
@@ -31,8 +32,8 @@ abstract class StatefulViewModel<STATE, EFFECT, ACTION, ENVIRONMENT>(
 
     abstract fun dispatch(action: ACTION)
 
-    protected suspend fun setState(newState: STATE.() -> STATE) {
-        _state.emit(stateValue().newState())
+    protected fun setState(newState: STATE.() -> STATE) {
+        _state.update(newState)
     }
 
     protected suspend fun setEffect(newEffect: EFFECT) {
