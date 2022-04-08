@@ -14,6 +14,7 @@
 - Software design - https://increment.com/software-architecture/primer-on-functional-architecture/
 - Software design - https://youtu.be/jdliXz70NtM
 - Software design - https://www.manning.com/books/grokking-simplicity
+- Software design - https://blog.klipse.tech/java/2021/03/05/data-oriented-programming-in-java.html
 - Flow unit test - https://fabiosanto.medium.com/unit-testing-coroutines-state-flow-c6e6de580027
 - Unit test: always inject dispatcher https://medium.com/swlh/unit-testing-with-kotlin-coroutines-the-android-way-19289838d257
 - Custom animated icon - https://shapeshifter.design/

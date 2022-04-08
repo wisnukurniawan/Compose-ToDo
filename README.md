@@ -4,7 +4,7 @@
 
 <img src="art/playstore_icon.png" width="140">
 
-Compose playground for learning purpose, especially trying and explore android tools by Google
+Compose playground for learning purpose
 
 * UI completely in [Jetpack Compose](https://developer.android.com/jetpack/compose)
 * Uses [Kotlin Coroutines](https://kotlinlang.org/docs/reference/coroutines/coroutines-guide.html)
