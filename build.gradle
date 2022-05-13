@@ -7,11 +7,8 @@ buildscript {
     dependencies {
         classpath libs.android.gradlePlugin
         classpath libs.kotlin.gradlePlugin
-        classpath libs.androidx.navigationGradlePlugin
-        classpath libs.google.hiltGradlePlugin
+        classpath libs.google.hilt.gradlePlugin
         classpath libs.squareup.wireGradlePlugin
-        // Commented due to not all dep we are use support ksp
-        // classpath libs.google.kspPlugin
     }
 }
 

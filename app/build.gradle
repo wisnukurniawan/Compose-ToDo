@@ -2,9 +2,6 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    // Commented due to not all dep we are use support ksp
-    // id 'com.google.devtools.ksp'
-    id 'androidx.navigation.safeargs.kotlin'
     id 'com.squareup.wire'
     id 'dagger.hilt.android.plugin'
 }
@@ -69,7 +66,7 @@ android {
 
     // Fix compose compile error
     composeOptions {
-        kotlinCompilerExtensionVersion libs.versions.compose.get()
+        kotlinCompilerExtensionVersion libs.versions.androidxCompose.get()
     }
 
     compileOptions {
@@ -100,14 +97,14 @@ dependencies {
     // UI SUPPORT
     //////
 
-    implementation libs.androidx.core
+    implementation libs.androidx.core.ktx
     implementation libs.androidx.splash
     implementation libs.androidx.window
     implementation libs.androidx.appcompat
-    implementation libs.androidx.lifecycle.viewmodelCompose
+    implementation libs.androidx.lifecycle.viewModelCompose
     implementation libs.androidx.activity.compose
     implementation libs.androidx.navigation.compose
-    implementation libs.androidx.hilt.navigationCompose
+    implementation libs.androidx.hilt.navigation.compose
     implementation libs.lottie.compose
     implementation libs.google.material
 
@@ -123,8 +120,8 @@ dependencies {
     // androidx.compose.material.ModalBottomSheetLayout
     implementation libs.androidx.compose.material
     implementation libs.androidx.compose.material3
-    implementation libs.androidx.compose.materialIcon
-    implementation libs.androidx.compose.materialIconExtended
+    implementation libs.androidx.compose.material.iconsCore
+    implementation libs.androidx.compose.material.iconsExtended
     implementation libs.androidx.compose.foundation
     implementation libs.androidx.compose.ui
     implementation libs.androidx.compose.widget
@@ -140,7 +137,7 @@ dependencies {
     kapt libs.androidx.room.compiler
 
     // Key-value
-    implementation libs.androidx.datastore
+    implementation libs.androidx.dataStore.core
     implementation libs.google.protobuf
 
     // Server
@@ -161,7 +158,7 @@ dependencies {
     implementation libs.google.hilt.android
     kapt libs.google.hilt.compiler
 
-    coreLibraryDesugaring(libs.android.desugar)
+    coreLibraryDesugaring(libs.android.desugarJdkLibs)
 
     // Logger
     implementation projects.coreLogger
