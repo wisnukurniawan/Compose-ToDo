@@ -21,7 +21,6 @@
         <activity
             android:name="com.wisnu.kurniawan.composetodolist.runtime.MainActivity"
             android:exported="true"
-            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
