@@ -61,6 +61,7 @@ android {
             initWith buildTypes.release
             signingConfig signingConfigs.debug
             matchingFallbacks = ['release']
+            proguardFiles("benchmark-rules.pro")
         }
     }
 

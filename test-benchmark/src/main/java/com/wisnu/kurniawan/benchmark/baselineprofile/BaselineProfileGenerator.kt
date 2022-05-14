@@ -27,7 +27,7 @@ class BaselineProfileGenerator {
             device.waitForIdle()
 
             device.run {
-                findObject(By.text("Today"))
+                findObject(By.text("Hari ini"))
                     .click()
                 waitForIdle()
             }
