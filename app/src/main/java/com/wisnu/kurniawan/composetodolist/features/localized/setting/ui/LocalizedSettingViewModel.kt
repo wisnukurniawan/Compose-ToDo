@@ -2,13 +2,11 @@ package com.wisnu.kurniawan.composetodolist.features.localized.setting.ui
 
 import androidx.lifecycle.viewModelScope
 import com.wisnu.kurniawan.composetodolist.R
-import com.wisnu.kurniawan.composetodolist.features.localized.base.ui.LocalizedEffect
 import com.wisnu.kurniawan.composetodolist.features.localized.setting.data.ILocalizedSettingEnvironment
 import com.wisnu.kurniawan.composetodolist.foundation.extension.update
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.model.Language
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject

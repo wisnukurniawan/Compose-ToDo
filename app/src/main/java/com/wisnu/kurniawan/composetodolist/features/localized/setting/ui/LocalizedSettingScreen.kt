@@ -1,6 +1,13 @@
 package com.wisnu.kurniawan.composetodolist.features.localized.setting.ui
 
-import androidx.compose.foundation.layout.*
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -16,19 +23,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.core.os.LocaleListCompat
 import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
-import com.wisnu.kurniawan.composetodolist.features.localized.base.ui.LocalizedEffect
-import com.wisnu.kurniawan.composetodolist.foundation.localization.LocalizationUtil
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalCell
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgPageLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.collectAsEffect
-import java.util.*
 
 @Composable
 fun LanguageScreen(
@@ -37,13 +41,13 @@ fun LanguageScreen(
 ) {
     val state by viewModel.state.collectAsState()
     val effect by viewModel.effect.collectAsEffect()
-    val context = LocalContext.current
 
     when (effect) {
         is LocalizedEffect.ApplyLanguage -> {
             LaunchedEffect(effect) {
-                LocalizationUtil.applyLanguageContext(context, Locale((effect as LocalizedEffect.ApplyLanguage).language.lang))
-                navController.navigateUp()
+                val lang = (effect as LocalizedEffect.ApplyLanguage).language.lang
+                val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags(lang)
+                AppCompatDelegate.setApplicationLocales(appLocale)
             }
         }
         null -> {}

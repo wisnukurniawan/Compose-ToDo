@@ -8,6 +8,7 @@ import android.app.TaskStackBuilder
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.NotificationCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.net.toUri
@@ -22,7 +23,6 @@ import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
 import dagger.hilt.android.qualifiers.ApplicationContext
-import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -131,7 +131,8 @@ class TaskNotificationManager @Inject constructor(@ApplicationContext private va
     }
 
     private fun getLocalizedContext(): Context {
-        return LocalizationUtil.applyLanguageContext(context, Locale.getDefault())
+        val locale = AppCompatDelegate.getApplicationLocales().get(0)
+        return LocalizationUtil.applyLanguageContext(context, locale)
     }
 
     companion object {

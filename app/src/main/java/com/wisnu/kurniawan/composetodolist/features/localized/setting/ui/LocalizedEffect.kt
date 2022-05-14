@@ -1,4 +1,4 @@
-package com.wisnu.kurniawan.composetodolist.features.localized.base.ui
+package com.wisnu.kurniawan.composetodolist.features.localized.setting.ui
 
 import com.wisnu.kurniawan.composetodolist.model.Language
 

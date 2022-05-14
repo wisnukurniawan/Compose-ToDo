@@ -1,5 +1,6 @@
 package com.wisnu.kurniawan.composetodolist.foundation.extension
 
+import androidx.appcompat.app.AppCompatDelegate
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl
 import java.text.SimpleDateFormat
 import java.time.DayOfWeek
@@ -7,7 +8,6 @@ import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.temporal.ChronoUnit
-import java.util.*
 
 fun LocalDateTime.isSameDay(dateTime: LocalDateTime): Boolean {
     return toLocalDate().isEqual(dateTime.toLocalDate())
@@ -33,11 +33,12 @@ fun LocalDateTime.formatDateTime(currentDate: LocalDateTime = DateTimeProviderIm
     val patternWithYear = "EEE, dd MMM yyyy"
     val patternWithoutYear = "EEE, dd MMM"
     val zoneId = ZoneId.systemDefault()
+    val locale = AppCompatDelegate.getApplicationLocales().get(0)
 
     return if (year == currentDate.year) {
-        SimpleDateFormat(patternWithoutYear, Locale.getDefault()).format(atZone(zoneId).toInstant().toEpochMilli())
+        SimpleDateFormat(patternWithoutYear, locale).format(atZone(zoneId).toInstant().toEpochMilli())
     } else {
-        SimpleDateFormat(patternWithYear, Locale.getDefault()).format(atZone(zoneId).toInstant().toEpochMilli())
+        SimpleDateFormat(patternWithYear, locale).format(atZone(zoneId).toInstant().toEpochMilli())
     }
 }
 
