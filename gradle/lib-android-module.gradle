@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
     compileSdkVersion project.ext.compileSdkVersion
@@ -15,8 +16,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            minifyEnabled true
         }
     }
 
@@ -29,8 +29,4 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
-}
-
-dependencies {
-    implementation libs.jetbrains.kotlin
 }
