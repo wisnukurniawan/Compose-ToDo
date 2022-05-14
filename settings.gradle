@@ -18,7 +18,7 @@ include ':core-logger'
 // TEST MODULE
 //////
 
-include ':benchmark'
+include ':test-benchmark'
 include ':test-debug'
 include ':test-debug:no-op'
 
