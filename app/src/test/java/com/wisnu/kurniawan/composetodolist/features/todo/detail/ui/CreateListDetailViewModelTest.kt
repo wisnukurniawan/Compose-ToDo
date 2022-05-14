@@ -16,10 +16,10 @@ import com.wisnu.kurniawan.composetodolist.model.ToDoColor
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_LIST_ID
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Test
 import kotlin.time.ExperimentalTime
@@ -29,7 +29,7 @@ import kotlin.time.ExperimentalTime
 class CreateListDetailViewModelTest : BaseViewModelTest() {
 
     @Test
-    fun init() = test {
+    fun init() = runTest {
         val environment = emptyEnvironment()
         val savedStateHandle = SavedStateHandle()
 
@@ -46,7 +46,7 @@ class CreateListDetailViewModelTest : BaseViewModelTest() {
     }
 
     @Test
-    fun applyColor() = test {
+    fun applyColor() = runTest {
         val environment = emptyEnvironment()
         val savedStateHandle = SavedStateHandle()
 
@@ -65,7 +65,7 @@ class CreateListDetailViewModelTest : BaseViewModelTest() {
     }
 
     @Test
-    fun createList() = test {
+    fun createList() = runTest {
         val environment = buildEnvironment(
             ToDoList(
                 id = "id",
@@ -94,7 +94,7 @@ class CreateListDetailViewModelTest : BaseViewModelTest() {
     }
 
     @Test
-    fun changeListName() = test {
+    fun changeListName() = runTest {
         val environment = emptyEnvironment()
         val savedStateHandle = SavedStateHandle()
 
@@ -116,7 +116,7 @@ class CreateListDetailViewModelTest : BaseViewModelTest() {
     }
 
     @Test
-    fun updateList() = test {
+    fun updateList() = runTest {
         val environment = emptyEnvironment()
         val savedStateHandle = SavedStateHandle()
 
@@ -146,7 +146,7 @@ class CreateListDetailViewModelTest : BaseViewModelTest() {
     }
 
     @Test
-    fun cancelUpdateList() = test {
+    fun cancelUpdateList() = runTest {
         val environment = buildEnvironment(
             returnedList = ToDoList(
                 id = "id",
@@ -203,7 +203,6 @@ class CreateListDetailViewModelTest : BaseViewModelTest() {
     private fun emptyEnvironment() = object : IListDetailEnvironment {
         override val idProvider: IdProvider = IdProviderImpl()
         override val dateTimeProvider: DateTimeProvider = DateTimeProviderImpl()
-        override val dispatcher: CoroutineDispatcher = coroutineDispatcher
         override fun getListWithTasksById(listId: String): Flow<ToDoList> {
             return flow {}
         }
@@ -235,7 +234,6 @@ class CreateListDetailViewModelTest : BaseViewModelTest() {
     ) = object : IListDetailEnvironment {
         override val idProvider: IdProvider = IdProviderImpl()
         override val dateTimeProvider: DateTimeProvider = DateTimeProviderImpl()
-        override val dispatcher: CoroutineDispatcher = coroutineDispatcher
         override fun getListWithTasksById(listId: String): Flow<ToDoList> {
             return flow {
                 if (returnedList != null) emit(returnedList)

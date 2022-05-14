@@ -3,10 +3,10 @@ package com.wisnu.kurniawan.composetodolist.features.splash.ui
 import com.wisnu.kurniawan.composetodolist.BaseViewModelTest
 import com.wisnu.kurniawan.composetodolist.features.splash.data.ISplashEnvironment
 import com.wisnu.kurniawan.composetodolist.model.Credential
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import kotlin.time.ExperimentalTime
 
@@ -15,7 +15,7 @@ import kotlin.time.ExperimentalTime
 class SplashViewModelTest : BaseViewModelTest() {
 
     @Test
-    fun appLaunchLoggedIn() = test {
+    fun appLaunchLoggedIn() = runTest {
         val splashEnvironment = buildFakeSplashEnvironment(Credential("qwe-123"))
         val splashViewModel = SplashViewModel(splashEnvironment)
 
@@ -29,7 +29,7 @@ class SplashViewModelTest : BaseViewModelTest() {
     }
 
     @Test
-    fun appLaunchNotLoggedIn() = test {
+    fun appLaunchNotLoggedIn() = runTest {
         val splashEnvironment = buildFakeSplashEnvironment(Credential(""))
         val splashViewModel = SplashViewModel(splashEnvironment)
 
@@ -44,9 +44,6 @@ class SplashViewModelTest : BaseViewModelTest() {
 
     private fun buildFakeSplashEnvironment(credential: Credential): ISplashEnvironment {
         return object : ISplashEnvironment {
-            override val dispatcher: CoroutineDispatcher
-                get() = coroutineDispatcher
-
             override fun getCredential(): Flow<Credential> {
                 return flow { emit(credential) }
             }

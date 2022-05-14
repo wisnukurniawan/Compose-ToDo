@@ -5,12 +5,12 @@ import app.cash.turbine.test
 import com.wisnu.kurniawan.composetodolist.BaseViewModelTest
 import com.wisnu.kurniawan.composetodolist.features.theme.data.IThemeEnvironment
 import com.wisnu.kurniawan.composetodolist.model.Theme
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Test
 import kotlin.time.ExperimentalTime
@@ -20,10 +20,8 @@ import kotlin.time.ExperimentalTime
 class ThemeViewModelTest : BaseViewModelTest() {
 
     @Test
-    fun init() = test {
+    fun init() = runTest {
         val environment = object : IThemeEnvironment {
-            override val dispatcher: CoroutineDispatcher = coroutineDispatcher
-
             override fun getTheme(): Flow<Theme> {
                 return flow { emit(Theme.SUNRISE) }
             }
@@ -44,12 +42,10 @@ class ThemeViewModelTest : BaseViewModelTest() {
 
 
     @Test
-    fun applyTheme() = test {
+    fun applyTheme() = runTest {
         val environment = object : IThemeEnvironment {
 
             private val flow = MutableStateFlow(Theme.SUNRISE)
-
-            override val dispatcher: CoroutineDispatcher = coroutineDispatcher
 
             override fun getTheme(): Flow<Theme> {
                 return flow.asStateFlow()

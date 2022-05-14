@@ -3,10 +3,10 @@ package com.wisnu.kurniawan.composetodolist.features.login.ui
 import app.cash.turbine.test
 import com.wisnu.kurniawan.composetodolist.BaseViewModelTest
 import com.wisnu.kurniawan.composetodolist.features.login.data.ILoginEnvironment
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Test
 import kotlin.time.ExperimentalTime
@@ -16,7 +16,6 @@ import kotlin.time.ExperimentalTime
 class LoginViewModelTest : BaseViewModelTest() {
 
     private val loginEnvironment = object : ILoginEnvironment {
-        override val dispatcher: CoroutineDispatcher = coroutineDispatcher
         override fun login(email: String, password: String): Flow<Any> {
             return flow { emit(Any()) }
         }
@@ -40,7 +39,7 @@ class LoginViewModelTest : BaseViewModelTest() {
     }
 
     @Test
-    fun loginValidEmail() = test {
+    fun loginValidEmail() = runTest {
         loginViewModel.dispatch(LoginAction.ChangeEmail("qwe@gmail.com"))
         loginViewModel.dispatch(LoginAction.ChangePassword("1234"))
 
@@ -55,7 +54,7 @@ class LoginViewModelTest : BaseViewModelTest() {
     }
 
     @Test
-    fun loginInvalidEmail() = test {
+    fun loginInvalidEmail() = runTest {
         loginViewModel.dispatch(LoginAction.ChangeEmail("qwegmail.com"))
         loginViewModel.dispatch(LoginAction.ChangePassword("1234"))
 

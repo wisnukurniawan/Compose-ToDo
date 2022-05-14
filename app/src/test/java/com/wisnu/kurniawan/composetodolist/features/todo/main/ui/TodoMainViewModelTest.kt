@@ -9,10 +9,10 @@ import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderIm
 import com.wisnu.kurniawan.composetodolist.model.ToDoGroup
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoTaskOverallCount
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Test
 import kotlin.time.ExperimentalTime
@@ -22,9 +22,8 @@ import kotlin.time.ExperimentalTime
 class ToDoMainViewModelTest : BaseViewModelTest() {
 
     @Test
-    fun init() = test {
+    fun init() = runTest {
         val todoMainEnvironment = object : IToDoMainEnvironment {
-            override val dispatcher: CoroutineDispatcher = coroutineDispatcher
             override val dateTimeProvider: DateTimeProvider = DateTimeProviderImpl()
 
             override fun getGroup(): Flow<List<ToDoGroup>> {

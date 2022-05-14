@@ -15,10 +15,10 @@ import com.wisnu.kurniawan.composetodolist.model.ToDoColor
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_LIST_ID
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Test
 import kotlin.time.ExperimentalTime
@@ -29,7 +29,7 @@ import kotlin.time.ExperimentalTime
 class UpdateListDetailViewModelTest : BaseViewModelTest() {
 
     @Test
-    fun init() = test {
+    fun init() = runTest {
         val environment = buildEnvironment(
             ToDoList(
                 id = "id-123",
@@ -72,7 +72,6 @@ class UpdateListDetailViewModelTest : BaseViewModelTest() {
     private fun buildEnvironment(returnedListWithTasks: ToDoList) = object : IListDetailEnvironment {
         override val idProvider: IdProvider = IdProviderImpl()
         override val dateTimeProvider: DateTimeProvider = DateTimeProviderImpl()
-        override val dispatcher: CoroutineDispatcher = coroutineDispatcher
         override fun getListWithTasksById(listId: String): Flow<ToDoList> {
             return flow {
                 emit(returnedListWithTasks)

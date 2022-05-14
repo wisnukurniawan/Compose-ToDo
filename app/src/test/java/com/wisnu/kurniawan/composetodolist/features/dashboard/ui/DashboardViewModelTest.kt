@@ -5,10 +5,10 @@ import com.wisnu.kurniawan.composetodolist.BaseViewModelTest
 import com.wisnu.kurniawan.composetodolist.features.dashboard.data.IDashboardEnvironment
 import com.wisnu.kurniawan.composetodolist.model.ToDoTaskDiff
 import com.wisnu.kurniawan.composetodolist.model.User
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Test
 import kotlin.time.ExperimentalTime
@@ -18,7 +18,7 @@ import kotlin.time.ExperimentalTime
 class DashboardViewModelTest : BaseViewModelTest() {
 
     @Test
-    fun init() = test {
+    fun init() = runTest {
         val fakeDashboardEnvironment = buildFakeDashboardEnvironment(User("wisnu@dev.id"))
         val dashboardViewModel = DashboardViewModel(fakeDashboardEnvironment)
 
@@ -30,8 +30,6 @@ class DashboardViewModelTest : BaseViewModelTest() {
     }
 
     private fun buildFakeDashboardEnvironment(user: User) = object : IDashboardEnvironment {
-        override val dispatcher: CoroutineDispatcher = coroutineDispatcher
-
         override fun getUser(): Flow<User> {
             return flow { emit(user) }
         }
