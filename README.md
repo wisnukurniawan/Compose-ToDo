@@ -24,9 +24,9 @@ Compose playground for learning purpose
 * Android Studio Bumblebee | 2021.1.1
 * Min SDK 21
 * Target SDK 32
-* AGP 7.1.1
+* AGP 7.1.3
 * Java 11
-* Kotlin 1.6.10
+* Kotlin 1.6.21
 
 ## Setup
 
