@@ -20,14 +20,14 @@ class DashboardViewModel @Inject constructor(
     }
 
     private fun initUser() {
-        viewModelScope.launch(environment.dispatcher) {
+        viewModelScope.launch {
             environment.getUser()
                 .collect { setState { copy(user = it) } }
         }
     }
 
     private fun initToDoTaskDiff() {
-        viewModelScope.launch(environment.dispatcher) {
+        viewModelScope.launch {
             environment.listenToDoTaskDiff()
                 .collect()
         }

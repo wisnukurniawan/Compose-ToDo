@@ -8,7 +8,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.isValidGroupName
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_GROUP_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,7 +21,7 @@ class CreateGroupViewModel @Inject constructor(
     private val groupId = savedStateHandle.get<String>(ARG_GROUP_ID)
 
     init {
-        viewModelScope.launch(environment.dispatcher) {
+        viewModelScope.launch {
             if (!groupId.isNullOrBlank()) {
                 environment.getGroup(groupId)
                     .collect {
@@ -47,7 +46,7 @@ class CreateGroupViewModel @Inject constructor(
                 }
             }
             CreateGroupAction.ClickImeDone, CreateGroupAction.ClickSave -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     if (state.value.isValidGroupName()) {
                         if (!groupId.isNullOrBlank()) {
                             environment.renameGroup(groupId, state.value.groupName.text.trim()).collect {

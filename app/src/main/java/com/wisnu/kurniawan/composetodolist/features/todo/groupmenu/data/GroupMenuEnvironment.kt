@@ -15,7 +15,7 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class GroupMenuEnvironment @Inject constructor(
-    @Named(DiName.DISPATCHER_IO) override val dispatcher: CoroutineDispatcher,
+    @Named(DiName.DISPATCHER_MAIN) override val dispatcherMain: CoroutineDispatcher,
     private val localManager: LocalManager,
     override val dateTimeProvider: DateTimeProvider
 ) : IGroupMenuEnvironment {

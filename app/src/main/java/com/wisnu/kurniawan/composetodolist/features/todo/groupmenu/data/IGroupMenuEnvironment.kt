@@ -5,7 +5,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 
 interface IGroupMenuEnvironment {
-    val dispatcher: CoroutineDispatcher
+    val dispatcherMain: CoroutineDispatcher
     val dateTimeProvider: DateTimeProvider
     suspend fun deleteGroup(groupId: String): Flow<Any>
     fun hasList(groupId: String): Flow<Boolean>

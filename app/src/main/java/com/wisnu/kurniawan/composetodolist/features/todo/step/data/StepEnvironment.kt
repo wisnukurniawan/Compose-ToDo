@@ -1,7 +1,6 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.step.data
 
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.LocalManager
-import com.wisnu.kurniawan.composetodolist.foundation.di.DiName
 import com.wisnu.kurniawan.composetodolist.foundation.extension.newStatus
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toggleStatusHandler
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
@@ -10,7 +9,6 @@ import com.wisnu.kurniawan.composetodolist.model.ToDoColor
 import com.wisnu.kurniawan.composetodolist.model.ToDoRepeat
 import com.wisnu.kurniawan.composetodolist.model.ToDoStep
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapConcat
@@ -18,11 +16,9 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.take
 import java.time.LocalDateTime
 import javax.inject.Inject
-import javax.inject.Named
 
 @OptIn(FlowPreview::class)
 class StepEnvironment @Inject constructor(
-    @Named(DiName.DISPATCHER_IO) override val dispatcher: CoroutineDispatcher,
     private val localManager: LocalManager,
     override val idProvider: IdProvider,
     override val dateTimeProvider: DateTimeProvider,

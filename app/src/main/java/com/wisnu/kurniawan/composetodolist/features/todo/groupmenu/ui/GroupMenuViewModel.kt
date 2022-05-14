@@ -25,11 +25,12 @@ class GroupMenuViewModel @Inject constructor(
     val groupId = savedStateHandle.get<String>(ARG_GROUP_ID)
 
     init {
-        viewModelScope.launch(environment.dispatcher) {
+        viewModelScope.launch(environment.dispatcherMain) {
             if (!groupId.isNullOrBlank()) {
-                environment.hasList(groupId).collect {
-                    setState { copy(items = initial(it)) }
-                }
+                environment.hasList(groupId)
+                    .collect {
+                        setState { copy(items = initial(it)) }
+                    }
             }
         }
     }
@@ -58,7 +59,7 @@ class GroupMenuViewModel @Inject constructor(
     override fun dispatch(action: GroupMenuAction) {
         when (action) {
             GroupMenuAction.ClickDelete -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     if (!groupId.isNullOrBlank()) {
                         environment.deleteGroup(groupId).collect()
                     }

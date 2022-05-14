@@ -6,14 +6,12 @@ import com.wisnu.kurniawan.composetodolist.model.ToDoColor
 import com.wisnu.kurniawan.composetodolist.model.ToDoRepeat
 import com.wisnu.kurniawan.composetodolist.model.ToDoStep
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDateTime
 
 interface IStepEnvironment {
     val idProvider: IdProvider
     val dateTimeProvider: DateTimeProvider
-    val dispatcher: CoroutineDispatcher
     fun getTask(taskId: String, listId: String): Flow<Pair<ToDoTask, ToDoColor>>
     suspend fun deleteTask(task: ToDoTask)
     suspend fun toggleTaskStatus(task: ToDoTask)

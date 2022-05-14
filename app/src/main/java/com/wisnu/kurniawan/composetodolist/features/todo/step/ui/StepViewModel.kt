@@ -15,7 +15,6 @@ import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_TASK_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -36,7 +35,7 @@ class StepViewModel @Inject constructor(
     }
 
     private fun initTask() {
-        viewModelScope.launch(environment.dispatcher) {
+        viewModelScope.launch {
             if (taskId != null && listId != null) {
                 environment.getTask(taskId, listId)
                     .collect { (task, color) ->
@@ -62,7 +61,7 @@ class StepViewModel @Inject constructor(
                 }
             }
             is StepAction.TaskAction.ClickSave -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     environment.updateTask(state.value.editTaskName.text.trim(), state.value.task.id)
                     setState { copy(editTaskName = TextFieldValue()) }
                 }
@@ -73,39 +72,39 @@ class StepViewModel @Inject constructor(
                 }
             }
             is StepAction.TaskAction.OnToggleStatus -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     environment.toggleTaskStatus(state.value.task)
                 }
             }
             StepAction.TaskAction.Delete -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     environment.deleteTask(state.value.task)
                 }
             }
             is StepAction.TaskAction.SelectRepeat -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     environment.setRepeatTask(state.value.task, action.repeatItem.repeat)
                 }
             }
             StepAction.TaskAction.ResetDueDate -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     environment.resetTaskDueDate(state.value.task.id)
                 }
             }
             StepAction.TaskAction.ResetTime -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     val newDateTime = state.value.task.updatedTime(environment.dateTimeProvider.now().toLocalDate(), defaultTaskLocalTime())
                     environment.resetTaskTime(newDateTime, state.value.task.id)
                 }
             }
             is StepAction.TaskAction.SelectDueDate -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     val newDateTime = state.value.task.updatedDate(action.date)
                     environment.updateTaskDueDate(newDateTime, state.value.task.isDueDateTimeSet, state.value.task.id)
                 }
             }
             is StepAction.TaskAction.SelectTime -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     val newDateTime = state.value.task.updatedTime(environment.dateTimeProvider.now().toLocalDate(), action.time)
                     environment.updateTaskDueDate(newDateTime, true, state.value.task.id)
                 }
@@ -128,7 +127,7 @@ class StepViewModel @Inject constructor(
                 }
             }
             is StepAction.StepItemAction.Create.ClickImeDone, StepAction.StepItemAction.Create.ClickSubmit -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     if (state.value.validCreateStepName) {
                         environment.createStep(state.value.createStepName.text.trim(), state.value.task.id)
                         setState { copy(createStepName = TextFieldValue()) }
@@ -154,7 +153,7 @@ class StepViewModel @Inject constructor(
                 }
             }
             is StepAction.StepItemAction.Edit.ClickSave -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     environment.updateStep(state.value.editStepName.text.trim(), action.stepId)
                     setState { copy(editStepName = TextFieldValue()) }
                 }
@@ -168,12 +167,12 @@ class StepViewModel @Inject constructor(
                 }
             }
             is StepAction.StepItemAction.Edit.OnToggleStatus -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     environment.toggleStepStatus(action.step)
                 }
             }
             is StepAction.StepItemAction.Edit.Delete -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     environment.deleteStep(action.step)
                 }
             }
@@ -184,7 +183,7 @@ class StepViewModel @Inject constructor(
         when (action) {
             is StepAction.NoteAction.ChangeNote -> {
                 updateNoteJob?.cancel()
-                updateNoteJob = viewModelScope.launch(environment.dispatcher) {
+                updateNoteJob = viewModelScope.launch {
                     setState { copy(editNote = action.note) }
                     delay(250)
                     environment.updateTaskNote(state.value.editNote.text, state.value.task.id)

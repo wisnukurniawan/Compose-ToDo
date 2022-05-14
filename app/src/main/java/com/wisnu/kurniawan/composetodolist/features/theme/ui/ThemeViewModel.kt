@@ -19,8 +19,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.theme.TwilightSecondaryVar
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.model.Theme
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -45,7 +43,6 @@ class ThemeViewModel @Inject constructor(
             setState { copy(items = initial()) }
 
             environment.getTheme()
-                .flowOn(environment.dispatcher)
                 .collect {
                     setState { copy(items = items.update(it)) }
                 }

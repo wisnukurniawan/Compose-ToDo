@@ -7,7 +7,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.update
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_GROUP_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,7 +20,7 @@ class UpdateGroupListViewModel @Inject constructor(
     private val groupId = savedStateHandle.get<String>(ARG_GROUP_ID)
 
     init {
-        viewModelScope.launch(environment.dispatcher) {
+        viewModelScope.launch {
             if (!groupId.isNullOrBlank()) {
                 environment.getListWithUnGroupList(groupId).collect {
                     setState {
@@ -38,7 +37,7 @@ class UpdateGroupListViewModel @Inject constructor(
     override fun dispatch(action: UpdateGroupListAction) {
         when (action) {
             UpdateGroupListAction.Submit -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     val data = state.value.items.filter { !state.value.initialItems.contains(it) }
                     environment.updateList(data)
                 }

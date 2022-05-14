@@ -1,23 +1,19 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.scheduled.data
 
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.LocalManager
-import com.wisnu.kurniawan.composetodolist.foundation.di.DiName
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toggleStatusHandler
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProvider
 import com.wisnu.kurniawan.composetodolist.model.TaskWithList
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import java.time.LocalDateTime
 import javax.inject.Inject
-import javax.inject.Named
 
 @OptIn(FlowPreview::class)
 class ScheduledEnvironment @Inject constructor(
-    @Named(DiName.DISPATCHER_IO) override val dispatcher: CoroutineDispatcher,
     private val localManager: LocalManager,
     override val idProvider: IdProvider,
     override val dateTimeProvider: DateTimeProvider,

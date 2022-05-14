@@ -7,7 +7,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.update
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.model.Language
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -32,7 +31,6 @@ class LocalizedSettingViewModel @Inject constructor(localizedSettingEnvironment:
     private fun initLanguage() {
         viewModelScope.launch {
             environment.getLanguage()
-                .flowOn(environment.dispatcher)
                 .collect {
                     if (state.value.items.isNotEmpty()) {
                         setEffect(LocalizedEffect.ApplyLanguage(it))

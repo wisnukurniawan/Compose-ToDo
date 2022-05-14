@@ -1,21 +1,17 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.search.data
 
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.LocalManager
-import com.wisnu.kurniawan.composetodolist.foundation.di.DiName
 import com.wisnu.kurniawan.composetodolist.foundation.extension.sanitizeQuery
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toggleStatusHandler
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
-import javax.inject.Named
 
 class SearchEnvironment @Inject constructor(
-    @Named(DiName.DISPATCHER_IO) override val dispatcher: CoroutineDispatcher,
     private val localManager: LocalManager,
     private val dateTimeProvider: DateTimeProvider
 ) : ISearchEnvironment {

@@ -6,7 +6,6 @@ import com.wisnu.kurniawan.composetodolist.features.todo.scheduled.data.ISchedul
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_SCHEDULED_TYPE
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -22,7 +21,7 @@ class ScheduledViewModel @Inject constructor(
     private val isScheduled = scheduledType == ScheduledType.SCHEDULED
 
     init {
-        viewModelScope.launch(environment.dispatcher) {
+        viewModelScope.launch {
             val maxDate = if (isScheduled) {
                 null
             } else {
@@ -39,12 +38,12 @@ class ScheduledViewModel @Inject constructor(
     override fun dispatch(action: ScheduledAction) {
         when (action) {
             is ScheduledAction.TaskAction.Delete -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     environment.deleteTask(action.task)
                 }
             }
             is ScheduledAction.TaskAction.OnToggleStatus -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     environment.toggleTaskStatus(action.task)
                 }
             }

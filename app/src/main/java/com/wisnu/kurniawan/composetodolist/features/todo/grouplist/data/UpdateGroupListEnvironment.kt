@@ -1,16 +1,12 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.grouplist.data
 
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.LocalManager
-import com.wisnu.kurniawan.composetodolist.foundation.di.DiName
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
 import com.wisnu.kurniawan.composetodolist.model.GroupIdWithList
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
-import javax.inject.Named
 
 class UpdateGroupListEnvironment @Inject constructor(
-    @Named(DiName.DISPATCHER_IO) override val dispatcher: CoroutineDispatcher,
     private val localManager: LocalManager,
     override val dateTimeProvider: DateTimeProvider
 ) : IUpdateGroupListEnvironment {

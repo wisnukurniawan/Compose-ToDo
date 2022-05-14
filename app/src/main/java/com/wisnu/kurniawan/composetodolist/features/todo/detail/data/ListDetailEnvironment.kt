@@ -2,7 +2,6 @@ package com.wisnu.kurniawan.composetodolist.features.todo.detail.data
 
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.LocalManager
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoGroupDb
-import com.wisnu.kurniawan.composetodolist.foundation.di.DiName
 import com.wisnu.kurniawan.composetodolist.foundation.extension.OnResolveDuplicateName
 import com.wisnu.kurniawan.composetodolist.foundation.extension.duplicateNameResolver
 import com.wisnu.kurniawan.composetodolist.foundation.extension.resolveListName
@@ -11,16 +10,13 @@ import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProvider
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapConcat
 import javax.inject.Inject
-import javax.inject.Named
 
 @FlowPreview
 class ListDetailEnvironment @Inject constructor(
-    @Named(DiName.DISPATCHER_IO) override val dispatcher: CoroutineDispatcher,
     private val localManager: LocalManager,
     override val idProvider: IdProvider,
     override val dateTimeProvider: DateTimeProvider,

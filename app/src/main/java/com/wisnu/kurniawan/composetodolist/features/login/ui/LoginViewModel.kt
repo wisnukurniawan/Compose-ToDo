@@ -6,10 +6,8 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.canLogin
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isValidEmail
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -35,7 +33,6 @@ class LoginViewModel @Inject constructor(
                 .filter { state.value.isValidEmail() }
                 .collect {
                     environment.login(state.value.email, state.value.password)
-                        .flowOn(environment.dispatcher)
                         .collect { setEffect(LoginEffect.NavigateToDashboard) }
                 }
         }

@@ -10,8 +10,6 @@ import com.wisnu.kurniawan.composetodolist.runtime.navigation.MainFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ScheduledFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ScheduledTodayFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,12 +25,12 @@ class ToDoMainViewModel @Inject constructor(todoMainEnvironment: IToDoMainEnviro
     override fun dispatch(action: ToDoMainAction) {
         when (action) {
             is ToDoMainAction.DeleteList -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     environment.deleteList(action.itemListType.list)
                 }
             }
             is ToDoMainAction.NavBackStackEntryChanged -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     when (action.route) {
                         ListDetailFlow.ListDetailScreen.route -> {
                             val listId = action.arguments?.getString(ARG_LIST_ID)
@@ -63,7 +61,6 @@ class ToDoMainViewModel @Inject constructor(todoMainEnvironment: IToDoMainEnviro
     private fun initToDo() {
         viewModelScope.launch {
             environment.getGroup()
-                .flowOn(environment.dispatcher)
                 .collect {
                     setState {
                         copy(
@@ -78,7 +75,6 @@ class ToDoMainViewModel @Inject constructor(todoMainEnvironment: IToDoMainEnviro
     private fun initOverallCount() {
         viewModelScope.launch {
             environment.getOverallCount()
-                .flowOn(environment.dispatcher)
                 .collect {
                     setState {
                         copy(

@@ -1,20 +1,16 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.main.data
 
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.LocalManager
-import com.wisnu.kurniawan.composetodolist.foundation.di.DiName
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
 import com.wisnu.kurniawan.composetodolist.model.ToDoGroup
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoTaskOverallCount
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDateTime
 import java.time.LocalTime
 import javax.inject.Inject
-import javax.inject.Named
 
 class ToDoMainEnvironment @Inject constructor(
-    @Named(DiName.DISPATCHER_IO) override val dispatcher: CoroutineDispatcher,
     override val dateTimeProvider: DateTimeProvider,
     private val localManager: LocalManager,
 ) : IToDoMainEnvironment {

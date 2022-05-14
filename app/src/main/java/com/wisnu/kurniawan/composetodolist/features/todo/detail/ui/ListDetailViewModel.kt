@@ -15,7 +15,6 @@ import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_LIST_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -33,7 +32,6 @@ class ListDetailViewModel @Inject constructor(
                 setEffect(ListDetailEffect.ShowCreateListInput)
             } else {
                 environment.getListWithTasksById(listId)
-                    .flowOn(environment.dispatcher)
                     .catch {
                         // Handle deleted list on tablet
                         if (it is NullPointerException) {
@@ -64,7 +62,7 @@ class ListDetailViewModel @Inject constructor(
                 }
             }
             is ListDetailAction.ListAction.Create -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     environment.createList(
                         state.value.list.copy(
                             id = environment.idProvider.generate(),
@@ -83,7 +81,7 @@ class ListDetailViewModel @Inject constructor(
                 }
             }
             ListDetailAction.ListAction.Update -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     environment.updateList(
                         state.value.list.copy(
                             name = state.value.newListName.trim(),
@@ -113,7 +111,7 @@ class ListDetailViewModel @Inject constructor(
     private fun handleTaskAction(action: ListDetailAction.TaskAction) {
         when (action) {
             is ListDetailAction.TaskAction.ClickImeDone, ListDetailAction.TaskAction.ClickSubmit -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     if (state.value.validTaskName) {
                         environment.createTask(state.value.taskName.text.trim(), state.value.list.id)
                         setState { copy(taskName = TextFieldValue()) }
@@ -134,12 +132,12 @@ class ListDetailViewModel @Inject constructor(
                 }
             }
             is ListDetailAction.TaskAction.OnToggleStatus -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     environment.toggleTaskStatus(action.task)
                 }
             }
             is ListDetailAction.TaskAction.Delete -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     environment.deleteTask(action.task)
                 }
             }

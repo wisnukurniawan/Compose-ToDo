@@ -18,25 +18,25 @@ class TaskReminderViewModel @Inject constructor(
     fun dispatch(action: TaskReminderAction) {
         when (action) {
             is TaskReminderAction.AlarmShow -> {
-                GlobalScope.launch(environment.dispatcher) {
+                GlobalScope.launch {
                     environment.notifyNotification(action.taskId)
                         .collect()
                 }
             }
             TaskReminderAction.AppBootCompleted -> {
-                GlobalScope.launch(environment.dispatcher) {
+                GlobalScope.launch {
                     environment.restartAllReminder()
                         .collect()
                 }
             }
             is TaskReminderAction.NotificationCompleted -> {
-                GlobalScope.launch(environment.dispatcher) {
+                GlobalScope.launch {
                     environment.completeReminder(action.taskId)
                         .collect()
                 }
             }
             is TaskReminderAction.NotificationSnooze -> {
-                GlobalScope.launch(environment.dispatcher) {
+                GlobalScope.launch {
                     environment.snoozeReminder(action.taskId)
                         .collect()
                 }

@@ -4,13 +4,11 @@ import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProvider
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 
 interface IListDetailEnvironment {
     val idProvider: IdProvider
     val dateTimeProvider: DateTimeProvider
-    val dispatcher: CoroutineDispatcher
     fun getListWithTasksById(listId: String): Flow<ToDoList>
     suspend fun createList(list: ToDoList): Flow<ToDoList>
     suspend fun updateList(list: ToDoList): Flow<Any>

@@ -6,7 +6,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewMode
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,7 +21,7 @@ class SearchViewModel @Inject constructor(
         when (action) {
             is SearchAction.ChangeSearchText -> {
                 searchJob?.cancel()
-                searchJob = viewModelScope.launch(environment.dispatcher) {
+                searchJob = viewModelScope.launch {
                     setState { copy(searchText = action.text) }
                     delay(250)
                     environment.searchList(action.text.text)
@@ -32,12 +31,12 @@ class SearchViewModel @Inject constructor(
                 }
             }
             is SearchAction.TaskAction.Delete -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     environment.deleteTask(action.task)
                 }
             }
             is SearchAction.TaskAction.OnToggleStatus -> {
-                viewModelScope.launch(environment.dispatcher) {
+                viewModelScope.launch {
                     environment.toggleTaskStatus(action.task)
                 }
             }
