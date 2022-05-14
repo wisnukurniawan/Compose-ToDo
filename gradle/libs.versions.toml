@@ -12,7 +12,9 @@ androidxCore = "1.9.0-alpha03"
 androidxDataStore = "1.0.0"
 androidxHiltNavigationCompose = "1.0.0"
 androidxLifecycle = "2.5.0-rc01"
+androidxMacroBenchmark = "1.1.0-rc02"
 androidxNavigation = "2.5.0-rc01"
+androidxProfileinstaller = "1.2.0-beta01"
 androidxStartup = "1.2.0-alpha01"
 androidxWindow = "1.0.0"
 composeLottie = "5.0.3"
@@ -32,12 +34,13 @@ splash = "1.0.0-beta02"
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 google-hilt-gradlePlugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "hilt" }
 google-kspPlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version = "1.6.20-1.0.5" }
-kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+jetbrains-kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 squareup-wireGradlePlugin = { group = "com.squareup.wire", name = "wire-gradle-plugin", version.ref = "protoWirePlugin" }
 
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
+androidx-benchmark-macro = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "androidxMacroBenchmark" }
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "androidxCompose" }
 androidx-compose-material = { group = "androidx.compose.material", name = "material", version.ref = "androidxCompose" }
 androidx-compose-material-iconsCore = { group = "androidx.compose.material", name = "material-icons-core", version.ref = "androidxCompose" }
@@ -50,6 +53,7 @@ androidx-dataStore-core = { group = "androidx.datastore", name = "datastore", ve
 androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHiltNavigationCompose" }
 androidx-lifecycle-viewModelCompose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
+androidx-profileinstaller = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "androidxProfileinstaller" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
@@ -63,7 +67,6 @@ google-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compi
 google-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 google-protobuf = { group = "com.google.protobuf", name = "protobuf-javalite", version.ref = "protobuf" }
 jetbrains-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
-jetbrains-kotlin = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
 lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "composeLottie" }
 squareup-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 squareup-retrofit-converter = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
@@ -73,7 +76,13 @@ debugging-chucker = { group = "com.github.chuckerteam.chucker", name = "library"
 debugging-compose-uiTooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "androidxCompose" }
 debugging-okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
 
-test-androidx = { group = "androidx.test.ext", name = "junit", version = "1.1.3" }
+test-androidx-core = { group = "androidx.test", name = "core", version = "1.4.0" }
+test-androidx-espressoCore = { group = "androidx.test.espresso", name = "espresso-core", version = "3.3.0" }
+test-androidx-ext = { group = "androidx.test.ext", name = "junit-ktx", version = "1.1.2" }
+test-androidx-junit = { group = "androidx.test.ext", name = "junit", version = "1.1.3" }
+test-androidx-runner = { group = "androidx.test", name = "runner", version = "1.4.0" }
+test-androidx-rules = { group = "androidx.test", name = "rules", version = "1.4.0" }
+test-androidx-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version = "2.2.0" }
 test-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 test-junit = { group = "junit", name = "junit", version = "4.13.2" }
 test-robolectric = { group = "org.robolectric", name = "robolectric", version = "4.5.1" }

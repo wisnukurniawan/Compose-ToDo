@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'com.squareup.wire'
@@ -52,8 +53,15 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        benchmark {
+            initWith buildTypes.release
+            signingConfig signingConfigs.debug
+            matchingFallbacks = ['release']
+            proguardFiles("benchmark-rules.pro")
         }
     }
 
@@ -99,7 +107,6 @@ dependencies {
 
     implementation libs.androidx.core.ktx
     implementation libs.androidx.splash
-    implementation libs.androidx.startup
     implementation libs.androidx.window
     implementation libs.androidx.appcompat
     implementation libs.androidx.lifecycle.viewModelCompose
@@ -113,6 +120,10 @@ dependencies {
     implementation libs.google.accompanist.navigation
 
     implementation libs.google.accompanist.systemuicontroller
+
+    // Startup
+    implementation libs.androidx.startup
+    implementation libs.androidx.profileinstaller
 
     // Compose
     // For Compose runtime by default coroutine runtime already included from ui, foundation, implicitly
@@ -152,9 +163,6 @@ dependencies {
     // Concurrent processing
     implementation libs.jetbrains.coroutines.android
 
-    // Core language
-    implementation libs.jetbrains.kotlin
-
     // DI
     implementation libs.google.hilt.android
     kapt libs.google.hilt.compiler
@@ -169,17 +177,18 @@ dependencies {
     // DEBUGGING SUPPORT
     //////
 
-    debugImplementation libs.debugging.compose.uiTooling
+    implementation libs.debugging.compose.uiTooling
 
     debugImplementation projects.testDebug
     releaseImplementation projects.testDebug.noOp
+    benchmarkImplementation projects.testDebug.noOp
 
 
     ///////////////
     // UNIT TEST SUPPORT
     //////
 
-    testImplementation libs.test.androidx
+    testImplementation libs.test.androidx.junit
     testImplementation libs.test.robolectric
     testImplementation libs.test.junit
     testImplementation libs.test.coroutines
