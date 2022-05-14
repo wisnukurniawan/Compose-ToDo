@@ -13,6 +13,7 @@ androidxDataStore = "1.0.0"
 androidxHiltNavigationCompose = "1.0.0"
 androidxLifecycle = "2.5.0-rc01"
 androidxNavigation = "2.5.0-rc01"
+androidxStartup = "1.2.0-alpha01"
 androidxWindow = "1.0.0"
 composeLottie = "5.0.3"
 composeWidget = "1.0.0-alpha03"
@@ -53,6 +54,7 @@ androidx-room-compiler = { group = "androidx.room", name = "room-compiler", vers
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 androidx-splash = { group = "androidx.core", name = "core-splashscreen", version.ref = "splash" }
+androidx-startup = { group = "androidx.startup", name = "startup-runtime", version.ref = "androidxStartup" }
 androidx-window = { group = "androidx.window", name = "window", version.ref = "androidxWindow" }
 google-accompanist-navigation = { group = "com.google.accompanist", name = "accompanist-navigation-material", version.ref = "accompanist" }
 google-accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }

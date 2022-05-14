@@ -99,6 +99,7 @@ dependencies {
 
     implementation libs.androidx.core.ktx
     implementation libs.androidx.splash
+    implementation libs.androidx.startup
     implementation libs.androidx.window
     implementation libs.androidx.appcompat
     implementation libs.androidx.lifecycle.viewModelCompose
