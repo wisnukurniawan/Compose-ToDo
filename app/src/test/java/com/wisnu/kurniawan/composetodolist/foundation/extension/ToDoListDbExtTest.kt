@@ -31,7 +31,7 @@ class ToDoListDbExtTest {
                     createdAt = DateFactory.constantDate,
                     updatedAt = DateFactory.constantDate,
                 )
-            ).toList()
+            ).toToDoList()
         )
     }
 

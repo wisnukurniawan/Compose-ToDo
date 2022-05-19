@@ -6,7 +6,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.viewModelScope
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.features.theme.data.IThemeEnvironment
-import com.wisnu.kurniawan.composetodolist.foundation.extension.update
+import com.wisnu.kurniawan.composetodolist.foundation.extension.select
 import com.wisnu.kurniawan.composetodolist.foundation.theme.AuroraPrimary
 import com.wisnu.kurniawan.composetodolist.foundation.theme.AuroraSecondaryVariant
 import com.wisnu.kurniawan.composetodolist.foundation.theme.LightPrimary
@@ -44,7 +44,7 @@ class ThemeViewModel @Inject constructor(
 
             environment.getTheme()
                 .collect {
-                    setState { copy(items = items.update(it)) }
+                    setState { copy(items = items.select(it)) }
                 }
         }
     }

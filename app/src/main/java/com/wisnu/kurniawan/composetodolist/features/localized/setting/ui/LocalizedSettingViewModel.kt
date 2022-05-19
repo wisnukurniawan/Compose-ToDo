@@ -3,7 +3,7 @@ package com.wisnu.kurniawan.composetodolist.features.localized.setting.ui
 import androidx.lifecycle.viewModelScope
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.features.localized.setting.data.ILocalizedSettingEnvironment
-import com.wisnu.kurniawan.composetodolist.foundation.extension.update
+import com.wisnu.kurniawan.composetodolist.foundation.extension.select
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.model.Language
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -36,7 +36,7 @@ class LocalizedSettingViewModel @Inject constructor(localizedSettingEnvironment:
                         setEffect(LocalizedEffect.ApplyLanguage(it))
                     }
 
-                    setState { copy(items = initial().update(it)) }
+                    setState { copy(items = initial().select(it)) }
                 }
         }
     }

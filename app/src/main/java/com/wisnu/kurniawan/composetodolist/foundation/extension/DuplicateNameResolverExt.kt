@@ -61,15 +61,14 @@ fun String.addSuffixIdentifier(): String {
     val lastIndex = names.lastIndex
 
     return names.foldIndexed(
-        "",
-        { index, acc, cur ->
-            when {
-                index == lastIndex -> acc + " ${currentIdentifier + 1}"
-                acc.isBlank() -> cur
-                else -> "$acc $cur"
-            }
+        ""
+    ) { index, acc, cur ->
+        when {
+            index == lastIndex -> acc + " ${currentIdentifier + 1}"
+            acc.isBlank() -> cur
+            else -> "$acc $cur"
         }
-    )
+    }
 }
 
 fun String.resolveDuplicate(names: List<String>): String {

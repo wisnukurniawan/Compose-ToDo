@@ -30,7 +30,7 @@ class ToDoStepDbExtTest {
                     createdAt = DateFactory.constantDate,
                     updatedAt = DateFactory.constantDate,
                 )
-            ).toStep()
+            ).toToDoStep()
         )
     }
 }

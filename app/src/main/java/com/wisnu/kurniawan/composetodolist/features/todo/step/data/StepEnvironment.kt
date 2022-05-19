@@ -1,7 +1,7 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.step.data
 
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.LocalManager
-import com.wisnu.kurniawan.composetodolist.foundation.extension.newStatus
+import com.wisnu.kurniawan.composetodolist.foundation.extension.toggle
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toggleStatusHandler
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProvider
@@ -55,7 +55,7 @@ class StepEnvironment @Inject constructor(
     }
 
     override suspend fun toggleStepStatus(step: ToDoStep) {
-        localManager.updateStepStatus(step.id, step.newStatus(), dateTimeProvider.now())
+        localManager.updateStepStatus(step.id, step.status.toggle(), dateTimeProvider.now())
     }
 
     override suspend fun createStep(name: String, taskId: String) {

@@ -8,17 +8,6 @@ import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 
-fun List<ToDoGroup>.toGroupDp(): List<ToDoGroupDb> {
-    return map {
-        ToDoGroupDb(
-            id = it.id,
-            name = it.name,
-            createdAt = it.createdAt,
-            updatedAt = it.updatedAt
-        )
-    }
-}
-
 fun List<ToDoGroup>.toTasks(): List<ToDoTask> {
     return flatMap { group ->
         group.lists

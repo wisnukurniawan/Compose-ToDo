@@ -52,7 +52,7 @@ class ThemeItemExtTest {
                     applied = false
                 )
             ),
-            data.update(Theme.AURORA)
+            data.select(Theme.AURORA)
         )
     }
 

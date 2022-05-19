@@ -27,7 +27,7 @@ class ToDoGroupDbExtTest {
                     createdAt = DateFactory.constantDate,
                     updatedAt = DateFactory.constantDate,
                 )
-            ).groupDbToGroup()
+            ).toToDoGroup()
         )
     }
 

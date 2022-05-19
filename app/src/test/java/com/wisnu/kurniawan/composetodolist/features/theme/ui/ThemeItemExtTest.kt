@@ -1,7 +1,7 @@
 package com.wisnu.kurniawan.composetodolist.features.theme.ui
 
 import androidx.compose.ui.graphics.Brush
-import com.wisnu.kurniawan.composetodolist.foundation.extension.update
+import com.wisnu.kurniawan.composetodolist.foundation.extension.select
 import com.wisnu.kurniawan.composetodolist.model.Theme
 import org.junit.Assert
 import org.junit.Test
@@ -74,11 +74,11 @@ class ThemeItemExtTest {
 
         Assert.assertEquals(
             expected1,
-            test.update(Theme.LIGHT)
+            test.select(Theme.LIGHT)
         )
         Assert.assertEquals(
             expected2,
-            test.update(Theme.NIGHT)
+            test.select(Theme.NIGHT)
         )
     }
 

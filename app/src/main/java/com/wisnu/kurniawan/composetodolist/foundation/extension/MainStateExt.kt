@@ -25,8 +25,3 @@ fun ItemMainState.ItemListType.cellShape() = when (this) {
         RoundedCornerShape(size = MediumRadius)
     }
 }
-
-fun ItemMainState.identifier() = when (this) {
-    is ItemMainState.ItemGroup -> group.id
-    is ItemMainState.ItemListType -> list.id
-}

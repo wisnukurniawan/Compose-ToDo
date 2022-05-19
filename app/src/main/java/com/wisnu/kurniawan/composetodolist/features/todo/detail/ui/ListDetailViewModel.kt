@@ -5,10 +5,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.data.IListDetailEnvironment
+import com.wisnu.kurniawan.composetodolist.foundation.extension.select
 import com.wisnu.kurniawan.composetodolist.foundation.extension.selectedColor
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toToDoColor
-import com.wisnu.kurniawan.composetodolist.foundation.extension.update
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_LIST_ID
@@ -58,7 +58,7 @@ class ListDetailViewModel @Inject constructor(
         when (action) {
             is ListDetailAction.ListAction.ApplyColor -> {
                 viewModelScope.launch {
-                    setState { copy(colors = colors.update(action.color.color)) }
+                    setState { copy(colors = colors.select(action.color.color)) }
                 }
             }
             is ListDetailAction.ListAction.Create -> {
@@ -95,7 +95,7 @@ class ListDetailViewModel @Inject constructor(
                     setState {
                         copy(
                             newListName = list.name,
-                            colors = colors.update(list.color.toColor())
+                            colors = colors.select(list.color.toColor())
                         )
                     }
                 }
@@ -146,7 +146,7 @@ class ListDetailViewModel @Inject constructor(
 
     private fun ListDetailState.setAllState(list: ToDoList) = copy(
         list = list,
-        colors = colors.update(list.color.toColor()),
+        colors = colors.select(list.color.toColor()),
         newListName = list.name
     )
 

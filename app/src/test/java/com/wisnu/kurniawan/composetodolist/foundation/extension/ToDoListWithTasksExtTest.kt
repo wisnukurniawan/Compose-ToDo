@@ -35,7 +35,7 @@ class ToDoListWithTasksExtTest {
                     ),
                     taskWithSteps = listOf()
                 )
-            ).toDoListWithTasksToList()
+            ).toDoListWithTasksToToDoList()
         )
     }
 
@@ -61,7 +61,7 @@ class ToDoListWithTasksExtTest {
                     updatedAt = DateFactory.constantDate,
                 ),
                 taskWithSteps = listOf()
-            ).toDoListWithTasksToList()
+            ).toToDoList()
         )
     }
 }

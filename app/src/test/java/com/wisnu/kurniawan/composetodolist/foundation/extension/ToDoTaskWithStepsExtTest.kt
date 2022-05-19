@@ -40,7 +40,7 @@ class ToDoTaskWithStepsExtTest {
                     ),
                     steps = listOf()
                 )
-            ).toTask()
+            ).toDoTaskWithStepsToToDoTask()
         )
     }
 }

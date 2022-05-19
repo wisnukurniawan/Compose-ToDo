@@ -5,8 +5,8 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.wisnu.kurniawan.composetodolist.features.todo.step.data.IStepEnvironment
-import com.wisnu.kurniawan.composetodolist.foundation.extension.defaultTaskLocalTime
-import com.wisnu.kurniawan.composetodolist.foundation.extension.update
+import com.wisnu.kurniawan.composetodolist.foundation.extension.DEFAULT_TASK_LOCAL_TIME
+import com.wisnu.kurniawan.composetodolist.foundation.extension.select
 import com.wisnu.kurniawan.composetodolist.foundation.extension.updatedDate
 import com.wisnu.kurniawan.composetodolist.foundation.extension.updatedTime
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
@@ -39,7 +39,7 @@ class StepViewModel @Inject constructor(
             if (taskId != null && listId != null) {
                 environment.getTask(taskId, listId)
                     .collect { (task, color) ->
-                        setState { copy(task = task, color = color, repeatItems = repeatItems.update(task.repeat)) }
+                        setState { copy(task = task, color = color, repeatItems = repeatItems.select(task.repeat)) }
                     }
             }
         }
@@ -93,7 +93,7 @@ class StepViewModel @Inject constructor(
             }
             StepAction.TaskAction.ResetTime -> {
                 viewModelScope.launch {
-                    val newDateTime = state.value.task.updatedTime(environment.dateTimeProvider.now().toLocalDate(), defaultTaskLocalTime())
+                    val newDateTime = state.value.task.updatedTime(environment.dateTimeProvider.now().toLocalDate(), DEFAULT_TASK_LOCAL_TIME)
                     environment.resetTaskTime(newDateTime, state.value.task.id)
                 }
             }

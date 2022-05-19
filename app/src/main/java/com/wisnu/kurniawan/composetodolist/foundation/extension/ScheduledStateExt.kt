@@ -41,9 +41,3 @@ fun List<TaskWithList>.toItemScheduledState(withHeader: Boolean): List<ItemSched
 
     return items
 }
-
-fun ItemScheduledState.identifier() = when (this) {
-    is ItemScheduledState.Header -> date.toString()
-    is ItemScheduledState.Task.Complete -> task.id
-    is ItemScheduledState.Task.InProgress -> task.id
-}

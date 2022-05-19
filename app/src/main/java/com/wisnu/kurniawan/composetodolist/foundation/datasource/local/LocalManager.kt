@@ -1,16 +1,16 @@
 package com.wisnu.kurniawan.composetodolist.foundation.datasource.local
 
 import com.wisnu.kurniawan.composetodolist.foundation.di.DiName
-import com.wisnu.kurniawan.composetodolist.foundation.extension.groupDbToGroup
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toDoGroupWithListToGroup
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toDoListWithTasksToList
+import com.wisnu.kurniawan.composetodolist.foundation.extension.toDoListWithTasksToToDoList
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toGroupDp
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toGroupIdWithList
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toList
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toListDb
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toStepDb
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toTask
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toTaskDb
+import com.wisnu.kurniawan.composetodolist.foundation.extension.toToDoGroup
+import com.wisnu.kurniawan.composetodolist.foundation.extension.toToDoList
+import com.wisnu.kurniawan.composetodolist.foundation.extension.toToDoTask
 import com.wisnu.kurniawan.composetodolist.model.GroupIdWithList
 import com.wisnu.kurniawan.composetodolist.model.TaskWithList
 import com.wisnu.kurniawan.composetodolist.model.ToDoGroup
@@ -39,14 +39,14 @@ class LocalManager @Inject constructor(
     fun getGroup(): Flow<List<ToDoGroup>> {
         return toDoReadDao.getGroup()
             .filterNotNull()
-            .map { it.groupDbToGroup() }
+            .map { it.toToDoGroup() }
             .flowOn(dispatcher)
     }
 
     fun getGroup(groupId: String): Flow<ToDoGroup> {
         return toDoReadDao.getGroup(groupId)
             .filterNotNull()
-            .map { it.groupDbToGroup() }
+            .map { it.toToDoGroup() }
             .flowOn(dispatcher)
     }
 
@@ -60,14 +60,14 @@ class LocalManager @Inject constructor(
     fun getListWithTasks(): Flow<List<ToDoList>> {
         return toDoReadDao.getListWithTasks()
             .filterNotNull()
-            .map { it.toDoListWithTasksToList() }
+            .map { it.toDoListWithTasksToToDoList() }
             .flowOn(dispatcher)
     }
 
     fun getList(): Flow<List<ToDoList>> {
         return toDoReadDao.getList()
             .filterNotNull()
-            .map { it.toList() }
+            .map { it.toToDoList() }
             .flowOn(dispatcher)
     }
 
@@ -79,20 +79,20 @@ class LocalManager @Inject constructor(
     fun getListById(listId: String): Flow<ToDoList> {
         return toDoReadDao.getListById(listId)
             .filterNotNull()
-            .map { it.toList() }
+            .map { it.toToDoList() }
             .flowOn(dispatcher)
     }
 
     fun getListByGroupId(groupId: String): Flow<List<ToDoList>> {
         return toDoReadDao.getListByGroupId(groupId)
             .filterNotNull()
-            .map { it.toList() }
+            .map { it.toToDoList() }
             .flowOn(dispatcher)
     }
 
     fun getListWithTasksById(listId: String): Flow<ToDoList> {
         return toDoReadDao.getListWithTasksById(listId)
-            .map { it.toDoListWithTasksToList() }
+            .map { it.toToDoList() }
             .flowOn(dispatcher)
     }
 
@@ -101,7 +101,7 @@ class LocalManager @Inject constructor(
             .filterNotNull()
             .map { tasks ->
                 tasks.map {
-                    TaskWithList(it.list.toList(), it.task.toTask())
+                    TaskWithList(it.list.toToDoList(), it.task.toToDoTask())
                 }
             }
             .flowOn(dispatcher)
@@ -112,7 +112,7 @@ class LocalManager @Inject constructor(
             .filterNotNull()
             .map { tasks ->
                 tasks.map {
-                    TaskWithList(it.list.toList(), it.task.toTask())
+                    TaskWithList(it.list.toToDoList(), it.task.toToDoTask())
                 }
             }
             .flowOn(dispatcher)
@@ -121,14 +121,14 @@ class LocalManager @Inject constructor(
     fun getTaskWithStepsById(taskId: String): Flow<ToDoTask> {
         return toDoReadDao.getTaskWithStepsById(taskId)
             .filterNotNull()
-            .map { it.toTask() }
+            .map { it.toToDoTask() }
             .flowOn(dispatcher)
     }
 
     fun getTaskWithListById(taskId: String): Flow<TaskWithList> {
         return toDoReadDao.getTaskWithListById(taskId)
             .filterNotNull()
-            .map { TaskWithList(it.list.toList(), it.task.toTask()) }
+            .map { TaskWithList(it.list.toToDoList(), it.task.toToDoTask()) }
             .flowOn(dispatcher)
     }
 
@@ -136,7 +136,7 @@ class LocalManager @Inject constructor(
         return toDoReadDao.searchTaskWithList(query)
             .map { tasks ->
                 tasks.map {
-                    TaskWithList(it.list.toList(), it.task.toTask())
+                    TaskWithList(it.list.toToDoList(), it.task.toToDoTask())
                 }
             }
             .flowOn(dispatcher)
@@ -144,7 +144,7 @@ class LocalManager @Inject constructor(
 
     fun getScheduledTasks(): Flow<List<ToDoTask>> {
         return toDoReadDao.getScheduledTasks()
-            .map { it.toTask() }
+            .map { it.toToDoTask() }
             .flowOn(dispatcher)
     }
 

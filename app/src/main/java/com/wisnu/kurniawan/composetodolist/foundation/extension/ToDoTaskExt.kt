@@ -1,6 +1,5 @@
 package com.wisnu.kurniawan.composetodolist.foundation.extension
 
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoTaskDb
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl
 import com.wisnu.kurniawan.composetodolist.model.ToDoRepeat
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
@@ -9,46 +8,18 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-fun List<ToDoTask>.toTaskDb(listId: String): List<ToDoTaskDb> {
-    return map {
-        ToDoTaskDb(
-            id = it.id,
-            name = it.name,
-            status = it.status,
-            listId = listId,
-            dueDate = it.dueDate,
-            completedAt = it.completedAt,
-            isDueDateTimeSet = it.isDueDateTimeSet,
-            repeat = it.repeat,
-            note = it.note,
-            noteUpdatedAt = it.noteUpdatedAt,
-            createdAt = it.createdAt,
-            updatedAt = it.updatedAt
-        )
-    }
-}
-
-fun ToDoTask.newStatus(): ToDoStatus {
-    return when (status) {
-        ToDoStatus.IN_PROGRESS -> ToDoStatus.COMPLETE
-        ToDoStatus.COMPLETE -> ToDoStatus.IN_PROGRESS
-    }
-}
+val DEFAULT_TASK_LOCAL_TIME: LocalTime = LocalTime.of(23, 59)
 
 fun ToDoTask.isDueDateSet(): Boolean = this.dueDate != null
 
 fun ToDoTask.updatedDate(newLocalDate: LocalDate): LocalDateTime {
-    val localTime = dueDate?.toLocalTime() ?: defaultTaskLocalTime()
+    val localTime = dueDate?.toLocalTime() ?: DEFAULT_TASK_LOCAL_TIME
     return LocalDateTime.of(newLocalDate, localTime)
 }
 
 fun ToDoTask.updatedTime(defaultDate: LocalDate, newLocalTime: LocalTime): LocalDateTime {
     val localDate = dueDate?.toLocalDate() ?: defaultDate
     return LocalDateTime.of(localDate, newLocalTime)
-}
-
-fun defaultTaskLocalTime(): LocalTime {
-    return LocalTime.of(23, 59)
 }
 
 fun ToDoTask.isExpired(currentDate: LocalDateTime = DateTimeProviderImpl().now()): Boolean {
@@ -100,7 +71,7 @@ suspend fun ToDoTask.toggleStatusHandler(
     onUpdateDueDate: suspend (LocalDateTime) -> Unit,
 ) {
     if (repeat == ToDoRepeat.NEVER) {
-        val newStatus = newStatus()
+        val newStatus = status.toggle()
         val completedAt = when (newStatus) {
             ToDoStatus.IN_PROGRESS -> null
             ToDoStatus.COMPLETE -> currentDate
