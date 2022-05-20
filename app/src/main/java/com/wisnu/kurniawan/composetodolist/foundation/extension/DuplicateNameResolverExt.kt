@@ -25,28 +25,51 @@ suspend fun duplicateNameResolver(
 
 fun resolveGroupName(
     name: String,
-    getToDoGroups: Flow<List<ToDoGroup>>,
+    toDoGroups: Flow<List<ToDoGroup>>,
     updateNameWithNewName: OnResolveDuplicateName,
 ): Flow<Any> {
-    return getToDoGroups
-        .take(1)
-        .map { group -> group.map { it.name } }
-        .map { names -> name.resolveDuplicate(names) }
-        .onEach { updateNameWithNewName(it) }
-        .map { Any() }
+    return resolveName(
+        name,
+        toDoGroups
+            .take(1)
+            .map { group -> group.map { it.name } },
+        updateNameWithNewName
+    )
 }
 
 fun resolveListName(
     name: String,
-    getToDoLists: Flow<List<ToDoList>>,
+    toDoLists: Flow<List<ToDoList>>,
     updateNameWithNewName: OnResolveDuplicateName,
 ): Flow<Any> {
-    return getToDoLists
-        .take(1)
-        .map { list -> list.map { it.name } }
-        .map { names -> name.resolveDuplicate(names) }
+    return resolveName(
+        name,
+        toDoLists
+            .take(1)
+            .map { list -> list.map { it.name } },
+        updateNameWithNewName
+    )
+}
+
+private fun resolveName(
+    name: String,
+    names: Flow<List<String>>,
+    updateNameWithNewName: OnResolveDuplicateName,
+): Flow<Any> {
+    return names
+        .map { name.resolveDuplicate(it) }
         .onEach { updateNameWithNewName(it) }
         .map { Any() }
+}
+
+fun String.resolveDuplicate(names: List<String>): String {
+    return if (names.any { it == this }) {
+        this
+            .addSuffixIdentifier()
+            .resolveDuplicate(names)
+    } else {
+        this
+    }
 }
 
 fun String.addSuffixIdentifier(): String {
@@ -68,13 +91,5 @@ fun String.addSuffixIdentifier(): String {
             acc.isBlank() -> cur
             else -> "$acc $cur"
         }
-    }
-}
-
-fun String.resolveDuplicate(names: List<String>): String {
-    return if (names.any { it == this }) {
-        this.addSuffixIdentifier().resolveDuplicate(names)
-    } else {
-        this
     }
 }
