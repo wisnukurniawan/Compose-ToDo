@@ -20,17 +20,20 @@ jobs:
         with:
           java-version: 11
 
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
       - name: Build project and run local tests
-        run: ./gradlew assembleDebug jacocoDebugReport --stacktrace --no-build-cache
+        run: ./gradlew assembleDebug jacocoDebugReport --stacktrace
 
       - name: Upload build outputs (APKs)
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: build-outputs
           path: ./app/build/outputs
 
       - name: Upload test report
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: report
           path: ./build/jacoco
