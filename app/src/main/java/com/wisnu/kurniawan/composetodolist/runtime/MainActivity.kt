@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.Surface
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
+import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.features.host.ui.Host
 import com.wisnu.kurniawan.composetodolist.foundation.window.WindowState
 import com.wisnu.kurniawan.composetodolist.foundation.window.rememberWindowState
@@ -17,8 +17,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var windowState: WindowState
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
-
+        setTheme(R.style.Theme_ComposeToDoList)
         super.onCreate(savedInstanceState)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)

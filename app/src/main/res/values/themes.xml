@@ -8,11 +8,11 @@
         <item name="colorSecondary">#E4E3E9</item>
         <item name="colorSecondaryContainer">#FFFFFF</item>
         <item name="colorOnSecondary">#000000</item>
-        <item name="colorSurface">#F3F2F8</item>
+        <item name="colorSurface">@color/backgroundColor</item>
         <item name="colorOnSurface">#000000</item>
         <item name="colorError">#EA6D7E</item>
         <item name="colorOnError">#FFFFFF</item>
-        <item name="backgroundColor">#F3F2F8</item>
+        <item name="backgroundColor">@color/backgroundColor</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
     </style>
@@ -25,10 +25,13 @@
         <item name="cornerSize">16dp</item>
     </style>
 
-    <style name="Theme.AppSplash" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">#F3F2F8</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_logo</item>
-        <item name="postSplashScreenTheme">@style/Theme.ComposeToDoList</item>
+    <style name="Theme.AppSplash" parent="android:Theme.DeviceDefault.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="android:opacity">opaque</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:fitsSystemWindows">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 
 </resources>
