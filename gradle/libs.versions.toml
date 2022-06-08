@@ -84,7 +84,7 @@ test-androidx-uiautomator = { group = "androidx.test.uiautomator", name = "uiaut
 test-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 test-junit = { group = "junit", name = "junit", version = "4.13.2" }
 test-robolectric = { group = "org.robolectric", name = "robolectric", version = "4.5.1" }
-test-turbine = { group = "app.cash.turbine", name = "turbine", version = "0.7.0" }
+test-turbine = { group = "app.cash.turbine", name = "turbine", version = "0.8.0" }
 
 
 [bundles]
