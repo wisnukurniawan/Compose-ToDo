@@ -4,7 +4,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.Pref
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.server.ServerManager
 import com.wisnu.kurniawan.composetodolist.model.Credential
 import com.wisnu.kurniawan.composetodolist.model.User
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
@@ -15,7 +14,6 @@ class LoginEnvironment @Inject constructor(
     private val preferenceManager: PreferenceManager
 ) : ILoginEnvironment {
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     override fun login(email: String, password: String): Flow<Any> {
         return merge(
             serverManager.fetchCredential(),

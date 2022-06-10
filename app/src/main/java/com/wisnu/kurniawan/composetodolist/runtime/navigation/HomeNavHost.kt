@@ -22,7 +22,6 @@ import com.wisnu.kurniawan.composetodolist.features.todo.groupmenu.ui.GroupMenuV
 import com.wisnu.kurniawan.composetodolist.features.todo.main.ui.ToDoMainViewModel
 import com.wisnu.kurniawan.composetodolist.features.todo.search.ui.SearchViewModel
 
-@OptIn(ExperimentalMaterialNavigationApi::class)
 fun NavGraphBuilder.HomeNavHost(
     navController: NavHostController,
     bottomSheetConfig: MutableState<MainBottomSheetConfig>
@@ -46,7 +45,6 @@ fun NavGraphBuilder.HomeNavHost(
     }
 }
 
-@OptIn(ExperimentalMaterialNavigationApi::class)
 fun NavGraphBuilder.HomeTabletNavHost(
     navController: NavHostController,
     navControllerLeft: NavHostController,

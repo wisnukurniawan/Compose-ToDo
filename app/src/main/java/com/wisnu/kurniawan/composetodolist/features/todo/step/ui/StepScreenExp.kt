@@ -32,7 +32,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.FocusState
@@ -182,7 +181,6 @@ private fun StepCellCreator(
     }
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun StepCellEditor(
     value: ToDoStepCreatorExp,
@@ -277,7 +275,7 @@ private fun DueDateCell() {
 }
 
 // Exp https://github.com/google/accompanist/issues/210
-@OptIn(ExperimentalComposeUiApi::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Preview
 @Composable
 private fun TaskStepPreview() {

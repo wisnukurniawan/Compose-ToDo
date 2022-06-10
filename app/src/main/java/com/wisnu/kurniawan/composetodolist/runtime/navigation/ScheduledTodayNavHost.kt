@@ -5,12 +5,10 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.wisnu.kurniawan.composetodolist.features.todo.scheduled.ui.ScheduledTodayScreen
 import com.wisnu.kurniawan.composetodolist.features.todo.scheduled.ui.ScheduledTodayTabletScreen
 import com.wisnu.kurniawan.composetodolist.features.todo.scheduled.ui.ScheduledViewModel
 
-@OptIn(ExperimentalMaterialNavigationApi::class)
 fun NavGraphBuilder.ScheduledTodayNavHost(
     navController: NavHostController,
 ) {
@@ -31,7 +29,6 @@ fun NavGraphBuilder.ScheduledTodayNavHost(
     }
 }
 
-@OptIn(ExperimentalMaterialNavigationApi::class)
 fun NavGraphBuilder.ScheduledTodayTabletNavHost(
     navController: NavHostController,
 ) {

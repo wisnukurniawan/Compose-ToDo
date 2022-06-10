@@ -5,11 +5,9 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.wisnu.kurniawan.composetodolist.features.todo.search.ui.SearchScreen
 import com.wisnu.kurniawan.composetodolist.features.todo.search.ui.SearchViewModel
 
-@OptIn(ExperimentalMaterialNavigationApi::class)
 fun NavGraphBuilder.SearchNavHost(
     navController: NavHostController,
 ) {

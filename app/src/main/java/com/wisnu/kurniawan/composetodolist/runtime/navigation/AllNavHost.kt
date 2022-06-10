@@ -5,12 +5,10 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.wisnu.kurniawan.composetodolist.features.todo.all.ui.AllScreen
 import com.wisnu.kurniawan.composetodolist.features.todo.all.ui.AllTabletScreen
 import com.wisnu.kurniawan.composetodolist.features.todo.all.ui.AllViewModel
 
-@OptIn(ExperimentalMaterialNavigationApi::class)
 fun NavGraphBuilder.AllNavHost(
     navController: NavHostController,
 ) {
@@ -30,7 +28,6 @@ fun NavGraphBuilder.AllNavHost(
     }
 }
 
-@OptIn(ExperimentalMaterialNavigationApi::class)
 fun NavGraphBuilder.AllTabletNavHost(
     navController: NavHostController,
 ) {

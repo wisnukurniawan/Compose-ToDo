@@ -3,7 +3,6 @@ package com.wisnu.kurniawan.composetodolist.foundation.uicomponent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -63,7 +62,6 @@ object ContentVisibility {
     const val hidden: Float = 0f
 }
 
-@OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun SwipeDismiss(
     modifier: Modifier = Modifier,
@@ -161,7 +159,7 @@ fun SwipeDismiss(
     )
 }
 
-@OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SwipeDismiss(
     modifier: Modifier = Modifier,

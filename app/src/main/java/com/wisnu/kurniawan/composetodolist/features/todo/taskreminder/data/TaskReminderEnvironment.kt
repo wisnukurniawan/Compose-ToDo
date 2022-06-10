@@ -8,7 +8,6 @@ import com.wisnu.kurniawan.composetodolist.model.TaskWithList
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import com.wisnu.kurniawan.coreLogger.Loggr
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.onEach
@@ -22,7 +21,6 @@ class TaskReminderEnvironment @Inject constructor(
     private val notificationManager: TaskNotificationManager
 ) : ITaskReminderEnvironment {
 
-    @OptIn(FlowPreview::class)
     override fun notifyNotification(taskId: String): Flow<TaskWithList> {
         return getTask(taskId)
             .onEach { (list, task) ->

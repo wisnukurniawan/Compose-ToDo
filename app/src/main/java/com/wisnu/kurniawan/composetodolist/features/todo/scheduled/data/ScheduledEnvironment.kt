@@ -6,13 +6,11 @@ import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProvider
 import com.wisnu.kurniawan.composetodolist.model.TaskWithList
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import java.time.LocalDateTime
 import javax.inject.Inject
 
-@OptIn(FlowPreview::class)
 class ScheduledEnvironment @Inject constructor(
     private val localManager: LocalManager,
     override val idProvider: IdProvider,

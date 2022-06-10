@@ -15,7 +15,6 @@ import com.wisnu.kurniawan.composetodolist.features.todo.detail.ui.ListDetailVie
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.ui.TaskEditor
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.ui.UpdateListEditor
 
-@OptIn(ExperimentalMaterialNavigationApi::class)
 fun NavGraphBuilder.ListDetailNavHost(
     navController: NavHostController,
     bottomSheetConfig: MutableState<MainBottomSheetConfig>
@@ -44,7 +43,6 @@ fun NavGraphBuilder.ListDetailNavHost(
     }
 }
 
-@OptIn(ExperimentalMaterialNavigationApi::class)
 fun NavGraphBuilder.ListDetailTabletNavHost(
     navController: NavHostController,
     bottomSheetConfig: MutableState<MainBottomSheetConfig>
