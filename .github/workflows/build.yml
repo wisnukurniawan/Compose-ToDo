@@ -37,9 +37,3 @@ jobs:
         with:
           name: report
           path: ./build/jacoco
-
-      - name: Upload test report
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./build/jacoco/app/jacocoDebugReport/jacocoDebugReport.xml
