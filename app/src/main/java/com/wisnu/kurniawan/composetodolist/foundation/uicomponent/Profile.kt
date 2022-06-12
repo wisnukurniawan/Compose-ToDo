@@ -27,7 +27,7 @@ fun Profile(email: String, modifier: Modifier = Modifier) {
             modifier = Modifier
                 .defaultMinSize(minWidth = 60.dp, minHeight = 60.dp)
                 .background(
-                    color = MaterialTheme.colorScheme.onBackground,
+                    color = MaterialTheme.colorScheme.onSurface,
                     shape = CircleShape
                 ),
             contentAlignment = Alignment.Center
@@ -35,7 +35,7 @@ fun Profile(email: String, modifier: Modifier = Modifier) {
             Text(
                 text = email.firstOrEmpty(),
                 style = MaterialTheme.typography.headlineLarge,
-                color = MaterialTheme.colorScheme.background,
+                color = MaterialTheme.colorScheme.surface,
                 modifier = Modifier.padding(bottom = 4.dp)
             )
         }

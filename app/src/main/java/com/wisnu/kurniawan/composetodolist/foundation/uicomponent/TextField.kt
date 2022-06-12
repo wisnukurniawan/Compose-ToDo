@@ -281,7 +281,7 @@ fun PgToDoCreator(
                     },
                     enabled = isValid,
                     color = if (isValid) {
-                        MaterialTheme.colorScheme.primary
+                        MaterialTheme.colorScheme.primaryContainer
                     } else {
                         MaterialTheme.colorScheme.secondaryContainer
                     },

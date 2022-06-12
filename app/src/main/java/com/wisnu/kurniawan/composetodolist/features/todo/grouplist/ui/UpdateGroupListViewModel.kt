@@ -20,7 +20,7 @@ class UpdateGroupListViewModel @Inject constructor(
     private val groupId = savedStateHandle.get<String>(ARG_GROUP_ID)
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(environment.dispatcherMain) {
             if (!groupId.isNullOrBlank()) {
                 environment.getListWithUnGroupList(groupId).collect {
                     setState {
@@ -37,13 +37,13 @@ class UpdateGroupListViewModel @Inject constructor(
     override fun dispatch(action: UpdateGroupListAction) {
         when (action) {
             UpdateGroupListAction.Submit -> {
-                viewModelScope.launch {
+                viewModelScope.launch(environment.dispatcherMain) {
                     val data = state.value.items.filter { !state.value.initialItems.contains(it) }
                     environment.updateList(data)
                 }
             }
             is UpdateGroupListAction.Change -> {
-                viewModelScope.launch {
+                viewModelScope.launch(environment.dispatcherMain) {
                     setState { copy(items = items.update(action.item, groupId.orEmpty())) }
                 }
             }

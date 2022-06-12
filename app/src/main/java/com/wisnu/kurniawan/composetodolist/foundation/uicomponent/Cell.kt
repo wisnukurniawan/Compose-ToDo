@@ -38,7 +38,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.theme.Shapes
 fun PgModalCell(
     onClick: () -> Unit,
     text: String,
-    color: Color = MaterialTheme.colorScheme.surface,
+    color: Color = MaterialTheme.colorScheme.secondary,
     textColor: Color = Color.Unspecified,
     enabled: Boolean = true,
     leftIcon: @Composable (() -> Unit)? = null,
