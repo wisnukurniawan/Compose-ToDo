@@ -268,7 +268,7 @@ sealed class SearchFlow(val name: String) {
     }
 }
 
-const val BASE_DEEPLINK = "todox://com.wisnu.kurniawan"
+const val BASE_DEEPLINK = "remindee://com.wisnu.kurniawan"
 
 const val ARG_STEP_ID = "stepId"
 const val ARG_TASK_ID = "taskId"

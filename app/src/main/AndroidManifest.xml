@@ -35,7 +35,7 @@
 
                 <data
                     android:host="com.wisnu.kurniawan"
-                    android:scheme="todox" />
+                    android:scheme="remindee" />
             </intent-filter>
         </activity>
 
