@@ -4,7 +4,6 @@ import androidx.compose.runtime.MutableState
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.bottomSheet
@@ -47,7 +46,7 @@ fun NavGraphBuilder.SettingNavHost(
                 viewModel = viewModel
             )
         }
-        composable(SettingFlow.Language.route) {
+        bottomSheet(SettingFlow.Language.route) {
             val viewModel = hiltViewModel<LocalizedSettingViewModel>()
             bottomSheetConfig.value = DefaultMainBottomSheetConfig
             LanguageScreen(

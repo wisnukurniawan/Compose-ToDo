@@ -29,7 +29,7 @@ class LocalizedSettingViewModel @Inject constructor(localizedSettingEnvironment:
     }
 
     private fun initLanguage() {
-        viewModelScope.launch {
+        viewModelScope.launch(environment.dispatcherMain) {
             environment.getLanguage()
                 .collect {
                     if (state.value.items.isNotEmpty()) {
