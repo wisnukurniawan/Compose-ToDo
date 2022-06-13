@@ -72,7 +72,7 @@ fun PgButton(
         shape = Shapes.small,
         content = content,
         colors = ButtonDefaults.buttonColors(
-            disabledContentColor = MaterialTheme.colorScheme.primary.copy(alpha = AlphaDisabled)
+            disabledContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = AlphaDisabled)
         ),
     )
 }

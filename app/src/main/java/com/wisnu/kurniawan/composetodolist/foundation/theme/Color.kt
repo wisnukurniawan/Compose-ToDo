@@ -2,34 +2,47 @@ package com.wisnu.kurniawan.composetodolist.foundation.theme
 
 import androidx.compose.ui.graphics.Color
 
+// surface mapped to background L1
+// secondary mapped as item background L1
+// secondaryContainer mapped to item background L2
+// surfaceVariant mapped to background L2
+
 val LightPrimary = Color(0xFF51A4E1)
-val LightSecondary = Color(0xFFE4E3E9) // F7F7F7
-val LightSecondaryVariant = Color(0xFFFFFFFF)
-val LightBackground = Color(0xFFF3F2F8)
+val LightBackgroundL1 = Color(0xFFFFFFFF)
+val LightItemBackgroundL1 = Color(0xFFF7F7F7)
+val LightBackgroundL2 = Color(0xFFFFFFFF)
+val LightItemBackgroundL2 = Color(0xFFF1F1F1)
+val LightOn = Color(0xFF000000)
 val LightError = Color(0xFFEA6D7E)
 
 val TwilightPrimary = Color(0xFF319DE6)
-val TwilightSecondary = Color(0xFF373945)
-val TwilightSecondaryVariant = Color(0xFF2A2D39)
-val TwilightBackground = Color(0xFF20232F)
+val TwilightBackgroundL1 = Color(0xFF20232F)
+val TwilightItemBackgroundL1 = Color(0xFF373945)
+val TwilightBackgroundL2 = Color(0xFF2A2D39)
+val TwilightItemBackgroundL2 = Color(0xFF373945)
 val TwilightOn = Color(0xFFFFFFFF)
 
-val NightPrimary = Color(0xFFF3365E)
-val NightSecondary = Color(0xFF242424)
-val NightSecondaryVariant = Color(0xFF141414)
+val NightPrimary = Color(0xFFF2355B)
+val NightBackgroundL1 = Color(0xFF000000)
+val NightItemBackgroundL1 = Color(0xFF333333)
+val NightBackgroundL2 = Color(0xFF242424)
+val NightItemBackgroundL2 = Color(0xFF383838)
+val NightOn = Color(0xFFFFFFFF)
 
-val SunrisePrimary = Color(0xFFE28241)
-val SunriseSecondary = Color(0xFFECE5D1)
-val SunriseSecondaryVariant = Color(0xFFF3EFE5)
-val SunriseBackground = Color(0xFFFEFCF5)
-val SunriseOn = Color(0xFF3F2526)
+val SunrisePrimary = Color(0xFFFE822F)
+val SunriseBackgroundL1 = Color(0xFFFFFCF3)
+val SunriseItemBackgroundL1 = Color(0xFFDCD3CC)
+val SunriseBackgroundL2 = Color(0xFFFFFCF3)
+val SunriseItemBackgroundL2 = Color(0xFFF4EFE5)
+val SunriseOn = Color(0xFF4E312F)
 val SunriseError = Color(0xFFD00036)
 
-val AuroraPrimary = Color(0xFF4D9790)
-val AuroraSecondary = Color(0xFF2D3D37)
-val AuroraSecondaryVariant = Color(0xFF1A2B24)
-val AuroraBackground = Color(0xFF071A13)
-val AuroraOn = Color(0xFFCFDFCE)
+val AuroraPrimary = Color(0xFF299A8B)
+val AuroraBackgroundL1 = Color(0xFF001B12)
+val AuroraItemBackgroundL1 = Color(0xFF335147)
+val AuroraBackgroundL2 = Color(0xFF283E37)
+val AuroraItemBackgroundL2 = Color(0xFF3D514A)
+val AuroraOn = Color(0xFFD0E0CF)
 
 val Error = Color(0xFFB00020)
 
