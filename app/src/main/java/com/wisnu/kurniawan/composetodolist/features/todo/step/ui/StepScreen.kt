@@ -487,7 +487,7 @@ private fun StepContent(
                     .clip(shape)
                     .clickable(onClick = onClickUpdateNote),
                 shape = shape,
-                color = MaterialTheme.colorScheme.secondaryContainer
+                color = MaterialTheme.colorScheme.secondary
             ) {
                 Column(
                     modifier = Modifier.padding(all = 16.dp)
@@ -613,7 +613,7 @@ private fun ActionCell(
                 .clip(shape)
                 .clickable(onClick = onClick),
             shape = shape,
-            color = MaterialTheme.colorScheme.secondaryContainer
+            color = MaterialTheme.colorScheme.secondary
         ) {
             ActionContentCell(
                 title = title,
@@ -630,7 +630,7 @@ private fun ActionCell(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
             shape = shape,
-            color = MaterialTheme.colorScheme.secondaryContainer
+            color = MaterialTheme.colorScheme.secondary
         ) {
             ActionContentCell(
                 title = title,
@@ -690,9 +690,9 @@ private fun ActionContentCell(
                     Modifier
                         .width(52.dp)
                         .height(1.dp)
-                        .background(color = MaterialTheme.colorScheme.secondaryContainer)
+                        .background(color = MaterialTheme.colorScheme.secondary)
                 )
-                Divider()
+                Divider(color = MaterialTheme.colorScheme.onSurface.copy(alpha = DividerAlpha))
             }
         }
     }

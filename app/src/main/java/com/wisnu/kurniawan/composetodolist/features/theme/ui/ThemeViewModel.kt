@@ -14,8 +14,8 @@ import com.wisnu.kurniawan.composetodolist.foundation.theme.NightPrimary
 import com.wisnu.kurniawan.composetodolist.foundation.theme.NightSecondaryVariant
 import com.wisnu.kurniawan.composetodolist.foundation.theme.SunrisePrimary
 import com.wisnu.kurniawan.composetodolist.foundation.theme.SunriseSecondaryVariant
+import com.wisnu.kurniawan.composetodolist.foundation.theme.TwilightItemBackgroundL1
 import com.wisnu.kurniawan.composetodolist.foundation.theme.TwilightPrimary
-import com.wisnu.kurniawan.composetodolist.foundation.theme.TwilightSecondaryVariant
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.model.Theme
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -106,7 +106,7 @@ class ThemeViewModel @Inject constructor(
                 Brush.linearGradient(
                     colors = listOf(
                         TwilightPrimary,
-                        TwilightSecondaryVariant
+                        TwilightItemBackgroundL1
                     )
                 ),
                 false

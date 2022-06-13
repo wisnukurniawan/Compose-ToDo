@@ -71,7 +71,7 @@ private fun ThemeItem(
         color = if (item.applied) {
             MaterialTheme.colorScheme.primary
         } else {
-            MaterialTheme.colorScheme.secondary
+            MaterialTheme.colorScheme.secondaryContainer
         },
         leftIcon = @Composable {
             val brush = if (item.theme == Theme.WALLPAPER) {

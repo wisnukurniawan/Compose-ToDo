@@ -245,7 +245,7 @@ private fun OverallTaskCell(
         color = if (isSelected) {
             iconColor
         } else {
-            MaterialTheme.colorScheme.secondaryContainer
+            MaterialTheme.colorScheme.secondary
         }
     ) {
         Column(
@@ -370,7 +370,7 @@ private fun ListCell(
     SwipeDismiss(
         backgroundModifier = Modifier
             .padding(horizontal = 16.dp)
-            .background(MaterialTheme.colorScheme.secondary, shape),
+            .background(MaterialTheme.colorScheme.secondaryContainer, shape),
         backgroundSecondaryModifier = Modifier.clip(shape),
         content = {
             Surface(
@@ -383,7 +383,7 @@ private fun ListCell(
                 color = if (isSelected) {
                     MaterialTheme.colorScheme.primaryContainer
                 } else {
-                    MaterialTheme.colorScheme.secondaryContainer
+                    MaterialTheme.colorScheme.secondary
                 }
             ) {
                 Column {
@@ -450,7 +450,7 @@ private fun PgDivider(
                 Modifier
                     .width(48.dp)
                     .height(1.dp)
-                    .background(color = MaterialTheme.colorScheme.secondaryContainer)
+                    .background(color = MaterialTheme.colorScheme.secondary)
             )
         }
         Divider(color = color)

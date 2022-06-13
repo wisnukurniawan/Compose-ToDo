@@ -64,7 +64,7 @@ private fun GroupMenuScreen(
                             onClick = onAddRemoveClick,
                             title = stringResource(item.title),
                             imageVector = Icons.Rounded.List,
-                            color = MaterialTheme.colorScheme.secondary,
+                            color = MaterialTheme.colorScheme.secondaryContainer,
                             enabled = item.enabled
                         )
                     }
@@ -82,7 +82,7 @@ private fun GroupMenuScreen(
                             onClick = onRenameClick,
                             title = stringResource(item.title),
                             imageVector = Icons.Rounded.DriveFileRenameOutline,
-                            color = MaterialTheme.colorScheme.secondary,
+                            color = MaterialTheme.colorScheme.secondaryContainer,
                             enabled = item.enabled
                         )
                     }

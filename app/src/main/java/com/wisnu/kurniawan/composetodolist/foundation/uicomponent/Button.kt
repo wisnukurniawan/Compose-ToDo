@@ -28,7 +28,8 @@ fun PgModalBackButton(
 ) {
     PgIconButton(
         onClick = onClick,
-        modifier = Modifier.size(28.dp)
+        modifier = Modifier.size(28.dp),
+        color = MaterialTheme.colorScheme.secondaryContainer
     ) {
         PgIcon(
             imageVector = imageVector,

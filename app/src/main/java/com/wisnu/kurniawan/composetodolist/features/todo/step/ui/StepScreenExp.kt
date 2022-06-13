@@ -129,7 +129,7 @@ private fun StepCell(
     SwipeDismiss(
         modifier = modifier,
         backgroundModifier = Modifier
-            .background(MaterialTheme.colorScheme.secondary),
+            .background(MaterialTheme.colorScheme.secondaryContainer),
         content = {
             Surface(
                 modifier = Modifier
