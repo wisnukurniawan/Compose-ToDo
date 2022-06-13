@@ -1,6 +1,5 @@
 package com.wisnu.kurniawan.composetodolist.foundation.theme
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
@@ -109,7 +108,6 @@ val AuroraColorPalette = darkColorScheme(
     onError = AuroraOn
 )
 
-@SuppressLint("NewApi")
 @Composable
 fun Theme(
     theme: Theme,

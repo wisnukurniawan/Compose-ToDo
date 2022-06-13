@@ -283,7 +283,7 @@ fun PgToDoCreator(
                     color = if (isValid) {
                         MaterialTheme.colorScheme.primaryContainer
                     } else {
-                        MaterialTheme.colorScheme.secondaryContainer // TODO checked
+                        MaterialTheme.colorScheme.secondaryContainer
                     },
                     modifier = Modifier.size(42.dp)
                 ) {
