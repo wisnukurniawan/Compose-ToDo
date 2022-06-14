@@ -57,7 +57,7 @@ android {
     signingConfigs {
         release {
             Properties properties = new Properties()
-            properties.load(project.rootProject.file('local.properties').newDataInputStream())
+            properties.load(project.rootProject.file('keystore.properties').newDataInputStream())
 
             storeFile file("${properties.getProperty('RELEASE_STORE_FILE')}")
             storePassword "${properties.getProperty('RELEASE_STORE_PASSWORD')}"
