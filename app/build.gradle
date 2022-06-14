@@ -5,6 +5,9 @@ plugins {
     id 'kotlin-kapt'
     id 'com.squareup.wire'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+    id 'com.google.firebase.firebase-perf'
 }
 
 apply from: "$rootDir/gradle/test-report.gradle"
@@ -62,6 +65,9 @@ android {
             signingConfig signingConfigs.debug
             matchingFallbacks = ['release']
             proguardFiles("benchmark-rules.pro")
+        }
+        debug {
+            applicationIdSuffix ".debug"
         }
     }
 
@@ -170,6 +176,12 @@ dependencies {
 
     // Logger
     implementation projects.coreLogger
+
+    // Analytics
+    implementation platform(libs.google.firebase)
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-perf-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
 
 
     ///////////////

@@ -15,4 +15,6 @@ interface IListDetailEnvironment {
     suspend fun createTask(taskName: String, listId: String)
     suspend fun toggleTaskStatus(toDoTask: ToDoTask)
     suspend fun deleteTask(task: ToDoTask)
+
+    fun trackSaveListButtonClicked()
 }

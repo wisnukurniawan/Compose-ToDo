@@ -19,6 +19,7 @@ androidxStartup = "1.2.0-alpha01"
 androidxWindow = "1.1.0-alpha02"
 composeLottie = "5.2.0"
 composeWidget = "1.0.0-alpha03"
+firebase = "30.1.0"
 hilt = "2.42"
 kotlin = "1.6.21"
 kotlinxCoroutines = "1.6.2"
@@ -31,10 +32,13 @@ room = "2.5.0-alpha02"
 
 [libraries]
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
+google-firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version = "2.9.0" }
+google-firebase-performance-gradlePlugin = { group = "com.google.firebase", name = "perf-plugin", version = "1.4.1" }
 google-hilt-gradlePlugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "hilt" }
 google-kspPlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version = "1.7.0-1.0.6" }
+google-servicesPlugin = { group = "com.google.gms", name = "google-services", version = "4.3.10" }
 jetbrains-kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
-squareup-wireGradlePlugin = { group = "com.squareup.wire", name = "wire-gradle-plugin", version.ref = "protoWirePlugin" }
+squareup-wire-gradlePlugin = { group = "com.squareup.wire", name = "wire-gradle-plugin", version.ref = "protoWirePlugin" }
 
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
@@ -60,6 +64,7 @@ androidx-startup = { group = "androidx.startup", name = "startup-runtime", versi
 androidx-window = { group = "androidx.window", name = "window", version.ref = "androidxWindow" }
 google-accompanist-navigation = { group = "com.google.accompanist", name = "accompanist-navigation-material", version.ref = "accompanist" }
 google-accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }
+google-firebase = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase" }
 google-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 google-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 google-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
