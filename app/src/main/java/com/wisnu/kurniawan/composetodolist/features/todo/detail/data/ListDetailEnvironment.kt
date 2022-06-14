@@ -1,5 +1,7 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.detail.data
 
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.wisnu.kurniawan.composetodolist.foundation.analytic.AnalyticManager
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.LocalManager
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoGroupDb
 import com.wisnu.kurniawan.composetodolist.foundation.extension.OnResolveDuplicateName
@@ -20,6 +22,7 @@ class ListDetailEnvironment @Inject constructor(
     private val localManager: LocalManager,
     override val idProvider: IdProvider,
     override val dateTimeProvider: DateTimeProvider,
+    private val analyticManager: AnalyticManager
 ) : IListDetailEnvironment {
 
     override fun getListWithTasksById(listId: String): Flow<ToDoList> {
@@ -84,6 +87,16 @@ class ListDetailEnvironment @Inject constructor(
 
     override suspend fun deleteTask(task: ToDoTask) {
         localManager.deleteTaskById(task.id)
+    }
+
+    override fun trackSaveListButtonClicked() {
+        analyticManager.trackEvent(
+            FirebaseAnalytics.Event.SELECT_CONTENT,
+            mapOf(
+                FirebaseAnalytics.Param.SCREEN_NAME to "list_detail",
+                FirebaseAnalytics.Param.ITEM_NAME to "button_save_list",
+            ),
+        )
     }
 
 }

@@ -68,9 +68,6 @@ android {
         }
         debug {
             applicationIdSuffix ".debug"
-            FirebasePerformance {
-                instrumentationEnabled false
-            }
         }
     }
 
