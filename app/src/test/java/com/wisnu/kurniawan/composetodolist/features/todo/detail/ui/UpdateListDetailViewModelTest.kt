@@ -97,6 +97,10 @@ class UpdateListDetailViewModelTest : BaseViewModelTest() {
         override suspend fun deleteTask(toDoTask: ToDoTask) {
 
         }
+
+        override fun trackSaveListButtonClicked() {
+
+        }
     }
 
 }

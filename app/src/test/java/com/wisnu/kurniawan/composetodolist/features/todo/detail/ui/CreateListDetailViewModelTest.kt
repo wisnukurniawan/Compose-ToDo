@@ -226,6 +226,10 @@ class CreateListDetailViewModelTest : BaseViewModelTest() {
         override suspend fun deleteTask(toDoTask: ToDoTask) {
 
         }
+
+        override fun trackSaveListButtonClicked() {
+
+        }
     }
 
     private fun buildEnvironment(
@@ -259,6 +263,10 @@ class CreateListDetailViewModelTest : BaseViewModelTest() {
         }
 
         override suspend fun deleteTask(toDoTask: ToDoTask) {
+
+        }
+
+        override fun trackSaveListButtonClicked() {
 
         }
     }
