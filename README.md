@@ -13,11 +13,11 @@ Compose playground for learning purpose
 * Uses [Hilt](https://dagger.dev/hilt/) for dependency injection
 * Uses [Java 8+ API desugaring support](https://developer.android.com/studio/write/java8-support#library-desugaring) for date and time usage
 
-| Large screen | Foldable |
-| ---- | ---- |
-| <img src="art/landscape.gif" width="400"> | <img src="art/foldable.gif" width="260"> |
-| Multi language | Set alarm |
-| <img src="art/language.gif" width="260"> | <img src="art/duedate.gif" width="260"> |
+<img src="art/ps-1.png" width="260">  <img src="art/ps-2.png" width="260">  <img src="art/ps-3.png" width="260">
+
+## Large screen
+
+ <img src="art/landscape.gif" width="400"> <img src="art/foldable.gif" width="260">
 
 ## Prerequisites
 
