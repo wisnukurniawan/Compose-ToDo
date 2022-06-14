@@ -67,7 +67,7 @@
                 android:value="androidx.startup" />
 
             <meta-data
-                android:name="com.wisnu.kurniawan.composetodolist.runtime.initializer.LoggrInitializer"
+                android:name="com.wisnu.kurniawan.composetodolist.runtime.initializer.ActivityLifecycleLoggrInitializer"
                 android:value="androidx.startup" />
         </provider>
     </application>
