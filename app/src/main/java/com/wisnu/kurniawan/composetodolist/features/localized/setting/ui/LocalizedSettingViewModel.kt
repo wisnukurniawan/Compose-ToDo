@@ -23,6 +23,7 @@ class LocalizedSettingViewModel @Inject constructor(localizedSettingEnvironment:
             is LocalizedSettingAction.SelectLanguage -> {
                 viewModelScope.launch {
                     environment.setLanguage(action.selected.language)
+                    setEffect(LocalizedEffect.ApplyLanguage(action.selected.language))
                 }
             }
         }
@@ -32,10 +33,6 @@ class LocalizedSettingViewModel @Inject constructor(localizedSettingEnvironment:
         viewModelScope.launch(environment.dispatcherMain) {
             environment.getLanguage()
                 .collect {
-                    if (state.value.items.isNotEmpty()) {
-                        setEffect(LocalizedEffect.ApplyLanguage(it))
-                    }
-
                     setState { copy(items = initial().select(it)) }
                 }
         }

@@ -54,11 +54,24 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        release {
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+            storeFile file("${properties.getProperty('RELEASE_STORE_FILE')}")
+            storePassword "${properties.getProperty('RELEASE_STORE_PASSWORD')}"
+            keyAlias "${properties.getProperty('RELEASE_KEY_ALIAS')}"
+            keyPassword "${properties.getProperty('RELEASE_KEY_PASSWORD')}"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
         benchmark {
             initWith buildTypes.release
