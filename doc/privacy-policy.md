@@ -1,4 +1,4 @@
-## Shake Alarm Clock: Privacy policy
+## Remindee reminder app: Privacy policy
 
 Welcome to the Remindee app for Android!
 
