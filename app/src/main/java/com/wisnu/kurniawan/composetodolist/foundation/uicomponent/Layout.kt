@@ -68,7 +68,7 @@ fun PgModalLazyColumn(
 ) {
     Box(
         modifier = Modifier.background(
-            color = MaterialTheme.colorScheme.surfaceVariant,
+            color = MaterialTheme.colorScheme.background,
             shape = shape
         )
     ) {
@@ -90,7 +90,7 @@ fun PgModalRow(
 ) {
     Box(
         modifier = Modifier.background(
-            color = MaterialTheme.colorScheme.surfaceVariant
+            color = MaterialTheme.colorScheme.background
         )
     ) {
         Row(

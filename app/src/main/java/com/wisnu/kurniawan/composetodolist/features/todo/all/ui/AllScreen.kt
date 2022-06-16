@@ -318,7 +318,7 @@ private fun MoreMenu(
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = onDismissRequest,
-            modifier = Modifier.width(220.dp).background(MaterialTheme.colorScheme.secondaryContainer)
+            modifier = Modifier.width(220.dp).background(MaterialTheme.colorScheme.surfaceVariant)
         ) {
             DropdownMenuItem(
                 text = {

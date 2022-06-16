@@ -60,6 +60,6 @@ private fun SettingItem(
     PgModalCell(
         onClick = onClick,
         text = title,
-        color = MaterialTheme.colorScheme.secondaryContainer
+        color = MaterialTheme.colorScheme.surfaceVariant
     )
 }

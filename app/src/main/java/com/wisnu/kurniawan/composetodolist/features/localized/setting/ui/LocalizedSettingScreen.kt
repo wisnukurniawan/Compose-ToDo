@@ -90,7 +90,7 @@ private fun LanguageItem(
         color = if (item.applied) {
             MaterialTheme.colorScheme.primary
         } else {
-            MaterialTheme.colorScheme.secondaryContainer
+            MaterialTheme.colorScheme.surfaceVariant
         },
         rightIcon = if (item.applied) {
             @Composable {

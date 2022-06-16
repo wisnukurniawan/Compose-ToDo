@@ -73,7 +73,7 @@ fun TaskCreator(
                 .clip(Shapes.small)
                 .clickable(onClick = onClick),
             shape = Shapes.small,
-            color = MaterialTheme.colorScheme.secondaryContainer,
+            color = MaterialTheme.colorScheme.surfaceVariant,
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,

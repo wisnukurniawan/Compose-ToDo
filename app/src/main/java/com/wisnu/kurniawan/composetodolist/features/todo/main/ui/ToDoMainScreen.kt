@@ -370,7 +370,7 @@ private fun ListCell(
     SwipeDismiss(
         backgroundModifier = Modifier
             .padding(horizontal = 16.dp)
-            .background(MaterialTheme.colorScheme.secondaryContainer, shape),
+            .background(MaterialTheme.colorScheme.surfaceVariant, shape),
         backgroundSecondaryModifier = Modifier.clip(shape),
         content = {
             Surface(
