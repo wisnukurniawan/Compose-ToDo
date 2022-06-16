@@ -22,14 +22,14 @@ val LightColorPalette = lightColorScheme(
     surface = LightBackgroundL1,
     surfaceVariant = LightItemBackgroundL2,
     error = LightError,
-    onPrimary = LightOn,
-    onPrimaryContainer = LightOn,
+    onPrimary = Color.White,
+    onPrimaryContainer = Color.White,
     onSecondary = LightOn,
     onSecondaryContainer = LightOn,
     onBackground = LightOn,
     onSurface = LightOn,
     onSurfaceVariant = LightOn,
-    onError = LightOn
+    onError = Color.White
 )
 
 val TwilightColorPalette = lightColorScheme(
@@ -48,7 +48,7 @@ val TwilightColorPalette = lightColorScheme(
     onBackground = TwilightOn,
     onSurface = TwilightOn,
     onSurfaceVariant = TwilightOn,
-    onError = TwilightOn
+    onError = Color.White
 )
 
 val NightColorPalette = darkColorScheme(
@@ -67,7 +67,7 @@ val NightColorPalette = darkColorScheme(
     onBackground = NightOn,
     onSurface = NightOn,
     onSurfaceVariant = NightOn,
-    onError = NightOn
+    onError = Color.White
 )
 
 val SunriseColorPalette = darkColorScheme(
@@ -86,7 +86,7 @@ val SunriseColorPalette = darkColorScheme(
     onBackground = SunriseOn,
     onSurface = SunriseOn,
     onSurfaceVariant = SunriseOn,
-    onError = SunriseOn
+    onError = Color.White
 )
 
 val AuroraColorPalette = darkColorScheme(
@@ -105,7 +105,7 @@ val AuroraColorPalette = darkColorScheme(
     onBackground = AuroraOn,
     onSurface = AuroraOn,
     onSurfaceVariant = AuroraOn,
-    onError = AuroraOn
+    onError = Color.White
 )
 
 @Composable
