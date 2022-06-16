@@ -9,7 +9,7 @@
         android:name="com.wisnu.kurniawan.composetodolist.runtime.ComposeToDoListApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="${APP_NAME}"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppSplash">

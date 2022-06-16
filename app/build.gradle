@@ -66,6 +66,22 @@ android {
         }
     }
 
+    applicationVariants.all { variant ->
+        def variantName = variant.getName()
+        def debug = variantName.contains('debug')
+        def appName
+
+        if (debug) {
+            appName = app_name_debug
+        } else {
+            appName = app_name_release
+        }
+
+        variant.mergedFlavor.manifestPlaceholders = [
+                APP_NAME   : appName,
+        ]
+    }
+
     buildTypes {
         release {
             minifyEnabled true
