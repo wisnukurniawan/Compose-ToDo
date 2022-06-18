@@ -6,8 +6,8 @@
 6. learn gesture
 7. Check proguard, especially wire
 8. Move string copies xml to kotlin interface. (postpone maybe until Im sure will use compose 100%)
-9. Release prep, integrate firebase crashlytics
-10. build todo app in flutter
-11. learn glance widget
-12. learn wear compose
-13. Support rich text eg: link
+9. build todo app in flutter
+10. learn glance widget
+11. learn wear compose
+12. Support rich text eg: link
+13. Adjust typography theme compose + xml
