@@ -2,7 +2,7 @@
 
 ## Compose playground: To Do List App
 
-<img src="art/playstore_icon.png" width="140">
+<a href='https://play.google.com/store/apps/details?id=com.wisnu.kurniawan.composetodolist'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' width=240/></a>
 
 Compose playground for learning purpose
 

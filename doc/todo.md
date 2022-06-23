@@ -11,3 +11,5 @@
 11. learn wear compose
 12. Support rich text eg: link
 13. Adjust typography theme compose + xml
+14. https://github.com/josefdeutsch/KotlinAdvanced/blob/master/app/src/main/kotlin/net/samystudio/beaver/ext/SystemBar.kt
+15. https://github.com/ninjahome/ninja-android/blob/main/ninja/app/src/main/java/com/ninjahome/ninja/utils/MoshiUtils.kt
