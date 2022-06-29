@@ -8,6 +8,7 @@ import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.temporal.ChronoUnit
+import java.util.*
 
 fun LocalDateTime.isSameDay(dateTime: LocalDateTime): Boolean {
     return toLocalDate().isEqual(dateTime.toLocalDate())
@@ -33,7 +34,7 @@ fun LocalDateTime.formatDateTime(currentDate: LocalDateTime = DateTimeProviderIm
     val patternWithYear = "EEE, dd MMM yyyy"
     val patternWithoutYear = "EEE, dd MMM"
     val zoneId = ZoneId.systemDefault()
-    val locale = AppCompatDelegate.getApplicationLocales().get(0)
+    val locale = AppCompatDelegate.getApplicationLocales().get(0) ?: Locale.getDefault()
 
     return if (year == currentDate.year) {
         SimpleDateFormat(patternWithoutYear, locale).format(atZone(zoneId).toInstant().toEpochMilli())

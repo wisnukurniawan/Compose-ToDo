@@ -23,6 +23,7 @@ import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -131,7 +132,7 @@ class TaskNotificationManager @Inject constructor(@ApplicationContext private va
     }
 
     private fun getLocalizedContext(): Context {
-        val locale = AppCompatDelegate.getApplicationLocales().get(0)
+        val locale = AppCompatDelegate.getApplicationLocales().get(0) ?: Locale.getDefault()
         return LocalizationUtil.applyLanguageContext(context, locale)
     }
 
