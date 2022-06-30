@@ -8,117 +8,91 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.wisnu.kurniawan.composetodolist.R
 
-private val Roboto = FontFamily(
-    Font(R.font.roboto_light, FontWeight.Light),
-    Font(R.font.roboto_regular, FontWeight.Normal),
-    Font(R.font.roboto_medium, FontWeight.Medium),
-    Font(R.font.roboto_bold, FontWeight.SemiBold)
+private val Sans = FontFamily(
+    Font(R.font.sans_light, FontWeight.Light),
+    Font(R.font.sans_regular, FontWeight.Normal),
+    Font(R.font.sans_medium, FontWeight.Medium),
+    Font(R.font.sans_bold, FontWeight.SemiBold)
+)
+
+private val Lato = FontFamily(
+    Font(R.font.lato_regular, FontWeight.Normal),
 )
 
 val Typography = Typography(
     displayLarge = TextStyle(
-        fontFamily = Roboto,
-        fontWeight = FontWeight.Light,
+        fontFamily = Lato,
+        fontWeight = FontWeight.Normal,
         fontSize = 57.sp,
-        lineHeight = 64.sp,
-        letterSpacing = 0.sp
     ),
     displayMedium = TextStyle(
-        fontFamily = Roboto,
-        fontWeight = FontWeight.Light,
+        fontFamily = Lato,
+        fontWeight = FontWeight.Normal,
         fontSize = 45.sp,
-        lineHeight = 52.sp,
-        letterSpacing = 0.sp
     ),
     displaySmall = TextStyle(
-        fontFamily = Roboto,
+        fontFamily = Lato,
         fontWeight = FontWeight.Normal,
         fontSize = 36.sp,
-        lineHeight = 44.sp,
-        letterSpacing = 0.sp
     ),
     headlineLarge = TextStyle(
-        fontWeight = FontWeight.SemiBold,
-        fontFamily = Roboto,
+        fontFamily = Lato,
+        fontWeight = FontWeight.Normal,
         fontSize = 32.sp,
-        lineHeight = 40.sp,
-        letterSpacing = 0.sp
     ),
     headlineMedium = TextStyle(
-        fontFamily = Roboto,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 28.sp,
-        lineHeight = 36.sp,
-        letterSpacing = 0.sp
+        fontFamily = Lato,
+        fontWeight = FontWeight.Normal,
+        fontSize = 24.sp,
     ),
     headlineSmall = TextStyle(
-        fontFamily = Roboto,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 24.sp,
-        lineHeight = 32.sp,
-        letterSpacing = 0.sp
+        fontFamily = Lato,
+        fontWeight = FontWeight.Normal,
+        fontSize = 21.sp,
     ),
     titleLarge = TextStyle(
-        fontFamily = Roboto,
+        fontFamily = Sans,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 22.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.sp
+        fontSize = 32.sp,
     ),
     titleMedium = TextStyle(
-        fontFamily = Roboto,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.15.sp
+        fontFamily = Sans,
+        fontWeight = FontWeight.Medium,
+        fontSize = 21.sp,
     ),
     titleSmall = TextStyle(
-        fontFamily = Roboto,
-        fontWeight = FontWeight.Medium,
-        fontSize = 14.sp,
-        lineHeight = 20.sp,
-        letterSpacing = 0.1.sp
+        fontFamily = Sans,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
     ),
     bodyLarge = TextStyle(
-        fontFamily = Roboto,
-        fontWeight = FontWeight.Medium,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.15.sp
+        fontFamily = Sans,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp,
     ),
     bodyMedium = TextStyle(
-        fontFamily = Roboto,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 14.sp,
-        lineHeight = 20.sp,
-        letterSpacing = 0.25.sp
+        fontFamily = Sans,
+        fontWeight = FontWeight.Normal,
+        fontSize = 13.sp,
     ),
     bodySmall = TextStyle(
-        fontFamily = Roboto,
-        fontWeight = FontWeight.SemiBold,
+        fontFamily = Sans,
+        fontWeight = FontWeight.Normal,
         fontSize = 12.sp,
-        lineHeight = 16.sp,
-        letterSpacing = 0.4.sp
     ),
     labelLarge = TextStyle(
-        fontFamily = Roboto,
-        fontWeight = FontWeight.SemiBold,
+        fontFamily = Sans,
+        fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
-        lineHeight = 20.sp,
-        letterSpacing = 0.1.sp
     ),
     labelMedium = TextStyle(
-        fontFamily = Roboto,
+        fontFamily = Sans,
         fontWeight = FontWeight.Normal,
         fontSize = 12.sp,
-        lineHeight = 16.sp,
-        letterSpacing = 0.5.sp
     ),
     labelSmall = TextStyle(
-        fontFamily = Roboto,
+        fontFamily = Sans,
         fontWeight = FontWeight.Normal,
-        fontSize = 10.sp,
-        lineHeight = 16.sp,
-        letterSpacing = 0.5.sp
+        fontSize = 9.sp,
     )
 )

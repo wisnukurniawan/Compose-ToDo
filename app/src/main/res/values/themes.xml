@@ -2,19 +2,118 @@
 <resources>
 
     <style name="Theme.ComposeToDoList" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryContainer">@color/primary</item>
-        <item name="colorOnPrimary">#FFFFFF</item>
-        <item name="colorSecondary">#E4E3E9</item>
-        <item name="colorSecondaryContainer">#FFFFFF</item>
-        <item name="colorOnSecondary">#000000</item>
-        <item name="colorSurface">@color/backgroundColor</item>
-        <item name="colorOnSurface">#000000</item>
-        <item name="colorError">#EA6D7E</item>
-        <item name="colorOnError">#FFFFFF</item>
-        <item name="backgroundColor">@color/backgroundColor</item>
+        <item name="textAppearanceDisplayLarge">@style/TextAppearance.App.DisplayLarge</item>
+        <item name="textAppearanceDisplayMedium">@style/TextAppearance.App.DisplayMedium</item>
+        <item name="textAppearanceDisplaySmall">@style/TextAppearance.App.DisplaySmall</item>
+        <item name="textAppearanceHeadlineLarge">@style/TextAppearance.App.HeadlineLarge</item>
+        <item name="textAppearanceHeadlineMedium">@style/TextAppearance.App.HeadlineMedium</item>
+        <item name="textAppearanceHeadlineSmall">@style/TextAppearance.App.HeadlineSmall</item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.App.TitleLarge</item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.App.TitleMedium</item>
+        <item name="textAppearanceTitleSmall">@style/TextAppearance.App.TitleSmall</item>
+        <item name="textAppearanceBodyLarge">@style/TextAppearance.App.BodyLarge</item>
+        <item name="textAppearanceBodyMedium">@style/TextAppearance.App.BodyMedium</item>
+        <item name="textAppearanceBodySmall">@style/TextAppearance.App.BodySmall</item>
+        <item name="textAppearanceLabelLarge">@style/TextAppearance.App.LabelLarge</item>
+        <item name="textAppearanceLabelMedium">@style/TextAppearance.App.LabelMedium</item>
+        <item name="textAppearanceLabelSmall">@style/TextAppearance.App.LabelSmall</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+    </style>
+
+    <style name="Theme.ComposeToDoList.Light" parent="Theme.ComposeToDoList">
+        <item name="colorPrimary">@color/light_primary</item>
+        <item name="colorPrimaryContainer">@color/light_primary</item>
+        <item name="colorSecondary">@color/light_item_background_l1</item>
+        <item name="colorSecondaryContainer">@color/light_item_background_l1</item>
+        <item name="backgroundColor">@color/light_background_l2</item>
+        <item name="colorSurface">@color/light_background_l1</item>
+        <item name="colorSurfaceVariant">@color/light_item_background_l2</item>
+        <item name="colorError">@color/light_error</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorOnPrimaryContainer">#FFFFFF</item>
+        <item name="colorOnSecondary">@color/light_on</item>
+        <item name="colorOnSecondaryContainer">@color/light_on</item>
+        <item name="colorOnBackground">@color/light_on</item>
+        <item name="colorOnSurface">@color/light_on</item>
+        <item name="colorOnSurfaceVariant">@color/light_on</item>
+        <item name="colorOnError">#FFFFFF</item>
+    </style>
+
+    <style name="Theme.ComposeToDoList.Twilight" parent="Theme.ComposeToDoList">
+        <item name="colorPrimary">@color/twilight_primary</item>
+        <item name="colorPrimaryContainer">@color/twilight_primary</item>
+        <item name="colorSecondary">@color/twilight_item_background_l1</item>
+        <item name="colorSecondaryContainer">@color/twilight_item_background_l1</item>
+        <item name="backgroundColor">@color/twilight_background_l2</item>
+        <item name="colorSurface">@color/twilight_background_l1</item>
+        <item name="colorSurfaceVariant">@color/twilight_item_background_l2</item>
+        <item name="colorError">@color/error</item>
+        <item name="colorOnPrimary">@color/twilight_on</item>
+        <item name="colorOnPrimaryContainer">@color/twilight_on</item>
+        <item name="colorOnSecondary">@color/twilight_on</item>
+        <item name="colorOnSecondaryContainer">@color/twilight_on</item>
+        <item name="colorOnBackground">@color/twilight_on</item>
+        <item name="colorOnSurface">@color/twilight_on</item>
+        <item name="colorOnSurfaceVariant">@color/twilight_on</item>
+        <item name="colorOnError">#FFFFFF</item>
+    </style>
+
+    <style name="Theme.ComposeToDoList.Night" parent="Theme.ComposeToDoList">
+        <item name="colorPrimary">@color/night_primary</item>
+        <item name="colorPrimaryContainer">@color/night_primary</item>
+        <item name="colorSecondary">@color/night_item_background_l1</item>
+        <item name="colorSecondaryContainer">@color/night_item_background_l1</item>
+        <item name="backgroundColor">@color/night_background_l2</item>
+        <item name="colorSurface">@color/night_background_l1</item>
+        <item name="colorSurfaceVariant">@color/night_item_background_l2</item>
+        <item name="colorError">@color/error</item>
+        <item name="colorOnPrimary">@color/night_on</item>
+        <item name="colorOnPrimaryContainer">@color/night_on</item>
+        <item name="colorOnSecondary">@color/night_on</item>
+        <item name="colorOnSecondaryContainer">@color/night_on</item>
+        <item name="colorOnBackground">@color/night_on</item>
+        <item name="colorOnSurface">@color/night_on</item>
+        <item name="colorOnSurfaceVariant">@color/night_on</item>
+        <item name="colorOnError">#FFFFFF</item>
+    </style>
+
+    <style name="Theme.ComposeToDoList.Sunrise" parent="Theme.ComposeToDoList">
+        <item name="colorPrimary">@color/sunrise_primary</item>
+        <item name="colorPrimaryContainer">@color/sunrise_primary</item>
+        <item name="colorSecondary">@color/sunrise_item_background_l1</item>
+        <item name="colorSecondaryContainer">@color/sunrise_item_background_l1</item>
+        <item name="backgroundColor">@color/sunrise_background_l2</item>
+        <item name="colorSurface">@color/sunrise_background_l1</item>
+        <item name="colorSurfaceVariant">@color/sunrise_item_background_l2</item>
+        <item name="colorError">@color/sunrise_error</item>
+        <item name="colorOnPrimary">@color/sunrise_on</item>
+        <item name="colorOnPrimaryContainer">@color/sunrise_on</item>
+        <item name="colorOnSecondary">@color/sunrise_on</item>
+        <item name="colorOnSecondaryContainer">@color/sunrise_on</item>
+        <item name="colorOnBackground">@color/sunrise_on</item>
+        <item name="colorOnSurface">@color/sunrise_on</item>
+        <item name="colorOnSurfaceVariant">@color/sunrise_on</item>
+        <item name="colorOnError">#FFFFFF</item>
+    </style>
+
+    <style name="Theme.ComposeToDoList.Aurora" parent="Theme.ComposeToDoList">
+        <item name="colorPrimary">@color/aurora_primary</item>
+        <item name="colorPrimaryContainer">@color/aurora_primary</item>
+        <item name="colorSecondary">@color/aurora_item_background_l1</item>
+        <item name="colorSecondaryContainer">@color/aurora_item_background_l1</item>
+        <item name="backgroundColor">@color/aurora_background_l2</item>
+        <item name="colorSurface">@color/aurora_background_l1</item>
+        <item name="colorSurfaceVariant">@color/aurora_item_background_l2</item>
+        <item name="colorError">@color/error</item>
+        <item name="colorOnPrimary">@color/aurora_on</item>
+        <item name="colorOnPrimaryContainer">@color/aurora_on</item>
+        <item name="colorOnSecondary">@color/aurora_on</item>
+        <item name="colorOnSecondaryContainer">@color/aurora_on</item>
+        <item name="colorOnBackground">@color/aurora_on</item>
+        <item name="colorOnSurface">@color/aurora_on</item>
+        <item name="colorOnSurfaceVariant">@color/aurora_on</item>
+        <item name="colorOnError">#FFFFFF</item>
     </style>
 
     <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
@@ -23,6 +122,81 @@
 
     <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.Material3.MediumComponent">
         <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="TextAppearance.App.DisplayLarge" parent="TextAppearance.Material3.DisplayLarge">
+        <item name="fontWeight">400</item>
+        <item name="android:textSize">57sp</item>
+    </style>
+
+    <style name="TextAppearance.App.DisplayMedium" parent="TextAppearance.Material3.DisplayMedium">
+        <item name="fontWeight">400</item>
+        <item name="android:textSize">45sp</item>
+    </style>
+
+    <style name="TextAppearance.App.DisplaySmall" parent="TextAppearance.Material3.DisplaySmall">
+        <item name="fontWeight">400</item>
+        <item name="android:textSize">36sp</item>
+    </style>
+
+    <style name="TextAppearance.App.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="fontWeight">400</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="TextAppearance.App.HeadlineMedium" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="fontWeight">400</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="TextAppearance.App.HeadlineSmall" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="fontWeight">400</item>
+        <item name="android:textSize">21sp</item>
+    </style>
+
+    <style name="TextAppearance.App.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
+        <item name="fontWeight">600</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="TextAppearance.App.TitleMedium" parent="TextAppearance.Material3.TitleMedium">
+        <item name="fontWeight">500</item>
+        <item name="android:textSize">21sp</item>
+    </style>
+
+    <style name="TextAppearance.App.TitleSmall" parent="TextAppearance.Material3.TitleSmall">
+        <item name="fontWeight">400</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextAppearance.App.BodyLarge" parent="TextAppearance.Material3.BodyLarge">
+        <item name="fontWeight">400</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextAppearance.App.BodyMedium" parent="TextAppearance.Material3.BodyMedium">
+        <item name="fontWeight">400</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="TextAppearance.App.BodySmall" parent="TextAppearance.Material3.BodySmall">
+        <item name="fontWeight">400</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextAppearance.App.LabelLarge" parent="TextAppearance.Material3.LabelLarge">
+        <item name="fontWeight">400</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextAppearance.App.LabelMedium" parent="TextAppearance.Material3.LabelMedium">
+        <item name="fontWeight">400</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextAppearance.App.LabelSmall" parent="TextAppearance.Material3.LabelSmall">
+        <item name="fontWeight">400</item>
+        <item name="android:textSize">9sp</item>
     </style>
 
     <style name="Theme.AppSplash" parent="android:Theme.DeviceDefault.Light.NoActionBar">

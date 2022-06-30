@@ -336,7 +336,7 @@ private fun TaskCell(
 
                 Text(
                     text = name,
-                    style = MaterialTheme.typography.headlineSmall.copy(textDecoration = textDecoration),
+                    style = MaterialTheme.typography.titleMedium.copy(textDecoration = textDecoration),
                 )
             }
 
@@ -462,7 +462,7 @@ private fun StepContent(
                         Row {
                             Text(
                                 text = stringResource(task.repeat.displayable()),
-                                style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Normal),
+                                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Normal),
                                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = AlphaDisabled)
                             )
                             Spacer(Modifier.width(8.dp))
@@ -495,12 +495,12 @@ private fun StepContent(
                     if (note.isBlank()) {
                         Text(
                             text = stringResource(R.string.todo_add_note),
-                            style = MaterialTheme.typography.bodyLarge,
+                            style = MaterialTheme.typography.titleSmall,
                         )
                     } else {
                         Text(
                             text = note,
-                            style = MaterialTheme.typography.bodyLarge,
+                            style = MaterialTheme.typography.titleSmall,
                             maxLines = 6,
                             overflow = TextOverflow.Ellipsis
                         )
@@ -588,7 +588,7 @@ private fun StepCellCreator(
 
             Text(
                 text = stringResource(R.string.todo_step_next),
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.titleSmall
             )
         }
     }
@@ -675,7 +675,7 @@ private fun ActionContentCell(
             Spacer(Modifier.size(8.dp))
             Text(
                 text = title,
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.titleSmall,
                 modifier = Modifier.weight(1f),
                 color = titleColor
             )

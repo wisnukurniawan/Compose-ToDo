@@ -140,7 +140,7 @@ fun SearchWidget(
         ) {
             Text(
                 text = stringResource(R.string.todo_cancel),
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.titleSmall,
                 color = MaterialTheme.colorScheme.onSurface
             )
         }

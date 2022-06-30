@@ -91,7 +91,7 @@ fun TaskCreator(
                     text = text.ifBlank {
                         stringResource(R.string.todo_add_task)
                     },
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = MaterialTheme.typography.titleSmall,
                     color = color
                 )
             }
@@ -141,7 +141,7 @@ fun TaskContent(
                         ) {
                             Text(
                                 text = stringResource(R.string.todo_add_task_completed),
-                                style = MaterialTheme.typography.bodyLarge,
+                                style = MaterialTheme.typography.titleSmall,
                                 color = color
                             )
                         }

@@ -64,7 +64,7 @@ fun UpdateTaskNoteScreen(
                             .fillMaxWidth()
                             .height(150.dp)
                             .focusRequester(focusRequest),
-                        textStyle = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onSurface),
+                        textStyle = MaterialTheme.typography.titleSmall.copy(color = MaterialTheme.colorScheme.onSurface),
                         cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
                         keyboardOptions = KeyboardOptions.Default.copy(capitalization = KeyboardCapitalization.Sentences),
                     )
@@ -72,7 +72,7 @@ fun UpdateTaskNoteScreen(
                     if (state.editNote.text.isBlank()) {
                         Text(
                             text = stringResource(R.string.todo_add_note),
-                            style = MaterialTheme.typography.bodyLarge,
+                            style = MaterialTheme.typography.titleSmall,
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = AlphaDisabled)
                         )
                     }

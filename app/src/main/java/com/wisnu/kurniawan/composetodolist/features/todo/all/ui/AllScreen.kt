@@ -42,7 +42,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.identifier
@@ -147,7 +146,7 @@ private fun AllTitle(
 
         Text(
             text = text,
-            style = MaterialTheme.typography.headlineSmall,
+            style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.align(Alignment.Center)
         )
 
@@ -247,7 +246,7 @@ fun TaskContent(
                                 maxLines = 1,
                                 color = it.list.color.toColor(),
                                 overflow = TextOverflow.Ellipsis,
-                                style = MaterialTheme.typography.bodyLarge
+                                style = MaterialTheme.typography.titleSmall
                             )
                         }
                     }
@@ -329,7 +328,7 @@ private fun MoreMenu(
                     }
                     Text(
                         label,
-                        style = MaterialTheme.typography.bodyLarge.copy(fontSize = 14.sp),
+                        style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onSurface
                     )
                 },

@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var windowState: WindowState
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.Theme_ComposeToDoList)
+        setTheme(R.style.Theme_ComposeToDoList_Light)
         super.onCreate(savedInstanceState)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)

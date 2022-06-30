@@ -175,7 +175,7 @@ private fun StepCellCreator(
 
         Text(
             text = stringResource(R.string.todo_step_next),
-            style = MaterialTheme.typography.bodyLarge,
+            style = MaterialTheme.typography.titleSmall,
             modifier = Modifier.fillMaxWidth().clickable { onEditModeClick() }
         )
     }

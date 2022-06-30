@@ -36,6 +36,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -119,7 +120,7 @@ fun ToDoMainScreen(
         item {
             Text(
                 text = stringResource(R.string.todo_my_list),
-                style = MaterialTheme.typography.headlineSmall,
+                style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.padding(start = 32.dp, bottom = 8.dp)
             )
         }
@@ -284,7 +285,7 @@ private fun OverallTaskCell(
                         Text(
                             text = iconText,
                             fontSize = 8.sp,
-                            style = MaterialTheme.typography.titleMedium,
+                            style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.SemiBold),
                             modifier = Modifier.padding(top = 2.dp),
                             color = if (isSelected) {
                                 iconColor
@@ -311,7 +312,7 @@ private fun OverallTaskCell(
             }
             Text(
                 text = title,
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.SemiBold),
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha)
             )
         }
@@ -336,7 +337,7 @@ private fun GroupCell(
         ) {
             Text(
                 text = name,
-                style = MaterialTheme.typography.titleSmall,
+                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.SemiBold),
                 modifier = Modifier.padding(start = 16.dp)
                     .weight(1f),
                 maxLines = 1,
@@ -407,7 +408,7 @@ private fun ListCell(
                         Spacer(Modifier.size(8.dp))
                         Text(
                             text = name,
-                            style = MaterialTheme.typography.bodyLarge,
+                            style = MaterialTheme.typography.titleSmall,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
                             modifier = Modifier.weight(1f),
@@ -417,7 +418,7 @@ private fun ListCell(
 
                         Text(
                             text = totalTask,
-                            style = MaterialTheme.typography.bodyLarge,
+                            style = MaterialTheme.typography.titleSmall,
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = AlphaDisabled)
                         )
                     }

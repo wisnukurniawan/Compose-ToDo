@@ -207,7 +207,7 @@ private fun ListDetailTitle(
             maxLines = 1,
             color = color,
             overflow = TextOverflow.Ellipsis,
-            style = MaterialTheme.typography.headlineSmall,
+            style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.align(Alignment.Center)
         )
     }

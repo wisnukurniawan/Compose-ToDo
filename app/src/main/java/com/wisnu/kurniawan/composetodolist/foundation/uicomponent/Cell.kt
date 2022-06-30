@@ -88,7 +88,7 @@ fun PgModalCell(
 
             Text(
                 text = text,
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.titleSmall,
                 color = textColor
             )
 
@@ -146,7 +146,7 @@ fun PgToDoItemCell(
                         Column {
                             Text(
                                 text = name,
-                                style = MaterialTheme.typography.bodyLarge.copy(textDecoration = textDecoration),
+                                style = MaterialTheme.typography.titleSmall.copy(textDecoration = textDecoration),
                             )
 
                             if (info != null) {

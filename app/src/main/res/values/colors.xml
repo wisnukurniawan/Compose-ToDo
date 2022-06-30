@@ -1,5 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#51A4E1</color>
-    <color name="backgroundColor">#F3F2F8</color>
+    <color name="light_primary">#7F3DFF</color>
+    <color name="light_background_l1">#F3F2F8</color>
+    <color name="light_item_background_l1">#F7F7F7</color>
+    <color name="light_background_l2">#FFFFFF</color>
+    <color name="light_item_background_l2">#F1F1F1</color>
+    <color name="light_on">#000000</color>
+    <color name="light_error">#EA6D7E</color>
+
+    <color name="twilight_primary">#319DE6</color>
+    <color name="twilight_background_l1">#20232F</color>
+    <color name="twilight_item_background_l1">#373945</color>
+    <color name="twilight_background_l2">#2A2D39</color>
+    <color name="twilight_item_background_l2">#373945</color>
+    <color name="twilight_on">#FFFFFF</color>
+
+    <color name="night_primary">#F2355B</color>
+    <color name="night_background_l1">#000000</color>
+    <color name="night_item_background_l1">#333333</color>
+    <color name="night_background_l2">#242424</color>
+    <color name="night_item_background_l2">#383838</color>
+    <color name="night_on">#FFFFFF</color>
+
+    <color name="sunrise_primary">#FE822F</color>
+    <color name="sunrise_background_l1">#FFFCF3</color>
+    <color name="sunrise_item_background_l1">#DCD3CC</color>
+    <color name="sunrise_background_l2">#FFFCF3</color>
+    <color name="sunrise_item_background_l2">#F4EFE5</color>
+    <color name="sunrise_on">#4E312F</color>
+    <color name="sunrise_error">#D00036</color>
+
+    <color name="aurora_primary">#299A8B</color>
+    <color name="aurora_background_l1">#001B12</color>
+    <color name="aurora_item_background_l1">#335147</color>
+    <color name="aurora_background_l2">#283E37</color>
+    <color name="aurora_item_background_l2">#3D514A</color>
+    <color name="aurora_on">#D0E0CF</color>
+
+    <color name="error">#B00020</color>
 </resources>

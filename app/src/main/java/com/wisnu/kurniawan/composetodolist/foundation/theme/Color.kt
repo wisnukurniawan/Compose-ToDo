@@ -2,12 +2,12 @@ package com.wisnu.kurniawan.composetodolist.foundation.theme
 
 import androidx.compose.ui.graphics.Color
 
-// surface : background L1
-// secondary : item background L1
-// background : background L2
-// surfaceVariant : item background L2
+// surface -> surface : background L1
+// secondary -> secondary : item background L1
+// surfaceVariant -> background : background L2
+// secondaryContainer -> surfaceVariant : item background L2
 
-val LightPrimary = Color(0xFF51A4E1)
+val LightPrimary = Color(0xFF7F3DFF)
 val LightBackgroundL1 = Color(0xFFFFFFFF)
 val LightItemBackgroundL1 = Color(0xFFF7F7F7)
 val LightBackgroundL2 = Color(0xFFFFFFFF)

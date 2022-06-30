@@ -172,7 +172,7 @@ private fun Cell(
         Spacer(Modifier.size(8.dp))
         Text(
             text = name,
-            style = MaterialTheme.typography.bodyLarge,
+            style = MaterialTheme.typography.titleSmall,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.weight(1f)

@@ -24,7 +24,7 @@ fun PgModalTitle(
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.headlineSmall.copy(textAlign = TextAlign.Center),
+            style = MaterialTheme.typography.titleMedium.copy(textAlign = TextAlign.Center),
             color = textColor,
         )
     }
