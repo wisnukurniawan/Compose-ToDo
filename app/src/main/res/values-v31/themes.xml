@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.AppSplash" parent="android:Theme.DeviceDefault.Light.NoActionBar">
-        <item name="android:windowSplashScreenBackground">@color/light_background_l1</item>
+        <item name="android:windowSplashScreenBackground">?attr/backgroundColor</item>
         <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_logo</item>
     </style>
 </resources>
