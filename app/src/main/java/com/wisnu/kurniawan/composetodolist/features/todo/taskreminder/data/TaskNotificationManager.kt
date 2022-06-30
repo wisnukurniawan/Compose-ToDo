@@ -8,7 +8,6 @@ import android.app.TaskStackBuilder
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.util.TypedValue
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.NotificationCompat
 import androidx.core.content.res.ResourcesCompat
@@ -46,7 +45,7 @@ class TaskNotificationManager @Inject constructor(@ApplicationContext private va
             NotificationChannel(CHANNEL_ID, name, importance).apply {
                 this.description = description
                 enableLights(true)
-                lightColor = ResourcesCompat.getColor(getLocalizedContext().resources, getPrimaryColor(), null)
+                lightColor = ResourcesCompat.getColor(getLocalizedContext().resources, R.color.light_primary, null)
                 enableVibration(true)
                 notificationManager?.createNotificationChannel(this)
             }
@@ -74,7 +73,7 @@ class TaskNotificationManager @Inject constructor(@ApplicationContext private va
             setContentTitle(toDoList.name)
             setContentText(task.name)
             setStyle(NotificationCompat.BigTextStyle().bigText(task.name.ellipsisAt(100) + "\n" + task.itemInfoDisplayable(getLocalizedContext().resources, LightError)))
-            setColor(ResourcesCompat.getColor(getLocalizedContext().resources, getPrimaryColor(), null))
+            setColor(ResourcesCompat.getColor(getLocalizedContext().resources, R.color.light_primary, null))
             setContentIntent(buildPendingIntent(task.id, toDoList.id))
             setAutoCancel(true)
             setColorized(true)
@@ -82,12 +81,6 @@ class TaskNotificationManager @Inject constructor(@ApplicationContext private va
             addAction(getSnoozeAction(task.id))
             addAction(getCompleteAction(task.id))
         }
-    }
-
-    private fun getPrimaryColor(): Int {
-        val value = TypedValue()
-        context.theme.resolveAttribute(android.R.attr.colorPrimary, value, true)
-        return value.data
     }
 
 
