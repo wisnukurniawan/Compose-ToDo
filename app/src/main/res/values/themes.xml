@@ -125,77 +125,77 @@
     </style>
 
     <style name="TextAppearance.App.DisplayLarge" parent="TextAppearance.Material3.DisplayLarge">
-        <item name="fontWeight">400</item>
+        <item name="fontFamily">@font/lato_regular</item>
         <item name="android:textSize">57sp</item>
     </style>
 
     <style name="TextAppearance.App.DisplayMedium" parent="TextAppearance.Material3.DisplayMedium">
-        <item name="fontWeight">400</item>
+        <item name="fontFamily">@font/lato_regular</item>
         <item name="android:textSize">45sp</item>
     </style>
 
     <style name="TextAppearance.App.DisplaySmall" parent="TextAppearance.Material3.DisplaySmall">
-        <item name="fontWeight">400</item>
+        <item name="fontFamily">@font/lato_regular</item>
         <item name="android:textSize">36sp</item>
     </style>
 
     <style name="TextAppearance.App.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">
-        <item name="fontWeight">400</item>
+        <item name="fontFamily">@font/lato_regular</item>
         <item name="android:textSize">32sp</item>
     </style>
 
     <style name="TextAppearance.App.HeadlineMedium" parent="TextAppearance.Material3.HeadlineMedium">
-        <item name="fontWeight">400</item>
+        <item name="fontFamily">@font/lato_regular</item>
         <item name="android:textSize">24sp</item>
     </style>
 
     <style name="TextAppearance.App.HeadlineSmall" parent="TextAppearance.Material3.HeadlineSmall">
-        <item name="fontWeight">400</item>
+        <item name="fontFamily">@font/lato_regular</item>
         <item name="android:textSize">21sp</item>
     </style>
 
     <style name="TextAppearance.App.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
-        <item name="fontWeight">600</item>
+        <item name="fontFamily">@font/sans_bold</item>
         <item name="android:textSize">32sp</item>
     </style>
 
     <style name="TextAppearance.App.TitleMedium" parent="TextAppearance.Material3.TitleMedium">
-        <item name="fontWeight">500</item>
+        <item name="fontFamily">@font/sans_regular</item>
         <item name="android:textSize">21sp</item>
     </style>
 
     <style name="TextAppearance.App.TitleSmall" parent="TextAppearance.Material3.TitleSmall">
-        <item name="fontWeight">400</item>
+        <item name="fontFamily">@font/sans_regular</item>
         <item name="android:textSize">16sp</item>
     </style>
 
     <style name="TextAppearance.App.BodyLarge" parent="TextAppearance.Material3.BodyLarge">
-        <item name="fontWeight">400</item>
+        <item name="fontFamily">@font/sans_regular</item>
         <item name="android:textSize">14sp</item>
     </style>
 
     <style name="TextAppearance.App.BodyMedium" parent="TextAppearance.Material3.BodyMedium">
-        <item name="fontWeight">400</item>
+        <item name="fontFamily">@font/sans_regular</item>
         <item name="android:textSize">13sp</item>
     </style>
 
     <style name="TextAppearance.App.BodySmall" parent="TextAppearance.Material3.BodySmall">
-        <item name="fontWeight">400</item>
+        <item name="fontFamily">@font/sans_regular</item>
         <item name="android:textSize">12sp</item>
     </style>
 
     <style name="TextAppearance.App.LabelLarge" parent="TextAppearance.Material3.LabelLarge">
-        <item name="fontWeight">400</item>
+        <item name="fontFamily">@font/sans_regular</item>
         <item name="android:textSize">14sp</item>
     </style>
 
     <style name="TextAppearance.App.LabelMedium" parent="TextAppearance.Material3.LabelMedium">
-        <item name="fontWeight">400</item>
+        <item name="fontFamily">@font/sans_regular</item>
         <item name="android:textSize">12sp</item>
     </style>
 
     <style name="TextAppearance.App.LabelSmall" parent="TextAppearance.Material3.LabelSmall">
-        <item name="fontWeight">400</item>
+        <item name="fontFamily">@font/sans_regular</item>
         <item name="android:textSize">9sp</item>
     </style>
 
