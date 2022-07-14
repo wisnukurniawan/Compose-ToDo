@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isValidGroupName
-import com.wisnu.kurniawan.composetodolist.foundation.theme.Shapes
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalBackHeader
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalLayout
@@ -142,7 +141,7 @@ private fun CreateGroup(
                     onValueChange = onGroupNameChange,
                     placeholderValue = hint,
                     modifier = modifier.padding(horizontal = 16.dp).height(50.dp).fillMaxWidth(),
-                    shape = Shapes.large,
+                    shape = MaterialTheme.shapes.large,
                     keyboardOptions = KeyboardOptions.Default.copy(
                         imeAction = ImeAction.Done,
                         capitalization = KeyboardCapitalization.Sentences

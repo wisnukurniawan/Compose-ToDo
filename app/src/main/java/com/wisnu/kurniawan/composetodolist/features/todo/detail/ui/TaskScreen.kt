@@ -42,7 +42,6 @@ import androidx.compose.ui.unit.dp
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.identifier
 import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaDisabled
-import com.wisnu.kurniawan.composetodolist.foundation.theme.Shapes
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgEmpty
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgToDoCreator
@@ -70,9 +69,9 @@ fun TaskCreator(
                 .fillMaxWidth()
                 .padding(top = 8.dp, start = 16.dp, end = 16.dp, bottom = 32.dp)
                 .height(56.dp)
-                .clip(Shapes.small)
+                .clip(MaterialTheme.shapes.small)
                 .clickable(onClick = onClick),
-            shape = Shapes.small,
+            shape = MaterialTheme.shapes.small,
             color = MaterialTheme.colorScheme.surfaceVariant,
         ) {
             Row(

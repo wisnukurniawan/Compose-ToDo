@@ -48,7 +48,6 @@ import com.wisnu.kurniawan.composetodolist.features.todo.search.ui.SearchAction
 import com.wisnu.kurniawan.composetodolist.features.todo.search.ui.SearchContent
 import com.wisnu.kurniawan.composetodolist.features.todo.search.ui.SearchViewModel
 import com.wisnu.kurniawan.composetodolist.features.todo.search.ui.SearchWidget
-import com.wisnu.kurniawan.composetodolist.foundation.theme.Shapes
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgPageLayout
@@ -353,7 +352,7 @@ private fun Footer(
     modifier: Modifier = Modifier
 ) {
     PgTransparentFooter(modifier) {
-        val shape = Shapes.large
+        val shape = MaterialTheme.shapes.large
         Surface(
             modifier = Modifier
                 .height(48.dp)

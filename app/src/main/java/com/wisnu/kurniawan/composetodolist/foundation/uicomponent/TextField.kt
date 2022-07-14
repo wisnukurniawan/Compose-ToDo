@@ -43,7 +43,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaDisabled
-import com.wisnu.kurniawan.composetodolist.foundation.theme.Shapes
 
 const val MAX_TEXT_FIELD_CHARACTER = 255
 
@@ -59,7 +58,7 @@ fun PgTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(capitalization = KeyboardCapitalization.Sentences),
     keyboardActions: KeyboardActions = KeyboardActions.Default,
-    shape: Shape = Shapes.small,
+    shape: Shape = MaterialTheme.shapes.small,
     textColor: Color = MaterialTheme.colorScheme.onSurface,
     textStyle: TextStyle = MaterialTheme.typography.titleSmall.copy(color = MaterialTheme.colorScheme.onSurface),
     errorLabel: @Composable (() -> Unit)? = null,
@@ -103,7 +102,7 @@ fun PgTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(capitalization = KeyboardCapitalization.Sentences),
     keyboardActions: KeyboardActions = KeyboardActions.Default,
-    shape: Shape = Shapes.small,
+    shape: Shape = MaterialTheme.shapes.small,
     textColor: Color = MaterialTheme.colorScheme.onSurface,
     textStyle: TextStyle = MaterialTheme.typography.titleSmall.copy(color = MaterialTheme.colorScheme.onSurface),
     errorLabel: @Composable (() -> Unit)? = null,
@@ -261,7 +260,7 @@ fun PgToDoCreator(
             value = value,
             onValueChange = { onValueChange(it) },
             placeholderValue = placeholder,
-            shape = Shapes.large,
+            shape = MaterialTheme.shapes.large,
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Done,
                 capitalization = KeyboardCapitalization.Sentences
@@ -331,7 +330,7 @@ fun PgToDoCreateConfirmator(
                         .height(50.dp)
                         .fillMaxWidth()
                         .focusRequester(focusRequester),
-                    shape = Shapes.large,
+                    shape = MaterialTheme.shapes.large,
                 )
             }
 

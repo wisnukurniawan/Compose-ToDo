@@ -41,7 +41,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.selectedColor
-import com.wisnu.kurniawan.composetodolist.foundation.theme.Shapes
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
@@ -353,7 +352,7 @@ fun CreateListEditor(
                     onValueChange = { onNameChange(it) },
                     placeholderValue = stringResource(R.string.todo_create_list_hint),
                     modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 8.dp).height(50.dp).fillMaxWidth(),
-                    shape = Shapes.large,
+                    shape = MaterialTheme.shapes.large,
                     textColor = colorItems.selectedColor()
                 )
             }

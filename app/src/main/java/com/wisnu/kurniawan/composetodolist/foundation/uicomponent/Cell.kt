@@ -32,7 +32,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaDisabled
 import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaHigh
 import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaMedium
 import com.wisnu.kurniawan.composetodolist.foundation.theme.DividerAlpha
-import com.wisnu.kurniawan.composetodolist.foundation.theme.Shapes
 
 @Composable
 fun PgModalCell(
@@ -60,7 +59,7 @@ fun PgModalCell(
         null
     }
 
-    val shape = Shapes.medium
+    val shape = MaterialTheme.shapes.medium
     Surface(
         modifier = Modifier
             .fillMaxWidth()

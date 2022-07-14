@@ -31,7 +31,6 @@ import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.features.todo.all.ui.ItemAllState
 import com.wisnu.kurniawan.composetodolist.features.todo.all.ui.TaskContent
-import com.wisnu.kurniawan.composetodolist.foundation.theme.Shapes
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgPageLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgTextField
@@ -121,7 +120,7 @@ fun SearchWidget(
         modifier = modifier
             .height(50.dp)
             .focusRequester(focusRequester),
-        shape = Shapes.large,
+        shape = MaterialTheme.shapes.large,
         textStyle = MaterialTheme.typography.titleSmall,
         leadingIcon = {
             PgIcon(
