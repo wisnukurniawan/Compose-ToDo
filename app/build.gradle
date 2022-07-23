@@ -109,7 +109,7 @@ android {
 
     // Fix compose compile error
     composeOptions {
-        kotlinCompilerExtensionVersion libs.versions.androidxCompose.get()
+        kotlinCompilerExtensionVersion libs.versions.androidxComposeCompiler.get()
     }
 
     compileOptions {

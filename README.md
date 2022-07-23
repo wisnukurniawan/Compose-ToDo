@@ -24,9 +24,9 @@ Compose playground for learning purpose
 * Android Studio Chipmunk | 2021.2.1
 * Min SDK 21
 * Target SDK 32
-* AGP 7.2.0
+* AGP 7.2.1
 * Java 11
-* Kotlin 1.6.21
+* Kotlin 1.7.10
 
 ## Setup
 
