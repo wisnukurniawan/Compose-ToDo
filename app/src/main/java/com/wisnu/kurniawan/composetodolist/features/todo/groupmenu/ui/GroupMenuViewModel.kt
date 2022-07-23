@@ -11,6 +11,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToD
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_GROUP_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,8 +26,9 @@ class GroupMenuViewModel @Inject constructor(
     val groupId = savedStateHandle.get<String>(ARG_GROUP_ID)
 
     init {
-        viewModelScope.launch(environment.dispatcherMain) {
+        viewModelScope.launch {
             if (!groupId.isNullOrBlank()) {
+                delay(100)
                 environment.hasList(groupId)
                     .collect {
                         setState { copy(items = initial(it)) }

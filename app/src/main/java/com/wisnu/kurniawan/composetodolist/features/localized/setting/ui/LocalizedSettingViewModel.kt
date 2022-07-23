@@ -7,6 +7,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.select
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.model.Language
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,7 +31,8 @@ class LocalizedSettingViewModel @Inject constructor(localizedSettingEnvironment:
     }
 
     private fun initLanguage() {
-        viewModelScope.launch(environment.dispatcherMain) {
+        viewModelScope.launch {
+            delay(100)
             environment.getLanguage()
                 .collect {
                     setState { copy(items = initial().select(it)) }
