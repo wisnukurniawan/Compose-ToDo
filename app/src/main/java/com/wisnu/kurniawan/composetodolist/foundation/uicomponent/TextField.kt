@@ -15,6 +15,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowUpward
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -91,6 +92,7 @@ fun PgTextField(
 }
 
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 fun PgTextField(
     value: TextFieldValue,
     onValueChange: (TextFieldValue) -> Unit,
