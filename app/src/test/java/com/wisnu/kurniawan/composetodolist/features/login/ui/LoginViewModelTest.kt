@@ -1,6 +1,5 @@
 package com.wisnu.kurniawan.composetodolist.features.login.ui
 
-import app.cash.turbine.test
 import com.wisnu.kurniawan.composetodolist.BaseViewModelTest
 import com.wisnu.kurniawan.composetodolist.features.login.data.ILoginEnvironment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -42,30 +41,18 @@ class LoginViewModelTest : BaseViewModelTest() {
     fun loginValidEmail() = runTest {
         loginViewModel.dispatch(LoginAction.ChangeEmail("qwe@gmail.com"))
         loginViewModel.dispatch(LoginAction.ChangePassword("1234"))
+        loginViewModel.dispatch(LoginAction.ClickLogin)
 
-        loginViewModel.effect.test {
-            loginViewModel.dispatch(LoginAction.ClickLogin)
-
-            Assert.assertFalse(loginViewModel.state.value.showEmailInvalidError)
-            Assert.assertEquals(LoginEffect.NavigateToDashboard, awaitItem())
-
-            cancelAndConsumeRemainingEvents()
-        }
+        Assert.assertFalse(loginViewModel.state.value.showEmailInvalidError)
     }
 
     @Test
     fun loginInvalidEmail() = runTest {
         loginViewModel.dispatch(LoginAction.ChangeEmail("qwegmail.com"))
         loginViewModel.dispatch(LoginAction.ChangePassword("1234"))
+        loginViewModel.dispatch(LoginAction.ClickLogin)
 
-        loginViewModel.effect.test {
-            loginViewModel.dispatch(LoginAction.ClickLogin)
-
-            Assert.assertTrue(loginViewModel.state.value.showEmailInvalidError)
-            expectNoEvents()
-
-            cancelAndConsumeRemainingEvents()
-        }
+        Assert.assertTrue(loginViewModel.state.value.showEmailInvalidError)
     }
 
 }

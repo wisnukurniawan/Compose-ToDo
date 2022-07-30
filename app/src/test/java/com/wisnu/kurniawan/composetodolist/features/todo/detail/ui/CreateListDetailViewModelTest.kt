@@ -86,7 +86,6 @@ class CreateListDetailViewModelTest : BaseViewModelTest() {
         viewModel.dispatch(ListDetailAction.ListAction.Create)
 
         viewModel.effect.test {
-            Assert.assertEquals(ListDetailEffect.ShowCreateListInput, awaitItem())
             Assert.assertEquals(ListDetailEffect.Relaunch("id"), awaitItem())
 
             cancelAndConsumeRemainingEvents()
