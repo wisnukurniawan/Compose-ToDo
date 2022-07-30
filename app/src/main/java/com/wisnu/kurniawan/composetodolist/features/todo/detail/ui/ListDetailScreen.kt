@@ -49,7 +49,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalTitle
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgPageLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgSecondaryButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgTextField
-import com.wisnu.kurniawan.composetodolist.foundation.uiextension.collectAsEffect
+import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.HandleEffect
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ListDetailFlow
@@ -62,35 +62,27 @@ fun ListDetailScreen(
     viewModel: ListDetailViewModel
 ) {
     val state by viewModel.state.collectAsState()
-    val effect by viewModel.effect.collectAsEffect()
     val listState = rememberLazyListState()
 
-    when (effect) {
-        ListDetailEffect.ShowCreateListInput -> {
-            LaunchedEffect(effect) {
+    HandleEffect(viewModel) {
+        when (it) {
+            ListDetailEffect.ShowCreateListInput -> {
                 navController.navigate(ListDetailFlow.CreateList.route)
             }
-        }
-        ListDetailEffect.ClosePage -> {
-            LaunchedEffect(effect) {
+            ListDetailEffect.ClosePage -> {
                 navController.navigateUp()
             }
-        }
-        is ListDetailEffect.ScrollTo -> {
-            val position = (effect as ListDetailEffect.ScrollTo).position
-            LaunchedEffect(position) {
+            is ListDetailEffect.ScrollTo -> {
+                val position = it.position
                 listState.animateScrollToItem(position)
             }
-        }
-        is ListDetailEffect.Relaunch -> {
-            LaunchedEffect(effect) {
-                val listId = (effect as ListDetailEffect.Relaunch).listId
+            is ListDetailEffect.Relaunch -> {
+                val listId = it.listId
                 navController.navigate(ListDetailFlow.Root.route(listId)) {
                     popUpTo(HomeFlow.DashboardScreen.route)
                 }
             }
         }
-        null -> {}
     }
 
     ListDetailContent(
@@ -121,35 +113,27 @@ fun ListDetailTabletScreen(
     viewModel: ListDetailViewModel
 ) {
     val state by viewModel.state.collectAsState()
-    val effect by viewModel.effect.collectAsEffect()
     val listState = rememberLazyListState()
 
-    when (effect) {
-        ListDetailEffect.ShowCreateListInput -> {
-            LaunchedEffect(effect) {
+    HandleEffect(viewModel) {
+        when (it) {
+            ListDetailEffect.ShowCreateListInput -> {
                 navController.navigate(ListDetailFlow.CreateList.route)
             }
-        }
-        ListDetailEffect.ClosePage -> {
-            LaunchedEffect(effect) {
+            ListDetailEffect.ClosePage -> {
                 navController.navigateUp()
             }
-        }
-        is ListDetailEffect.ScrollTo -> {
-            val position = (effect as ListDetailEffect.ScrollTo).position
-            LaunchedEffect(position) {
+            is ListDetailEffect.ScrollTo -> {
+                val position = it.position
                 listState.animateScrollToItem(position)
             }
-        }
-        is ListDetailEffect.Relaunch -> {
-            LaunchedEffect(effect) {
-                val listId = (effect as ListDetailEffect.Relaunch).listId
+            is ListDetailEffect.Relaunch -> {
+                val listId = it.listId
                 navController.navigate(ListDetailFlow.Root.route(listId)) {
                     popUpTo(MainFlow.RootEmpty.route)
                 }
             }
         }
-        null -> {}
     }
 
     ListDetailContent(

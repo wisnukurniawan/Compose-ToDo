@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -17,7 +16,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalBackHeader
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.Profile
-import com.wisnu.kurniawan.composetodolist.foundation.uiextension.collectAsEffect
+import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.HandleEffect
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.MainFlow
 
@@ -27,13 +26,14 @@ fun LogoutScreen(
     viewModel: LogoutViewModel
 ) {
     val state by viewModel.state.collectAsState()
-    val effect by viewModel.effect.collectAsEffect()
 
-    if (effect is LogoutEffect.NavigateToSplash) {
-        LaunchedEffect(effect) {
-            navController.navigate(MainFlow.Root.route) {
-                popUpTo(HomeFlow.DashboardScreen.route) {
-                    inclusive = true
+    HandleEffect(viewModel) {
+        when (it) {
+            LogoutEffect.NavigateToSplash -> {
+                navController.navigate(MainFlow.Root.route) {
+                    popUpTo(HomeFlow.DashboardScreen.route) {
+                        inclusive = true
+                    }
                 }
             }
         }

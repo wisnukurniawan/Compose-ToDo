@@ -20,7 +20,6 @@ import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -42,14 +41,13 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.canLogin
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgPageLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgTextField
-import com.wisnu.kurniawan.composetodolist.foundation.uiextension.collectAsEffect
+import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.HandleEffect
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.AuthFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
 
 @Composable
 fun LoginScreen(navController: NavController, viewModel: LoginViewModel) {
     val state by viewModel.state.collectAsState()
-    val effect by viewModel.effect.collectAsEffect()
 
     LoginScreen(
         state = state,
@@ -59,11 +57,13 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel) {
         onClickLogin = { viewModel.dispatch(LoginAction.ClickLogin) }
     )
 
-    if (effect is LoginEffect.NavigateToDashboard) {
-        LaunchedEffect(effect) {
-            navController.navigate(HomeFlow.Root.route) {
-                popUpTo(AuthFlow.LoginScreen.route) {
-                    inclusive = true
+    HandleEffect(viewModel) {
+        when (it) {
+            LoginEffect.NavigateToDashboard -> {
+                navController.navigate(HomeFlow.Root.route) {
+                    popUpTo(AuthFlow.LoginScreen.route) {
+                        inclusive = true
+                    }
                 }
             }
         }

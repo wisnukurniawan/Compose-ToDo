@@ -1,11 +1,9 @@
 package com.wisnu.kurniawan.composetodolist.foundation.viewmodel
 
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 
 /**
@@ -24,11 +22,11 @@ abstract class StatefulViewModel<STATE, EFFECT, ACTION, ENVIRONMENT>(
 
     private val _state = MutableStateFlow(initialState)
 
-    private val _effect = Channel<EFFECT>(Channel.BUFFERED)
+    private val _effect: MutableStateFlow<EFFECT?> = MutableStateFlow(null)
 
     val state: StateFlow<STATE> = _state.asStateFlow()
 
-    val effect = _effect.receiveAsFlow()
+    val effect: StateFlow<EFFECT?> = _effect.asStateFlow()
 
     abstract fun dispatch(action: ACTION)
 
@@ -36,8 +34,12 @@ abstract class StatefulViewModel<STATE, EFFECT, ACTION, ENVIRONMENT>(
         _state.update(newState)
     }
 
-    protected suspend fun setEffect(newEffect: EFFECT) {
-        _effect.send(newEffect)
+    protected fun setEffect(newEffect: EFFECT) {
+        _effect.update { newEffect }
+    }
+
+    fun resetEffect() {
+        _effect.update { null }
     }
 
     private fun stateValue(): STATE {

@@ -10,7 +10,6 @@ import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -22,7 +21,7 @@ import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalBackHeader
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalCell
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalLayout
-import com.wisnu.kurniawan.composetodolist.foundation.uiextension.collectAsEffect
+import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.HandleEffect
 
 @Composable
 fun LanguageScreen(
@@ -30,17 +29,15 @@ fun LanguageScreen(
     viewModel: LocalizedSettingViewModel
 ) {
     val state by viewModel.state.collectAsState()
-    val effect by viewModel.effect.collectAsEffect()
 
-    when (effect) {
-        is LocalizedEffect.ApplyLanguage -> {
-            LaunchedEffect(effect) {
-                val lang = (effect as LocalizedEffect.ApplyLanguage).language.lang
+    HandleEffect(viewModel) {
+        when (it) {
+            is LocalizedEffect.ApplyLanguage -> {
+                val lang = it.language.lang
                 val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags(lang)
                 AppCompatDelegate.setApplicationLocales(appLocale)
             }
         }
-        null -> {}
     }
 
     LanguageScreen(

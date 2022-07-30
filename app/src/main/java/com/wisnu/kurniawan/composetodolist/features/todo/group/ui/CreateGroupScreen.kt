@@ -34,8 +34,8 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalTitle
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgSecondaryButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgTextField
-import com.wisnu.kurniawan.composetodolist.foundation.uiextension.collectAsEffect
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.requestFocusImeAware
+import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.HandleEffect
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
 import kotlinx.coroutines.launch
 
@@ -46,18 +46,16 @@ fun CreateGroupScreen(
 ) {
     val focusRequest = remember { FocusRequester() }
     val state by viewModel.state.collectAsState()
-    val effect by viewModel.effect.collectAsEffect()
     val defaultName = stringResource(R.string.todo_group_default_name)
 
-    when (effect) {
-        is CreateGroupEffect.HideScreen -> navController.navigateUp()
-        is CreateGroupEffect.ShowUpdateGroupListScreen -> {
-            LaunchedEffect(effect) {
+    HandleEffect(viewModel) {
+        when (it) {
+            is CreateGroupEffect.HideScreen -> navController.navigateUp()
+            is CreateGroupEffect.ShowUpdateGroupListScreen -> {
                 navController.navigateUp()
-                navController.navigate(HomeFlow.UpdateGroupList.route((effect as CreateGroupEffect.ShowUpdateGroupListScreen).groupId))
+                navController.navigate(HomeFlow.UpdateGroupList.route(it.groupId))
             }
         }
-        null -> {}
     }
 
     LaunchedEffect(Unit) {
@@ -90,10 +88,12 @@ fun UpdateGroupScreen(
 ) {
     val focusRequest = remember { FocusRequester() }
     val state by viewModel.state.collectAsState()
-    val effect by viewModel.effect.collectAsEffect()
 
-    if (effect is CreateGroupEffect.HideScreen) {
-        navController.navigateUp()
+    HandleEffect(viewModel) {
+        when (it) {
+            CreateGroupEffect.HideScreen -> navController.navigateUp()
+            is CreateGroupEffect.ShowUpdateGroupListScreen -> {}
+        }
     }
 
     LaunchedEffect(Unit) {

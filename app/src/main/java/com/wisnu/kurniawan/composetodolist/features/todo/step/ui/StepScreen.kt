@@ -38,7 +38,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -78,9 +77,9 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.dateTimeDispla
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.dueDateDisplayable
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.noteUpdatedAtDisplayable
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.timeDisplayable
-import com.wisnu.kurniawan.composetodolist.foundation.uiextension.collectAsEffect
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.showDatePicker
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.showTimePicker
+import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.HandleEffect
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.model.ToDoStep
@@ -97,18 +96,15 @@ fun StepScreen(
     viewModel: StepViewModel
 ) {
     val state by viewModel.state.collectAsState()
-    val effect by viewModel.effect.collectAsEffect()
     val activity = LocalContext.current as AppCompatActivity
     val listState = rememberLazyListState()
 
-    when (effect) {
-        is StepEffect.ScrollTo -> {
-            val position = (effect as StepEffect.ScrollTo).position
-            LaunchedEffect(position) {
-                listState.animateScrollToItem(position)
+    HandleEffect(viewModel) {
+        when (it) {
+            is StepEffect.ScrollTo -> {
+                listState.animateScrollToItem(it.position)
             }
         }
-        null -> {}
     }
 
     StepScreen(
