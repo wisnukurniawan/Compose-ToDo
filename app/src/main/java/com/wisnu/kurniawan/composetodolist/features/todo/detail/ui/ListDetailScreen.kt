@@ -19,9 +19,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ChevronLeft
-import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -39,7 +36,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.selectedColor
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgButton
@@ -52,16 +48,19 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgSecondaryBut
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgTextField
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.HandleEffect
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.ListDetailFlow
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.MainFlow
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun ListDetailScreen(
-    navController: NavController,
-    viewModel: ListDetailViewModel
+    viewModel: ListDetailViewModel,
+    backIcon: ImageVector,
+    showCreateListScreen: () -> Unit,
+    onCloseScreen: () -> Unit,
+    onRelaunchScreen: (String) -> Unit,
+    onClickSave: () -> Unit,
+    onClickBack: () -> Unit,
+    onAddTaskClick: () -> Unit,
+    onTaskItemClick: (String, String) -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val listState = rememberLazyListState()
@@ -69,20 +68,17 @@ fun ListDetailScreen(
     HandleEffect(viewModel) {
         when (it) {
             ListDetailEffect.ShowCreateListInput -> {
-                navController.navigate(ListDetailFlow.CreateList.route)
+                showCreateListScreen()
             }
             ListDetailEffect.ClosePage -> {
-                navController.navigateUp()
+                onCloseScreen()
             }
             is ListDetailEffect.ScrollTo -> {
                 val position = it.position
                 listState.animateScrollToItem(position)
             }
             is ListDetailEffect.Relaunch -> {
-                val listId = it.listId
-                navController.navigate(ListDetailFlow.Root.route(listId)) {
-                    popUpTo(HomeFlow.DashboardScreen.route)
-                }
+                onRelaunchScreen(it.listId)
             }
         }
     }
@@ -92,68 +88,16 @@ fun ListDetailScreen(
         tempTaskName = state.taskName.text,
         header = {
             ListDetailTitle(
-                onClick = { navController.navigate(ListDetailFlow.UpdateList.route) },
-                onClickBack = { navController.navigateUp() },
+                onClick = onClickSave,
+                onClickBack = onClickBack,
                 text = state.list.name,
                 color = state.colors.selectedColor(),
-                backIcon = Icons.Rounded.ChevronLeft
+                backIcon = backIcon
             )
         },
         color = state.colors.selectedColor(),
-        onAddTaskClick = { navController.navigate(ListDetailFlow.CreateTask.route) },
-        onTaskItemClick = { navController.navigate(StepFlow.Root.route(it.id, state.list.id)) },
-        onTaskStatusItemClick = { viewModel.dispatch(ListDetailAction.TaskAction.OnToggleStatus(it)) },
-        onTaskSwipeToDelete = { viewModel.dispatch(ListDetailAction.TaskAction.Delete(it)) },
-        listState = listState
-    )
-
-}
-
-@OptIn(ExperimentalLifecycleComposeApi::class)
-@Composable
-fun ListDetailTabletScreen(
-    navController: NavController,
-    viewModel: ListDetailViewModel
-) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
-    val listState = rememberLazyListState()
-
-    HandleEffect(viewModel) {
-        when (it) {
-            ListDetailEffect.ShowCreateListInput -> {
-                navController.navigate(ListDetailFlow.CreateList.route)
-            }
-            ListDetailEffect.ClosePage -> {
-                navController.navigateUp()
-            }
-            is ListDetailEffect.ScrollTo -> {
-                val position = it.position
-                listState.animateScrollToItem(position)
-            }
-            is ListDetailEffect.Relaunch -> {
-                val listId = it.listId
-                navController.navigate(ListDetailFlow.Root.route(listId)) {
-                    popUpTo(MainFlow.RootEmpty.route)
-                }
-            }
-        }
-    }
-
-    ListDetailContent(
-        tasks = state.listDisplayable.tasks,
-        tempTaskName = state.taskName.text,
-        header = {
-            ListDetailTitle(
-                onClick = { navController.navigate(ListDetailFlow.UpdateList.route) },
-                onClickBack = { navController.navigateUp() },
-                text = state.list.name,
-                color = state.colors.selectedColor(),
-                backIcon = Icons.Rounded.Close
-            )
-        },
-        color = state.colors.selectedColor(),
-        onAddTaskClick = { navController.navigate(ListDetailFlow.CreateTask.route) },
-        onTaskItemClick = { navController.navigate(StepFlow.Root.route(it.id, state.list.id)) },
+        onAddTaskClick = onAddTaskClick,
+        onTaskItemClick = { onTaskItemClick(it.id, state.list.id) },
         onTaskStatusItemClick = { viewModel.dispatch(ListDetailAction.TaskAction.OnToggleStatus(it)) },
         onTaskSwipeToDelete = { viewModel.dispatch(ListDetailAction.TaskAction.Delete(it)) },
         listState = listState
@@ -242,7 +186,9 @@ private fun ListDetailContent(
 @Composable
 fun CreateListEditor(
     viewModel: ListDetailViewModel,
-    navController: NavController
+    onClosePage: () -> Unit,
+    onCancelClick: () -> Unit,
+    onSaveClick: () -> Unit,
 ) {
     val shouldClosePage = remember { mutableStateOf(true) }
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -251,7 +197,7 @@ fun CreateListEditor(
     DisposableEffect(Unit) {
         onDispose {
             if (shouldClosePage.value) {
-                navController.navigateUp()
+                onClosePage()
             }
         }
     }
@@ -267,11 +213,11 @@ fun CreateListEditor(
         isValidName = state.validListName,
         colorItems = state.colors,
         onNameChange = { viewModel.dispatch(ListDetailAction.ListAction.ChangeName(it)) },
-        onCancelClick = { navController.navigateUp() },
+        onCancelClick = onCancelClick,
         onSaveClick = {
             shouldClosePage.value = false
 
-            navController.navigateUp()
+            onSaveClick()
 
             viewModel.dispatch(ListDetailAction.ListAction.Create)
         },
@@ -283,7 +229,8 @@ fun CreateListEditor(
 @Composable
 fun UpdateListEditor(
     viewModel: ListDetailViewModel,
-    navController: NavController
+    onCancelClick: () -> Unit,
+    onSaveClick: () -> Unit,
 ) {
     val shouldRollback = remember { mutableStateOf(true) }
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -303,11 +250,11 @@ fun UpdateListEditor(
         isValidName = state.validListName,
         colorItems = state.colors,
         onNameChange = { viewModel.dispatch(ListDetailAction.ListAction.ChangeName(it)) },
-        onCancelClick = { navController.navigateUp() },
+        onCancelClick = onCancelClick,
         onSaveClick = {
             shouldRollback.value = false
 
-            navController.navigateUp()
+            onSaveClick()
 
             viewModel.dispatch(ListDetailAction.ListAction.Update)
         },

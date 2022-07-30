@@ -37,8 +37,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
-import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.NavBackStackEntry
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.features.todo.all.ui.ItemAllState
 import com.wisnu.kurniawan.composetodolist.features.todo.main.ui.ItemMainState
@@ -57,23 +56,22 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.SwipeSearch
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.SwipeSearchValue
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.rememberSwipeSearchState
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.AllFlow
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.ListDetailFlow
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.MainFlow
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.ScheduledFlow
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.ScheduledTodayFlow
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.SearchFlow
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.SettingFlow
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun DashboardScreen(
-    navController: NavController,
     viewModel: DashboardViewModel,
     toDoMainViewModel: ToDoMainViewModel,
     searchViewModel: SearchViewModel,
+    onSettingClick: () -> Unit,
+    onAddNewListClick: () -> Unit,
+    onAddNewGroupClick: () -> Unit,
+    onClickGroup: (String) -> Unit,
+    onClickList: (String) -> Unit,
+    onClickScheduledTodayTask: () -> Unit,
+    onClickScheduledTask: () -> Unit,
+    onClickAllTask: () -> Unit,
+    onSearchTaskItemClick: (String, String) -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val todoMainState by toDoMainViewModel.state.collectAsStateWithLifecycle()
@@ -93,16 +91,16 @@ fun DashboardScreen(
         searchResultItems = searchState.items,
         onSearchChange = { searchViewModel.dispatch(SearchAction.ChangeSearchText(it)) },
         onSearchClosed = { searchViewModel.dispatch(SearchAction.ChangeSearchText(TextFieldValue())) },
-        onSettingClick = { navController.navigate(SettingFlow.Root.route) },
-        onAddNewListClick = { navController.navigate(ListDetailFlow.Root.route()) },
-        onAddNewGroupClick = { navController.navigate(HomeFlow.CreateGroup.route) },
-        onClickGroup = { navController.navigate(HomeFlow.GroupMenu.route(it.group.id)) },
-        onClickList = { navController.navigate(ListDetailFlow.Root.route(it.list.id)) },
+        onSettingClick = onSettingClick,
+        onAddNewListClick = onAddNewListClick,
+        onAddNewGroupClick = onAddNewGroupClick,
+        onClickGroup = { onClickGroup(it.group.id) },
+        onClickList = { onClickList(it.list.id) },
         onSwipeToDelete = { toDoMainViewModel.dispatch(ToDoMainAction.DeleteList(it)) },
-        onClickScheduledTodayTask = { navController.navigate(ScheduledTodayFlow.Root.route()) },
-        onClickScheduledTask = { navController.navigate(ScheduledFlow.Root.route()) },
-        onClickAllTask = { navController.navigate(AllFlow.Root.route) },
-        onSearchTaskItemClick = { navController.navigate(StepFlow.Root.route(it.task.id, it.list.id)) },
+        onClickScheduledTodayTask = onClickScheduledTodayTask,
+        onClickScheduledTask = onClickScheduledTask,
+        onClickAllTask = onClickAllTask,
+        onSearchTaskItemClick = { onSearchTaskItemClick(it.task.id, it.list.id) },
         onSearchTaskStatusItemClick = { searchViewModel.dispatch(SearchAction.TaskAction.OnToggleStatus(it)) },
         onSearchTaskSwipeToDelete = { searchViewModel.dispatch(SearchAction.TaskAction.Delete(it)) },
     )
@@ -111,15 +109,21 @@ fun DashboardScreen(
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun DashboardTabletScreen(
-    navController: NavController,
-    navControllerLeft: NavController,
-    navControllerRight: NavController,
+    navBackStackEntry: NavBackStackEntry?,
     viewModel: DashboardViewModel,
-    toDoMainViewModel: ToDoMainViewModel
+    toDoMainViewModel: ToDoMainViewModel,
+    onSettingClick: () -> Unit,
+    onAddNewGroupClick: () -> Unit,
+    onClickGroup: (String) -> Unit,
+    onAddNewListClick: () -> Unit,
+    onClickList: (String) -> Unit,
+    onClickScheduledTodayTask: () -> Unit,
+    onClickScheduledTask: () -> Unit,
+    onClickAllTask: () -> Unit,
+    onClickSearch: () -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val todoMainState by toDoMainViewModel.state.collectAsStateWithLifecycle()
-    val navBackStackEntry by navControllerRight.currentBackStackEntryAsState()
 
     LaunchedEffect(navBackStackEntry) {
         toDoMainViewModel.dispatch(ToDoMainAction.NavBackStackEntryChanged(navBackStackEntry?.destination?.route, navBackStackEntry?.arguments))
@@ -135,40 +139,18 @@ fun DashboardTabletScreen(
         isAllTaskSelected = todoMainState.isAllTaskSelected,
         isScheduledTodayTaskSelected = todoMainState.isScheduledTodayTaskSelected,
         isScheduledTaskSelected = todoMainState.isScheduledTaskSelected,
-        onSettingClick = { navController.navigate(SettingFlow.Root.route) },
-        onAddNewListClick = {
-            navControllerRight.navigate(ListDetailFlow.Root.route()) {
-                popUpTo(MainFlow.RootEmpty.route)
-            }
-        },
-        onAddNewGroupClick = { navControllerLeft.navigate(HomeFlow.CreateGroup.route) },
-        onClickGroup = { navControllerLeft.navigate(HomeFlow.GroupMenu.route(it.group.id)) },
+        onSettingClick = onSettingClick,
+        onAddNewListClick = onAddNewListClick,
+        onAddNewGroupClick = onAddNewGroupClick,
+        onClickGroup = { onClickGroup(it.group.id) },
         onClickList = {
-            navControllerRight.navigate(ListDetailFlow.Root.route(it.list.id)) {
-                popUpTo(MainFlow.RootEmpty.route)
-            }
+            onClickList(it.list.id)
         },
         onSwipeToDelete = { toDoMainViewModel.dispatch(ToDoMainAction.DeleteList(it)) },
-        onClickScheduledTodayTask = {
-            navControllerRight.navigate(ScheduledTodayFlow.Root.route()) {
-                popUpTo(MainFlow.RootEmpty.route)
-            }
-        },
-        onClickScheduledTask = {
-            navControllerRight.navigate(ScheduledFlow.Root.route()) {
-                popUpTo(MainFlow.RootEmpty.route)
-            }
-        },
-        onClickAllTask = {
-            navControllerRight.navigate(AllFlow.Root.route) {
-                popUpTo(MainFlow.RootEmpty.route)
-            }
-        },
-        onClickSearch = {
-            navControllerRight.navigate(SearchFlow.Root.route) {
-                popUpTo(MainFlow.RootEmpty.route)
-            }
-        }
+        onClickScheduledTodayTask = onClickScheduledTodayTask,
+        onClickScheduledTask = onClickScheduledTask,
+        onClickAllTask = onClickAllTask,
+        onClickSearch = onClickSearch
     )
 }
 

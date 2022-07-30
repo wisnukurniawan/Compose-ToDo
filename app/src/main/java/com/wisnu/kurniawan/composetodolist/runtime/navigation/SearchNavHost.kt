@@ -17,8 +17,9 @@ fun NavGraphBuilder.SearchNavHost(
         ) {
             val viewModel = hiltViewModel<SearchViewModel>()
             SearchScreen(
-                navController = navController,
-                viewModel = viewModel
+                viewModel = viewModel,
+                onClickBack = { navController.navigateUp() },
+                onTaskItemClick = { taskId, listId -> navController.navigate(StepFlow.Root.route(taskId, listId)) }
             )
         }
     }

@@ -16,34 +16,30 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalCell
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalTitle
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun GroupMenuScreen(
-    navController: NavController,
-    viewModel: GroupMenuViewModel
+    viewModel: GroupMenuViewModel,
+    onAddRemoveClick: () -> Unit,
+    onDeleteClick: () -> Unit,
+    onRenameClick: () -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     GroupMenuScreen(
         items = state.items,
-        onAddRemoveClick = {
-            navController.navigate(HomeFlow.EditGroupList.route(viewModel.groupId))
-        },
+        onAddRemoveClick = onAddRemoveClick,
         onDeleteClick = {
-            navController.navigateUp()
+            onDeleteClick()
             viewModel.dispatch(GroupMenuAction.ClickDelete)
         },
-        onRenameClick = {
-            navController.navigate(HomeFlow.UpdateGroup.route(viewModel.groupId))
-        }
+        onRenameClick = onRenameClick
     )
 }
 

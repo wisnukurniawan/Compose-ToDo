@@ -18,8 +18,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.rounded.CheckCircle
-import androidx.compose.material.icons.rounded.ChevronLeft
-import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.RadioButtonUnchecked
 import androidx.compose.material3.DropdownMenu
@@ -42,7 +40,6 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.identifier
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
@@ -58,7 +55,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgToDoItemCell
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.headerDateDisplayable
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.itemInfoDisplayable
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -66,8 +62,10 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun ScheduledScreen(
-    navController: NavController,
-    viewModel: ScheduledViewModel
+    viewModel: ScheduledViewModel,
+    backIcon: ImageVector,
+    onClickBack: () -> Unit,
+    onTaskItemClick: (String, String) -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -75,10 +73,10 @@ fun ScheduledScreen(
         items = state.items,
         header = {
             ScheduledTitle(
-                onClickBack = { navController.navigateUp() },
+                onClickBack = onClickBack,
                 text = stringResource(R.string.todo_scheduled),
                 color = ListBlue,
-                backIcon = Icons.Rounded.ChevronLeft,
+                backIcon = backIcon,
                 canToggleCompletedTask = true,
                 hideCompleteTask = state.hideCompleteTask,
                 onShowHideCompleteTaskClick = {
@@ -87,38 +85,7 @@ fun ScheduledScreen(
             )
         },
         onTaskItemClick = {
-            navController.navigate(StepFlow.Root.route(it.task.id, it.list.id))
-        },
-        onTaskStatusItemClick = { viewModel.dispatch(ScheduledAction.TaskAction.OnToggleStatus(it)) },
-        onTaskSwipeToDelete = { viewModel.dispatch(ScheduledAction.TaskAction.Delete(it)) }
-    )
-}
-
-@OptIn(ExperimentalLifecycleComposeApi::class)
-@Composable
-fun ScheduledTabletScreen(
-    navController: NavController,
-    viewModel: ScheduledViewModel
-) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
-
-    ScheduledContent(
-        items = state.items,
-        header = {
-            ScheduledTitle(
-                onClickBack = { navController.navigateUp() },
-                text = stringResource(R.string.todo_scheduled),
-                color = ListBlue,
-                backIcon = Icons.Rounded.Close,
-                canToggleCompletedTask = true,
-                hideCompleteTask = state.hideCompleteTask,
-                onShowHideCompleteTaskClick = {
-                    viewModel.dispatch(ScheduledAction.ToggleCompleteTaskVisibility)
-                },
-            )
-        },
-        onTaskItemClick = {
-            navController.navigate(StepFlow.Root.route(it.task.id, it.list.id))
+            onTaskItemClick(it.task.id, it.list.id)
         },
         onTaskStatusItemClick = { viewModel.dispatch(ScheduledAction.TaskAction.OnToggleStatus(it)) },
         onTaskSwipeToDelete = { viewModel.dispatch(ScheduledAction.TaskAction.Delete(it)) }
@@ -128,8 +95,10 @@ fun ScheduledTabletScreen(
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun ScheduledTodayScreen(
-    navController: NavController,
-    viewModel: ScheduledViewModel
+    viewModel: ScheduledViewModel,
+    backIcon: ImageVector,
+    onClickBack: () -> Unit,
+    onTaskItemClick: (String, String) -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -137,40 +106,14 @@ fun ScheduledTodayScreen(
         items = state.items,
         header = {
             ScheduledTitle(
-                onClickBack = { navController.navigateUp() },
+                onClickBack = onClickBack,
                 text = stringResource(R.string.todo_today),
                 color = ListRed,
-                backIcon = Icons.Rounded.ChevronLeft
+                backIcon = backIcon
             )
         },
         onTaskItemClick = {
-            navController.navigate(StepFlow.Root.route(it.task.id, it.list.id))
-        },
-        onTaskStatusItemClick = { viewModel.dispatch(ScheduledAction.TaskAction.OnToggleStatus(it)) },
-        onTaskSwipeToDelete = { viewModel.dispatch(ScheduledAction.TaskAction.Delete(it)) }
-    )
-}
-
-@OptIn(ExperimentalLifecycleComposeApi::class)
-@Composable
-fun ScheduledTodayTabletScreen(
-    navController: NavController,
-    viewModel: ScheduledViewModel
-) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
-
-    ScheduledContent(
-        items = state.items,
-        header = {
-            ScheduledTitle(
-                onClickBack = { navController.navigateUp() },
-                text = stringResource(R.string.todo_today),
-                color = ListRed,
-                backIcon = Icons.Rounded.Close
-            )
-        },
-        onTaskItemClick = {
-            navController.navigate(StepFlow.Root.route(it.task.id, it.list.id))
+            onTaskItemClick(it.task.id, it.list.id)
         },
         onTaskStatusItemClick = { viewModel.dispatch(ScheduledAction.TaskAction.OnToggleStatus(it)) },
         onTaskSwipeToDelete = { viewModel.dispatch(ScheduledAction.TaskAction.Delete(it)) }

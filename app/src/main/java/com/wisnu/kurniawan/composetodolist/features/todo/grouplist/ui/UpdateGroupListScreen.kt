@@ -28,7 +28,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isUngroup
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
@@ -46,8 +45,9 @@ import com.wisnu.kurniawan.composetodolist.model.GroupIdWithList
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun UpdateGroupListScreen(
-    navController: NavController,
-    viewModel: UpdateGroupListViewModel
+    viewModel: UpdateGroupListViewModel,
+    onSubmit: () -> Unit,
+    onSkip: () -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -61,17 +61,19 @@ fun UpdateGroupListScreen(
         onItemChange = { viewModel.dispatch(UpdateGroupListAction.Change(it)) },
         onSubmit = {
             viewModel.dispatch(UpdateGroupListAction.Submit)
-            navController.navigateUp()
+            onSubmit()
         },
-        onSkip = { navController.navigateUp() }
+        onSkip = onSkip
     )
 }
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun EditGroupListScreen(
-    navController: NavController,
-    viewModel: UpdateGroupListViewModel
+    viewModel: UpdateGroupListViewModel,
+    onClickBack: () -> Unit,
+    onSubmit: () -> Unit,
+    onSkip: () -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -80,15 +82,15 @@ fun EditGroupListScreen(
         title = {
             PgModalBackHeader(
                 text = stringResource(R.string.todo_update_group_list),
-                onClickBack = { navController.navigateUp() }
+                onClickBack = onClickBack
             )
         },
         onItemChange = { viewModel.dispatch(UpdateGroupListAction.Change(it)) },
         onSubmit = {
             viewModel.dispatch(UpdateGroupListAction.Submit)
-            navController.navigateUp()
+            onSubmit()
         },
-        onSkip = { navController.navigateUp() }
+        onSkip = onSkip
     )
 }
 

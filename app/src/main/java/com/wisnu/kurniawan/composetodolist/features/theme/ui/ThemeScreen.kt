@@ -1,6 +1,5 @@
 package com.wisnu.kurniawan.composetodolist.features.theme.ui
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
@@ -23,7 +22,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalBackHeader
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalCell
@@ -33,8 +31,8 @@ import com.wisnu.kurniawan.composetodolist.model.Theme
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun ThemeScreen(
-    navController: NavController,
-    viewModel: ThemeViewModel
+    viewModel: ThemeViewModel,
+    onClickBack: () -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -42,9 +40,7 @@ fun ThemeScreen(
         title = {
             PgModalBackHeader(
                 text = stringResource(R.string.setting_theme),
-                onClickBack = {
-                    navController.navigateUp()
-                }
+                onClickBack = onClickBack
             )
         },
         content = {
@@ -61,7 +57,6 @@ fun ThemeScreen(
     )
 }
 
-@SuppressLint("InlinedApi")
 @Composable
 private fun ThemeItem(
     onClick: () -> Unit,

@@ -18,8 +18,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.rounded.CheckCircle
-import androidx.compose.material.icons.rounded.ChevronLeft
-import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.RadioButtonUnchecked
 import androidx.compose.material3.DropdownMenu
@@ -43,7 +41,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.identifier
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
@@ -56,7 +53,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgPageLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgToDoItemCell
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.itemInfoDisplayable
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -64,8 +60,10 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun AllScreen(
-    navController: NavController,
-    viewModel: AllViewModel
+    viewModel: AllViewModel,
+    backIcon: ImageVector,
+    onClickBack: () -> Unit,
+    onTaskItemClick: (String, String) -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -73,9 +71,9 @@ fun AllScreen(
         items = state.items,
         header = {
             AllTitle(
-                onClickBack = { navController.navigateUp() },
+                onClickBack = onClickBack,
                 text = stringResource(R.string.todo_all),
-                backIcon = Icons.Rounded.ChevronLeft,
+                backIcon = backIcon,
                 hideCompleteTask = state.hideCompleteTask,
                 onShowHideCompleteTaskClick = {
                     viewModel.dispatch(AllAction.ToggleCompleteTaskVisibility)
@@ -83,36 +81,7 @@ fun AllScreen(
             )
         },
         onTaskItemClick = {
-            navController.navigate(StepFlow.Root.route(it.task.id, it.list.id))
-        },
-        onTaskStatusItemClick = { viewModel.dispatch(AllAction.TaskAction.OnToggleStatus(it)) },
-        onTaskSwipeToDelete = { viewModel.dispatch(AllAction.TaskAction.Delete(it)) }
-    )
-}
-
-@OptIn(ExperimentalLifecycleComposeApi::class)
-@Composable
-fun AllTabletScreen(
-    navController: NavController,
-    viewModel: AllViewModel
-) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
-
-    AllContent(
-        items = state.items,
-        header = {
-            AllTitle(
-                onClickBack = { navController.navigateUp() },
-                text = stringResource(R.string.todo_all),
-                backIcon = Icons.Rounded.Close,
-                hideCompleteTask = state.hideCompleteTask,
-                onShowHideCompleteTaskClick = {
-                    viewModel.dispatch(AllAction.ToggleCompleteTaskVisibility)
-                }
-            )
-        },
-        onTaskItemClick = {
-            navController.navigate(StepFlow.Root.route(it.task.id, it.list.id))
+            onTaskItemClick(it.task.id, it.list.id)
         },
         onTaskStatusItemClick = { viewModel.dispatch(AllAction.TaskAction.OnToggleStatus(it)) },
         onTaskSwipeToDelete = { viewModel.dispatch(AllAction.TaskAction.Delete(it)) }

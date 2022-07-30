@@ -15,7 +15,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.displayable
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalCell
@@ -25,8 +24,8 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalTitle
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun RepeatSelectionScreen(
-    navController: NavController,
     viewModel: StepViewModel,
+    onItemClick: () -> Unit
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -41,7 +40,7 @@ fun RepeatSelectionScreen(
                 RepeatItem(
                     onClick = {
                         viewModel.dispatch(StepAction.TaskAction.SelectRepeat(item))
-                        navController.navigateUp()
+                        onItemClick()
                     },
                     item = item
                 )

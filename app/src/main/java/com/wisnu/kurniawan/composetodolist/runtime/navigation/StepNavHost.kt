@@ -32,8 +32,14 @@ fun NavGraphBuilder.StepNavHost(
         ) {
             val viewModel = hiltViewModel<StepViewModel>()
             StepScreen(
-                navController = navController,
-                viewModel = viewModel
+                viewModel = viewModel,
+                onClickBack = { navController.navigateUp() },
+                onClickTaskName = { navController.navigate(StepFlow.EditTask.route) },
+                onClickCreateStep = { navController.navigate(StepFlow.CreateStep.route) },
+                onClickStep = { navController.navigate(StepFlow.EditStep.route(it)) },
+                onClickTaskDelete = { navController.navigateUp() },
+                onClickRepeatItem = { navController.navigate(StepFlow.SelectRepeatTask.route) },
+                onClickUpdateNote = { navController.navigate(StepFlow.UpdateTaskNote.route) }
             )
         }
         bottomSheet(StepFlow.CreateStep.route) {
@@ -63,9 +69,10 @@ fun NavGraphBuilder.StepNavHost(
             bottomSheetConfig.value = DefaultMainBottomSheetConfig
 
             RenameStepScreen(
-                navController = navController,
                 viewModel = viewModel,
-                stepId = stepId.orEmpty()
+                stepId = stepId.orEmpty(),
+                onCancelClick = { navController.navigateUp() },
+                onSaveClick = { navController.navigateUp() }
             )
         }
         bottomSheet(StepFlow.EditTask.route) {
@@ -79,8 +86,9 @@ fun NavGraphBuilder.StepNavHost(
             bottomSheetConfig.value = DefaultMainBottomSheetConfig
 
             RenameTaskScreen(
-                navController = navController,
-                viewModel = viewModel
+                viewModel = viewModel,
+                onCancelClick = { navController.navigateUp() },
+                onSaveClick = { navController.navigateUp() }
             )
         }
         bottomSheet(StepFlow.SelectRepeatTask.route) {
@@ -94,8 +102,8 @@ fun NavGraphBuilder.StepNavHost(
             bottomSheetConfig.value = DefaultMainBottomSheetConfig
 
             RepeatSelectionScreen(
-                navController = navController,
-                viewModel = viewModel
+                viewModel = viewModel,
+                onItemClick = { navController.navigateUp() }
             )
         }
         bottomSheet(StepFlow.UpdateTaskNote.route) {
@@ -109,8 +117,8 @@ fun NavGraphBuilder.StepNavHost(
             bottomSheetConfig.value = DefaultMainBottomSheetConfig
 
             UpdateTaskNoteScreen(
-                navController = navController,
-                viewModel = viewModel
+                viewModel = viewModel,
+                onClickBack = { navController.navigateUp() }
             )
         }
     }

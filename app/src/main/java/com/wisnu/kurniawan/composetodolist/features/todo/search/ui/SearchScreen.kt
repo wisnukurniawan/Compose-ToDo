@@ -28,7 +28,6 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.features.todo.all.ui.ItemAllState
 import com.wisnu.kurniawan.composetodolist.features.todo.all.ui.TaskContent
@@ -36,22 +35,22 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgPageLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgTextField
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun SearchScreen(
-    navController: NavController,
-    viewModel: SearchViewModel
+    viewModel: SearchViewModel,
+    onClickBack: () -> Unit,
+    onTaskItemClick: (String, String) -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     SearchScreen(
         searchText = state.searchText,
         items = state.items,
-        onClickBack = { navController.navigateUp() },
+        onClickBack = onClickBack,
         onSearchChange = { viewModel.dispatch(SearchAction.ChangeSearchText(it)) },
-        onTaskItemClick = { navController.navigate(StepFlow.Root.route(it.task.id, it.list.id)) },
+        onTaskItemClick = { onTaskItemClick(it.task.id, it.list.id) },
         onTaskStatusItemClick = { viewModel.dispatch(SearchAction.TaskAction.OnToggleStatus(it)) },
         onTaskSwipeToDelete = { viewModel.dispatch(SearchAction.TaskAction.Delete(it)) },
     )

@@ -1,6 +1,7 @@
 package com.wisnu.kurniawan.composetodolist.runtime.navigation
 
 import androidx.compose.runtime.MutableState
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -10,14 +11,14 @@ import com.google.accompanist.navigation.material.ExperimentalMaterialNavigation
 import com.google.accompanist.navigation.material.bottomSheet
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.ui.CreateListEditor
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.ui.ListDetailScreen
-import com.wisnu.kurniawan.composetodolist.features.todo.detail.ui.ListDetailTabletScreen
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.ui.ListDetailViewModel
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.ui.TaskEditor
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.ui.UpdateListEditor
 
 fun NavGraphBuilder.ListDetailNavHost(
     navController: NavHostController,
-    bottomSheetConfig: MutableState<MainBottomSheetConfig>
+    bottomSheetConfig: MutableState<MainBottomSheetConfig>,
+    backIcon: ImageVector
 ) {
     // navController.navigate to ListDetailFlow.Root.route will crash due to not found
     // add "?$ARG_LIST_ID={$ARG_LIST_ID}" in startDestination for workaround
@@ -31,36 +32,23 @@ fun NavGraphBuilder.ListDetailNavHost(
         ) {
             val viewModel = hiltViewModel<ListDetailViewModel>()
             ListDetailScreen(
-                navController = navController,
-                viewModel = viewModel
-            )
-        }
-        ListDetailBottomSheetNavHost(
-            navController = navController,
-            bottomSheetConfig = bottomSheetConfig
-        )
-
-    }
-}
-
-fun NavGraphBuilder.ListDetailTabletNavHost(
-    navController: NavHostController,
-    bottomSheetConfig: MutableState<MainBottomSheetConfig>
-) {
-    // navController.navigate to ListDetailFlow.Root.route will crash due to not found
-    // add "?$ARG_LIST_ID={$ARG_LIST_ID}" in startDestination for workaround
-    navigation(
-        startDestination = ListDetailFlow.ListDetailScreen.route,
-        route = ListDetailFlow.Root.route
-    ) {
-        composable(
-            route = ListDetailFlow.ListDetailScreen.route,
-            arguments = ListDetailFlow.ListDetailScreen.arguments
-        ) {
-            val viewModel = hiltViewModel<ListDetailViewModel>()
-            ListDetailTabletScreen(
-                navController = navController,
-                viewModel = viewModel
+                viewModel = viewModel,
+                backIcon = backIcon,
+                showCreateListScreen = {
+                    navController.navigate(ListDetailFlow.CreateList.route)
+                },
+                onCloseScreen = {
+                    navController.navigateUp()
+                },
+                onRelaunchScreen = {
+                    navController.navigate(ListDetailFlow.Root.route(it)) {
+                        popUpTo(HomeFlow.DashboardScreen.route)
+                    }
+                },
+                onClickSave = { navController.navigate(ListDetailFlow.UpdateList.route) },
+                onClickBack = { navController.navigateUp() },
+                onAddTaskClick = { navController.navigate(ListDetailFlow.CreateTask.route) },
+                onTaskItemClick = { taskId, listId -> navController.navigate(StepFlow.Root.route(taskId, listId)) }
             )
         }
         ListDetailBottomSheetNavHost(
@@ -86,7 +74,9 @@ private fun NavGraphBuilder.ListDetailBottomSheetNavHost(
         bottomSheetConfig.value = DefaultMainBottomSheetConfig
         CreateListEditor(
             viewModel = viewModel,
-            navController = navController
+            onCancelClick = { navController.navigateUp() },
+            onClosePage = { navController.navigateUp() },
+            onSaveClick = { navController.navigateUp() },
         )
     }
     bottomSheet(ListDetailFlow.UpdateList.route) {
@@ -100,7 +90,8 @@ private fun NavGraphBuilder.ListDetailBottomSheetNavHost(
         bottomSheetConfig.value = DefaultMainBottomSheetConfig
         UpdateListEditor(
             viewModel = viewModel,
-            navController = navController
+            onCancelClick = { navController.navigateUp() },
+            onSaveClick = { navController.navigateUp() },
         )
     }
     bottomSheet(ListDetailFlow.CreateTask.route) {

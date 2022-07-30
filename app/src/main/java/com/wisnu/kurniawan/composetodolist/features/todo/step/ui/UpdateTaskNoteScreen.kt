@@ -25,7 +25,6 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaDisabled
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgButton
@@ -37,8 +36,8 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun UpdateTaskNoteScreen(
-    navController: NavController,
     viewModel: StepViewModel,
+    onClickBack: () -> Unit
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val focusRequest = remember { FocusRequester() }
@@ -84,7 +83,7 @@ fun UpdateTaskNoteScreen(
 
                 PgButton(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = { navController.navigateUp() },
+                    onClick = onClickBack,
                 ) {
                     Text(
                         text = stringResource(R.string.todo_done),

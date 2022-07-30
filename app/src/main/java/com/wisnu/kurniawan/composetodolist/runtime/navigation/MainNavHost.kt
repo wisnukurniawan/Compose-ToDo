@@ -7,6 +7,9 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.ModalBottomSheetDefaults
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ChevronLeft
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -112,15 +115,15 @@ private fun SmallScreenNavHost(
 
         HomeNavHost(navController, bottomSheetConfig)
 
-        ListDetailNavHost(navController, bottomSheetConfig)
+        ListDetailNavHost(navController, bottomSheetConfig, Icons.Rounded.ChevronLeft)
 
         StepNavHost(navController, bottomSheetConfig)
 
-        ScheduledNavHost(navController)
+        ScheduledNavHost(navController, Icons.Rounded.ChevronLeft)
 
-        ScheduledTodayNavHost(navController)
+        ScheduledTodayNavHost(navController, Icons.Rounded.ChevronLeft)
 
-        AllNavHost(navController)
+        AllNavHost(navController, Icons.Rounded.ChevronLeft)
     }
 }
 
@@ -192,15 +195,15 @@ private fun HomeTabletNavHost(
 
                     }
 
-                    ListDetailTabletNavHost(navControllerRight, bottomSheetConfigRight)
+                    ListDetailNavHost(navControllerRight, bottomSheetConfigRight, Icons.Rounded.Close)
 
                     StepNavHost(navControllerRight, bottomSheetConfigRight)
 
-                    ScheduledTabletNavHost(navControllerRight)
+                    ScheduledNavHost(navControllerRight, Icons.Rounded.Close)
 
-                    ScheduledTodayTabletNavHost(navControllerRight)
+                    ScheduledTodayNavHost(navControllerRight, Icons.Rounded.Close)
 
-                    AllTabletNavHost(navControllerRight)
+                    AllNavHost(navControllerRight, Icons.Rounded.Close)
 
                     SearchNavHost(navControllerRight)
                 }

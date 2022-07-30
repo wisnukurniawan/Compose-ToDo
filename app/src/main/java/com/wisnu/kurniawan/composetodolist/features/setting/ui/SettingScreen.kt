@@ -11,18 +11,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalCell
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalTitle
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.SettingFlow
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun SettingScreen(
-    navController: NavController,
     viewModel: SettingViewModel,
+    onClickLogout: () -> Unit,
+    onClickTheme: () -> Unit,
+    onClickLanguage: () -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -36,13 +36,13 @@ fun SettingScreen(
                     onClick = {
                         when (item) {
                             is SettingItem.Logout -> {
-                                navController.navigate(SettingFlow.Logout.route)
+                                onClickLogout()
                             }
                             is SettingItem.Theme -> {
-                                navController.navigate(SettingFlow.Theme.route)
+                                onClickTheme()
                             }
                             is SettingItem.Language -> {
-                                navController.navigate(SettingFlow.Language.route)
+                                onClickLanguage()
                             }
                         }
                     },

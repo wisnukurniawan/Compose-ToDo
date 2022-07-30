@@ -1,10 +1,12 @@
 package com.wisnu.kurniawan.composetodolist.runtime.navigation
 
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navigation
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.bottomSheet
@@ -32,10 +34,18 @@ fun NavGraphBuilder.HomeNavHost(
             val toDoMainViewModel = hiltViewModel<ToDoMainViewModel>()
             val searchViewModel = hiltViewModel<SearchViewModel>()
             DashboardScreen(
-                navController = navController,
                 viewModel = viewModel,
                 toDoMainViewModel = toDoMainViewModel,
-                searchViewModel = searchViewModel
+                searchViewModel = searchViewModel,
+                onSettingClick = { navController.navigate(SettingFlow.Root.route) },
+                onAddNewListClick = { navController.navigate(ListDetailFlow.Root.route()) },
+                onAddNewGroupClick = { navController.navigate(HomeFlow.CreateGroup.route) },
+                onClickGroup = { navController.navigate(HomeFlow.GroupMenu.route(it)) },
+                onClickList = { navController.navigate(ListDetailFlow.Root.route(it)) },
+                onClickScheduledTodayTask = { navController.navigate(ScheduledTodayFlow.Root.route()) },
+                onClickScheduledTask = { navController.navigate(ScheduledFlow.Root.route()) },
+                onClickAllTask = { navController.navigate(AllFlow.Root.route) },
+                onSearchTaskItemClick = { taskId, listId -> navController.navigate(StepFlow.Root.route(taskId, listId)) }
             )
         }
         HomeBottomSheetNavHost(
@@ -55,12 +65,45 @@ fun NavGraphBuilder.HomeTabletNavHost(
         composable(HomeFlow.DashboardScreen.route) {
             val viewModel = hiltViewModel<DashboardViewModel>()
             val toDoMainViewModel = hiltViewModel<ToDoMainViewModel>()
+            val navBackStackEntry by navControllerRight.currentBackStackEntryAsState()
+
             DashboardTabletScreen(
-                navController = navController,
-                navControllerLeft = navControllerLeft,
-                navControllerRight = navControllerRight,
+                navBackStackEntry = navBackStackEntry,
                 viewModel = viewModel,
-                toDoMainViewModel = toDoMainViewModel
+                toDoMainViewModel = toDoMainViewModel,
+                onSettingClick = { navController.navigate(SettingFlow.Root.route) },
+                onAddNewGroupClick = { navControllerLeft.navigate(HomeFlow.CreateGroup.route) },
+                onClickGroup = { navControllerLeft.navigate(HomeFlow.GroupMenu.route(it)) },
+                onAddNewListClick = {
+                    navControllerRight.navigate(ListDetailFlow.Root.route()) {
+                        popUpTo(MainFlow.RootEmpty.route)
+                    }
+                },
+                onClickList = {
+                    navControllerRight.navigate(ListDetailFlow.Root.route(it)) {
+                        popUpTo(MainFlow.RootEmpty.route)
+                    }
+                },
+                onClickScheduledTodayTask = {
+                    navControllerRight.navigate(ScheduledTodayFlow.Root.route()) {
+                        popUpTo(MainFlow.RootEmpty.route)
+                    }
+                },
+                onClickScheduledTask = {
+                    navControllerRight.navigate(ScheduledFlow.Root.route()) {
+                        popUpTo(MainFlow.RootEmpty.route)
+                    }
+                },
+                onClickAllTask = {
+                    navControllerRight.navigate(AllFlow.Root.route) {
+                        popUpTo(MainFlow.RootEmpty.route)
+                    }
+                },
+                onClickSearch = {
+                    navControllerRight.navigate(SearchFlow.Root.route) {
+                        popUpTo(MainFlow.RootEmpty.route)
+                    }
+                }
             )
         }
 
@@ -84,15 +127,28 @@ private fun NavGraphBuilder.HomeBottomSheetNavHost(
         bottomSheetConfig.value = DefaultMainBottomSheetConfig
         GroupMenuScreen(
             viewModel = viewModel,
-            navController = navController
+            onAddRemoveClick = {
+                navController.navigate(HomeFlow.EditGroupList.route(viewModel.groupId))
+            },
+            onDeleteClick = {
+                navController.navigateUp()
+            },
+            onRenameClick = {
+                navController.navigate(HomeFlow.UpdateGroup.route(viewModel.groupId))
+            }
         )
     }
     bottomSheet(HomeFlow.CreateGroup.route) {
         val viewModel = hiltViewModel<CreateGroupViewModel>()
         bottomSheetConfig.value = DefaultMainBottomSheetConfig
         CreateGroupScreen(
-            navController = navController,
-            viewModel = viewModel
+            viewModel = viewModel,
+            onHideScreen = { navController.navigateUp() },
+            onShowGroupListScreen = {
+                navController.navigateUp()
+                navController.navigate(HomeFlow.UpdateGroupList.route(it))
+            },
+            onCancelClick = { navController.navigateUp() }
         )
     }
     bottomSheet(
@@ -102,8 +158,10 @@ private fun NavGraphBuilder.HomeBottomSheetNavHost(
         val viewModel = hiltViewModel<CreateGroupViewModel>()
         bottomSheetConfig.value = DefaultMainBottomSheetConfig
         UpdateGroupScreen(
-            navController = navController,
-            viewModel = viewModel
+            viewModel = viewModel,
+            onCancelClick = { navController.navigateUp() },
+            onHideScreen = { navController.navigateUp() },
+            onClickBack = { navController.navigateUp() },
         )
     }
     bottomSheet(
@@ -113,8 +171,9 @@ private fun NavGraphBuilder.HomeBottomSheetNavHost(
         val viewModel = hiltViewModel<UpdateGroupListViewModel>()
         bottomSheetConfig.value = DefaultMainBottomSheetConfig
         UpdateGroupListScreen(
-            navController = navController,
-            viewModel = viewModel
+            viewModel = viewModel,
+            onSkip = { navController.navigateUp() },
+            onSubmit = { navController.navigateUp() },
         )
     }
     bottomSheet(
@@ -124,8 +183,10 @@ private fun NavGraphBuilder.HomeBottomSheetNavHost(
         val viewModel = hiltViewModel<UpdateGroupListViewModel>()
         bottomSheetConfig.value = DefaultMainBottomSheetConfig
         EditGroupListScreen(
-            navController = navController,
-            viewModel = viewModel
+            viewModel = viewModel,
+            onSubmit = { navController.navigateUp() },
+            onSkip = { navController.navigateUp() },
+            onClickBack = { navController.navigateUp() },
         )
     }
 }

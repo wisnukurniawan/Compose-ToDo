@@ -26,7 +26,6 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isValidGroupName
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgButton
@@ -37,14 +36,15 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgSecondaryBut
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgTextField
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.requestFocusImeAware
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.HandleEffect
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun CreateGroupScreen(
-    navController: NavController,
-    viewModel: CreateGroupViewModel
+    viewModel: CreateGroupViewModel,
+    onHideScreen: () -> Unit,
+    onShowGroupListScreen: (String) -> Unit,
+    onCancelClick: () -> Unit,
 ) {
     val focusRequest = remember { FocusRequester() }
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -52,10 +52,9 @@ fun CreateGroupScreen(
 
     HandleEffect(viewModel) {
         when (it) {
-            is CreateGroupEffect.HideScreen -> navController.navigateUp()
+            is CreateGroupEffect.HideScreen -> onHideScreen()
             is CreateGroupEffect.ShowUpdateGroupListScreen -> {
-                navController.navigateUp()
-                navController.navigate(HomeFlow.UpdateGroupList.route(it.groupId))
+                onShowGroupListScreen(it.groupId)
             }
         }
     }
@@ -79,22 +78,24 @@ fun CreateGroupScreen(
         onGroupNameChange = { viewModel.dispatch(CreateGroupAction.ChangeGroupName(it)) },
         onImeDoneClick = { viewModel.dispatch(CreateGroupAction.ClickImeDone) },
         onCreateClick = { viewModel.dispatch(CreateGroupAction.ClickSave) },
-        onCancelClick = { navController.navigateUp() }
+        onCancelClick = onCancelClick
     )
 }
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun UpdateGroupScreen(
-    navController: NavController,
-    viewModel: CreateGroupViewModel
+    viewModel: CreateGroupViewModel,
+    onHideScreen: () -> Unit,
+    onClickBack: () -> Unit,
+    onCancelClick: () -> Unit,
 ) {
     val focusRequest = remember { FocusRequester() }
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     HandleEffect(viewModel) {
         when (it) {
-            CreateGroupEffect.HideScreen -> navController.navigateUp()
+            CreateGroupEffect.HideScreen -> onHideScreen()
             is CreateGroupEffect.ShowUpdateGroupListScreen -> {}
         }
     }
@@ -108,7 +109,7 @@ fun UpdateGroupScreen(
         title = {
             PgModalBackHeader(
                 text = stringResource(R.string.todo_group_menu_rename),
-                onClickBack = { navController.navigateUp() }
+                onClickBack = onClickBack
             )
         },
         hint = stringResource(R.string.todo_group_menu_rename),
@@ -118,7 +119,7 @@ fun UpdateGroupScreen(
         onGroupNameChange = { viewModel.dispatch(CreateGroupAction.ChangeGroupName(it)) },
         onImeDoneClick = { viewModel.dispatch(CreateGroupAction.ClickImeDone) },
         onCreateClick = { viewModel.dispatch(CreateGroupAction.ClickSave) },
-        onCancelClick = { navController.navigateUp() }
+        onCancelClick = onCancelClick
     )
 }
 

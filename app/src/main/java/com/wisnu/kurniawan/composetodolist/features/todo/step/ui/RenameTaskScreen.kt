@@ -8,7 +8,6 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgToDoCreateConfirmator
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.requestFocusImeAware
@@ -17,8 +16,9 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun RenameTaskScreen(
-    navController: NavController,
     viewModel: StepViewModel,
+    onCancelClick: () -> Unit,
+    onSaveClick: () -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val focusRequest = remember { FocusRequester() }
@@ -36,10 +36,10 @@ fun RenameTaskScreen(
         isValidName = state.validEditTaskName,
         focusRequester = focusRequest,
         onNameChange = { viewModel.dispatch(StepAction.TaskAction.ChangeTaskName(it)) },
-        onCancelClick = { navController.navigateUp() },
+        onCancelClick = onCancelClick,
         onSaveClick = {
             viewModel.dispatch(StepAction.TaskAction.ClickSave)
-            navController.navigateUp()
+            onSaveClick()
         }
     )
 }

@@ -57,7 +57,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.displayable
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isDueDateSet
@@ -85,7 +84,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderIm
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.model.ToDoStep
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -94,8 +92,14 @@ import java.time.LocalTime
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun StepScreen(
-    navController: NavController,
-    viewModel: StepViewModel
+    viewModel: StepViewModel,
+    onClickBack: () -> Unit,
+    onClickTaskName: () -> Unit,
+    onClickCreateStep: () -> Unit,
+    onClickStep: (String) -> Unit,
+    onClickTaskDelete: () -> Unit,
+    onClickRepeatItem: () -> Unit,
+    onClickUpdateNote: () -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val activity = LocalContext.current as AppCompatActivity
@@ -110,20 +114,20 @@ fun StepScreen(
     }
 
     StepScreen(
-        onClickBack = { navController.navigateUp() },
+        onClickBack = onClickBack,
         task = state.task,
         steps = state.task.steps,
         color = state.color.toColor(),
         listState = listState,
-        onClickTaskName = { navController.navigate(StepFlow.EditTask.route) },
+        onClickTaskName = onClickTaskName,
         onClickTaskStatus = { viewModel.dispatch(StepAction.TaskAction.OnToggleStatus) },
-        onClickCreateStep = { navController.navigate(StepFlow.CreateStep.route) },
-        onClickStep = { navController.navigate(StepFlow.EditStep.route(it.id)) },
+        onClickCreateStep = onClickCreateStep,
+        onClickStep = { onClickStep(it.id) },
         onClickStepStatus = { viewModel.dispatch(StepAction.StepItemAction.Edit.OnToggleStatus(it)) },
         onSwipeToDeleteStep = { viewModel.dispatch(StepAction.StepItemAction.Edit.Delete(it)) },
         onClickTaskDelete = {
             viewModel.dispatch(StepAction.TaskAction.Delete)
-            navController.navigateUp()
+            onClickTaskDelete()
         },
         onClickDueDateItem = {
             val initial = state.task.dueDate?.toLocalDate()
@@ -141,7 +145,7 @@ fun StepScreen(
                 }
             }
         },
-        onClickRepeatItem = { navController.navigate(StepFlow.SelectRepeatTask.route) },
+        onClickRepeatItem = onClickRepeatItem,
         onCheckedChangeDueDateItem = { checked ->
             if (checked) {
                 activity.showDatePicker(DateTimeProviderImpl().now().toLocalDate()) { selectedDate ->
@@ -162,7 +166,7 @@ fun StepScreen(
                 viewModel.dispatch(StepAction.TaskAction.ResetTime)
             }
         },
-        onClickUpdateNote = { navController.navigate(StepFlow.UpdateTaskNote.route) }
+        onClickUpdateNote = onClickUpdateNote
     )
 }
 

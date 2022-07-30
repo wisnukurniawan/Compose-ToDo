@@ -36,19 +36,16 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.canLogin
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgPageLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgTextField
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.HandleEffect
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.AuthFlow
-import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
-fun LoginScreen(navController: NavController, viewModel: LoginViewModel) {
+fun LoginScreen(viewModel: LoginViewModel, onNavigateToDashboard: () -> Unit) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     LoginScreen(
@@ -62,18 +59,14 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel) {
     HandleEffect(viewModel) {
         when (it) {
             LoginEffect.NavigateToDashboard -> {
-                navController.navigate(HomeFlow.Root.route) {
-                    popUpTo(AuthFlow.LoginScreen.route) {
-                        inclusive = true
-                    }
-                }
+                onNavigateToDashboard()
             }
         }
     }
 }
 
 @Composable
-fun LoginScreen(
+private fun LoginScreen(
     state: LoginState,
     onEmailChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,

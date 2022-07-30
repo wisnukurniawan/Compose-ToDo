@@ -15,7 +15,16 @@ fun NavGraphBuilder.AuthNavHost(navController: NavHostController) {
     ) {
         composable(route = AuthFlow.LoginScreen.route) {
             val viewModel = hiltViewModel<LoginViewModel>()
-            LoginScreen(navController = navController, viewModel = viewModel)
+            LoginScreen(
+                viewModel = viewModel,
+                onNavigateToDashboard = {
+                    navController.navigate(HomeFlow.Root.route) {
+                        popUpTo(AuthFlow.LoginScreen.route) {
+                            inclusive = true
+                        }
+                    }
+                }
+            )
         }
     }
 }

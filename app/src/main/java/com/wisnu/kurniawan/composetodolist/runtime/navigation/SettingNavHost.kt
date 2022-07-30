@@ -26,32 +26,41 @@ fun NavGraphBuilder.SettingNavHost(
             val viewModel = hiltViewModel<SettingViewModel>()
             bottomSheetConfig.value = DefaultMainBottomSheetConfig
             SettingScreen(
-                navController = navController,
-                viewModel = viewModel
+                viewModel = viewModel,
+                onClickLogout = { navController.navigate(SettingFlow.Logout.route) },
+                onClickLanguage = { navController.navigate(SettingFlow.Language.route) },
+                onClickTheme = { navController.navigate(SettingFlow.Theme.route) }
             )
         }
         bottomSheet(SettingFlow.Theme.route) {
             val viewModel = hiltViewModel<ThemeViewModel>()
             bottomSheetConfig.value = DefaultMainBottomSheetConfig
             ThemeScreen(
-                navController = navController,
-                viewModel = viewModel
+                viewModel = viewModel,
+                onClickBack = { navController.navigateUp() }
             )
         }
         bottomSheet(SettingFlow.Logout.route) {
             val viewModel = hiltViewModel<LogoutViewModel>()
             bottomSheetConfig.value = DefaultMainBottomSheetConfig
             LogoutScreen(
-                navController = navController,
-                viewModel = viewModel
+                viewModel = viewModel,
+                onClickBack = { navController.navigateUp() },
+                onNavigateToSplash = {
+                    navController.navigate(MainFlow.Root.route) {
+                        popUpTo(HomeFlow.DashboardScreen.route) {
+                            inclusive = true
+                        }
+                    }
+                }
             )
         }
         bottomSheet(SettingFlow.Language.route) {
             val viewModel = hiltViewModel<LocalizedSettingViewModel>()
             bottomSheetConfig.value = DefaultMainBottomSheetConfig
             LanguageScreen(
-                navController = navController,
-                viewModel = viewModel
+                viewModel = viewModel,
+                onClickBack = { navController.navigateUp() }
             )
         }
     }
