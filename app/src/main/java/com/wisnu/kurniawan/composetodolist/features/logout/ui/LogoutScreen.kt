@@ -4,12 +4,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgButton
@@ -20,12 +21,13 @@ import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.HandleEffect
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.MainFlow
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun LogoutScreen(
     navController: NavController,
     viewModel: LogoutViewModel
 ) {
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     HandleEffect(viewModel) {
         when (it) {

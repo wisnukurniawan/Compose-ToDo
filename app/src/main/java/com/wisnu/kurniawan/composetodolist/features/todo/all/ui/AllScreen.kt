@@ -27,7 +27,6 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,6 +41,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.identifier
@@ -60,12 +61,13 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun AllScreen(
     navController: NavController,
     viewModel: AllViewModel
 ) {
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     AllContent(
         items = state.items,
@@ -88,12 +90,13 @@ fun AllScreen(
     )
 }
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun AllTabletScreen(
     navController: NavController,
     viewModel: AllViewModel
 ) {
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     AllContent(
         items = state.items,

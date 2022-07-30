@@ -2,24 +2,26 @@ package com.wisnu.kurniawan.composetodolist.features.todo.step.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgToDoCreateConfirmator
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.requestFocusImeAware
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun RenameStepScreen(
     navController: NavController,
     viewModel: StepViewModel,
     stepId: String
 ) {
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
     val focusRequest = remember { FocusRequester() }
 
     LaunchedEffect(Unit) {

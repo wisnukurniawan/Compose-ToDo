@@ -12,7 +12,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -25,6 +24,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isValidGroupName
@@ -39,13 +40,14 @@ import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.HandleEffect
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun CreateGroupScreen(
     navController: NavController,
     viewModel: CreateGroupViewModel
 ) {
     val focusRequest = remember { FocusRequester() }
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
     val defaultName = stringResource(R.string.todo_group_default_name)
 
     HandleEffect(viewModel) {
@@ -81,13 +83,14 @@ fun CreateGroupScreen(
     )
 }
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun UpdateGroupScreen(
     navController: NavController,
     viewModel: CreateGroupViewModel
 ) {
     val focusRequest = remember { FocusRequester() }
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     HandleEffect(viewModel) {
         when (it) {

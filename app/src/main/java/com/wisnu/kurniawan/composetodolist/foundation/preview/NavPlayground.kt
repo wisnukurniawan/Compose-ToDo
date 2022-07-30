@@ -6,11 +6,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -84,12 +85,13 @@ fun View1(navController: NavController) {
     }
 }
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun View2(navController: NavController, navController2: NavController, vm1: Vm1) {
     Column(
         modifier = Modifier.fillMaxSize().padding(50.dp)
     ) {
-        val state = vm1.data1.state.collectAsState()
+        val state = vm1.data1.state.collectAsStateWithLifecycle()
         Text("View 2 ${state.value}")
         Button(
             {
@@ -126,12 +128,13 @@ fun View3(navController: NavController) {
     }
 }
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun View4(navController: NavController, vm2: Vm2) {
     Column(
         modifier = Modifier.fillMaxSize().padding(50.dp)
     ) {
-        val state = vm2.data1.state.collectAsState()
+        val state = vm2.data1.state.collectAsStateWithLifecycle()
         Text("View 4 ${state.value}")
         Button(
             {
@@ -151,9 +154,10 @@ fun View4(navController: NavController, vm2: Vm2) {
     }
 }
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun View5(navController: NavController, vm2: Vm2) {
-    val state = vm2.data1.state.collectAsState()
+    val state = vm2.data1.state.collectAsStateWithLifecycle()
     Text("View 5 ${state.value}")
 
     Button(

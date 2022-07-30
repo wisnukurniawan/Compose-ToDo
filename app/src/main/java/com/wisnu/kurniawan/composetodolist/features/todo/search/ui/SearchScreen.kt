@@ -18,7 +18,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -27,6 +26,8 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.features.todo.all.ui.ItemAllState
@@ -37,12 +38,13 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgTextField
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun SearchScreen(
     navController: NavController,
     viewModel: SearchViewModel
 ) {
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     SearchScreen(
         searchText = state.searchText,

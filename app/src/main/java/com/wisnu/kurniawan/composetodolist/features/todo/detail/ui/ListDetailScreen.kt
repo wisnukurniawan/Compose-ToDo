@@ -27,7 +27,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -38,6 +37,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.selectedColor
@@ -56,12 +57,13 @@ import com.wisnu.kurniawan.composetodolist.runtime.navigation.ListDetailFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.MainFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.StepFlow
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun ListDetailScreen(
     navController: NavController,
     viewModel: ListDetailViewModel
 ) {
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
     val listState = rememberLazyListState()
 
     HandleEffect(viewModel) {
@@ -107,12 +109,13 @@ fun ListDetailScreen(
 
 }
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun ListDetailTabletScreen(
     navController: NavController,
     viewModel: ListDetailViewModel
 ) {
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
     val listState = rememberLazyListState()
 
     HandleEffect(viewModel) {
@@ -235,13 +238,14 @@ private fun ListDetailContent(
     }
 }
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun CreateListEditor(
     viewModel: ListDetailViewModel,
     navController: NavController
 ) {
     val shouldClosePage = remember { mutableStateOf(true) }
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
     val defaultName = stringResource(R.string.todo_create_list_default_name)
 
     DisposableEffect(Unit) {
@@ -275,13 +279,14 @@ fun CreateListEditor(
     )
 }
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun UpdateListEditor(
     viewModel: ListDetailViewModel,
     navController: NavController
 ) {
     val shouldRollback = remember { mutableStateOf(true) }
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     DisposableEffect(Unit) {
         onDispose {

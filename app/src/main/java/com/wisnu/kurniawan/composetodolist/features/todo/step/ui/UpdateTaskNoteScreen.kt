@@ -13,7 +13,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -24,6 +23,8 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaDisabled
@@ -33,12 +34,13 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalTitle
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.requestFocusImeAware
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun UpdateTaskNoteScreen(
     navController: NavController,
     viewModel: StepViewModel,
 ) {
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
     val focusRequest = remember { FocusRequester() }
 
     LaunchedEffect(Unit) {

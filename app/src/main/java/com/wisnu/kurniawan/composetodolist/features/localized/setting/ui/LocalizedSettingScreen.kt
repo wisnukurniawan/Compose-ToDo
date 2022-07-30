@@ -10,12 +10,13 @@ import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.os.LocaleListCompat
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalBackHeader
@@ -23,12 +24,13 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalCell
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalLayout
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.HandleEffect
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun LanguageScreen(
     navController: NavController,
     viewModel: LocalizedSettingViewModel
 ) {
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     HandleEffect(viewModel) {
         when (it) {

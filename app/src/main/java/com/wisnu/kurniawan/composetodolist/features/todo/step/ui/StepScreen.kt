@@ -38,7 +38,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -56,6 +55,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.displayable
@@ -90,12 +91,13 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.LocalTime
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun StepScreen(
     navController: NavController,
     viewModel: StepViewModel
 ) {
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
     val activity = LocalContext.current as AppCompatActivity
     val listState = rememberLazyListState()
 

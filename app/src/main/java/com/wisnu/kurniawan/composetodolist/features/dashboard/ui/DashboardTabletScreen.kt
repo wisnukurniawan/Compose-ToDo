@@ -9,7 +9,7 @@
 //import androidx.compose.foundation.layout.width
 //import androidx.compose.material.MaterialTheme
 //import androidx.compose.runtime.Composable
-//import androidx.compose.runtime.collectAsState
+//import androidx.lifecycle.compose.collectAsStateWithLifecycle
 //import androidx.compose.runtime.getValue
 //import androidx.compose.runtime.rememberCoroutineScope
 //import androidx.compose.ui.Modifier
@@ -48,10 +48,10 @@
 //) {
 //    val coroutineScope = rememberCoroutineScope()
 //
-//    val state by viewModel.state.collectAsState()
-//    val todoMainState by toDoMainViewModel.state.collectAsState()
-//    val searchState by searchViewModel.state.collectAsState()
-//    val listDetailState by listDetailViewModel.state.collectAsState()
+//    val state by viewModel.state.collectAsStateWithLifecycle()
+//    val todoMainState by toDoMainViewModel.state.collectAsStateWithLifecycle()
+//    val searchState by searchViewModel.state.collectAsStateWithLifecycle()
+//    val listDetailState by listDetailViewModel.state.collectAsStateWithLifecycle()
 //
 //    Row(modifier = Modifier.fillMaxSize()) {
 //        DashboardScreen(

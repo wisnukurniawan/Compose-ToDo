@@ -20,7 +20,6 @@ import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,6 +34,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.canLogin
@@ -45,9 +46,10 @@ import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.HandleEffect
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.AuthFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.HomeFlow
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun LoginScreen(navController: NavController, viewModel: LoginViewModel) {
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     LoginScreen(
         state = state,
