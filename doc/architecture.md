@@ -1,30 +1,29 @@
 # Mercury architecture
 
-Mercury is a chemical element, which usually used in traditional mining processes to find gold. I named this mercury to pretend the gold as "[Pure function](https://en.wikipedia.org/wiki/Pure_function)". With intention to
-encourage maximal use of pure functions when using this. The more pure function we have, the more gold we have.
+Mercury is a chemical element, which usually used in traditional mining processes to find gold. I named this mercury to pretend the gold as "[Pure function](https://en.wikipedia.org/wiki/Pure_function)" as it intends to encourage maximal use of pure functions when using this. In the process, the more pure function we have, the more gold we have.
 
 ## Goal
 
-By architecting this project subsequently achieved reliability and flexibility. Reliability means the programmer can understand how the program works with minimum effort. Flexibility means the project
-is easy to change due to nature of the project requirement in the future. Change is inevitable.
+Architecting this project subsequently achieved reliability and flexibility. Reliability means the programmer can understand how the program works with minimum effort. Flexibility means the project
+is easy to change due to the nature of the project requirement in the future. Change is inevitable.
 
 ## Rationale
 
 Programming, at its core, is about data processing (acquire, transform, store, search, manage, transmit data). Fundamentally data is immutable information. On mobile app, data processing are
-dominantly consisted of how to process data into set of UI elements. Mobile app need to handle multiple type of input with different velocity:
+dominantly consisted of how to process data into a set of UI elements. Mobile app need to handle multiple types of input with different velocities:
 
 1. User gestures, such as tap on the screen. This kind of input is at positive velocity (which means that the data is pushed onto the application).
-2. Server-side responses. This kind of input is at negative velocity (means that the application needs to trigger something for the data to come).
-3. Server-side pushes (such as push notification, and stream). This kind of input is at positive velocity.
+2. Server-side responses. This kind of input is at negative velocity (which means that the application needs to trigger something for the data to come).
+3. Server-side pushes (such as push notifications, and streams). This kind of input is at positive velocity.
 
 ## Specification
 
 Based on the above goal and rationale this architecture is abstracted using:
 
-### Reactive streams: Kotlin flow
+### Reactive streams: Kotlin flow, Swift combine
 
 Reactive streams is designed to handle stream of data in an asynchronous system. Reactive streams combine the strengths of several programming paradigms, reactive programming and functional
-programming. Two reactive frameworks are possible to use, RxJava and Kotlin flow. Kotlin flow is the chosen one because it is part of Kotlin library and Kotlin is the main language of this project.
+programming. Reactive frameworks are possible to use, for android are RxJava and Kotlin flow, and for iOS are RxSwift and Swift combine. Kotlin flow and Swift combine is the chosen one because it is officially supported by Google and Apple.
 
 ### Immutability
 
