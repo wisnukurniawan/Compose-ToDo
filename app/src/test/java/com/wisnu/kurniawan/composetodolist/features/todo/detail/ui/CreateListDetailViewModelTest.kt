@@ -170,13 +170,14 @@ class CreateListDetailViewModelTest : BaseViewModelTest() {
             viewModel.dispatch(ListDetailAction.ListAction.ChangeName("new name"))
             viewModel.dispatch(ListDetailAction.ListAction.CancelUpdate)
 
+            val expectedState = awaitItem()
             Assert.assertEquals(
                 ListOrange,
-                awaitItem().colors.find { it.applied }?.color
+                expectedState.colors.find { it.applied }?.color
             )
             Assert.assertEquals(
                 "name",
-                awaitItem().newListName
+                expectedState.newListName
             )
 
             cancelAndConsumeRemainingEvents()
