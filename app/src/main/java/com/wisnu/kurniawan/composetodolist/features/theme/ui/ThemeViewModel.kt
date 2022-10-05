@@ -16,7 +16,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.theme.SunriseItemBackgroun
 import com.wisnu.kurniawan.composetodolist.foundation.theme.SunrisePrimary
 import com.wisnu.kurniawan.composetodolist.foundation.theme.TwilightItemBackgroundL1
 import com.wisnu.kurniawan.composetodolist.foundation.theme.TwilightPrimary
-import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
+import com.wisnu.foundation.coreviewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.model.Theme
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

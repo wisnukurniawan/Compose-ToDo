@@ -9,7 +9,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.DEFAULT_TASK_LOC
 import com.wisnu.kurniawan.composetodolist.foundation.extension.select
 import com.wisnu.kurniawan.composetodolist.foundation.extension.updatedDate
 import com.wisnu.kurniawan.composetodolist.foundation.extension.updatedTime
-import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
+import com.wisnu.foundation.coreviewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_LIST_ID
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_TASK_ID
 import dagger.hilt.android.lifecycle.HiltViewModel

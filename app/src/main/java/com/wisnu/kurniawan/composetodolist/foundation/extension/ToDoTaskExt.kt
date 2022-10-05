@@ -1,5 +1,6 @@
 package com.wisnu.kurniawan.composetodolist.foundation.extension
 
+import com.wisnu.foundation.coredatetime.isFriday
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl
 import com.wisnu.kurniawan.composetodolist.model.ToDoRepeat
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus

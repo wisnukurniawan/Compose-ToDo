@@ -38,7 +38,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.dp
-import com.wisnu.kurniawan.coreLogger.Loggr
+import com.wisnu.foundation.coreloggr.Loggr
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

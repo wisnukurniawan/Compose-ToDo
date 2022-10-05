@@ -52,7 +52,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.SwipeDismiss
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProviderImpl
-import com.wisnu.kurniawan.coreLogger.Loggr
+import com.wisnu.foundation.coreloggr.Loggr
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

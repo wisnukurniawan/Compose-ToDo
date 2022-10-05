@@ -2,7 +2,7 @@ package com.wisnu.kurniawan.composetodolist.runtime.initializer
 
 import android.content.Context
 import androidx.startup.Initializer
-import com.wisnu.kurniawan.testDebug.DebugTools
+import com.wisnu.foundation.testdebug.DebugTools
 
 class DebugToolsInitializer : Initializer<DebugTools> {
     override fun create(context: Context): DebugTools {

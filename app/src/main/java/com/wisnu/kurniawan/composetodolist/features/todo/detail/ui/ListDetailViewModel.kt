@@ -9,7 +9,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.select
 import com.wisnu.kurniawan.composetodolist.foundation.extension.selectedColor
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toToDoColor
-import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
+import com.wisnu.foundation.coreviewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_LIST_ID
 import dagger.hilt.android.lifecycle.HiltViewModel

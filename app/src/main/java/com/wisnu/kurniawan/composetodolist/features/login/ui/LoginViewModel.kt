@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.wisnu.kurniawan.composetodolist.features.login.data.ILoginEnvironment
 import com.wisnu.kurniawan.composetodolist.foundation.extension.canLogin
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isValidEmail
-import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
+import com.wisnu.foundation.coreviewmodel.StatefulViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flow

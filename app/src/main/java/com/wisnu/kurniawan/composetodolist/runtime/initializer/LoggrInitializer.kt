@@ -2,9 +2,9 @@ package com.wisnu.kurniawan.composetodolist.runtime.initializer
 
 import android.content.Context
 import androidx.startup.Initializer
-import com.wisnu.kurniawan.composetodolist.foundation.analytic.crash.CrashLogging
-import com.wisnu.kurniawan.coreLogger.Loggr
-import com.wisnu.kurniawan.testDebug.DebugTools
+import com.wisnu.foundation.coreloggr.Loggr
+import com.wisnu.foundation.libanalyticsmanager.crash.CrashLogging
+import com.wisnu.foundation.testdebug.DebugTools
 
 class LoggrInitializer : Initializer<Loggr> {
     override fun create(context: Context): Loggr {

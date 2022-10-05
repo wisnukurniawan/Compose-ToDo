@@ -2,7 +2,7 @@ package com.wisnu.kurniawan.composetodolist.features.todo.search.ui
 
 import androidx.lifecycle.viewModelScope
 import com.wisnu.kurniawan.composetodolist.features.todo.search.data.ISearchEnvironment
-import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
+import com.wisnu.foundation.coreviewmodel.StatefulViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
