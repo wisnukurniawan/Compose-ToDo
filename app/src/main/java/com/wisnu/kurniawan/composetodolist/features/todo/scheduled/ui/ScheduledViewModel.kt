@@ -3,7 +3,7 @@ package com.wisnu.kurniawan.composetodolist.features.todo.scheduled.ui
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.wisnu.kurniawan.composetodolist.features.todo.scheduled.data.IScheduledEnvironment
-import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
+import com.wisnu.foundation.coreviewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_SCHEDULED_TYPE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

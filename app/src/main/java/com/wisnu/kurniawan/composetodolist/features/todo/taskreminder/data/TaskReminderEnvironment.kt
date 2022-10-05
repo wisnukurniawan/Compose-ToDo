@@ -7,7 +7,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
 import com.wisnu.kurniawan.composetodolist.model.TaskWithList
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
-import com.wisnu.kurniawan.coreLogger.Loggr
+import com.wisnu.foundation.coreloggr.Loggr
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.onEach

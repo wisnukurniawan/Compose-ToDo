@@ -1,7 +1,7 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.detail.data
 
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.wisnu.kurniawan.composetodolist.foundation.analytic.AnalyticManager
+import com.wisnu.foundation.libanalyticsmanager.AnalyticsManager
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.LocalManager
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoGroupDb
 import com.wisnu.kurniawan.composetodolist.foundation.extension.OnResolveDuplicateName
@@ -22,7 +22,7 @@ class ListDetailEnvironment @Inject constructor(
     private val localManager: LocalManager,
     override val idProvider: IdProvider,
     override val dateTimeProvider: DateTimeProvider,
-    private val analyticManager: AnalyticManager
+    private val analyticManager: AnalyticsManager
 ) : IListDetailEnvironment {
 
     override fun getListWithTasksById(listId: String): Flow<ToDoList> {

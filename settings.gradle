@@ -11,16 +11,12 @@ include ':app'
 // CORE MODULE
 //////
 
-include ':core-logger'
-
 
 ///////////////
 // TEST MODULE
 //////
 
 include ':test-benchmark'
-include ':test-debug'
-include ':test-debug:no-op'
 
 
 // Enable Gradle's version catalog support

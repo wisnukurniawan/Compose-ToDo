@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.features.todo.groupmenu.data.IGroupMenuEnvironment
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoGroupDb
-import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
+import com.wisnu.foundation.coreviewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_GROUP_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay

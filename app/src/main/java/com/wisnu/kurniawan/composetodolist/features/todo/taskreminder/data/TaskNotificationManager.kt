@@ -12,10 +12,10 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.NotificationCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.net.toUri
+import com.wisnu.foundation.coredatetime.toMillis
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.features.todo.taskreminder.ui.TaskBroadcastReceiver
 import com.wisnu.kurniawan.composetodolist.foundation.extension.ellipsisAt
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toMillis
 import com.wisnu.kurniawan.composetodolist.foundation.localization.LocalizationUtil
 import com.wisnu.kurniawan.composetodolist.foundation.theme.LightError
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.itemInfoDisplayable

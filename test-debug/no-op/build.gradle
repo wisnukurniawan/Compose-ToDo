@@ -1,6 +1,0 @@
-apply from: "$rootDir/gradle/lib-android-module.gradle"
-
-dependencies {
-    implementation projects.coreLogger
-    implementation libs.squareup.okhttp
-}

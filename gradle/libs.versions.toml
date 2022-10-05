@@ -29,6 +29,7 @@ okhttp = "4.10.0"
 protobuf = "4.0.0-rc-2"
 retrofit = "2.9.0"
 room = "2.5.0-alpha03"
+wisnuFoundation = "0.1.1"
 
 
 [libraries]
@@ -76,6 +77,16 @@ lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", versio
 squareup-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 squareup-retrofit-converter = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
 squareup-retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+wisnu-foundation-core-analytics = { group = "com.github.wisnukurniawan.foundation", name = "core-analytics", version.ref = "wisnuFoundation" }
+wisnu-foundation-core-datetime = { group = "com.github.wisnukurniawan.foundation", name = "core-date-time", version.ref = "wisnuFoundation" }
+wisnu-foundation-core-json = { group = "com.github.wisnukurniawan.foundation", name = "core-json", version.ref = "wisnuFoundation" }
+wisnu-foundation-core-loggr = { group = "com.github.wisnukurniawan.foundation", name = "core-loggr", version.ref = "wisnuFoundation" }
+wisnu-foundation-core-ui = { group = "com.github.wisnukurniawan.foundation", name = "core-ui", version.ref = "wisnuFoundation" }
+wisnu-foundation-core-viewmodel = { group = "com.github.wisnukurniawan.foundation", name = "core-viewmodel", version.ref = "wisnuFoundation" }
+wisnu-foundation-lib-analyticsmanager = { group = "com.github.wisnukurniawan.foundation", name = "lib-analytics-manager", version.ref = "wisnuFoundation" }
+wisnu-foundation-lib-lifecycleloggr = { group = "com.github.wisnukurniawan.foundation", name = "lib-lifecycle-loggr", version.ref = "wisnuFoundation" }
+wisnu-foundation-test-debugnoop = { group = "com.github.wisnukurniawan.foundation", name = "test-debug-no-op", version.ref = "wisnuFoundation" }
+wisnu-foundation-test-debug = { group = "com.github.wisnukurniawan.foundation", name = "test-debug", version.ref = "wisnuFoundation" }
 
 debugging-chucker = { group = "com.github.chuckerteam.chucker", name = "library", version = "3.5.2" }
 debugging-compose-uiTooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "androidxCompose" }

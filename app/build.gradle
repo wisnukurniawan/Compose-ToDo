@@ -150,6 +150,7 @@ dependencies {
     implementation libs.androidx.hilt.navigation.compose
     implementation libs.lottie.compose
     implementation libs.google.material
+    implementation libs.wisnu.foundation.core.viewmodel
 
     // Use for bottom sheet navigation
     implementation libs.google.accompanist.navigation
@@ -202,17 +203,21 @@ dependencies {
     implementation libs.google.hilt.android
     kapt libs.google.hilt.compiler
 
+    // Date time
     coreLibraryDesugaring(libs.android.desugarJdkLibs)
+    implementation libs.wisnu.foundation.core.datetime
 
     // Logger
-    implementation projects.coreLogger
+    implementation libs.wisnu.foundation.core.loggr
+    implementation libs.wisnu.foundation.lib.lifecycleloggr
 
     // Analytics
     implementation platform(libs.google.firebase)
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-perf-ktx'
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
-
+    implementation libs.wisnu.foundation.core.analytics
+    implementation libs.wisnu.foundation.lib.analyticsmanager
 
     ///////////////
     // DEBUGGING SUPPORT
@@ -220,9 +225,9 @@ dependencies {
 
     implementation libs.debugging.compose.uiTooling
 
-    debugImplementation projects.testDebug
-    releaseImplementation projects.testDebug.noOp
-    benchmarkImplementation projects.testDebug.noOp
+    debugImplementation libs.wisnu.foundation.test.debug
+    releaseImplementation libs.wisnu.foundation.test.debugnoop
+    benchmarkImplementation libs.wisnu.foundation.test.debugnoop
 
 
     ///////////////

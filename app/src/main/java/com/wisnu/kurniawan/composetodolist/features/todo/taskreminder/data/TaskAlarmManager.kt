@@ -6,8 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.AlarmManagerCompat
+import com.wisnu.foundation.coredatetime.toMillis
 import com.wisnu.kurniawan.composetodolist.features.todo.taskreminder.ui.TaskBroadcastReceiver
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toMillis
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.LocalDateTime

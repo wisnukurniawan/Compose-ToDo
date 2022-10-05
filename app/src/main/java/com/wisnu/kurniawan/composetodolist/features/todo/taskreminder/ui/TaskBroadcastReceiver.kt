@@ -3,7 +3,7 @@ package com.wisnu.kurniawan.composetodolist.features.todo.taskreminder.ui
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.wisnu.kurniawan.coreLogger.Loggr
+import com.wisnu.foundation.coreloggr.Loggr
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

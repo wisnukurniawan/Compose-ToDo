@@ -2,7 +2,7 @@ package com.wisnu.kurniawan.composetodolist.features.todo.main.ui
 
 import androidx.lifecycle.viewModelScope
 import com.wisnu.kurniawan.composetodolist.features.todo.main.data.IToDoMainEnvironment
-import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
+import com.wisnu.foundation.coreviewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_LIST_ID
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.AllFlow
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ListDetailFlow

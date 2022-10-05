@@ -1,8 +1,8 @@
 package com.wisnu.kurniawan.composetodolist.features.splash.ui
 
 import androidx.lifecycle.viewModelScope
+import com.wisnu.foundation.coreviewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.features.splash.data.ISplashEnvironment
-import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.StatefulViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
