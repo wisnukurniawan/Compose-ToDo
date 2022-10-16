@@ -35,7 +35,7 @@ wisnuFoundation = "0.1.1"
 [libraries]
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 google-firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version = "2.9.2" }
-google-firebase-performance-gradlePlugin = { group = "com.google.firebase", name = "perf-plugin", version = "1.4.1" }
+google-firebase-performance-gradlePlugin = { group = "com.google.firebase", name = "perf-plugin", version = "1.4.2" }
 google-hilt-gradlePlugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "hilt" }
 google-kspPlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version = "1.7.20-1.0.6" }
 google-servicesPlugin = { group = "com.google.gms", name = "google-services", version = "4.3.14" }
