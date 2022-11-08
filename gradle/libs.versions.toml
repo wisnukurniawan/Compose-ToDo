@@ -92,12 +92,12 @@ debugging-chucker = { group = "com.github.chuckerteam.chucker", name = "library"
 debugging-compose-uiTooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "androidxCompose" }
 debugging-okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
 
-test-androidx-core = { group = "androidx.test", name = "core", version = "1.4.0" }
+test-androidx-core = { group = "androidx.test", name = "core", version = "1.5.0" }
 test-androidx-espressoCore = { group = "androidx.test.espresso", name = "espresso-core", version = "3.4.0" }
 test-androidx-ext = { group = "androidx.test.ext", name = "junit-ktx", version = "1.1.4" }
 test-androidx-junit = { group = "androidx.test.ext", name = "junit", version = "1.1.4" }
-test-androidx-runner = { group = "androidx.test", name = "runner", version = "1.4.0" }
-test-androidx-rules = { group = "androidx.test", name = "rules", version = "1.4.0" }
+test-androidx-runner = { group = "androidx.test", name = "runner", version = "1.5.0" }
+test-androidx-rules = { group = "androidx.test", name = "rules", version = "1.5.0" }
 test-androidx-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version = "2.2.0" }
 test-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 test-junit = { group = "junit", name = "junit", version = "4.13.2" }
