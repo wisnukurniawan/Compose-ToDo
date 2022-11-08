@@ -94,8 +94,8 @@ debugging-okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-int
 
 test-androidx-core = { group = "androidx.test", name = "core", version = "1.4.0" }
 test-androidx-espressoCore = { group = "androidx.test.espresso", name = "espresso-core", version = "3.4.0" }
-test-androidx-ext = { group = "androidx.test.ext", name = "junit-ktx", version = "1.1.3" }
-test-androidx-junit = { group = "androidx.test.ext", name = "junit", version = "1.1.3" }
+test-androidx-ext = { group = "androidx.test.ext", name = "junit-ktx", version = "1.1.4" }
+test-androidx-junit = { group = "androidx.test.ext", name = "junit", version = "1.1.4" }
 test-androidx-runner = { group = "androidx.test", name = "runner", version = "1.4.0" }
 test-androidx-rules = { group = "androidx.test", name = "rules", version = "1.4.0" }
 test-androidx-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version = "2.2.0" }
