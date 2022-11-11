@@ -93,7 +93,7 @@ debugging-compose-uiTooling = { group = "androidx.compose.ui", name = "ui-toolin
 debugging-okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
 
 test-androidx-core = { group = "androidx.test", name = "core", version = "1.5.0" }
-test-androidx-espressoCore = { group = "androidx.test.espresso", name = "espresso-core", version = "3.4.0" }
+test-androidx-espressoCore = { group = "androidx.test.espresso", name = "espresso-core", version = "3.5.0" }
 test-androidx-ext = { group = "androidx.test.ext", name = "junit-ktx", version = "1.1.4" }
 test-androidx-junit = { group = "androidx.test.ext", name = "junit", version = "1.1.4" }
 test-androidx-runner = { group = "androidx.test", name = "runner", version = "1.5.0" }
