@@ -46,4 +46,9 @@ Responsible to display data on the screen. UI here is just a passive component t
 Responsible to give correct data to the screen. Calling an API from data layer should be main-safe—safe from the main thread. The data layer must return flow/suspend. By doing this the data can be
 composed easily.
 
-P.S for more detailed implementation you can take a look https://github.com/wisnukurniawan/Compose-ToDo/blob/main/doc/project-structure.md or jump to code base
+#### Sample Project
+
+- https://github.com/wisnukurniawan/Compose-ToDo
+- https://github.com/wisnukurniawan/Compose-Expense
+- https://github.com/wisnukurniawan/analytics-debugview
+- https://github.com/wisnukurniawan/siksorogo
