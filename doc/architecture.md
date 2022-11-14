@@ -52,3 +52,5 @@ composed easily.
 - https://github.com/wisnukurniawan/Compose-Expense
 - https://github.com/wisnukurniawan/analytics-debugview
 - https://github.com/wisnukurniawan/siksorogo
+
+P.S for more detailed implementation you can take a look https://github.com/wisnukurniawan/Compose-ToDo/blob/main/doc/project-structure.md or jump to code base
