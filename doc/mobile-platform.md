@@ -21,7 +21,7 @@ Developers can dedicate more time to design, responsive interfaces and beautiful
 
 ## UI EXPERT
 
-- Designing UI components that can be composable together
+- Designing UI components that can be compose together
 
 ## DEV
 
