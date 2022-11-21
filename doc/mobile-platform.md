@@ -10,7 +10,7 @@ Developers can dedicate more time to design, responsive interfaces and beautiful
 ## DATA EXPERT
 
 - Takes care of all network implementation details, encryption, caching local data storage
-- API methods and public interfaces are fully documented.
+- API methods and public interfaces are fully documented
 - Multiplatform
 - Provide correct data
 - Designing domain data (data type, naming consistency)
@@ -21,7 +21,8 @@ Developers can dedicate more time to design, responsive interfaces and beautiful
 
 ## UI EXPERT
 
-- Designing UI components that can be compose together
+- Designing declarative components that can be compose together
+- API methods and public interfaces are fully documented
 
 ## DEV
 
