@@ -15,6 +15,9 @@ Developers can dedicate more time to design, responsive interfaces and beautiful
 - Provide correct data
 - Designing domain data (data type, naming consistency)
 - READ and WRITE should not intertwined together
+- Main-safe safe from the main thread
+- Return stream
+- Immutable by default
 
 # UI EXPERT
 

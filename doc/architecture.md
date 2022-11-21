@@ -43,7 +43,7 @@ Responsible to display data on the screen. UI here is just a passive component t
 
 #### Data layer
 
-Responsible to give correct data to the screen. Calling an API from data layer should be main-safe—safe from the main thread. The data layer must return flow/suspend. By doing this the data can be
+Responsible to give correct data to the screen. Calling an API from data layer should be main-safe safe from the main thread. The data layer must return flow/suspend. By doing this the data can be
 composed easily.
 
 ### Sample Project
