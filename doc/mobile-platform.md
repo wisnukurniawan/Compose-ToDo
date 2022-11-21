@@ -1,13 +1,13 @@
-# PROBLEM
+## PROBLEM
 
 - Complexity
 - Bad UI/UX
 
-# GOAL
+## GOAL
 
 Developers can dedicate more time to design, responsive interfaces and beautiful animations. Good input -> good/bad output, bad output -> bad output.
 
-# DATA EXPERT
+## DATA EXPERT
 
 - Takes care of all network implementation details, encryption, caching local data storage
 - API methods and public interfaces are fully documented.
@@ -19,11 +19,11 @@ Developers can dedicate more time to design, responsive interfaces and beautiful
 - Return stream
 - Immutable by default
 
-# UI EXPERT
+## UI EXPERT
 
 - Designing UI components that can be composable together
 
-# DEV
+## DEV
 
 - Design responsive interfaces and beautiful animations
 - Build domain logic
