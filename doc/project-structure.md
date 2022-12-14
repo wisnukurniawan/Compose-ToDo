@@ -15,8 +15,7 @@ In this project there are three kind of model, UI model, domain model, data sour
 
 #### Domain model
 
-This is generic model that can be reused in all place. I encourage using model from this package to build a logic where feasible. This will be helpful in case we want to move it into multiplatform
-world we only focus moving this model and it is usage. For example a generic ToDoList model:
+This is generic model that can be reused in all place. **Use this model to build a logic where feasible**. For example a generic ToDoList model:
 
 ```kotlin
 data class ToDoList(
