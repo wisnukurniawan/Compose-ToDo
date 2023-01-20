@@ -14,7 +14,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
@@ -22,7 +21,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalCell
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalTitle
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun GroupMenuScreen(
     viewModel: GroupMenuViewModel,

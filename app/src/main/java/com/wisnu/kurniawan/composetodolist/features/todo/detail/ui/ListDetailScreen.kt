@@ -34,7 +34,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.selectedColor
@@ -49,7 +48,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgTextField
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.HandleEffect
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun ListDetailScreen(
     viewModel: ListDetailViewModel,
@@ -182,7 +180,6 @@ private fun ListDetailContent(
     }
 }
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun CreateListEditor(
     viewModel: ListDetailViewModel,
@@ -225,7 +222,6 @@ fun CreateListEditor(
     )
 }
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun UpdateListEditor(
     viewModel: ListDetailViewModel,

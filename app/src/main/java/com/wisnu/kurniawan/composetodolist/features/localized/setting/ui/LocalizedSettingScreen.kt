@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.os.LocaleListCompat
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalBackHeader
@@ -23,7 +22,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalCell
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalLayout
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.HandleEffect
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun LanguageScreen(
     viewModel: LocalizedSettingViewModel,

@@ -35,7 +35,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavBackStackEntry
 import com.wisnu.kurniawan.composetodolist.R
@@ -57,7 +56,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.SwipeSearchVal
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.rememberSwipeSearchState
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun DashboardScreen(
     viewModel: DashboardViewModel,
@@ -106,7 +104,6 @@ fun DashboardScreen(
     )
 }
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun DashboardTabletScreen(
     navBackStackEntry: NavBackStackEntry?,

@@ -24,7 +24,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isValidGroupName
@@ -38,7 +37,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.uiextension.requestFocusIm
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.HandleEffect
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun CreateGroupScreen(
     viewModel: CreateGroupViewModel,
@@ -82,7 +80,6 @@ fun CreateGroupScreen(
     )
 }
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun UpdateGroupScreen(
     viewModel: CreateGroupViewModel,

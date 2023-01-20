@@ -9,7 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgButton
@@ -18,7 +17,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.Profile
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.HandleEffect
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun LogoutScreen(
     viewModel: LogoutViewModel,

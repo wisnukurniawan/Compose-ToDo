@@ -26,7 +26,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isUngroup
@@ -42,7 +41,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalTitle
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgSecondaryButton
 import com.wisnu.kurniawan.composetodolist.model.GroupIdWithList
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun UpdateGroupListScreen(
     viewModel: UpdateGroupListViewModel,
@@ -67,7 +65,6 @@ fun UpdateGroupListScreen(
     )
 }
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun EditGroupListScreen(
     viewModel: UpdateGroupListViewModel,

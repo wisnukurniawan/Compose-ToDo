@@ -23,7 +23,6 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaDisabled
@@ -33,7 +32,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgModalTitle
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.requestFocusImeAware
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun UpdateTaskNoteScreen(
     viewModel: StepViewModel,

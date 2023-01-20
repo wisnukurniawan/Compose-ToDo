@@ -26,7 +26,6 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.features.todo.all.ui.ItemAllState
@@ -36,7 +35,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgPageLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgTextField
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun SearchScreen(
     viewModel: SearchViewModel,

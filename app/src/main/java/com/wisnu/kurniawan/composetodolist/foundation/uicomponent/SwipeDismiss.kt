@@ -146,10 +146,12 @@ fun SwipeDismiss(
                 ) {
                     LottieAnimation(
                         lottieIcon,
-                        lottieAnimatable.progress,
                         modifier = Modifier
                             .size(32.dp)
-                            .scale(bounceInOut)
+                            .scale(bounceInOut),
+                        progress = {
+                            lottieAnimatable.progress
+                        }
                     )
                 }
             }
@@ -221,8 +223,10 @@ fun LottieSample() {
             val lottieAnimatable = rememberLottieAnimatable()
             LottieAnimation(
                 lottieIcon,
-                lottieAnimatable.progress,
-                modifier = Modifier.size(32.dp).guide2().padding(16.dp)
+                modifier = Modifier.size(32.dp).guide2().padding(16.dp),
+                progress = {
+                    lottieAnimatable.progress
+                }
             )
 
             Spacer(Modifier.height(16.dp))
