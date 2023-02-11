@@ -24,9 +24,9 @@ Compose playground for learning purpose
 * Android Studio Electric Eel | 2022.1.1
 * Min SDK 21
 * Target SDK 33
-* AGP 7.4.0
+* AGP 7.4.1
 * Java 11
-* Kotlin 1.7.21
+* Kotlin 1.8.10
 
 ## Setup
 
