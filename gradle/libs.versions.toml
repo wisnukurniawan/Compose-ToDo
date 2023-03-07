@@ -1,5 +1,5 @@
 [versions]
-androidGradlePlugin = "7.4.1"
+androidGradlePlugin = "7.4.2"
 protoWirePlugin = "4.5.2"
 
 accompanist = "0.29.0-alpha"
