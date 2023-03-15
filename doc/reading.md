@@ -19,6 +19,8 @@
 - Software design - https://experience.sap.com/fiori-design-ios/article/filter/#
 - Software design - https://experience.sap.com/fiori-design-android/sort-and-filter/
 - Software design - https://www.infoq.com/articles/data-oriented-programming-java/
+- Software design - https://azamsharp.com/2023/02/28/building-large-scale-apps-swiftui.html
+- Software design - https://developer.apple.com/forums/thread/699003
 - Flow unit test - https://fabiosanto.medium.com/unit-testing-coroutines-state-flow-c6e6de580027
 - Unit test: always inject dispatcher https://medium.com/swlh/unit-testing-with-kotlin-coroutines-the-android-way-19289838d257
 - Custom animated icon - https://shapeshifter.design/
