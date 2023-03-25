@@ -1,6 +1,5 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.scheduled.data
 
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.provider.ToDoGroupProvider
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.provider.ToDoTaskProvider
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toggleStatusHandler
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider

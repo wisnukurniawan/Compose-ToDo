@@ -1,8 +1,8 @@
 package com.wisnu.kurniawan.composetodolist.features.logout.ui
 
 import androidx.lifecycle.viewModelScope
-import com.wisnu.kurniawan.composetodolist.features.logout.data.ILogoutEnvironment
 import com.wisnu.foundation.coreviewmodel.StatefulViewModel
+import com.wisnu.kurniawan.composetodolist.features.logout.data.ILogoutEnvironment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

@@ -1,6 +1,5 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.search.data
 
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.provider.ToDoGroupProvider
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.provider.ToDoTaskProvider
 import com.wisnu.kurniawan.composetodolist.foundation.extension.sanitizeQuery
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toggleStatusHandler

@@ -2,7 +2,6 @@ package com.wisnu.kurniawan.composetodolist.features.todo.detail.data
 
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.wisnu.foundation.libanalyticsmanager.AnalyticsManager
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.provider.ToDoGroupProvider
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoGroupDb
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.provider.ToDoListProvider
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.provider.ToDoTaskProvider

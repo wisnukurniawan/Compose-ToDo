@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.viewModelScope
+import com.wisnu.foundation.coreviewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.features.theme.data.IThemeEnvironment
 import com.wisnu.kurniawan.composetodolist.foundation.extension.select
@@ -16,7 +17,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.theme.SunriseItemBackgroun
 import com.wisnu.kurniawan.composetodolist.foundation.theme.SunrisePrimary
 import com.wisnu.kurniawan.composetodolist.foundation.theme.TwilightItemBackgroundL1
 import com.wisnu.kurniawan.composetodolist.foundation.theme.TwilightPrimary
-import com.wisnu.foundation.coreviewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.model.Theme
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

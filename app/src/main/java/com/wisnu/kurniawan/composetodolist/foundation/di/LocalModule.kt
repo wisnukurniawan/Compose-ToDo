@@ -3,12 +3,12 @@ package com.wisnu.kurniawan.composetodolist.foundation.di
 import android.content.Context
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.ToDoDatabase
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoGroupReadDao
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoListReadDao
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoStepReadDao
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoTaskReadDao
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoGroupWriteDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoListReadDao
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoListWriteDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoStepReadDao
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoStepWriteDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoTaskReadDao
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoTaskWriteDao
 import dagger.Module
 import dagger.Provides

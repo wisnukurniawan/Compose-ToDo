@@ -45,6 +45,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.wisnu.foundation.coreloggr.Loggr
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListRed
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgBasicTextField
@@ -52,7 +53,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.SwipeDismiss
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProviderImpl
-import com.wisnu.foundation.coreloggr.Loggr
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
