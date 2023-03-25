@@ -1,8 +1,12 @@
 package com.wisnu.kurniawan.composetodolist.foundation.datasource.local
 
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoGroupReadDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoGroupWriteDao
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoListReadDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoListWriteDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoStepWriteDao
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoTaskReadDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoTaskWriteDao
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.mapper.groupWithListToGroup
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.mapper.toDoListWithTasksToToDoList
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.mapper.toGroupDp
@@ -13,6 +17,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.mapper.to
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.mapper.toGroup
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.mapper.toToDoList
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.mapper.toTask
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoGroupDb
 import com.wisnu.kurniawan.composetodolist.foundation.di.DiName
 import com.wisnu.kurniawan.composetodolist.model.GroupIdWithList
 import com.wisnu.kurniawan.composetodolist.model.TaskWithList
@@ -35,7 +40,10 @@ import javax.inject.Named
 
 class LocalManager @Inject constructor(
     @Named(DiName.DISPATCHER_IO) private val dispatcher: CoroutineDispatcher,
-    private val toDoWriteDao: ToDoWriteDao,
+    private val toDoGroupWriteDao: ToDoGroupWriteDao,
+    private val toDoListWriteDao: ToDoListWriteDao,
+    private val toDoTaskWriteDao: ToDoTaskWriteDao,
+    private val toDoStepWriteDao: ToDoStepWriteDao,
     private val toDoGroupReadDao: ToDoGroupReadDao,
     private val toDoListReadDao: ToDoListReadDao,
     private val toDoTaskReadDao: ToDoTaskReadDao
@@ -162,49 +170,50 @@ class LocalManager @Inject constructor(
 
     suspend fun insertGroup(data: List<ToDoGroup>) {
         withContext(dispatcher) {
-            toDoWriteDao.insertGroup(data.toGroupDp())
+            toDoGroupWriteDao.insertGroup(data.toGroupDp())
         }
     }
 
     suspend fun ungroup(groupId: String, updatedAt: LocalDateTime, listIds: List<String>) {
         withContext(dispatcher) {
-            toDoWriteDao.ungroup(groupId, updatedAt, listIds)
+            toDoListWriteDao.updateListGroup(listIds, ToDoGroupDb.DEFAULT_ID, updatedAt)
+            toDoGroupWriteDao.deleteGroup(groupId)
         }
     }
 
     suspend fun insertList(data: List<ToDoList>, groupId: String) {
         withContext(dispatcher) {
-            toDoWriteDao.insertList(data.toToDoListDb(groupId))
+            toDoListWriteDao.insertList(data.toToDoListDb(groupId))
         }
     }
 
     suspend fun deleteListById(listId: String) {
         withContext(dispatcher) {
-            toDoWriteDao.deleteListById(listId)
+            toDoListWriteDao.deleteListById(listId)
         }
     }
 
     suspend fun updateList(data: List<GroupIdWithList>) {
         withContext(dispatcher) {
-            toDoWriteDao.updateList(data.toToDoListDb())
+            toDoListWriteDao.updateList(data.toToDoListDb())
         }
     }
 
     suspend fun insertTask(data: List<ToDoTask>, listId: String) {
         withContext(dispatcher) {
-            toDoWriteDao.insertTask(data.toTaskDb(listId))
+            toDoTaskWriteDao.insertTask(data.toTaskDb(listId))
         }
     }
 
     suspend fun insertStep(data: List<ToDoStep>, taskId: String) {
         withContext(dispatcher) {
-            toDoWriteDao.insertStep(data.toStepDb(taskId))
+            toDoStepWriteDao.insertStep(data.toStepDb(taskId))
         }
     }
 
     suspend fun updateListNameAndColor(toDoList: ToDoList, updatedAt: LocalDateTime) {
         withContext(dispatcher) {
-            toDoWriteDao.updateListNameAndColor(toDoList.id, toDoList.name, toDoList.color, updatedAt)
+            toDoListWriteDao.updateListNameAndColor(toDoList.id, toDoList.name, toDoList.color, updatedAt)
         }
     }
 
@@ -215,7 +224,7 @@ class LocalManager @Inject constructor(
         updatedAt: LocalDateTime
     ) {
         withContext(dispatcher) {
-            toDoWriteDao.updateTaskDueDate(id, dueDateTime, isDueDateTimeSet, updatedAt)
+            toDoTaskWriteDao.updateTaskDueDate(id, dueDateTime, isDueDateTimeSet, updatedAt)
         }
     }
 
@@ -224,7 +233,7 @@ class LocalManager @Inject constructor(
         updatedAt: LocalDateTime
     ) {
         withContext(dispatcher) {
-            toDoWriteDao.resetTaskDueDate(
+            toDoTaskWriteDao.resetTaskDueDate(
                 id,
                 null,
                 false,
@@ -236,61 +245,61 @@ class LocalManager @Inject constructor(
 
     suspend fun updateTaskRepeat(id: String, repeat: ToDoRepeat, updatedAt: LocalDateTime) {
         withContext(dispatcher) {
-            toDoWriteDao.updateTaskRepeat(id, repeat, updatedAt)
+            toDoTaskWriteDao.updateTaskRepeat(id, repeat, updatedAt)
         }
     }
 
     suspend fun updateTaskStatus(id: String, status: ToDoStatus, completedAt: LocalDateTime?, updatedAt: LocalDateTime) {
         withContext(dispatcher) {
-            toDoWriteDao.updateTaskStatus(id, status, completedAt, updatedAt)
+            toDoTaskWriteDao.updateTaskStatus(id, status, completedAt, updatedAt)
         }
     }
 
     suspend fun updateTaskNote(id: String, note: String, updatedAt: LocalDateTime) {
         withContext(dispatcher) {
-            toDoWriteDao.updateTaskNote(id, note, updatedAt)
+            toDoTaskWriteDao.updateTaskNote(id, note, updatedAt)
         }
     }
 
     suspend fun updateStepStatus(id: String, status: ToDoStatus, updatedAt: LocalDateTime) {
         withContext(dispatcher) {
-            toDoWriteDao.updateStepStatus(id, status, updatedAt)
+            toDoStepWriteDao.updateStepStatus(id, status, updatedAt)
         }
     }
 
     suspend fun updateTaskName(id: String, name: String, updatedAt: LocalDateTime) {
         withContext(dispatcher) {
-            toDoWriteDao.updateTaskName(id, name, updatedAt)
+            toDoTaskWriteDao.updateTaskName(id, name, updatedAt)
         }
     }
 
     suspend fun updateStepName(id: String, name: String, updatedAt: LocalDateTime) {
         withContext(dispatcher) {
-            toDoWriteDao.updateStepName(id, name, updatedAt)
+            toDoStepWriteDao.updateStepName(id, name, updatedAt)
         }
     }
 
     suspend fun deleteTaskById(id: String) {
         withContext(dispatcher) {
-            toDoWriteDao.deleteTaskById(id)
+            toDoTaskWriteDao.deleteTaskById(id)
         }
     }
 
     suspend fun deleteStepById(id: String) {
         withContext(dispatcher) {
-            toDoWriteDao.deleteStepById(id)
+            toDoStepWriteDao.deleteStepById(id)
         }
     }
 
     suspend fun updateGroupName(id: String, name: String, updatedAt: LocalDateTime) {
         withContext(dispatcher) {
-            toDoWriteDao.updateGroupName(id, name, updatedAt)
+            toDoGroupWriteDao.updateGroupName(id, name, updatedAt)
         }
     }
 
     suspend fun deleteGroup(id: String) {
         withContext(dispatcher) {
-            toDoWriteDao.deleteGroup(id)
+            toDoGroupWriteDao.deleteGroup(id)
         }
     }
 

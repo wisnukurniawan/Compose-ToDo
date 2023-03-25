@@ -8,9 +8,13 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoGroupReadDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoGroupWriteDao
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoListReadDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoListWriteDao
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoStepReadDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoStepWriteDao
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoTaskReadDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoTaskWriteDao
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoGroupDb
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoListDb
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoStepDb
@@ -37,7 +41,10 @@ import kotlinx.coroutines.launch
 )
 @TypeConverters(DateConverter::class)
 abstract class ToDoDatabase : RoomDatabase() {
-    abstract fun toDoWriteDao(): ToDoWriteDao
+    abstract fun toDoGroupWriteDao(): ToDoGroupWriteDao
+    abstract fun toDoListWriteDao(): ToDoListWriteDao
+    abstract fun toDoTaskWriteDao(): ToDoTaskWriteDao
+    abstract fun toDoStepWriteDao(): ToDoStepWriteDao
     abstract fun toDoGroupReadDao(): ToDoGroupReadDao
     abstract fun toDoListReadDao(): ToDoListReadDao
     abstract fun toDoTaskReadDao(): ToDoTaskReadDao
@@ -86,7 +93,7 @@ abstract class ToDoDatabase : RoomDatabase() {
                 createdAt = currentDate,
                 updatedAt = currentDate
             )
-            val writeDao = getInstance(context).toDoWriteDao()
+            val writeDao = getInstance(context).toDoGroupWriteDao()
 
             writeDao.insertGroup(listOf(defaultGroup))
         }

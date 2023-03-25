@@ -5,6 +5,7 @@ import androidx.test.core.app.ApplicationProvider
 import com.wisnu.kurniawan.composetodolist.DateFactory
 import com.wisnu.kurniawan.composetodolist.expect
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoGroupReadDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoGroupWriteDao
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoListReadDao
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoStepReadDao
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoTaskReadDao
@@ -32,7 +33,7 @@ import kotlin.time.ExperimentalTime
 @RunWith(RobolectricTestRunner::class)
 class ToDoReadTest {
 
-    private lateinit var toDoWriteDao: ToDoWriteDao
+    private lateinit var toDoGroupWriteDao: ToDoGroupWriteDao
     private lateinit var toDoGroupReadDao: ToDoGroupReadDao
     private lateinit var toDoListReadDao: ToDoListReadDao
     private lateinit var toDoTaskReadDao: ToDoTaskReadDao
@@ -47,7 +48,7 @@ class ToDoReadTest {
         )
             .allowMainThreadQueries()
             .build()
-        toDoWriteDao = db.toDoWriteDao()
+        toDoGroupWriteDao = db.toDoWriteDao()
         toDoGroupReadDao = db.toDoGroupReadDao()
         toDoListReadDao = db.toDoListReadDao()
         toDoTaskReadDao = db.toDoTaskReadDao()
@@ -94,8 +95,8 @@ class ToDoReadTest {
             updatedAt = DateFactory.constantDate,
         )
 
-        toDoWriteDao.insertGroup(listOf(group1, group2))
-        toDoWriteDao.insertList(listOf(list1, list2))
+        toDoGroupWriteDao.insertGroup(listOf(group1, group2))
+        toDoGroupWriteDao.insertList(listOf(list1, list2))
 
         toDoListReadDao.getListByGroupId(groupId1).expect(listOf(list1))
     }
@@ -159,8 +160,8 @@ class ToDoReadTest {
             updatedAt = DateFactory.constantDate,
         )
 
-        toDoWriteDao.insertGroup(listOf(groupDefault, group1, group2))
-        toDoWriteDao.insertList(listOf(list1, list2, list3, list4))
+        toDoGroupWriteDao.insertGroup(listOf(groupDefault, group1, group2))
+        toDoGroupWriteDao.insertList(listOf(list1, list2, list3, list4))
 
         toDoListReadDao.getListWithUnGroupList(groupId1).expect(listOf(list3, list4, list1))
         toDoListReadDao.getListWithUnGroupList("unknown").expect(listOf(list3, list4))
@@ -261,9 +262,9 @@ class ToDoReadTest {
             dueDate = todayBefore2
         )
 
-        toDoWriteDao.insertGroup(listOf(group1))
-        toDoWriteDao.insertList(listOf(list1, list2))
-        toDoWriteDao.insertTask(listOf(task1, task2, task3, task4, task5, task6))
+        toDoGroupWriteDao.insertGroup(listOf(group1))
+        toDoGroupWriteDao.insertList(listOf(list1, list2))
+        toDoGroupWriteDao.insertTask(listOf(task1, task2, task3, task4, task5, task6))
 
         toDoTaskReadDao.getTaskOverallCount(tomorrow).expect(
             ToDoTaskOverallCount(
@@ -376,10 +377,10 @@ class ToDoReadTest {
             updatedAt = DateFactory.constantDate,
         )
 
-        toDoWriteDao.insertGroup(listOf(group1))
-        toDoWriteDao.insertList(listOf(list1, list2))
-        toDoWriteDao.insertTask(listOf(task1, task2, task3, task4, task5, task6))
-        toDoWriteDao.insertStep(listOf(step1))
+        toDoGroupWriteDao.insertGroup(listOf(group1))
+        toDoGroupWriteDao.insertList(listOf(list1, list2))
+        toDoGroupWriteDao.insertTask(listOf(task1, task2, task3, task4, task5, task6))
+        toDoGroupWriteDao.insertStep(listOf(step1))
 
         toDoTaskReadDao.getTaskWithListOrderByDueDate().expect(
             listOf(
@@ -483,10 +484,10 @@ class ToDoReadTest {
             updatedAt = DateFactory.constantDate,
         )
 
-        toDoWriteDao.insertGroup(listOf(group1))
-        toDoWriteDao.insertList(listOf(list1))
-        toDoWriteDao.insertTask(listOf(task1, task2))
-        toDoWriteDao.insertStep(listOf(step1, step2, step3))
+        toDoGroupWriteDao.insertGroup(listOf(group1))
+        toDoGroupWriteDao.insertList(listOf(list1))
+        toDoGroupWriteDao.insertTask(listOf(task1, task2))
+        toDoGroupWriteDao.insertStep(listOf(step1, step2, step3))
 
         toDoStepReadDao.getStep(taskId2).expect(listOf(step2, step3))
     }
@@ -544,12 +545,12 @@ class ToDoReadTest {
             updatedAt = DateFactory.constantDate,
         )
 
-        toDoWriteDao.insertGroup(listOf(group1))
-        toDoWriteDao.insertList(listOf(list1))
-        toDoWriteDao.insertTask(listOf(task1, task2))
-        toDoWriteDao.insertStep(listOf(step1, step2))
+        toDoGroupWriteDao.insertGroup(listOf(group1))
+        toDoGroupWriteDao.insertList(listOf(list1))
+        toDoGroupWriteDao.insertTask(listOf(task1, task2))
+        toDoGroupWriteDao.insertStep(listOf(step1, step2))
 
-        toDoWriteDao.deleteTask(listOf(task1))
+        toDoGroupWriteDao.deleteTask(listOf(task1))
 
         toDoGroupReadDao.getGroupWithList().expect(
             listOf(
@@ -654,12 +655,12 @@ class ToDoReadTest {
             updatedAt = DateFactory.constantDate,
         )
 
-        toDoWriteDao.insertGroup(listOf(group1))
-        toDoWriteDao.insertList(listOf(list1, list2))
-        toDoWriteDao.insertTask(listOf(task1, task2))
-        toDoWriteDao.insertStep(listOf(step1, step2))
+        toDoGroupWriteDao.insertGroup(listOf(group1))
+        toDoGroupWriteDao.insertList(listOf(list1, list2))
+        toDoGroupWriteDao.insertTask(listOf(task1, task2))
+        toDoGroupWriteDao.insertStep(listOf(step1, step2))
 
-        toDoWriteDao.deleteList(listOf(list1))
+        toDoGroupWriteDao.deleteList(listOf(list1))
 
         toDoGroupReadDao.getGroupWithList().expect(
             listOf(
@@ -771,10 +772,10 @@ class ToDoReadTest {
             updatedAt = DateFactory.constantDate,
         )
 
-        toDoWriteDao.insertGroup(listOf(group1, group2))
-        toDoWriteDao.insertList(listOf(list1, list2))
-        toDoWriteDao.insertTask(listOf(task1, task2))
-        toDoWriteDao.insertStep(listOf(step1, step2))
+        toDoGroupWriteDao.insertGroup(listOf(group1, group2))
+        toDoGroupWriteDao.insertList(listOf(list1, list2))
+        toDoGroupWriteDao.insertTask(listOf(task1, task2))
+        toDoGroupWriteDao.insertStep(listOf(step1, step2))
 
         toDoListReadDao.getListWithTasks(groupId1).expect(
             listOf(
@@ -896,10 +897,10 @@ class ToDoReadTest {
             updatedAt = DateFactory.constantDate,
         )
 
-        toDoWriteDao.insertGroup(listOf(group1, group2))
-        toDoWriteDao.insertList(listOf(list1, list2))
-        toDoWriteDao.insertTask(listOf(task1, task2, task3, task4, task5, task6))
-        toDoWriteDao.insertStep(listOf(step1, step2))
+        toDoGroupWriteDao.insertGroup(listOf(group1, group2))
+        toDoGroupWriteDao.insertList(listOf(list1, list2))
+        toDoGroupWriteDao.insertTask(listOf(task1, task2, task3, task4, task5, task6))
+        toDoGroupWriteDao.insertStep(listOf(step1, step2))
 
         toDoTaskReadDao.searchTaskWithList("*aa*").expect(
             listOf(
@@ -1040,10 +1041,10 @@ class ToDoReadTest {
             updatedAt = DateFactory.constantDate,
         )
 
-        toDoWriteDao.insertGroup(listOf(group1, group2))
-        toDoWriteDao.insertList(listOf(list1, list2))
-        toDoWriteDao.insertTask(listOf(task1, task2, task3, task4, task5, task6))
-        toDoWriteDao.insertStep(listOf(step1, step2))
+        toDoGroupWriteDao.insertGroup(listOf(group1, group2))
+        toDoGroupWriteDao.insertList(listOf(list1, list2))
+        toDoGroupWriteDao.insertTask(listOf(task1, task2, task3, task4, task5, task6))
+        toDoGroupWriteDao.insertStep(listOf(step1, step2))
 
         toDoTaskReadDao.searchTaskWithList("*cc aa*").expect(
             listOf(
@@ -1127,10 +1128,10 @@ class ToDoReadTest {
             updatedAt = DateFactory.constantDate,
         )
 
-        toDoWriteDao.insertGroup(listOf(group1, group2))
-        toDoWriteDao.insertList(listOf(list1, list2))
-        toDoWriteDao.insertTask(listOf(task1, task2))
-        toDoWriteDao.insertStep(listOf(step1, step2))
+        toDoGroupWriteDao.insertGroup(listOf(group1, group2))
+        toDoGroupWriteDao.insertList(listOf(list1, list2))
+        toDoGroupWriteDao.insertTask(listOf(task1, task2))
+        toDoGroupWriteDao.insertStep(listOf(step1, step2))
 
         toDoTaskReadDao.getTaskWithSteps(listId1).expect(
             listOf(
@@ -1211,10 +1212,10 @@ class ToDoReadTest {
             updatedAt = DateFactory.constantDate,
         )
 
-        toDoWriteDao.insertGroup(listOf(group1, group2))
-        toDoWriteDao.insertList(listOf(list1, list2))
-        toDoWriteDao.insertTask(listOf(task1, task2))
-        toDoWriteDao.insertStep(listOf(step1, step2))
+        toDoGroupWriteDao.insertGroup(listOf(group1, group2))
+        toDoGroupWriteDao.insertList(listOf(list1, list2))
+        toDoGroupWriteDao.insertTask(listOf(task1, task2))
+        toDoGroupWriteDao.insertStep(listOf(step1, step2))
 
         toDoTaskReadDao.getTaskWithStepsById(taskId1).expect(
             ToDoTaskWithSteps(
@@ -1293,10 +1294,10 @@ class ToDoReadTest {
             updatedAt = DateFactory.constantDate,
         )
 
-        toDoWriteDao.insertGroup(listOf(group1, group2))
-        toDoWriteDao.insertList(listOf(list1, list2))
-        toDoWriteDao.insertTask(listOf(task1, task2))
-        toDoWriteDao.insertStep(listOf(step1, step2))
+        toDoGroupWriteDao.insertGroup(listOf(group1, group2))
+        toDoGroupWriteDao.insertList(listOf(list1, list2))
+        toDoGroupWriteDao.insertTask(listOf(task1, task2))
+        toDoGroupWriteDao.insertStep(listOf(step1, step2))
 
         toDoTaskReadDao.getTaskWithListById(taskId1).expect(
             ToDoTaskWithList(
@@ -1373,9 +1374,9 @@ class ToDoReadTest {
             updatedAt = DateFactory.constantDate,
         )
 
-        toDoWriteDao.insertGroup(listOf(group1, group2))
-        toDoWriteDao.insertList(listOf(list1, list2))
-        toDoWriteDao.insertTask(listOf(task1, task2, task3))
+        toDoGroupWriteDao.insertGroup(listOf(group1, group2))
+        toDoGroupWriteDao.insertList(listOf(list1, list2))
+        toDoGroupWriteDao.insertTask(listOf(task1, task2, task3))
 
         toDoTaskReadDao.getScheduledTasks().expect(
             listOf(task1)

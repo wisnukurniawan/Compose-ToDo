@@ -6,7 +6,10 @@ import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoG
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoListReadDao
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoStepReadDao
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoTaskReadDao
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.ToDoWriteDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoGroupWriteDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoListWriteDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoStepWriteDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoTaskWriteDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,9 +25,30 @@ object LocalModule {
 
     @Singleton
     @Provides
-    fun provideToDoWriteDao(@ApplicationContext context: Context): ToDoWriteDao {
+    fun provideToDoGroupWriteDao(@ApplicationContext context: Context): ToDoGroupWriteDao {
         return ToDoDatabase.getInstance(context)
-            .toDoWriteDao()
+            .toDoGroupWriteDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideToDoListWriteDao(@ApplicationContext context: Context): ToDoListWriteDao {
+        return ToDoDatabase.getInstance(context)
+            .toDoListWriteDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideToDoTaskWriteDao(@ApplicationContext context: Context): ToDoTaskWriteDao {
+        return ToDoDatabase.getInstance(context)
+            .toDoTaskWriteDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideToDoStepWriteDao(@ApplicationContext context: Context): ToDoStepWriteDao {
+        return ToDoDatabase.getInstance(context)
+            .toDoStepWriteDao()
     }
 
     @Singleton
