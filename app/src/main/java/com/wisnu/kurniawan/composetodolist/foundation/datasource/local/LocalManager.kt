@@ -1,16 +1,19 @@
 package com.wisnu.kurniawan.composetodolist.foundation.datasource.local
 
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoGroupReadDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoListReadDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoTaskReadDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.mapper.groupWithListToGroup
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.mapper.toDoListWithTasksToToDoList
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.mapper.toGroupDp
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.mapper.toGroupIdWithList
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.mapper.toToDoListDb
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.mapper.toStepDb
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.mapper.toTaskDb
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.mapper.toGroup
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.mapper.toToDoList
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.mapper.toTask
 import com.wisnu.kurniawan.composetodolist.foundation.di.DiName
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toDoGroupWithListToGroup
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toDoListWithTasksToToDoList
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toGroupDp
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toGroupIdWithList
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toListDb
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toStepDb
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toTaskDb
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toToDoGroup
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toToDoList
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toToDoTask
 import com.wisnu.kurniawan.composetodolist.model.GroupIdWithList
 import com.wisnu.kurniawan.composetodolist.model.TaskWithList
 import com.wisnu.kurniawan.composetodolist.model.ToDoGroup
@@ -32,124 +35,126 @@ import javax.inject.Named
 
 class LocalManager @Inject constructor(
     @Named(DiName.DISPATCHER_IO) private val dispatcher: CoroutineDispatcher,
-    private val toDoReadDao: ToDoReadDao,
-    private val toDoWriteDao: ToDoWriteDao
+    private val toDoWriteDao: ToDoWriteDao,
+    private val toDoGroupReadDao: ToDoGroupReadDao,
+    private val toDoListReadDao: ToDoListReadDao,
+    private val toDoTaskReadDao: ToDoTaskReadDao
 ) {
 
     fun getGroup(): Flow<List<ToDoGroup>> {
-        return toDoReadDao.getGroup()
+        return toDoGroupReadDao.getGroup()
             .filterNotNull()
-            .map { it.toToDoGroup() }
+            .map { it.toGroup() }
             .flowOn(dispatcher)
     }
 
     fun getGroup(groupId: String): Flow<ToDoGroup> {
-        return toDoReadDao.getGroup(groupId)
+        return toDoGroupReadDao.getGroup(groupId)
             .filterNotNull()
-            .map { it.toToDoGroup() }
+            .map { it.toGroup() }
             .flowOn(dispatcher)
     }
 
     fun getGroupWithList(): Flow<List<ToDoGroup>> {
-        return toDoReadDao.getGroupWithList()
+        return toDoGroupReadDao.getGroupWithList()
             .filterNotNull()
-            .map { it.toDoGroupWithListToGroup() }
+            .map { it.groupWithListToGroup() }
             .flowOn(dispatcher)
     }
 
     fun getListWithTasks(): Flow<List<ToDoList>> {
-        return toDoReadDao.getListWithTasks()
+        return toDoListReadDao.getListWithTasks()
             .filterNotNull()
             .map { it.toDoListWithTasksToToDoList() }
             .flowOn(dispatcher)
     }
 
     fun getList(): Flow<List<ToDoList>> {
-        return toDoReadDao.getList()
+        return toDoListReadDao.getList()
             .filterNotNull()
             .map { it.toToDoList() }
             .flowOn(dispatcher)
     }
 
     fun getOverallCount(date: LocalDateTime): Flow<ToDoTaskOverallCount> {
-        return toDoReadDao.getTaskOverallCount(date)
+        return toDoTaskReadDao.getTaskOverallCount(date)
             .flowOn(dispatcher)
     }
 
     fun getListById(listId: String): Flow<ToDoList> {
-        return toDoReadDao.getListById(listId)
+        return toDoListReadDao.getListById(listId)
             .filterNotNull()
             .map { it.toToDoList() }
             .flowOn(dispatcher)
     }
 
     fun getListByGroupId(groupId: String): Flow<List<ToDoList>> {
-        return toDoReadDao.getListByGroupId(groupId)
+        return toDoListReadDao.getListByGroupId(groupId)
             .filterNotNull()
             .map { it.toToDoList() }
             .flowOn(dispatcher)
     }
 
     fun getListWithTasksById(listId: String): Flow<ToDoList> {
-        return toDoReadDao.getListWithTasksById(listId)
+        return toDoListReadDao.getListWithTasksById(listId)
             .map { it.toToDoList() }
             .flowOn(dispatcher)
     }
 
     fun getTaskWithListOrderByDueDate(): Flow<List<TaskWithList>> {
-        return toDoReadDao.getTaskWithListOrderByDueDate()
+        return toDoTaskReadDao.getTaskWithListOrderByDueDate()
             .filterNotNull()
             .map { tasks ->
                 tasks.map {
-                    TaskWithList(it.list.toToDoList(), it.task.toToDoTask())
+                    TaskWithList(it.list.toToDoList(), it.task.toTask())
                 }
             }
             .flowOn(dispatcher)
     }
 
     fun getTaskWithListOrderByDueDateToday(date: LocalDateTime): Flow<List<TaskWithList>> {
-        return toDoReadDao.getTaskWithListOrderByDueDateToday(date)
+        return toDoTaskReadDao.getTaskWithListOrderByDueDateToday(date)
             .filterNotNull()
             .map { tasks ->
                 tasks.map {
-                    TaskWithList(it.list.toToDoList(), it.task.toToDoTask())
+                    TaskWithList(it.list.toToDoList(), it.task.toTask())
                 }
             }
             .flowOn(dispatcher)
     }
 
     fun getTaskWithStepsById(taskId: String): Flow<ToDoTask> {
-        return toDoReadDao.getTaskWithStepsById(taskId)
+        return toDoTaskReadDao.getTaskWithStepsById(taskId)
             .filterNotNull()
-            .map { it.toToDoTask() }
+            .map { it.toTask() }
             .flowOn(dispatcher)
     }
 
     fun getTaskWithListById(taskId: String): Flow<TaskWithList> {
-        return toDoReadDao.getTaskWithListById(taskId)
+        return toDoTaskReadDao.getTaskWithListById(taskId)
             .filterNotNull()
-            .map { TaskWithList(it.list.toToDoList(), it.task.toToDoTask()) }
+            .map { TaskWithList(it.list.toToDoList(), it.task.toTask()) }
             .flowOn(dispatcher)
     }
 
     fun searchTaskWithList(query: String): Flow<List<TaskWithList>> {
-        return toDoReadDao.searchTaskWithList(query)
+        return toDoTaskReadDao.searchTaskWithList(query)
             .map { tasks ->
                 tasks.map {
-                    TaskWithList(it.list.toToDoList(), it.task.toToDoTask())
+                    TaskWithList(it.list.toToDoList(), it.task.toTask())
                 }
             }
             .flowOn(dispatcher)
     }
 
     fun getScheduledTasks(): Flow<List<ToDoTask>> {
-        return toDoReadDao.getScheduledTasks()
-            .map { it.toToDoTask() }
+        return toDoTaskReadDao.getScheduledTasks()
+            .map { it.toTask() }
             .flowOn(dispatcher)
     }
 
     fun getListWithUnGroupList(groupId: String): Flow<List<GroupIdWithList>> {
-        return toDoReadDao.getListWithUnGroupList(groupId)
+        return toDoListReadDao.getListWithUnGroupList(groupId)
             .filterNotNull()
             .map { it.toGroupIdWithList() }
             .flowOn(dispatcher)
@@ -169,7 +174,7 @@ class LocalManager @Inject constructor(
 
     suspend fun insertList(data: List<ToDoList>, groupId: String) {
         withContext(dispatcher) {
-            toDoWriteDao.insertList(data.toListDb(groupId))
+            toDoWriteDao.insertList(data.toToDoListDb(groupId))
         }
     }
 
@@ -181,7 +186,7 @@ class LocalManager @Inject constructor(
 
     suspend fun updateList(data: List<GroupIdWithList>) {
         withContext(dispatcher) {
-            toDoWriteDao.updateList(data.toListDb())
+            toDoWriteDao.updateList(data.toToDoListDb())
         }
     }
 

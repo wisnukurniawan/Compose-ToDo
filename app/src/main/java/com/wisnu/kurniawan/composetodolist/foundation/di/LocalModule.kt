@@ -2,7 +2,10 @@ package com.wisnu.kurniawan.composetodolist.foundation.di
 
 import android.content.Context
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.ToDoDatabase
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.ToDoReadDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoGroupReadDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoListReadDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoStepReadDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoTaskReadDao
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.ToDoWriteDao
 import dagger.Module
 import dagger.Provides
@@ -19,16 +22,37 @@ object LocalModule {
 
     @Singleton
     @Provides
-    fun provideToDoReadDao(@ApplicationContext context: Context): ToDoReadDao {
+    fun provideToDoWriteDao(@ApplicationContext context: Context): ToDoWriteDao {
         return ToDoDatabase.getInstance(context)
-            .toDoReadDao()
+            .toDoWriteDao()
     }
 
     @Singleton
     @Provides
-    fun provideToDoWriteDao(@ApplicationContext context: Context): ToDoWriteDao {
+    fun provideToDoGroupReadDao(@ApplicationContext context: Context): ToDoGroupReadDao {
         return ToDoDatabase.getInstance(context)
-            .toDoWriteDao()
+            .toDoGroupReadDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideToDoListReadDao(@ApplicationContext context: Context): ToDoListReadDao {
+        return ToDoDatabase.getInstance(context)
+            .toDoListReadDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideToDoTaskReadDao(@ApplicationContext context: Context): ToDoTaskReadDao {
+        return ToDoDatabase.getInstance(context)
+            .toDoTaskReadDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideToDoStepReadDao(@ApplicationContext context: Context): ToDoStepReadDao {
+        return ToDoDatabase.getInstance(context)
+            .toDoStepReadDao()
     }
 
 }

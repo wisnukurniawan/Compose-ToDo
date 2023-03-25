@@ -5,6 +5,10 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.wisnu.kurniawan.composetodolist.DateFactory
 import com.wisnu.kurniawan.composetodolist.expect
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoGroupReadDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoListReadDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoStepReadDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoTaskReadDao
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoGroupDb
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoListDb
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoStepDb
@@ -25,7 +29,10 @@ import kotlin.time.ExperimentalTime
 class ToDoDaoWriteTest {
 
     private lateinit var toDoWriteDao: ToDoWriteDao
-    private lateinit var toDoReadDao: ToDoReadDao
+    private lateinit var toDoGroupReadDao: ToDoGroupReadDao
+    private lateinit var toDoListReadDao: ToDoListReadDao
+    private lateinit var toDoTaskReadDao: ToDoTaskReadDao
+    private lateinit var toDoStepReadDao: ToDoStepReadDao
     private lateinit var db: ToDoDatabase
 
     @Before
@@ -37,7 +44,10 @@ class ToDoDaoWriteTest {
             .allowMainThreadQueries()
             .build()
         toDoWriteDao = db.toDoWriteDao()
-        toDoReadDao = db.toDoReadDao()
+        toDoGroupReadDao = db.toDoGroupReadDao()
+        toDoListReadDao = db.toDoListReadDao()
+        toDoTaskReadDao = db.toDoTaskReadDao()
+        toDoStepReadDao = db.toDoStepReadDao()
     }
 
     @After
@@ -64,7 +74,7 @@ class ToDoDaoWriteTest {
 
         toDoWriteDao.insertGroup(listOf(group1, group2))
 
-        toDoReadDao.getGroup().expect(
+        toDoGroupReadDao.getGroup().expect(
             listOf(group1, group2)
         )
     }
@@ -87,7 +97,7 @@ class ToDoDaoWriteTest {
         toDoWriteDao.insertGroup(listOf(group1))
         toDoWriteDao.insertGroup(listOf(group2))
 
-        toDoReadDao.getGroup().expect(
+        toDoGroupReadDao.getGroup().expect(
             listOf(group1)
         )
     }
@@ -111,7 +121,7 @@ class ToDoDaoWriteTest {
 
         toDoWriteDao.deleteGroup(listOf(group1))
 
-        toDoReadDao.getGroup().expect(
+        toDoGroupReadDao.getGroup().expect(
             listOf(group2)
         )
     }
@@ -135,7 +145,7 @@ class ToDoDaoWriteTest {
 
         toDoWriteDao.deleteGroup("1")
 
-        toDoReadDao.getGroup().expect(
+        toDoGroupReadDao.getGroup().expect(
             listOf(group2)
         )
     }
@@ -180,7 +190,7 @@ class ToDoDaoWriteTest {
 
         toDoWriteDao.ungroup(groupId1, updatedAt, listOf(list1, list2).map { it.id })
 
-        toDoReadDao.getList().expect(
+        toDoListReadDao.getList().expect(
             listOf(
                 list1.copy(groupId = ToDoGroupDb.DEFAULT_ID, updatedAt = updatedAt),
                 list2.copy(groupId = ToDoGroupDb.DEFAULT_ID, updatedAt = updatedAt)
@@ -208,7 +218,7 @@ class ToDoDaoWriteTest {
 
         toDoWriteDao.updateGroupName(id = group1.id, name = "new name", updatedAt)
 
-        toDoReadDao.getGroup().expect(
+        toDoGroupReadDao.getGroup().expect(
             listOf(
                 group1.copy(name = "new name", updatedAt = updatedAt),
                 group2
@@ -241,7 +251,7 @@ class ToDoDaoWriteTest {
 
         toDoWriteDao.rearrangeGroup(listOf(group3, group2, group1))
 
-        toDoReadDao.getGroup().expect(
+        toDoGroupReadDao.getGroup().expect(
             listOf(group3, group2, group1)
         )
     }
@@ -278,7 +288,7 @@ class ToDoDaoWriteTest {
 
         toDoWriteDao.insertList(listOf(list1, list2))
 
-        toDoReadDao.getList().expect(
+        toDoListReadDao.getList().expect(
             listOf(list1, list2)
         )
     }
@@ -314,7 +324,7 @@ class ToDoDaoWriteTest {
         toDoWriteDao.insertList(listOf(list1))
         toDoWriteDao.insertList(listOf(list2))
 
-        toDoReadDao.getList().expect(
+        toDoListReadDao.getList().expect(
             listOf(list1)
         )
     }
@@ -388,13 +398,13 @@ class ToDoDaoWriteTest {
 
         toDoWriteDao.deleteList(listOf(list1))
 
-        toDoReadDao.getList().expect(
+        toDoListReadDao.getList().expect(
             listOf(list2)
         )
-        toDoReadDao.getTask().expect(
+        toDoTaskReadDao.getTask().expect(
             listOf(task2)
         )
-        toDoReadDao.getStep().expect(
+        toDoStepReadDao.getStep().expect(
             listOf(step2)
         )
     }
@@ -431,7 +441,7 @@ class ToDoDaoWriteTest {
 
         toDoWriteDao.updateListNameAndColor(id = list1.id, name = "new name", color = ToDoColor.RED, updatedAt = updatedAt)
 
-        toDoReadDao.getList().expect(
+        toDoListReadDao.getList().expect(
             listOf(
                 list1.copy(name = "new name", color = ToDoColor.RED, updatedAt = updatedAt),
                 list2
@@ -478,7 +488,7 @@ class ToDoDaoWriteTest {
 
         toDoWriteDao.updateListGroup(ids = listOf(list1.id), groupId = groupId2, updatedAt = updatedAt)
 
-        toDoReadDao.getList().expect(
+        toDoListReadDao.getList().expect(
             listOf(
                 list1.copy(groupId = groupId2, updatedAt = updatedAt),
                 list2
@@ -525,7 +535,7 @@ class ToDoDaoWriteTest {
 
         toDoWriteDao.rearrangeList(listOf(list3, list2, list1))
 
-        toDoReadDao.getList().expect(
+        toDoListReadDao.getList().expect(
             listOf(list3, list2, list1)
         )
     }
@@ -572,7 +582,7 @@ class ToDoDaoWriteTest {
 
         toDoWriteDao.insertTask(listOf(task1, task2))
 
-        toDoReadDao.getTask().expect(
+        toDoTaskReadDao.getTask().expect(
             listOf(task1, task2)
         )
     }
@@ -637,10 +647,10 @@ class ToDoDaoWriteTest {
 
         toDoWriteDao.deleteTask(listOf(task1))
 
-        toDoReadDao.getTask().expect(
+        toDoTaskReadDao.getTask().expect(
             listOf(task2)
         )
-        toDoReadDao.getStep().expect(
+        toDoStepReadDao.getStep().expect(
             listOf(step2)
         )
     }
@@ -687,7 +697,7 @@ class ToDoDaoWriteTest {
 
         toDoWriteDao.updateTaskName(id = task1.id, name = "new name", updatedAt = updatedAt)
 
-        toDoReadDao.getTask().expect(
+        toDoTaskReadDao.getTask().expect(
             listOf(
                 task1.copy(name = "new name", updatedAt = updatedAt),
                 task2
@@ -737,7 +747,7 @@ class ToDoDaoWriteTest {
 
         toDoWriteDao.updateTaskStatus(id = task1.id, status = ToDoStatus.COMPLETE, updatedAt = updatedAt, completedAt = null)
 
-        toDoReadDao.getTask().expect(
+        toDoTaskReadDao.getTask().expect(
             listOf(
                 task1.copy(status = ToDoStatus.COMPLETE, updatedAt = updatedAt),
                 task2
@@ -796,7 +806,7 @@ class ToDoDaoWriteTest {
 
         toDoWriteDao.updateTaskList(ids = listOf(task1.id, task2.id), listId = listId2, updatedAt = updatedAt)
 
-        toDoReadDao.getTask().expect(
+        toDoTaskReadDao.getTask().expect(
             listOf(
                 task1.copy(listId = listId2, updatedAt = updatedAt),
                 task2.copy(listId = listId2, updatedAt = updatedAt)
@@ -853,7 +863,7 @@ class ToDoDaoWriteTest {
 
         toDoWriteDao.rearrangeTask(listOf(task3, task2, task1))
 
-        toDoReadDao.getTask().expect(
+        toDoTaskReadDao.getTask().expect(
             listOf(task3, task2, task1)
         )
     }
@@ -910,7 +920,7 @@ class ToDoDaoWriteTest {
 
         toDoWriteDao.insertStep(listOf(step1, step2))
 
-        toDoReadDao.getStep().expect(
+        toDoStepReadDao.getStep().expect(
             listOf(step1, step2)
         )
     }
@@ -966,7 +976,7 @@ class ToDoDaoWriteTest {
 
         toDoWriteDao.deleteStep(listOf(step2))
 
-        toDoReadDao.getStep().expect(
+        toDoStepReadDao.getStep().expect(
             listOf(step1)
         )
     }
@@ -1023,7 +1033,7 @@ class ToDoDaoWriteTest {
 
         toDoWriteDao.updateStepName(id = step1.id, name = "new name", updatedAt = updatedAt)
 
-        toDoReadDao.getStep().expect(
+        toDoStepReadDao.getStep().expect(
             listOf(
                 step1.copy(name = "new name", updatedAt = updatedAt),
                 step2
@@ -1083,7 +1093,7 @@ class ToDoDaoWriteTest {
 
         toDoWriteDao.updateStepStatus(id = step1.id, status = ToDoStatus.COMPLETE, updatedAt = updatedAt)
 
-        toDoReadDao.getStep().expect(
+        toDoStepReadDao.getStep().expect(
             listOf(
                 step1.copy(status = ToDoStatus.COMPLETE, updatedAt = updatedAt),
                 step2
@@ -1150,7 +1160,7 @@ class ToDoDaoWriteTest {
 
         toDoWriteDao.rearrangeStep(listOf(step3, step2, step1))
 
-        toDoReadDao.getStep().expect(
+        toDoStepReadDao.getStep().expect(
             listOf(step3, step2, step1)
         )
     }

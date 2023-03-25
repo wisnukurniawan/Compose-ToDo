@@ -1,13 +1,8 @@
-package com.wisnu.kurniawan.composetodolist.foundation.datasource.local
+package com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao
 
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoGroupDb
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoGroupWithList
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoListDb
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoListWithTasks
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoStepDb
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoTaskDb
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoTaskWithList
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoTaskWithSteps
@@ -16,33 +11,8 @@ import com.wisnu.kurniawan.composetodolist.model.ToDoTaskOverallCount
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDateTime
 
-/**
- * Return the most recent value for To-Do resource, null if it doesn’t exist.
- */
 @Dao
-interface ToDoReadDao {
-
-    @Query("SELECT * FROM ToDoGroupDb")
-    fun getGroup(): Flow<List<ToDoGroupDb>>
-
-    @Query("SELECT * FROM ToDoGroupDb WHERE group_id = :groupId")
-    fun getGroup(groupId: String): Flow<ToDoGroupDb>
-
-    @Query("SELECT * FROM ToDoListDb")
-    fun getList(): Flow<List<ToDoListDb>>
-
-    @Query("SELECT * FROM ToDoListDb WHERE list_groupId = 'default' OR list_groupId = :groupId")
-    fun getListWithUnGroupList(groupId: String): Flow<List<ToDoListDb>>
-
-    @Query("SELECT * FROM ToDoListDb WHERE list_id = :id")
-    fun getListById(id: String): Flow<ToDoListDb>
-
-    @Query("SELECT * FROM ToDoListDb WHERE list_groupId = :groupId")
-    fun getListByGroupId(groupId: String): Flow<List<ToDoListDb>>
-
-    @Transaction
-    @Query("SELECT * FROM ToDoListDb WHERE list_id = :id")
-    fun getListWithTasksById(id: String): Flow<ToDoListWithTasks>
+interface ToDoTaskReadDao {
 
     @Query("SELECT * FROM ToDoTaskDb")
     fun getTask(): Flow<List<ToDoTaskDb>>
@@ -87,20 +57,6 @@ interface ToDoReadDao {
     @Query("SELECT * FROM ToDoTaskDb WHERE task_dueDate IS NOT NULL AND task_status != :status")
     fun getScheduledTasks(status: ToDoStatus = ToDoStatus.COMPLETE): Flow<List<ToDoTaskDb>>
 
-    @Query("SELECT * FROM ToDoStepDb")
-    fun getStep(): Flow<List<ToDoStepDb>>
-
-    @Query("SELECT * FROM ToDoStepDb WHERE step_taskId = :taskId")
-    fun getStep(taskId: String): Flow<List<ToDoStepDb>>
-
-    @Transaction
-    @Query("SELECT * FROM ToDoGroupDb")
-    fun getGroupWithList(): Flow<List<ToDoGroupWithList>>
-
-    @Transaction
-    @Query("SELECT * FROM ToDoListDb")
-    fun getListWithTasks(): Flow<List<ToDoListWithTasks>>
-
     @Transaction
     @Query(
         """
@@ -112,10 +68,6 @@ interface ToDoReadDao {
             """
     )
     fun searchTaskWithList(query: String): Flow<List<ToDoTaskWithList>>
-
-    @Transaction
-    @Query("SELECT * FROM ToDoListDb WHERE list_groupId = :groupId")
-    fun getListWithTasks(groupId: String): Flow<List<ToDoListWithTasks>>
 
     @Transaction
     @Query("SELECT * FROM ToDoTaskDb")

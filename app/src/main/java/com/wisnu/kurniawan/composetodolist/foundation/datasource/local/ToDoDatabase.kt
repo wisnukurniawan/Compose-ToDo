@@ -7,6 +7,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoGroupReadDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoListReadDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoStepReadDao
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.dao.ToDoTaskReadDao
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoGroupDb
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoListDb
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoStepDb
@@ -34,7 +38,10 @@ import kotlinx.coroutines.launch
 @TypeConverters(DateConverter::class)
 abstract class ToDoDatabase : RoomDatabase() {
     abstract fun toDoWriteDao(): ToDoWriteDao
-    abstract fun toDoReadDao(): ToDoReadDao
+    abstract fun toDoGroupReadDao(): ToDoGroupReadDao
+    abstract fun toDoListReadDao(): ToDoListReadDao
+    abstract fun toDoTaskReadDao(): ToDoTaskReadDao
+    abstract fun toDoStepReadDao(): ToDoStepReadDao
 
     @DelicateCoroutinesApi
     companion object {
