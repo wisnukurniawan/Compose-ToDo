@@ -1,6 +1,7 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.search.data
 
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.LocalManager
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.provider.ToDoGroupProvider
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.provider.ToDoTaskProvider
 import com.wisnu.kurniawan.composetodolist.foundation.extension.sanitizeQuery
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toggleStatusHandler
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
@@ -12,14 +13,14 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class SearchEnvironment @Inject constructor(
-    private val localManager: LocalManager,
+    private val toDoTaskProvider: ToDoTaskProvider,
     private val dateTimeProvider: DateTimeProvider
 ) : ISearchEnvironment {
 
     override fun searchList(query: String): Flow<List<ToDoList>> {
         return if (query.isNotBlank()) {
             val wildcardQuery = query.sanitizeQuery()
-            localManager.searchTaskWithList(wildcardQuery)
+            toDoTaskProvider.searchTaskWithList(wildcardQuery)
                 .map {
                     it.groupBy { taskWithList -> taskWithList.list.id }
                         .map { (_, value) ->
@@ -39,15 +40,15 @@ class SearchEnvironment @Inject constructor(
         toDoTask.toggleStatusHandler(
             currentDate,
             { completedAt, newStatus ->
-                localManager.updateTaskStatus(toDoTask.id, newStatus, completedAt, currentDate)
+                toDoTaskProvider.updateTaskStatus(toDoTask.id, newStatus, completedAt, currentDate)
             },
             { nextDueDate ->
-                localManager.updateTaskDueDate(toDoTask.id, nextDueDate, toDoTask.isDueDateTimeSet, currentDate)
+                toDoTaskProvider.updateTaskDueDate(toDoTask.id, nextDueDate, toDoTask.isDueDateTimeSet, currentDate)
             }
         )
     }
 
     override suspend fun deleteTask(task: ToDoTask) {
-        localManager.deleteTaskById(task.id)
+        toDoTaskProvider.deleteTaskById(task.id)
     }
 }

@@ -1,6 +1,7 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.scheduled.data
 
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.LocalManager
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.provider.ToDoGroupProvider
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.provider.ToDoTaskProvider
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toggleStatusHandler
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProvider
@@ -12,16 +13,16 @@ import java.time.LocalDateTime
 import javax.inject.Inject
 
 class ScheduledEnvironment @Inject constructor(
-    private val localManager: LocalManager,
+    private val toDoTaskProvider: ToDoTaskProvider,
     override val idProvider: IdProvider,
     override val dateTimeProvider: DateTimeProvider,
 ) : IScheduledEnvironment {
 
     override fun getToDoTaskWithStepsOrderByDueDateWithList(maxDate: LocalDateTime?): Flow<List<TaskWithList>> {
         val operation = if (maxDate != null) {
-            localManager.getTaskWithListOrderByDueDateToday(maxDate)
+            toDoTaskProvider.getTaskWithListOrderByDueDateToday(maxDate)
         } else {
-            localManager.getTaskWithListOrderByDueDate()
+            toDoTaskProvider.getTaskWithListOrderByDueDate()
         }
 
         return operation
@@ -33,16 +34,16 @@ class ScheduledEnvironment @Inject constructor(
         toDoTask.toggleStatusHandler(
             currentDate,
             { completedAt, newStatus ->
-                localManager.updateTaskStatus(toDoTask.id, newStatus, completedAt, currentDate)
+                toDoTaskProvider.updateTaskStatus(toDoTask.id, newStatus, completedAt, currentDate)
             },
             { nextDueDate ->
-                localManager.updateTaskDueDate(toDoTask.id, nextDueDate, toDoTask.isDueDateTimeSet, currentDate)
+                toDoTaskProvider.updateTaskDueDate(toDoTask.id, nextDueDate, toDoTask.isDueDateTimeSet, currentDate)
             }
         )
     }
 
     override suspend fun deleteTask(task: ToDoTask) {
-        localManager.deleteTaskById(task.id)
+        toDoTaskProvider.deleteTaskById(task.id)
     }
 
 }

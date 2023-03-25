@@ -1,6 +1,7 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.groupmenu.data
 
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.LocalManager
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.provider.ToDoGroupProvider
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.provider.ToDoListProvider
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
@@ -12,7 +13,8 @@ import kotlinx.coroutines.flow.take
 import javax.inject.Inject
 
 class GroupMenuEnvironment @Inject constructor(
-    private val localManager: LocalManager,
+    private val toDoGroupProvider: ToDoGroupProvider,
+    private val toDoListProvider: ToDoListProvider,
     override val dateTimeProvider: DateTimeProvider
 ) : IGroupMenuEnvironment {
 
@@ -22,16 +24,16 @@ class GroupMenuEnvironment @Inject constructor(
             .take(1)
             .onEach {
                 if (it) {
-                    localManager.deleteGroup(groupId)
+                    toDoGroupProvider.deleteGroup(groupId)
                 }
             }
             .filter { !it }
-            .flatMapConcat { localManager.getListByGroupId(groupId).take(1) }
+            .flatMapConcat { toDoListProvider.getListByGroupId(groupId).take(1) }
             .map { it.map { list -> list.id } }
-            .onEach { localManager.ungroup(groupId, dateTimeProvider.now(), it) }
+            .onEach { toDoGroupProvider.ungroup(groupId, dateTimeProvider.now(), it) }
     }
 
     override fun hasList(groupId: String): Flow<Boolean> {
-        return localManager.getListByGroupId(groupId).map { it.isEmpty() }
+        return toDoListProvider.getListByGroupId(groupId).map { it.isEmpty() }
     }
 }

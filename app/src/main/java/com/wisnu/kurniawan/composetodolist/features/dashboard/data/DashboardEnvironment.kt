@@ -3,7 +3,8 @@ package com.wisnu.kurniawan.composetodolist.features.dashboard.data
 import com.wisnu.foundation.coreloggr.Loggr
 import com.wisnu.kurniawan.composetodolist.features.todo.taskreminder.data.TaskAlarmManager
 import com.wisnu.kurniawan.composetodolist.features.todo.taskreminder.data.TaskNotificationManager
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.LocalManager
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.provider.ToDoGroupProvider
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.provider.ToDoTaskProvider
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.PreferenceManager
 import com.wisnu.kurniawan.composetodolist.foundation.extension.getScheduledDueDate
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
@@ -20,7 +21,7 @@ import javax.inject.Inject
 class DashboardEnvironment @Inject constructor(
     private val dateTimeProvider: DateTimeProvider,
     private val preferenceManager: PreferenceManager,
-    private val localManager: LocalManager,
+    private val toDoTaskProvider: ToDoTaskProvider,
     private val taskAlarmManager: TaskAlarmManager,
     private val notificationManager: TaskNotificationManager
 ) : IDashboardEnvironment {
@@ -32,7 +33,7 @@ class DashboardEnvironment @Inject constructor(
     // TODO e2e
     override fun listenToDoTaskDiff(): Flow<ToDoTaskDiff> {
         var tasks: Map<String, ToDoTask> = mapOf()
-        return localManager.getScheduledTasks()
+        return toDoTaskProvider.getScheduledTasks()
             .distinctUntilChangedBy { newTasks -> newTasks.map { Triple(it.dueDate, it.repeat, it.status) } } // Consume when due date, repeat, and status have changes only
             .map { newTasks -> newTasks.associateBy({ it.id }, { it }) }
             .map { newTasks ->

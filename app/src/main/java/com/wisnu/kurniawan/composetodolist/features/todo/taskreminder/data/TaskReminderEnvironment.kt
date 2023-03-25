@@ -1,6 +1,5 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.taskreminder.data
 
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.LocalManager
 import com.wisnu.kurniawan.composetodolist.foundation.extension.getNextScheduledDueDate
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toggleStatusHandler
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
@@ -8,6 +7,7 @@ import com.wisnu.kurniawan.composetodolist.model.TaskWithList
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import com.wisnu.foundation.coreloggr.Loggr
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.provider.ToDoTaskProvider
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.onEach
@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 class TaskReminderEnvironment @Inject constructor(
     private val dateTimeProvider: DateTimeProvider,
-    private val localManager: LocalManager,
+    private val toDoTaskProvider: ToDoTaskProvider,
     private val alarmManager: TaskAlarmManager,
     private val notificationManager: TaskNotificationManager
 ) : ITaskReminderEnvironment {
@@ -44,10 +44,10 @@ class TaskReminderEnvironment @Inject constructor(
                 task.task.toggleStatusHandler(
                     currentDate,
                     { completedAt, newStatus ->
-                        localManager.updateTaskStatus(task.task.id, newStatus, completedAt, currentDate)
+                        toDoTaskProvider.updateTaskStatus(task.task.id, newStatus, completedAt, currentDate)
                     },
                     { nextDueDate ->
-                        localManager.updateTaskDueDate(task.task.id, nextDueDate, task.task.isDueDateTimeSet, currentDate)
+                        toDoTaskProvider.updateTaskDueDate(task.task.id, nextDueDate, task.task.isDueDateTimeSet, currentDate)
                     }
                 )
 
@@ -57,7 +57,7 @@ class TaskReminderEnvironment @Inject constructor(
     }
 
     override fun restartAllReminder(): Flow<List<ToDoTask>> {
-        return localManager.getScheduledTasks()
+        return toDoTaskProvider.getScheduledTasks()
             .take(1)
             .onEach { tasks ->
                 tasks.forEach {
@@ -67,7 +67,7 @@ class TaskReminderEnvironment @Inject constructor(
     }
 
     private fun getTask(taskId: String): Flow<TaskWithList> {
-        return localManager.getTaskWithListById(taskId)
+        return toDoTaskProvider.getTaskWithListById(taskId)
             .take(1)
             .filter { task ->
                 task.task.status != ToDoStatus.COMPLETE &&
