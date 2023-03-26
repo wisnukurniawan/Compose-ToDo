@@ -11,18 +11,6 @@ import java.time.LocalTime
 
 val DEFAULT_TASK_LOCAL_TIME: LocalTime = LocalTime.of(23, 59)
 
-fun ToDoTask.isDueDateSet(): Boolean = this.dueDate != null
-
-fun ToDoTask.updatedDate(newLocalDate: LocalDate): LocalDateTime {
-    val localTime = dueDate?.toLocalTime() ?: DEFAULT_TASK_LOCAL_TIME
-    return LocalDateTime.of(newLocalDate, localTime)
-}
-
-fun ToDoTask.updatedTime(defaultDate: LocalDate, newLocalTime: LocalTime): LocalDateTime {
-    val localDate = dueDate?.toLocalDate() ?: defaultDate
-    return LocalDateTime.of(localDate, newLocalTime)
-}
-
 fun ToDoTask.isExpired(currentDate: LocalDateTime = DateTimeProviderImpl().now()): Boolean {
     return dueDate?.isBefore(currentDate) ?: false
 }

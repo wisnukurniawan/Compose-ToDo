@@ -58,7 +58,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.foundation.extension.displayable
-import com.wisnu.kurniawan.composetodolist.foundation.extension.isDueDateSet
 import com.wisnu.kurniawan.composetodolist.foundation.extension.isExpired
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
 import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaDisabled
