@@ -1,6 +1,8 @@
 package com.wisnu.kurniawan.composetodolist.foundation.extension
 
 import com.wisnu.kurniawan.composetodolist.features.login.ui.LoginState
+import com.wisnu.kurniawan.composetodolist.features.login.ui.canLogin
+import com.wisnu.kurniawan.composetodolist.features.login.ui.isValidEmail
 import org.junit.Assert
 import org.junit.Test
 

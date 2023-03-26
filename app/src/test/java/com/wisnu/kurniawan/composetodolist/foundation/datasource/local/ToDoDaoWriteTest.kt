@@ -198,7 +198,7 @@ class ToDoDaoWriteTest {
         toDoGroupWriteDao.insertGroup(listOf(groupDefault, group1))
         toDoListWriteDao.insertList(listOf(list1, list2))
 
-        toDoListWriteDao.updateListGroup(listOf(list1, list2).map { it.id }, groupId1, updatedAt)
+        toDoListWriteDao.updateListGroup(listOf(list1, list2).map { it.id }, ToDoGroupDb.DEFAULT_ID, updatedAt)
         toDoGroupWriteDao.deleteGroup(groupId1)
 
         toDoListReadDao.getList().expect(

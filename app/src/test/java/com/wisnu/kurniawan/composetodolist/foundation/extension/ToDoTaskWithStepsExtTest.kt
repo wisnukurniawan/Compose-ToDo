@@ -1,6 +1,7 @@
 package com.wisnu.kurniawan.composetodolist.foundation.extension
 
 import com.wisnu.kurniawan.composetodolist.DateFactory
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.mapper.taskWithStepsToTask
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoTaskDb
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoTaskWithSteps
 import com.wisnu.kurniawan.composetodolist.model.ToDoRepeat
@@ -40,7 +41,7 @@ class ToDoTaskWithStepsExtTest {
                     ),
                     steps = listOf()
                 )
-            ).toDoTaskWithStepsToToDoTask()
+            ).taskWithStepsToTask()
         )
     }
 }

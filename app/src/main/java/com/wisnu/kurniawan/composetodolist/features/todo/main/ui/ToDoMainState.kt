@@ -1,7 +1,6 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.main.ui
 
 import androidx.compose.runtime.Immutable
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toItemGroup
 import com.wisnu.kurniawan.composetodolist.model.ToDoGroup
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 

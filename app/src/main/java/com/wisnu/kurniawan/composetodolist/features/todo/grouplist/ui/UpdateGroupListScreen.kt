@@ -28,7 +28,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.wisnu.kurniawan.composetodolist.R
-import com.wisnu.kurniawan.composetodolist.foundation.extension.isUngroup
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
 import com.wisnu.kurniawan.composetodolist.foundation.theme.DividerAlpha
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgButton

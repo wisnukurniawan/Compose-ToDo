@@ -1,8 +1,12 @@
 package com.wisnu.kurniawan.composetodolist.features.dashboard.ui
 
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.lifecycle.viewModelScope
 import com.wisnu.foundation.coreviewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.features.dashboard.data.IDashboardEnvironment
+import com.wisnu.kurniawan.composetodolist.features.todo.main.ui.ItemMainState
+import com.wisnu.kurniawan.composetodolist.foundation.theme.MediumRadius
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

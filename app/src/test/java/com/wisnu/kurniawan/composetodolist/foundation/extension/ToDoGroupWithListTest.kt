@@ -1,6 +1,7 @@
 package com.wisnu.kurniawan.composetodolist.foundation.extension
 
 import com.wisnu.kurniawan.composetodolist.DateFactory
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.mapper.groupWithListToGroup
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoGroupDb
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoGroupWithList
 import com.wisnu.kurniawan.composetodolist.model.ToDoGroup
@@ -31,7 +32,7 @@ class ToDoGroupWithListTest {
                     ),
                     listWithTasks = listOf()
                 )
-            ).toDoGroupWithListToGroup()
+            ).groupWithListToGroup()
         )
     }
 

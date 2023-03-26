@@ -11,6 +11,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.extension.selectedColor
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toToDoColor
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
+import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_LIST_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
@@ -151,4 +152,29 @@ class ListDetailViewModel @Inject constructor(
         newListName = list.name
     )
 
+}
+
+fun ToDoList.toToDoListState(): ToDoListState {
+    val tasks = tasks
+        .map {
+            when (it.status) {
+                ToDoStatus.COMPLETE -> ToDoTaskItem.Complete(it)
+                ToDoStatus.IN_PROGRESS -> ToDoTaskItem.InProgress(it)
+            }
+        }
+        .sortedBy { it is ToDoTaskItem.Complete }
+        .toMutableList()
+
+    val firstCompleteIndex = tasks.indexOfFirst { it is ToDoTaskItem.Complete }
+
+    if (firstCompleteIndex != -1) {
+        tasks.add(firstCompleteIndex, ToDoTaskItem.CompleteHeader())
+    }
+
+    return ToDoListState(
+        id = id,
+        name = name,
+        color = color,
+        tasks = tasks
+    )
 }

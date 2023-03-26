@@ -8,14 +8,17 @@ import com.wisnu.foundation.coreviewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.features.todo.step.data.IStepEnvironment
 import com.wisnu.kurniawan.composetodolist.foundation.extension.DEFAULT_TASK_LOCAL_TIME
 import com.wisnu.kurniawan.composetodolist.foundation.extension.select
-import com.wisnu.kurniawan.composetodolist.foundation.extension.updatedDate
-import com.wisnu.kurniawan.composetodolist.foundation.extension.updatedTime
+import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl
+import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_LIST_ID
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_TASK_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
 import javax.inject.Inject
 
 @HiltViewModel
@@ -199,3 +202,16 @@ class StepViewModel @Inject constructor(
     }
 
 }
+
+fun ToDoTask.isDueDateSet(): Boolean = this.dueDate != null
+
+fun ToDoTask.updatedDate(newLocalDate: LocalDate): LocalDateTime {
+    val localTime = dueDate?.toLocalTime() ?: DEFAULT_TASK_LOCAL_TIME
+    return LocalDateTime.of(newLocalDate, localTime)
+}
+
+fun ToDoTask.updatedTime(defaultDate: LocalDate, newLocalTime: LocalTime): LocalDateTime {
+    val localDate = dueDate?.toLocalDate() ?: defaultDate
+    return LocalDateTime.of(localDate, newLocalTime)
+}
+

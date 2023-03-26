@@ -3,7 +3,6 @@ package com.wisnu.kurniawan.composetodolist.features.todo.detail.ui
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toToDoListState
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListBlue
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListBrown
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListGreen

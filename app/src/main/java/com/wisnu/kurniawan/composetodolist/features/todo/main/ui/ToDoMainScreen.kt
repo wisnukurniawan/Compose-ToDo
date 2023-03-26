@@ -42,10 +42,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.wisnu.kurniawan.composetodolist.R
-import com.wisnu.kurniawan.composetodolist.foundation.extension.cellShape
 import com.wisnu.kurniawan.composetodolist.foundation.extension.identifier
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
-import com.wisnu.kurniawan.composetodolist.foundation.extension.totalTask
 import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaDisabled
 import com.wisnu.kurniawan.composetodolist.foundation.theme.AlphaHigh
 import com.wisnu.kurniawan.composetodolist.foundation.theme.CommonGrey

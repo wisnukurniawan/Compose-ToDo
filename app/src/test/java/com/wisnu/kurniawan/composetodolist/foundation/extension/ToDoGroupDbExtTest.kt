@@ -1,6 +1,7 @@
 package com.wisnu.kurniawan.composetodolist.foundation.extension
 
 import com.wisnu.kurniawan.composetodolist.DateFactory
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.mapper.toGroup
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoGroupDb
 import com.wisnu.kurniawan.composetodolist.model.ToDoGroup
 import org.junit.Assert
@@ -27,7 +28,7 @@ class ToDoGroupDbExtTest {
                     createdAt = DateFactory.constantDate,
                     updatedAt = DateFactory.constantDate,
                 )
-            ).toToDoGroup()
+            ).toGroup()
         )
     }
 

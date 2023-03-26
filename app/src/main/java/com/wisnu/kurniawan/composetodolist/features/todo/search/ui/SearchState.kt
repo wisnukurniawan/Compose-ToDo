@@ -2,7 +2,7 @@ package com.wisnu.kurniawan.composetodolist.features.todo.search.ui
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.text.input.TextFieldValue
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toItemAllState
+import com.wisnu.kurniawan.composetodolist.features.todo.all.ui.toItemAllState
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 
 @Immutable

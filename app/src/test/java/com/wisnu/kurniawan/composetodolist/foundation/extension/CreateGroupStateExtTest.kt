@@ -2,6 +2,7 @@ package com.wisnu.kurniawan.composetodolist.foundation.extension
 
 import androidx.compose.ui.text.input.TextFieldValue
 import com.wisnu.kurniawan.composetodolist.features.todo.group.ui.CreateGroupState
+import com.wisnu.kurniawan.composetodolist.features.todo.group.ui.isValidGroupName
 import org.junit.Assert
 import org.junit.Test
 

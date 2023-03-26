@@ -3,6 +3,8 @@ package com.wisnu.kurniawan.composetodolist.foundation.extension
 import com.wisnu.kurniawan.composetodolist.DateFactory
 import com.wisnu.kurniawan.composetodolist.features.todo.main.ui.ItemMainState
 import com.wisnu.kurniawan.composetodolist.features.todo.main.ui.SelectedItemState
+import com.wisnu.kurniawan.composetodolist.features.todo.main.ui.toItemGroup
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.mapper.toGroupDp
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoGroupDb
 import com.wisnu.kurniawan.composetodolist.model.ToDoColor
 import com.wisnu.kurniawan.composetodolist.model.ToDoGroup

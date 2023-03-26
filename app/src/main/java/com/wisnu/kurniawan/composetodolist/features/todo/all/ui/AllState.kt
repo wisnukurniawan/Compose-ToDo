@@ -1,8 +1,6 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.all.ui
 
 import androidx.compose.runtime.Immutable
-import com.wisnu.kurniawan.composetodolist.foundation.extension.filterCompleteTask
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toItemAllState
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
 

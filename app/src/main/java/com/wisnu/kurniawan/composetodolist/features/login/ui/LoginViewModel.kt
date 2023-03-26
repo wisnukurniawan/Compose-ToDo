@@ -1,10 +1,9 @@
 package com.wisnu.kurniawan.composetodolist.features.login.ui
 
+import androidx.core.util.PatternsCompat
 import androidx.lifecycle.viewModelScope
 import com.wisnu.foundation.coreviewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.features.login.data.ILoginEnvironment
-import com.wisnu.kurniawan.composetodolist.foundation.extension.canLogin
-import com.wisnu.kurniawan.composetodolist.foundation.extension.isValidEmail
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flow
@@ -50,6 +49,11 @@ class LoginViewModel @Inject constructor(
         }
     }
 }
+
+fun LoginState.canLogin() = email.isNotBlank() && password.isNotBlank()
+
+fun LoginState.isValidEmail() = PatternsCompat.EMAIL_ADDRESS.matcher(email).matches()
+
 
 
 

@@ -1,7 +1,6 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.scheduled.ui
 
 import androidx.compose.runtime.Immutable
-import com.wisnu.kurniawan.composetodolist.foundation.extension.toItemScheduledState
 import com.wisnu.kurniawan.composetodolist.model.TaskWithList
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus

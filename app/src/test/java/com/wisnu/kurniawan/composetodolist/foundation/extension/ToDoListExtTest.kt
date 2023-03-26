@@ -1,6 +1,7 @@
 package com.wisnu.kurniawan.composetodolist.foundation.extension
 
 import com.wisnu.kurniawan.composetodolist.DateFactory
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.mapper.toToDoListDb
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoListDb
 import com.wisnu.kurniawan.composetodolist.model.ToDoColor
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
@@ -31,7 +32,7 @@ class ToDoListExtTest {
                     createdAt = DateFactory.constantDate,
                     updatedAt = DateFactory.constantDate,
                 )
-            ).toListDb("groupId")
+            ).toToDoListDb("groupId")
         )
     }
 

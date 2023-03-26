@@ -1,6 +1,8 @@
 package com.wisnu.kurniawan.composetodolist.foundation.extension
 
 import com.wisnu.kurniawan.composetodolist.DateFactory
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.mapper.toDoListWithTasksToToDoList
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.mapper.toToDoList
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoListDb
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoListWithTasks
 import com.wisnu.kurniawan.composetodolist.model.ToDoColor

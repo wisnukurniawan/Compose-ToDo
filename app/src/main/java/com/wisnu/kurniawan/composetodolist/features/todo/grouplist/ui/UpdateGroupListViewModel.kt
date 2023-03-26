@@ -4,7 +4,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.wisnu.foundation.coreviewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.features.todo.grouplist.data.IUpdateGroupListEnvironment
-import com.wisnu.kurniawan.composetodolist.foundation.extension.update
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.local.model.ToDoGroupDb
+import com.wisnu.kurniawan.composetodolist.model.GroupIdWithList
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_GROUP_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -55,3 +56,24 @@ class UpdateGroupListViewModel @Inject constructor(
     }
 
 }
+
+fun GroupIdWithList.isUngroup() = groupId == ToDoGroupDb.DEFAULT_ID
+
+fun List<GroupIdWithList>.update(item: GroupIdWithList, groupId: String): List<GroupIdWithList> {
+    return map {
+        if (it.list.id == item.list.id) {
+            val newGroupId = if (item.isUngroup()) {
+                groupId
+            } else {
+                ToDoGroupDb.DEFAULT_ID
+            }
+
+            it.copy(
+                groupId = newGroupId
+            )
+        } else {
+            it
+        }
+    }
+}
+
