@@ -15,13 +15,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.DismissDirection
-import androidx.compose.material.DismissValue
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.FractionalThreshold
-import androidx.compose.material.SwipeToDismiss
-import androidx.compose.material.rememberDismissState
+import androidx.compose.material3.DismissDirection
+import androidx.compose.material3.DismissValue
+import androidx.compose.material3.SwipeToDismiss
+import androidx.compose.material3.rememberDismissState
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -62,6 +61,7 @@ object ContentVisibility {
     const val hidden: Float = 0f
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SwipeDismiss(
     modifier: Modifier = Modifier,
@@ -161,7 +161,7 @@ fun SwipeDismiss(
     )
 }
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SwipeDismiss(
     modifier: Modifier = Modifier,
@@ -177,7 +177,7 @@ fun SwipeDismiss(
     onDismiss: () -> Unit
 ) {
     val dismissState = rememberDismissState(
-        confirmStateChange = {
+        confirmValueChange = {
             it != DismissValue.DismissedToEnd
         }
     )
@@ -202,12 +202,11 @@ fun SwipeDismiss(
             directions = directions,
             background = {
                 if (dismissState.dismissDirection != null && dismissState.dismissDirection in directions) {
-                    val fraction = dismissState.progress.fraction
+                    val fraction = dismissState.progress
                     background(isDismissed, fraction)
                 }
             },
             dismissContent = { content(isDismissed) },
-            dismissThresholds = { FractionalThreshold(dismissFraction) }
         )
     }
 }
