@@ -15,24 +15,24 @@ import java.time.LocalDateTime
  * If two differing set operations arrive concurrently, pick a “latest” to win. Optionally, also return its previous value.
  */
 @Dao
-abstract class ToDoGroupWriteDao {
+interface ToDoGroupWriteDao {
 
     @Insert
-    abstract suspend fun insertGroup(data: List<ToDoGroupDb>)
+    suspend fun insertGroup(data: List<ToDoGroupDb>)
 
     @Delete
-    abstract suspend fun deleteGroup(data: List<ToDoGroupDb>)
+    suspend fun deleteGroup(data: List<ToDoGroupDb>)
 
     @Query("DELETE FROM ToDoGroupDb WHERE group_id = :id")
-    abstract suspend fun deleteGroup(id: String)
+    suspend fun deleteGroup(id: String)
 
     @Query("UPDATE ToDoGroupDb SET group_name = :name, group_updatedAt = :updatedAt WHERE group_id = :id")
-    abstract suspend fun updateGroupName(id: String, name: String, updatedAt: LocalDateTime)
+    suspend fun updateGroupName(id: String, name: String, updatedAt: LocalDateTime)
 
-    @Transaction
-    open suspend fun rearrangeGroup(data: List<ToDoGroupDb>) {
-        deleteGroup(data)
-        insertGroup(data)
-    }
+//    @Transaction
+//    suspend fun rearrangeGroup(data: List<ToDoGroupDb>) {
+//        deleteGroup(data)
+//        insertGroup(data)
+//    }
 
 }

@@ -11,27 +11,27 @@ import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import java.time.LocalDateTime
 
 @Dao
-abstract class ToDoStepWriteDao {
+interface ToDoStepWriteDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract suspend fun insertStep(data: List<ToDoStepDb>)
+    suspend fun insertStep(data: List<ToDoStepDb>)
 
     @Delete
-    abstract suspend fun deleteStep(data: List<ToDoStepDb>)
+    suspend fun deleteStep(data: List<ToDoStepDb>)
 
     @Query("UPDATE ToDoStepDb SET step_name = :name, step_updatedAt = :updatedAt WHERE step_id = :id")
-    abstract suspend fun updateStepName(id: String, name: String, updatedAt: LocalDateTime)
+    suspend fun updateStepName(id: String, name: String, updatedAt: LocalDateTime)
 
     @Query("UPDATE ToDoStepDb SET step_status = :status, step_updatedAt = :updatedAt WHERE step_id = :id")
-    abstract suspend fun updateStepStatus(id: String, status: ToDoStatus, updatedAt: LocalDateTime)
+    suspend fun updateStepStatus(id: String, status: ToDoStatus, updatedAt: LocalDateTime)
 
     @Query("DELETE FROM ToDoStepDb WHERE step_id = :id")
-    abstract suspend fun deleteStepById(id: String)
+    suspend fun deleteStepById(id: String)
 
-    @Transaction
-    open suspend fun rearrangeStep(data: List<ToDoStepDb>) {
-        deleteStep(data)
-        insertStep(data)
-    }
+//    @Transaction
+//    suspend fun rearrangeStep(data: List<ToDoStepDb>) {
+//        deleteStep(data)
+//        insertStep(data)
+//    }
 
 }

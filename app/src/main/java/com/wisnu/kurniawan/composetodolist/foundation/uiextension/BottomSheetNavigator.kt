@@ -12,6 +12,7 @@ import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 
 // TODO remove this once accompanist accommodate skipHalfExpanded
+// https://github.com/google/accompanist/pull/1543
 @ExperimentalMaterialNavigationApi
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

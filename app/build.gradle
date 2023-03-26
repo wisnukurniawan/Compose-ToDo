@@ -165,7 +165,7 @@ dependencies {
     // For Compose runtime by default coroutine runtime already included from ui, foundation, implicitly
     // Not able to get rid of material lib due to we still use these component and not available yet in material3
     // androidx.compose.material.SwipeToDismiss
-    // androidx.compose.material.ModalBottomSheetLayout
+    // androidx.compose.material.ModalBottomSheetLayout. https://github.com/google/accompanist/pull/1543 (DRAFT)
     implementation libs.androidx.compose.material
     implementation libs.androidx.compose.material3
     implementation libs.androidx.compose.material.iconsCore
