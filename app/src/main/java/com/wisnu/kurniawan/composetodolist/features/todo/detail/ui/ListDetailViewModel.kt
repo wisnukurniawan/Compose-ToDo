@@ -1,16 +1,17 @@
 package com.wisnu.kurniawan.composetodolist.features.todo.detail.ui
 
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.wisnu.foundation.coreviewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.data.IListDetailEnvironment
-import com.wisnu.kurniawan.composetodolist.foundation.extension.select
-import com.wisnu.kurniawan.composetodolist.foundation.extension.selectedColor
+import com.wisnu.kurniawan.composetodolist.features.todo.step.ui.ToDoRepeatItem
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toColor
 import com.wisnu.kurniawan.composetodolist.foundation.extension.toToDoColor
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
+import com.wisnu.kurniawan.composetodolist.model.ToDoRepeat
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
 import com.wisnu.kurniawan.composetodolist.runtime.navigation.ARG_LIST_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -177,4 +178,20 @@ fun ToDoList.toToDoListState(): ToDoListState {
         color = color,
         tasks = tasks
     )
+}
+
+fun List<ToDoRepeatItem>.select(repeat: ToDoRepeat): List<ToDoRepeatItem> {
+    return map {
+        it.copy(applied = it.repeat == repeat)
+    }
+}
+
+fun List<ColorItem>.select(color: Color): List<ColorItem> {
+    return map {
+        it.copy(applied = it.color == color)
+    }
+}
+
+fun List<ColorItem>.selectedColor(): Color {
+    return find { it.applied }?.color ?: Color.White
 }

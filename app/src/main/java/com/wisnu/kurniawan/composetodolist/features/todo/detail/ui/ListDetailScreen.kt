@@ -36,7 +36,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.wisnu.kurniawan.composetodolist.R
-import com.wisnu.kurniawan.composetodolist.foundation.extension.selectedColor
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton

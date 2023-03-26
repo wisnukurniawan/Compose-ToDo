@@ -3,10 +3,10 @@ package com.wisnu.kurniawan.composetodolist.foundation.di
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.CredentialPreferenceSerializer
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.LanguagePreferenceSerializer
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.ThemePreferenceSerializer
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.UserPreferenceSerializer
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.serializer.CredentialPreferenceSerializer
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.serializer.LanguagePreferenceSerializer
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.serializer.ThemePreferenceSerializer
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.serializer.UserPreferenceSerializer
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.model.CredentialPreference
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.model.LanguagePreference
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.model.ThemePreference

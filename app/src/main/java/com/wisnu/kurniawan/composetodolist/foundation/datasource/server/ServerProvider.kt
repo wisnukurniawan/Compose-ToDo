@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.flow
 import java.util.*
 import javax.inject.Inject
 
-class ServerManager @Inject constructor() {
+class ServerProvider @Inject constructor() {
 
     fun fetchCredential(): Flow<Credential> {
         return flow { emit(Credential(token = UUID.randomUUID().toString())) }

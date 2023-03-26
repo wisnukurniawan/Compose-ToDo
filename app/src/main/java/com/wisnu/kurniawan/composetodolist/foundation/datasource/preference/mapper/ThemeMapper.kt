@@ -1,6 +1,5 @@
-package com.wisnu.kurniawan.composetodolist.foundation.extension
+package com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.mapper
 
-import com.wisnu.kurniawan.composetodolist.features.theme.ui.ThemeItem
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.model.ThemePreference
 import com.wisnu.kurniawan.composetodolist.model.Theme
 
@@ -22,10 +21,4 @@ fun ThemePreference.toTheme() = when (this) {
     ThemePreference.SUNRISE -> Theme.SUNRISE
     ThemePreference.AURORA -> Theme.AURORA
     ThemePreference.WALLPAPER -> Theme.WALLPAPER
-}
-
-fun List<ThemeItem>.select(theme: Theme): List<ThemeItem> {
-    return map {
-        it.copy(applied = it.theme == theme)
-    }
 }

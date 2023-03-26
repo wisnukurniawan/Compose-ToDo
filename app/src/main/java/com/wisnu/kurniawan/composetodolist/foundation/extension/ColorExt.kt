@@ -11,16 +11,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.theme.ListRed
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListYellow
 import com.wisnu.kurniawan.composetodolist.model.ToDoColor
 
-fun List<ColorItem>.select(color: Color): List<ColorItem> {
-    return map {
-        it.copy(applied = it.color == color)
-    }
-}
-
-fun List<ColorItem>.selectedColor(): Color {
-    return find { it.applied }?.color ?: Color.White
-}
-
 fun ToDoColor.toColor() = when (this) {
     ToDoColor.BLUE -> ListBlue
     ToDoColor.RED -> ListRed

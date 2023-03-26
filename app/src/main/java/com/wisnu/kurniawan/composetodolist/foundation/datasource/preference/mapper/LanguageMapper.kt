@@ -1,6 +1,5 @@
-package com.wisnu.kurniawan.composetodolist.foundation.extension
+package com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.mapper
 
-import com.wisnu.kurniawan.composetodolist.features.localized.setting.ui.LanguageItem
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.model.LanguagePreference
 import com.wisnu.kurniawan.composetodolist.model.Language
 
@@ -15,11 +14,5 @@ fun LanguagePreference.toLanguage(): Language {
     return when (this) {
         LanguagePreference.ENGLISH -> Language.ENGLISH
         LanguagePreference.INDONESIA -> Language.INDONESIA
-    }
-}
-
-fun List<LanguageItem>.select(language: Language): List<LanguageItem> {
-    return map {
-        it.copy(applied = it.language == language)
     }
 }

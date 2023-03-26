@@ -1,4 +1,4 @@
-package com.wisnu.kurniawan.composetodolist.foundation.datasource.preference
+package com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.serializer
 
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer

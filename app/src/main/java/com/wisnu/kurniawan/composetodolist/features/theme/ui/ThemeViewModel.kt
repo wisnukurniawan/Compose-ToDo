@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.wisnu.foundation.coreviewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.features.theme.data.IThemeEnvironment
-import com.wisnu.kurniawan.composetodolist.foundation.extension.select
 import com.wisnu.kurniawan.composetodolist.foundation.theme.AuroraItemBackgroundL2
 import com.wisnu.kurniawan.composetodolist.foundation.theme.AuroraPrimary
 import com.wisnu.kurniawan.composetodolist.foundation.theme.LightPrimary
@@ -158,4 +157,10 @@ class ThemeViewModel @Inject constructor(
         return data
     }
 
+}
+
+fun List<ThemeItem>.select(theme: Theme): List<ThemeItem> {
+    return map {
+        it.copy(applied = it.theme == theme)
+    }
 }

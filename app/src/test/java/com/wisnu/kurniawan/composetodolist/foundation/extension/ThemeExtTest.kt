@@ -1,5 +1,6 @@
 package com.wisnu.kurniawan.composetodolist.foundation.extension
 
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.mapper.toThemePreference
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.model.ThemePreference
 import com.wisnu.kurniawan.composetodolist.model.Theme
 import org.junit.Assert

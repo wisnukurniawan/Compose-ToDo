@@ -1,20 +1,20 @@
 package com.wisnu.kurniawan.composetodolist.features.localized.setting.data
 
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.PreferenceManager
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.provider.LanguageProvider
 import com.wisnu.kurniawan.composetodolist.model.Language
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class LocalizedSettingEnvironment @Inject constructor(
-    private val preferenceManager: PreferenceManager
+    private val languageProvider: LanguageProvider
 ) : ILocalizedSettingEnvironment {
 
     override fun getLanguage(): Flow<Language> {
-        return preferenceManager.getLanguage()
+        return languageProvider.getLanguage()
     }
 
     override suspend fun setLanguage(language: Language) {
-        preferenceManager.setLanguage(language)
+        languageProvider.setLanguage(language)
     }
 
 }

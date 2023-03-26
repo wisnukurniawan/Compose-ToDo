@@ -5,7 +5,6 @@ import app.cash.turbine.test
 import com.wisnu.kurniawan.composetodolist.BaseViewModelTest
 import com.wisnu.kurniawan.composetodolist.DateFactory
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.data.IListDetailEnvironment
-import com.wisnu.kurniawan.composetodolist.foundation.extension.select
 import com.wisnu.kurniawan.composetodolist.foundation.theme.ListPurple
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl

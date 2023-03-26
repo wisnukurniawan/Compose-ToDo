@@ -1,7 +1,6 @@
 package com.wisnu.kurniawan.composetodolist.features.theme.ui
 
 import androidx.compose.ui.graphics.Brush
-import com.wisnu.kurniawan.composetodolist.foundation.extension.select
 import com.wisnu.kurniawan.composetodolist.model.Theme
 import org.junit.Assert
 import org.junit.Test

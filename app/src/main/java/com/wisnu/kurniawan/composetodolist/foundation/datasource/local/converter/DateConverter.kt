@@ -1,4 +1,4 @@
-package com.wisnu.kurniawan.composetodolist.foundation.datasource.local
+package com.wisnu.kurniawan.composetodolist.foundation.datasource.local.converter
 
 import androidx.room.TypeConverter
 import com.wisnu.foundation.coredatetime.toLocalDateTime

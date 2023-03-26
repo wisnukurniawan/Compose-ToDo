@@ -4,7 +4,6 @@ import androidx.lifecycle.viewModelScope
 import com.wisnu.foundation.coreviewmodel.StatefulViewModel
 import com.wisnu.kurniawan.composetodolist.R
 import com.wisnu.kurniawan.composetodolist.features.localized.setting.data.ILocalizedSettingEnvironment
-import com.wisnu.kurniawan.composetodolist.foundation.extension.select
 import com.wisnu.kurniawan.composetodolist.model.Language
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -53,4 +52,10 @@ class LocalizedSettingViewModel @Inject constructor(localizedSettingEnvironment:
         ),
     )
 
+}
+
+fun List<LanguageItem>.select(language: Language): List<LanguageItem> {
+    return map {
+        it.copy(applied = it.language == language)
+    }
 }
