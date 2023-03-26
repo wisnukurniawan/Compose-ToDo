@@ -97,4 +97,6 @@
 
     <string name="todo_show_complete">Show completed task</string>
     <string name="todo_hide_complete">Hide completed task</string>
+
+    <string name="todo_select_time">Select time</string>
 </resources>

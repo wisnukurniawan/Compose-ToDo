@@ -92,4 +92,6 @@
 
     <string name="todo_show_complete">Tampilkan tugas yang selesai</string>
     <string name="todo_hide_complete">Sembunyikan tugas yang selesai</string>
+
+    <string name="todo_select_time">Pilih waktu</string>
 </resources>

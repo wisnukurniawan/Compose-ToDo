@@ -32,11 +32,14 @@ import androidx.compose.material.icons.rounded.RadioButtonUnchecked
 import androidx.compose.material.icons.rounded.Repeat
 import androidx.compose.material.icons.rounded.Schedule
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TimePicker
+import androidx.compose.material3.TimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -71,12 +74,12 @@ import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIcon
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgIconButton
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgPageLayout
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgToDoItemCell
+import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.PgTimePickerDialog
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.dateTimeDisplayable
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.dueDateDisplayable
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.noteUpdatedAtDisplayable
 import com.wisnu.kurniawan.composetodolist.foundation.uicomponent.timeDisplayable
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.showDatePicker
-import com.wisnu.kurniawan.composetodolist.foundation.uiextension.showTimePicker
 import com.wisnu.kurniawan.composetodolist.foundation.viewmodel.HandleEffect
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderImpl
 import com.wisnu.kurniawan.composetodolist.model.ToDoStatus
@@ -116,6 +119,8 @@ fun StepScreen(
         steps = state.task.steps,
         color = state.color.toColor(),
         listState = listState,
+        showDueTimePicker = state.showDueTimePicker,
+        dueDateInitial = state.dueDateInitial,
         onClickTaskName = onClickTaskName,
         onClickTaskStatus = { viewModel.dispatch(StepAction.TaskAction.OnToggleStatus) },
         onClickCreateStep = onClickCreateStep,
@@ -135,12 +140,13 @@ fun StepScreen(
             }
         },
         onClickTimeItem = {
-            val initial = state.task.dueDate?.toLocalTime()
-            if (initial != null) {
-                activity.showTimePicker(initial) { selectedTime ->
-                    viewModel.dispatch(StepAction.TaskAction.SelectTime(selectedTime))
-                }
-            }
+            viewModel.dispatch(StepAction.TaskAction.EditDueTime)
+        },
+        onClickDueTimeItemSelect = {
+            viewModel.dispatch(StepAction.TaskAction.SelectTime(it))
+        },
+        onClickDueTimeItemCancel = {
+            viewModel.dispatch(StepAction.TaskAction.DismissDueTimePicker)
         },
         onClickRepeatItem = onClickRepeatItem,
         onCheckedChangeDueDateItem = { checked ->
@@ -153,15 +159,7 @@ fun StepScreen(
             }
         },
         onCheckedChangeTimeItem = { checked ->
-            if (checked) {
-                val nextHour = DateTimeProviderImpl().now().toLocalTime().plusHours(1)
-                val initialValue = LocalTime.of(nextHour.hour, 0)
-                activity.showTimePicker(initialValue) { selectedTime ->
-                    viewModel.dispatch(StepAction.TaskAction.SelectTime(selectedTime))
-                }
-            } else {
-                viewModel.dispatch(StepAction.TaskAction.ResetTime)
-            }
+            viewModel.dispatch(StepAction.TaskAction.SelectDueTime(checked))
         },
         onClickUpdateNote = onClickUpdateNote
     )
@@ -174,6 +172,8 @@ private fun StepScreen(
     steps: List<ToDoStep>,
     color: Color,
     listState: LazyListState,
+    showDueTimePicker: Boolean,
+    dueDateInitial: LocalTime,
     onClickTaskName: () -> Unit,
     onClickTaskStatus: () -> Unit,
     onClickCreateStep: () -> Unit,
@@ -183,6 +183,8 @@ private fun StepScreen(
     onClickTaskDelete: () -> Unit,
     onClickDueDateItem: () -> Unit,
     onClickTimeItem: () -> Unit,
+    onClickDueTimeItemSelect: (LocalTime) -> Unit,
+    onClickDueTimeItemCancel: () -> Unit,
     onClickRepeatItem: () -> Unit,
     onCheckedChangeDueDateItem: (Boolean) -> Unit,
     onCheckedChangeTimeItem: (Boolean) -> Unit,
@@ -210,12 +212,16 @@ private fun StepScreen(
             note = task.note,
             noteUpdatedAtTitle = task.noteUpdatedAtDisplayable(),
             listState = listState,
+            showDueTimePicker = showDueTimePicker,
+            dueDateInitial = dueDateInitial,
             onClickCreateStep = onClickCreateStep,
             onClickStep = onClickStep,
             onClickStepStatus = onClickStepStatus,
             onSwipeToDeleteStep = onSwipeToDeleteStep,
             onClickDueDateItem = onClickDueDateItem,
             onClickTimeItem = onClickTimeItem,
+            onClickDueTimeItemSelect = onClickDueTimeItemSelect,
+            onClickDueTimeItemCancel = onClickDueTimeItemCancel,
             onClickRepeatItem = onClickRepeatItem,
             onCheckedChangeDueDateItem = onCheckedChangeDueDateItem,
             onCheckedChangeTimeItem = onCheckedChangeTimeItem,
@@ -347,7 +353,7 @@ private fun TaskCell(
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 private fun StepContent(
     modifier: Modifier,
@@ -359,17 +365,39 @@ private fun StepContent(
     noteUpdatedAtTitle: String,
     color: Color,
     listState: LazyListState,
+    showDueTimePicker: Boolean,
+    dueDateInitial: LocalTime,
     onClickStep: (ToDoStep) -> Unit,
     onClickStepStatus: (ToDoStep) -> Unit,
     onSwipeToDeleteStep: (ToDoStep) -> Unit,
     onClickCreateStep: () -> Unit,
     onClickDueDateItem: () -> Unit,
     onClickTimeItem: () -> Unit,
+    onClickDueTimeItemSelect: (LocalTime) -> Unit,
+    onClickDueTimeItemCancel: () -> Unit,
     onClickRepeatItem: () -> Unit,
     onCheckedChangeDueDateItem: (Boolean) -> Unit,
     onCheckedChangeTimeItem: (Boolean) -> Unit,
     onClickUpdateNote: () -> Unit,
 ) {
+    if (showDueTimePicker) {
+        val timePickerState = remember {
+            TimePickerState(
+                initialHour = dueDateInitial.hour,
+                initialMinute = dueDateInitial.minute,
+                is24Hour = false
+            )
+        }
+        PgTimePickerDialog(
+            onCancel = { onClickDueTimeItemCancel() },
+            onConfirm = {
+                onClickDueTimeItemSelect(LocalTime.of(timePickerState.hour, timePickerState.minute))
+            },
+        ) {
+            TimePicker(state = timePickerState)
+        }
+    }
+
     LazyColumn(
         modifier = modifier.fillMaxSize(),
         state = listState

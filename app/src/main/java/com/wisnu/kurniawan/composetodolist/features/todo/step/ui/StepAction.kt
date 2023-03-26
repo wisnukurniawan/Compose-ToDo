@@ -14,9 +14,11 @@ sealed class StepAction {
         data class ChangeTaskName(val name: TextFieldValue) : TaskAction()
         data class SelectRepeat(val repeatItem: ToDoRepeatItem) : TaskAction()
         data class SelectDueDate(val date: LocalDate) : TaskAction()
+        data class SelectDueTime(val selected: Boolean) : TaskAction()
+        object EditDueTime : TaskAction()
+        object DismissDueTimePicker : TaskAction()
         data class SelectTime(val time: LocalTime) : TaskAction()
         object ResetDueDate : TaskAction()
-        object ResetTime : TaskAction()
     }
 
     sealed class StepItemAction : StepAction() {

@@ -93,12 +93,6 @@ class StepViewModel @Inject constructor(
                     environment.resetTaskDueDate(state.value.task.id)
                 }
             }
-            StepAction.TaskAction.ResetTime -> {
-                viewModelScope.launch {
-                    val newDateTime = state.value.task.updatedTime(environment.dateTimeProvider.now().toLocalDate(), DEFAULT_TASK_LOCAL_TIME)
-                    environment.resetTaskTime(newDateTime, state.value.task.id)
-                }
-            }
             is StepAction.TaskAction.SelectDueDate -> {
                 viewModelScope.launch {
                     val newDateTime = state.value.task.updatedDate(action.date)
@@ -107,8 +101,34 @@ class StepViewModel @Inject constructor(
             }
             is StepAction.TaskAction.SelectTime -> {
                 viewModelScope.launch {
+                    setState { copy(showDueTimePicker = false) }
+
                     val newDateTime = state.value.task.updatedTime(environment.dateTimeProvider.now().toLocalDate(), action.time)
                     environment.updateTaskDueDate(newDateTime, true, state.value.task.id)
+                }
+            }
+            StepAction.TaskAction.DismissDueTimePicker -> {
+                viewModelScope.launch {
+                    setState { copy(showDueTimePicker = false) }
+                }
+            }
+            StepAction.TaskAction.EditDueTime -> {
+                val initial = state.value.task.dueDate?.toLocalTime()
+
+                if (initial != null) {
+                    setState { copy(showDueTimePicker = true, dueDateInitial = initial) }
+                }
+            }
+            is StepAction.TaskAction.SelectDueTime -> {
+                viewModelScope.launch {
+                    if (action.selected) {
+                        val nextHour = environment.dateTimeProvider.now().toLocalTime().plusHours(1)
+                        val initial = LocalTime.of(nextHour.hour, 0)
+                        setState { copy(showDueTimePicker = true, dueDateInitial = initial) }
+                    } else {
+                        val newDateTime = state.value.task.updatedTime(environment.dateTimeProvider.now().toLocalDate(), DEFAULT_TASK_LOCAL_TIME)
+                        environment.resetTaskTime(newDateTime, state.value.task.id)
+                    }
                 }
             }
         }
