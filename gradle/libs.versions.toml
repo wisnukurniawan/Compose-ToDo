@@ -2,7 +2,7 @@
 androidGradlePlugin = "7.4.2"
 protoWirePlugin = "4.5.2"
 
-accompanist = "0.30.0"
+accompanist = "0.30.1"
 androidDesugarJdkLibs = "1.1.5"
 androidxActivity = "1.6.1"
 androidxAppCompat = "1.6.1"
