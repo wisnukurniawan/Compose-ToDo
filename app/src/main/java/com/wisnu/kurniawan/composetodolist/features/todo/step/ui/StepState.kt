@@ -6,6 +6,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProviderIm
 import com.wisnu.kurniawan.composetodolist.model.ToDoColor
 import com.wisnu.kurniawan.composetodolist.model.ToDoRepeat
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
+import java.time.LocalDate
 import java.time.LocalTime
 
 @Immutable
@@ -20,7 +21,9 @@ data class StepState(
     val createStepName: TextFieldValue = TextFieldValue(),
     val repeatItems: List<ToDoRepeatItem> = initialRepeatItem(),
     val editNote: TextFieldValue = TextFieldValue(),
-    val dueDateInitial: LocalTime = DateTimeProviderImpl().now().toLocalTime(),
+    val dueDateInitial: LocalDate = DateTimeProviderImpl().now().toLocalDate(),
+    val showDueDatePicker: Boolean = false,
+    val dueTimeInitial: LocalTime = DateTimeProviderImpl().now().toLocalTime(),
     val showDueTimePicker: Boolean = false,
 ) {
     val validEditTaskName = editTaskName.text.isNotBlank()

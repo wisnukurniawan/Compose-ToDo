@@ -13,12 +13,14 @@ sealed class StepAction {
         object Delete : TaskAction()
         data class ChangeTaskName(val name: TextFieldValue) : TaskAction()
         data class SelectRepeat(val repeatItem: ToDoRepeatItem) : TaskAction()
-        data class SelectDueDate(val date: LocalDate) : TaskAction()
-        data class SelectDueTime(val selected: Boolean) : TaskAction()
+        data class SelectDueDate(val date: LocalDate?) : TaskAction()
+        data class ChangeDueDate(val selected: Boolean) : TaskAction()
+        object EditDueDate : TaskAction()
+        object DismissDueDatePicker : TaskAction()
+        data class ChangeDueTime(val selected: Boolean) : TaskAction()
         object EditDueTime : TaskAction()
         object DismissDueTimePicker : TaskAction()
-        data class SelectTime(val time: LocalTime) : TaskAction()
-        object ResetDueDate : TaskAction()
+        data class SelectDueTime(val time: LocalTime) : TaskAction()
     }
 
     sealed class StepItemAction : StepAction() {
