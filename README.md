@@ -24,7 +24,7 @@ Compose playground for learning purpose
 * Android Studio Flamingo | 2022.2.1
 * Min SDK 21
 * Target SDK 33
-* AGP 7.4.1
+* AGP 8.0.0
 * Java 11
 * Kotlin 1.8.20
 
