@@ -29,7 +29,7 @@ okhttp = "4.10.0"
 protobuf = "4.0.0-rc-2"
 retrofit = "2.9.0"
 room = "2.5.1"
-wisnuFoundation = "0.1.2"
+wisnuFoundation = "0.1.3"
 
 
 [libraries]
