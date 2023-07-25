@@ -1,5 +1,5 @@
 [versions]
-androidGradlePlugin = "8.0.0"
+androidGradlePlugin = "8.0.2"
 protoWirePlugin = "4.8.0"
 
 accompanist = "0.30.1"
