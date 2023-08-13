@@ -88,7 +88,7 @@ wisnu-foundation-lib-lifecycleloggr = { group = "com.github.wisnukurniawan.found
 wisnu-foundation-test-debugnoop = { group = "com.github.wisnukurniawan.foundation", name = "test-debug-no-op", version.ref = "wisnuFoundation" }
 wisnu-foundation-test-debug = { group = "com.github.wisnukurniawan.foundation", name = "test-debug", version.ref = "wisnuFoundation" }
 
-debugging-chucker = { group = "com.github.chuckerteam.chucker", name = "library", version = "3.5.2" }
+debugging-chucker = { group = "com.github.chuckerteam.chucker", name = "library", version = "4.0.0" }
 debugging-compose-uiTooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "androidxCompose" }
 debugging-okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
 
