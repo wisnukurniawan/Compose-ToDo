@@ -33,7 +33,6 @@ import androidx.compose.material.icons.rounded.Schedule
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.DatePickerDialog
-import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.DisplayMode
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -45,6 +44,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimePicker
 import androidx.compose.material3.TimePickerState
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -441,14 +441,12 @@ private fun StepContent(
     }
 
     if (showDueDatePicker) {
-        val datePickerState = remember {
-            DatePickerState(
-                initialSelectedDateMillis = dueDateInitial.toMillis(ZoneId.ofOffset("UTC", ZoneOffset.UTC)),
-                initialDisplayedMonthMillis = dueDateInitial.toMillis(ZoneId.ofOffset("UTC", ZoneOffset.UTC)),
-                yearRange = DatePickerDefaults.YearRange,
-                initialDisplayMode = DisplayMode.Picker
-            )
-        }
+        val datePickerState = rememberDatePickerState(
+            initialSelectedDateMillis = dueDateInitial.toMillis(ZoneId.ofOffset("UTC", ZoneOffset.UTC)),
+            initialDisplayedMonthMillis = dueDateInitial.toMillis(ZoneId.ofOffset("UTC", ZoneOffset.UTC)),
+            yearRange = DatePickerDefaults.YearRange,
+            initialDisplayMode = DisplayMode.Picker
+        )
         val confirmEnabled by remember { derivedStateOf { datePickerState.selectedDateMillis != null } }
         DatePickerDialog(
             onDismissRequest = onClickDueDateItemCancel,
