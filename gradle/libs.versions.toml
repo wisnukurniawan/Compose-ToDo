@@ -4,7 +4,7 @@ protoWirePlugin = "4.8.0"
 
 accompanist = "0.32.0"
 androidDesugarJdkLibs = "2.0.3"
-androidxActivity = "1.8.0"
+androidxActivity = "1.8.2"
 androidxAppCompat = "1.6.1"
 androidxCompose = "1.6.0-alpha06"
 androidxComposeCompiler = "1.5.3"
