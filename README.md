@@ -21,12 +21,12 @@ Compose playground for learning purpose
 
 ## Prerequisites
 
-* Android Studio Flamingo | 2022.2.1
+* Android Studio Iguana | 2023.2.1
 * Min SDK 21
 * Target SDK 34
-* AGP 8.0.0
+* AGP 8.3.0
 * Java 11
-* Kotlin 1.8.20
+* Kotlin 1.9.22
 
 ## Setup
 

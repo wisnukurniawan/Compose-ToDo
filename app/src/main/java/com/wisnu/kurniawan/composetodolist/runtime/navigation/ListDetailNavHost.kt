@@ -1,5 +1,6 @@
 package com.wisnu.kurniawan.composetodolist.runtime.navigation
 
+import androidx.compose.material.navigation.bottomSheet
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -7,8 +8,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
-import com.google.accompanist.navigation.material.bottomSheet
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.ui.CreateListEditor
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.ui.ListDetailScreen
 import com.wisnu.kurniawan.composetodolist.features.todo.detail.ui.ListDetailViewModel
@@ -58,7 +57,6 @@ fun NavGraphBuilder.ListDetailNavHost(
     }
 }
 
-@OptIn(ExperimentalMaterialNavigationApi::class)
 private fun NavGraphBuilder.ListDetailBottomSheetNavHost(
     navController: NavHostController,
     bottomSheetConfig: MutableState<MainBottomSheetConfig>

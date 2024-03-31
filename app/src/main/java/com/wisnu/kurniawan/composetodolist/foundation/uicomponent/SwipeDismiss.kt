@@ -15,19 +15,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.DismissDirection
-import androidx.compose.material3.DismissValue
-import androidx.compose.material3.SwipeToDismiss
-import androidx.compose.material3.rememberDismissState
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SwipeToDismissBox
+import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -167,7 +167,7 @@ fun SwipeDismiss(
     modifier: Modifier = Modifier,
     background: @Composable (isDismissed: Boolean, fraction: Float) -> Unit,
     content: @Composable (isDismissed: Boolean) -> Unit,
-    directions: Set<DismissDirection> = setOf(DismissDirection.EndToStart),
+    directions: Set<SwipeToDismissBoxValue> = setOf(SwipeToDismissBoxValue.EndToStart),
     enter: EnterTransition = expandVertically(),
     exit: ExitTransition = shrinkVertically(
         animationSpec = tween(
@@ -176,15 +176,20 @@ fun SwipeDismiss(
     ),
     onDismiss: () -> Unit
 ) {
-    val dismissState = rememberDismissState(
-        confirmValueChange = {
-            it != DismissValue.DismissedToEnd
+    var isDismissed by rememberSaveable { mutableStateOf(false) }
+    val dismissState = rememberSwipeToDismissBoxState(
+        confirmValueChange = { value ->
+            if (value == SwipeToDismissBoxValue.EndToStart) {
+                isDismissed = true
+                return@rememberSwipeToDismissBoxState true
+            } else {
+                return@rememberSwipeToDismissBoxState false
+            }
         }
     )
-    val isDismissed = dismissState.isDismissed(DismissDirection.EndToStart)
 
-    LaunchedEffect(dismissState.currentValue) {
-        if (dismissState.currentValue == DismissValue.DismissedToStart) {
+    LaunchedEffect(isDismissed) {
+        if (isDismissed) {
             delay(600)
             onDismiss()
         }
@@ -196,17 +201,18 @@ fun SwipeDismiss(
         enter = enter,
         exit = exit
     ) {
-        SwipeToDismiss(
+        SwipeToDismissBox(
             modifier = modifier,
             state = dismissState,
-            directions = directions,
-            background = {
-                if (dismissState.dismissDirection != null && dismissState.dismissDirection in directions) {
+            enableDismissFromStartToEnd = false,
+            enableDismissFromEndToStart = true,
+            backgroundContent = {
+                if (dismissState.dismissDirection in directions) {
                     val fraction = dismissState.progress
                     background(isDismissed, fraction)
                 }
             },
-            dismissContent = { content(isDismissed) },
+            content = { content(isDismissed) },
         )
     }
 }

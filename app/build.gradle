@@ -154,9 +154,6 @@ dependencies {
     implementation libs.google.material
     implementation libs.wisnu.foundation.core.viewmodel
 
-    // Use for bottom sheet navigation
-    implementation libs.google.accompanist.navigation
-
     implementation libs.google.accompanist.systemuicontroller
 
     // Startup
@@ -166,12 +163,12 @@ dependencies {
     // Compose
     // For Compose runtime by default coroutine runtime already included from ui, foundation, implicitly
     // Not able to get rid of material lib due to we still use these component and not available yet in material3
-    // androidx.compose.material.SwipeToDismiss
-    // androidx.compose.material.ModalBottomSheetLayout. https://github.com/google/accompanist/pull/1543 (DRAFT)
+    // androidx.compose.material.ModalBottomSheetLayout.
     implementation libs.androidx.compose.material
     implementation libs.androidx.compose.material3
     implementation libs.androidx.compose.material.iconsCore
     implementation libs.androidx.compose.material.iconsExtended
+    implementation libs.androidx.compose.material.navigation
     implementation libs.androidx.compose.foundation
     implementation libs.androidx.compose.ui
     implementation libs.androidx.compose.widget

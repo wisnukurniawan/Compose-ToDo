@@ -1,5 +1,6 @@
 package com.wisnu.kurniawan.composetodolist.runtime.navigation
 
+import androidx.compose.material.navigation.bottomSheet
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -8,8 +9,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navigation
-import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
-import com.google.accompanist.navigation.material.bottomSheet
 import com.wisnu.kurniawan.composetodolist.features.dashboard.ui.DashboardScreen
 import com.wisnu.kurniawan.composetodolist.features.dashboard.ui.DashboardTabletScreen
 import com.wisnu.kurniawan.composetodolist.features.dashboard.ui.DashboardViewModel
@@ -114,7 +113,6 @@ fun NavGraphBuilder.HomeTabletNavHost(
     }
 }
 
-@OptIn(ExperimentalMaterialNavigationApi::class)
 private fun NavGraphBuilder.HomeBottomSheetNavHost(
     bottomSheetConfig: MutableState<MainBottomSheetConfig>,
     navController: NavHostController

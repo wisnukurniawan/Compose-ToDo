@@ -6,10 +6,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.ModalBottomSheetDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ChevronLeft
 import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material.navigation.BottomSheetNavigator
+import androidx.compose.material.navigation.ModalBottomSheetLayout
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -24,9 +25,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.google.accompanist.navigation.material.BottomSheetNavigator
-import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
-import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.wisnu.kurniawan.composetodolist.features.splash.ui.SplashScreen
 import com.wisnu.kurniawan.composetodolist.features.splash.ui.SplashViewModel
 import com.wisnu.kurniawan.composetodolist.foundation.uiextension.rememberBottomSheetNavigator
@@ -34,7 +32,6 @@ import com.wisnu.kurniawan.composetodolist.foundation.window.WindowState
 
 const val MinLargeScreenWidth = 585
 
-@OptIn(ExperimentalMaterialNavigationApi::class)
 @Composable
 fun MainNavHost(windowState: WindowState) {
     val bottomSheetNavigator = rememberBottomSheetNavigator()
@@ -48,7 +45,7 @@ fun MainNavHost(windowState: WindowState) {
         bottomSheetNavigator = bottomSheetNavigator,
         sheetShape = bottomSheetConfig.value.sheetShape,
         scrimColor = if (bottomSheetConfig.value.showScrim) {
-            ModalBottomSheetDefaults.scrimColor
+            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.32f)
         } else {
             Color.Transparent
         }
@@ -61,7 +58,6 @@ fun MainNavHost(windowState: WindowState) {
     }
 }
 
-@OptIn(ExperimentalMaterialNavigationApi::class)
 @Composable
 private fun LargeScreenNavHost(
     bottomSheetNavigator: BottomSheetNavigator,
@@ -93,7 +89,6 @@ private fun LargeScreenNavHost(
     }
 }
 
-@OptIn(ExperimentalMaterialNavigationApi::class)
 @Composable
 private fun SmallScreenNavHost(
     bottomSheetNavigator: BottomSheetNavigator,
@@ -127,7 +122,6 @@ private fun SmallScreenNavHost(
     }
 }
 
-@OptIn(ExperimentalMaterialNavigationApi::class)
 @Composable
 private fun HomeTabletNavHost(
     navController: NavHostController,
@@ -149,7 +143,7 @@ private fun HomeTabletNavHost(
                 bottomSheetNavigator = bottomSheetNavigatorLeft,
                 sheetShape = bottomSheetConfigLeft.value.sheetShape,
                 scrimColor = if (bottomSheetConfigLeft.value.showScrim) {
-                    ModalBottomSheetDefaults.scrimColor
+                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.32f)
                 } else {
                     Color.Transparent
                 }
@@ -182,7 +176,7 @@ private fun HomeTabletNavHost(
                 bottomSheetNavigator = bottomSheetNavigatorRight,
                 sheetShape = bottomSheetConfigRight.value.sheetShape,
                 scrimColor = if (bottomSheetConfigRight.value.showScrim) {
-                    ModalBottomSheetDefaults.scrimColor
+                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.32f)
                 } else {
                     Color.Transparent
                 }
