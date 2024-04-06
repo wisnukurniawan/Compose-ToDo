@@ -101,7 +101,7 @@ private fun TaskCell(
                 placeholderValue = stringResource(R.string.todo_rename_task),
                 modifier = Modifier
                     .onFocusChanged(onFocusChanged),
-                keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Done
                 ),
                 keyboardActions = KeyboardActions(
@@ -259,7 +259,7 @@ private fun StepCell(
             },
             placeholderValue = placeholderValue,
             modifier = fieldModifier,
-            keyboardOptions = KeyboardOptions.Default.copy(
+            keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Done
             ),
             keyboardActions = KeyboardActions(

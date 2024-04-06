@@ -142,7 +142,7 @@ private fun CreateGroup(
                     placeholderValue = hint,
                     modifier = modifier.padding(horizontal = 16.dp).height(50.dp).fillMaxWidth(),
                     shape = MaterialTheme.shapes.large,
-                    keyboardOptions = KeyboardOptions.Default.copy(
+                    keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Done,
                         capitalization = KeyboardCapitalization.Sentences
                     ),
