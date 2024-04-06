@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
@@ -61,7 +60,6 @@ object ContentVisibility {
     const val hidden: Float = 0f
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SwipeDismiss(
     modifier: Modifier = Modifier,
@@ -161,7 +159,6 @@ fun SwipeDismiss(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SwipeDismiss(
     modifier: Modifier = Modifier,
