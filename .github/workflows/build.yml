@@ -28,13 +28,13 @@ jobs:
         run: ./gradlew assembleDebug jacocoDebugReport --stacktrace
 
       - name: Upload build outputs (APKs)
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build-outputs
           path: ./app/build/outputs
 
       - name: Upload test report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: report
           path: ./build/jacoco
