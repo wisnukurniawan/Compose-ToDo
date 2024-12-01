@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.List
 import androidx.compose.material.icons.rounded.DriveFileRenameOutline
 import androidx.compose.material.icons.rounded.List
 import androidx.compose.material3.MaterialTheme
@@ -59,7 +60,7 @@ private fun GroupMenuScreen(
                         GroupMenuItem(
                             onClick = onAddRemoveClick,
                             title = stringResource(item.title),
-                            imageVector = Icons.Rounded.List,
+                            imageVector = Icons.AutoMirrored.Rounded.List,
                             color = MaterialTheme.colorScheme.surfaceVariant,
                             enabled = item.enabled
                         )

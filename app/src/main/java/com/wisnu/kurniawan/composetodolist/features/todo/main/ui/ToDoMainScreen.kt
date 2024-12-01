@@ -18,12 +18,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.List
 import androidx.compose.material.icons.rounded.CalendarToday
 import androidx.compose.material.icons.rounded.Event
 import androidx.compose.material.icons.rounded.Inbox
 import androidx.compose.material.icons.rounded.List
 import androidx.compose.material.icons.rounded.MoreHoriz
 import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -398,7 +400,7 @@ private fun ListCell(
                             contentAlignment = Alignment.Center
                         ) {
                             PgIcon(
-                                imageVector = Icons.Rounded.List,
+                                imageVector = Icons.AutoMirrored.Rounded.List,
                                 modifier = Modifier
                                     .size(20.dp)
                             )
@@ -452,7 +454,7 @@ private fun PgDivider(
                     .background(color = MaterialTheme.colorScheme.secondary)
             )
         }
-        Divider(color = color)
+        HorizontalDivider(color = color)
     }
 }
 

@@ -14,5 +14,6 @@ fun LanguagePreference.toLanguage(): Language {
     return when (this) {
         LanguagePreference.ENGLISH -> Language.ENGLISH
         LanguagePreference.INDONESIA -> Language.INDONESIA
+        LanguagePreference.UNRECOGNIZED -> Language.ENGLISH
     }
 }

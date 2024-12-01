@@ -1,6 +1,11 @@
 syntax = "proto3";
 
-package com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.model;
+option java_package = "com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.model";
+option java_multiple_files = true;
+
+message UserLanguagePreference {
+  LanguagePreference language = 1;
+}
 
 enum LanguagePreference {
   ENGLISH = 0;

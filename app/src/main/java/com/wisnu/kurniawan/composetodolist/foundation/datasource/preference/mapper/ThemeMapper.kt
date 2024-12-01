@@ -21,4 +21,5 @@ fun ThemePreference.toTheme() = when (this) {
     ThemePreference.SUNRISE -> Theme.SUNRISE
     ThemePreference.AURORA -> Theme.AURORA
     ThemePreference.WALLPAPER -> Theme.WALLPAPER
+    ThemePreference.UNRECOGNIZED -> Theme.SYSTEM
 }

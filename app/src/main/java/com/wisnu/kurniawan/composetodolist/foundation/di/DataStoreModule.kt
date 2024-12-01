@@ -8,9 +8,9 @@ import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.seri
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.serializer.ThemePreferenceSerializer
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.serializer.UserPreferenceSerializer
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.model.CredentialPreference
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.model.LanguagePreference
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.model.ThemePreference
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.model.UserLanguagePreference
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.model.UserPreference
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.model.UserThemePreference
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,11 +31,11 @@ private val Context.userDataStore: DataStore<UserPreference> by dataStore(
     fileName = USER_NAME,
     serializer = UserPreferenceSerializer
 )
-private val Context.themeDataStore: DataStore<ThemePreference> by dataStore(
+private val Context.themeDataStore: DataStore<UserThemePreference> by dataStore(
     fileName = THEME_NAME,
     serializer = ThemePreferenceSerializer
 )
-val Context.languageDatastore: DataStore<LanguagePreference> by dataStore(
+val Context.languageDatastore: DataStore<UserLanguagePreference> by dataStore(
     fileName = LANGUAGE_NAME,
     serializer = LanguagePreferenceSerializer
 )
@@ -58,13 +58,13 @@ object DataStoreModule {
 
     @Singleton
     @Provides
-    fun provideThemeDataStore(@ApplicationContext context: Context): DataStore<ThemePreference> {
+    fun provideThemeDataStore(@ApplicationContext context: Context): DataStore<UserThemePreference> {
         return context.themeDataStore
     }
 
     @Singleton
     @Provides
-    fun provideLanguageDataStore(@ApplicationContext context: Context): DataStore<LanguagePreference> {
+    fun provideLanguageDataStore(@ApplicationContext context: Context): DataStore<UserLanguagePreference> {
         return context.languageDatastore
     }
 

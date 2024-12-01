@@ -222,7 +222,7 @@ fun TaskContent(
                     }
                     is ItemAllState.Task.Complete -> {
                         PgToDoItemCell(
-                            modifier = Modifier.animateItemPlacement(),
+                            modifier = Modifier.animateItem(fadeInSpec = null, fadeOutSpec = null),
                             name = it.task.name,
                             color = it.list.color.toColor().copy(alpha = AlphaDisabled),
                             contentPaddingValues = PaddingValues(all = 8.dp),
@@ -239,7 +239,7 @@ fun TaskContent(
                         var debounceJob: Job? by remember { mutableStateOf(null) }
 
                         PgToDoItemCell(
-                            modifier = Modifier.animateItemPlacement(),
+                            modifier = Modifier.animateItem(fadeInSpec = null, fadeOutSpec = null),
                             name = it.task.name,
                             color = it.list.color.toColor(),
                             contentPaddingValues = PaddingValues(all = 8.dp),

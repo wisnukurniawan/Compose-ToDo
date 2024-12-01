@@ -11,7 +11,10 @@ buildscript {
         classpath libs.google.firebase.performance.gradlePlugin
         classpath libs.google.hilt.gradlePlugin
         classpath libs.google.servicesPlugin
-        classpath libs.squareup.wire.gradlePlugin
+        classpath libs.google.kspPlugin
+        classpath libs.room.gradlePlugin
+        classpath libs.protobuf.gradlePlugin
+        classpath libs.compose.gradlePlugin
     }
 }
 
@@ -26,7 +29,6 @@ allprojects {
         minSdkVersion = 21
         targetSdkVersion = 34
         compileSdkVersion = 34
-        buildToolsVersion = "34.0.0"
         appId = project.properties["application_id"]
         versionCode = Integer.parseInt(project.properties["version_code"])
         versionName = project.properties["version_name"]

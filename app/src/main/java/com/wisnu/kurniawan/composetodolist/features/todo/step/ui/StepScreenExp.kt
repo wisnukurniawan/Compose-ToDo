@@ -21,6 +21,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.RadioButtonUnchecked
 import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -111,7 +112,7 @@ private fun TaskCell(
             )
         }
 
-        Divider(modifier = Modifier.padding(start = 56.dp))
+        HorizontalDivider(modifier = Modifier.padding(start = 56.dp))
     }
 }
 
@@ -146,7 +147,7 @@ private fun StepCell(
                         onClickImeDone = onClickImeDone
                     )
 
-                    Divider(modifier = Modifier.padding(start = 56.dp))
+                    HorizontalDivider(modifier = Modifier.padding(start = 56.dp))
                 }
             }
         },

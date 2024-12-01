@@ -205,7 +205,7 @@ private class SwipeSearchNestedScrollConnection(
             // If isn't enabled, return zero
             !enabled -> Offset.Zero
             // If scroll up, handle it
-            source == NestedScrollSource.Drag && available.y < 0 -> {
+            source == NestedScrollSource.UserInput && available.y < 0 -> {
                 performDrag(available, SCROLL_UP)
             }
             else -> Offset.Zero
@@ -229,7 +229,7 @@ private class SwipeSearchNestedScrollConnection(
             // If state offset exceed search height return zero
             state.offset >= searchHeightPx -> Offset.Zero
             // If scroll down, handle it
-            source == NestedScrollSource.Drag && available.y > 0 -> {
+            source == NestedScrollSource.UserInput && available.y > 0 -> {
                 performDrag(available, SCROLL_DOWN)
             }
             else -> Offset.Zero

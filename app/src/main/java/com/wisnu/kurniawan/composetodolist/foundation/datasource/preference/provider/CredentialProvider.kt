@@ -28,7 +28,10 @@ class CredentialProvider@Inject constructor(
     suspend fun setCredential(data: Credential) {
         withContext(dispatcher) {
             credentialDataStore.updateData {
-                CredentialPreference(data.token)
+                CredentialPreference
+                    .newBuilder()
+                    .setToken(data.token)
+                    .build()
             }
         }
     }

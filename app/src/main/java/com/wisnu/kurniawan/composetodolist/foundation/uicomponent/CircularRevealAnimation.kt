@@ -6,6 +6,7 @@ import androidx.annotation.FloatRange
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.rememberTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.Box
@@ -44,7 +45,7 @@ fun <T> CircularReveal(
     val targetChanged = (targetState != transitionState.targetState)
     var offset: Offset? by remember { mutableStateOf(null) }
     transitionState.targetState = targetState
-    val transition = updateTransition(transitionState, label = "transition")
+    val transition = rememberTransition(transitionState, label = "transition")
     if (targetChanged || items.isEmpty()) {
         // Only manipulate the list when the state is changed, or in the first run.
         val keys = items.map { it.key }.run {

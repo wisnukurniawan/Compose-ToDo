@@ -1,13 +1,17 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'com.squareup.wire'
+    id 'com.google.devtools.ksp'
     id 'dagger.hilt.android.plugin'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
     id 'com.google.firebase.firebase-perf'
+    id 'androidx.room'
+    id 'com.google.protobuf'
+    id 'org.jetbrains.kotlin.plugin.compose'
 }
 
 apply from: "$rootDir/gradle/test-report.gradle"
@@ -33,24 +37,20 @@ ext.codeCoverage = [
 android {
     namespace 'com.wisnu.kurniawan.composetodolist'
 
-    compileSdkVersion project.ext.compileSdkVersion
-    buildToolsVersion project.ext.buildToolsVersion
-
     defaultConfig {
         minSdkVersion project.ext.minSdkVersion
         targetSdkVersion project.ext.targetSdkVersion
         applicationId project.ext.appId
         versionCode project.ext.versionCode
         versionName project.ext.versionName
+        compileSdk project.ext.compileSdkVersion
 
         vectorDrawables {
             useSupportLibrary true
         }
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += ["room.schemaLocation": "$projectDir/room-schemas".toString()]
-            }
+        room {
+            schemaDirectory "$projectDir/room-schemas"
         }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -68,7 +68,7 @@ android {
         }
     }
 
-    applicationVariants.all { variant ->
+    applicationVariants.configureEach { variant ->
         def variantName = variant.getName()
         def debug = variantName.contains('debug')
         def appName
@@ -104,14 +104,6 @@ android {
 
     buildFeatures {
         viewBinding true
-
-        // Fix compose compile error
-        compose true
-    }
-
-    // Fix compose compile error
-    composeOptions {
-        kotlinCompilerExtensionVersion libs.versions.androidxComposeCompiler.get()
     }
 
     compileOptions {
@@ -130,10 +122,34 @@ android {
 
 }
 
-wire {
-    kotlin {
-        android = true
+protobuf {
+    protoc {
+        artifact = libs.google.protobuf.protoc.get().toString()
     }
+
+    // Generates the java Protobuf-lite code for the Protobufs in this project. See
+    // https://github.com/google/protobuf-gradle-plugin#customizing-protobuf-compilation
+    // for more information.
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java {
+                    option 'lite'
+                }
+            }
+        }
+    }
+}
+
+androidComponents {
+    onVariants(selector().all(), { variant ->
+        afterEvaluate {
+            def capName = variant.name.capitalize()
+            tasks.getByName("ksp${capName}Kotlin") {
+                setSource(tasks.getByName("generate${capName}Proto").outputs)
+            }
+        }
+    })
 }
 
 dependencies {
@@ -181,7 +197,7 @@ dependencies {
     // SQL
     implementation libs.androidx.room.runtime
     implementation libs.androidx.room.ktx
-    kapt libs.androidx.room.compiler
+    ksp libs.androidx.room.compiler
 
     // Key-value
     implementation libs.androidx.dataStore.core
@@ -200,7 +216,7 @@ dependencies {
 
     // DI
     implementation libs.google.hilt.android
-    kapt libs.google.hilt.compiler
+    ksp libs.google.hilt.compiler
 
     // Date time
     coreLibraryDesugaring(libs.android.desugarJdkLibs)
@@ -241,7 +257,7 @@ dependencies {
 }
 
 
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+tasks.withType(KotlinCompile).configureEach {
     kotlinOptions {
         freeCompilerArgs += '-Xopt-in=kotlin.RequiresOptIn'
     }

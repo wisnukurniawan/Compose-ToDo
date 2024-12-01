@@ -3,7 +3,7 @@ package com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.pro
 import androidx.datastore.core.DataStore
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.mapper.toTheme
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.mapper.toThemePreference
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.model.ThemePreference
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.model.UserThemePreference
 import com.wisnu.kurniawan.composetodolist.foundation.di.DiName
 import com.wisnu.kurniawan.composetodolist.model.Theme
 import kotlinx.coroutines.CoroutineDispatcher
@@ -17,11 +17,11 @@ import javax.inject.Named
 
 class ThemeProvider @Inject constructor(
     @Named(DiName.DISPATCHER_IO) private val dispatcher: CoroutineDispatcher,
-    private val themeDataStore: DataStore<ThemePreference>,
+    private val themeDataStore: DataStore<UserThemePreference>,
 ) {
 
     fun getTheme(): Flow<Theme> {
-        return themeDataStore.data.map { it.toTheme() }
+        return themeDataStore.data.map { it.theme.toTheme() }
             .catch { emit(Theme.SYSTEM) }
             .flowOn(dispatcher)
     }
@@ -29,7 +29,11 @@ class ThemeProvider @Inject constructor(
     suspend fun setTheme(data: Theme) {
         withContext(dispatcher) {
             themeDataStore.updateData {
-                data.toThemePreference()
+                UserThemePreference
+                    .newBuilder()
+                    .setTheme(data.toThemePreference())
+                    .build()
+
             }
         }
     }

@@ -9,20 +9,16 @@ import java.io.OutputStream
 
 object CredentialPreferenceSerializer : Serializer<CredentialPreference> {
 
-    override val defaultValue: CredentialPreference = CredentialPreference(token = "")
+    override val defaultValue: CredentialPreference = CredentialPreference.getDefaultInstance()
 
-    @Suppress("BlockingMethodInNonBlockingContext")
     override suspend fun readFrom(input: InputStream): CredentialPreference {
         try {
-            return CredentialPreference.ADAPTER.decode(input)
+            return CredentialPreference.parseFrom(input)
         } catch (exception: IOException) {
             throw CorruptionException("Cannot read proto", exception)
         }
     }
 
-    @Suppress("BlockingMethodInNonBlockingContext")
-    override suspend fun writeTo(t: CredentialPreference, output: OutputStream) {
-        CredentialPreference.ADAPTER.encode(output, t)
-    }
+    override suspend fun writeTo(t: CredentialPreference, output: OutputStream) = t.writeTo(output)
 
 }
