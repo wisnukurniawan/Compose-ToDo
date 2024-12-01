@@ -1,5 +1,6 @@
 package com.wisnu.kurniawan.composetodolist.foundation.theme
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -126,9 +127,17 @@ fun Theme(
         }
         Theme.WALLPAPER -> {
             if (isSystemInDarkTheme()) {
-                dynamicDarkColorScheme(LocalContext.current)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    dynamicDarkColorScheme(LocalContext.current)
+                } else {
+                    NightColorPalette
+                }
             } else {
-                dynamicLightColorScheme(LocalContext.current)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    dynamicLightColorScheme(LocalContext.current)
+                } else {
+                    LightColorPalette
+                }
             }
         }
         Theme.LIGHT -> LightColorPalette

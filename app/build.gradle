@@ -228,9 +228,9 @@ dependencies {
 
     // Analytics
     implementation platform(libs.google.firebase)
-    implementation 'com.google.firebase:firebase-analytics-ktx'
-    implementation 'com.google.firebase:firebase-perf-ktx'
-    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-perf'
+    implementation 'com.google.firebase:firebase-crashlytics'
     implementation libs.wisnu.foundation.core.analytics
     implementation libs.wisnu.foundation.lib.analyticsmanager
 
