@@ -36,6 +36,7 @@ import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DisplayMode
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -377,7 +378,7 @@ private fun TaskCell(
                 )
             }
 
-            Divider(
+            HorizontalDivider(
                 modifier = Modifier.padding(start = 56.dp),
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = DividerAlpha)
             )
@@ -474,7 +475,7 @@ private fun StepContent(
     ) {
         items(items = steps, key = { item -> item.id }) { item ->
             StepCell(
-                modifier = Modifier.animateItemPlacement(),
+                modifier = Modifier.animateItem(fadeInSpec = null, fadeOutSpec = null),
                 item = item,
                 color = color,
                 onClick = { onClickStep(item) },
@@ -790,7 +791,7 @@ private fun ActionContentCell(
                         .height(1.dp)
                         .background(color = MaterialTheme.colorScheme.secondary)
                 )
-                Divider(color = MaterialTheme.colorScheme.onSurface.copy(alpha = DividerAlpha))
+                HorizontalDivider(color = MaterialTheme.colorScheme.onSurface.copy(alpha = DividerAlpha))
             }
         }
     }

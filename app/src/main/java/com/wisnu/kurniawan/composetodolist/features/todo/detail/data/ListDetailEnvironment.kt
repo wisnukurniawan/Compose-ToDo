@@ -13,6 +13,7 @@ import com.wisnu.kurniawan.composetodolist.foundation.wrapper.DateTimeProvider
 import com.wisnu.kurniawan.composetodolist.foundation.wrapper.IdProvider
 import com.wisnu.kurniawan.composetodolist.model.ToDoList
 import com.wisnu.kurniawan.composetodolist.model.ToDoTask
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapConcat
@@ -31,6 +32,7 @@ class ListDetailEnvironment @Inject constructor(
         return toDoListProvider.getListWithTasksById(listId)
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     override suspend fun createList(list: ToDoList): Flow<ToDoList> {
         val process: OnResolveDuplicateName = { newName ->
             toDoListProvider.insertList(

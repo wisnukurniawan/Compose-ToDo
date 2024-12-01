@@ -9,20 +9,16 @@ import java.io.OutputStream
 
 object UserPreferenceSerializer : Serializer<UserPreference> {
 
-    override val defaultValue: UserPreference = UserPreference(email = "")
+    override val defaultValue: UserPreference = UserPreference.getDefaultInstance()
 
-    @Suppress("BlockingMethodInNonBlockingContext")
     override suspend fun readFrom(input: InputStream): UserPreference {
         try {
-            return UserPreference.ADAPTER.decode(input)
+            return UserPreference.parseFrom(input)
         } catch (exception: IOException) {
             throw CorruptionException("Cannot read proto", exception)
         }
     }
 
-    @Suppress("BlockingMethodInNonBlockingContext")
-    override suspend fun writeTo(t: UserPreference, output: OutputStream) {
-        UserPreference.ADAPTER.encode(output, t)
-    }
+    override suspend fun writeTo(t: UserPreference, output: OutputStream) = t.writeTo(output)
 
 }

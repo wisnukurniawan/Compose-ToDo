@@ -28,7 +28,10 @@ class UserProvider @Inject constructor(
     suspend fun setUser(data: User) {
         withContext(dispatcher) {
             userDataStore.updateData {
-                UserPreference(data.email)
+                UserPreference
+                    .newBuilder()
+                    .setEmail(data.email)
+                    .build()
             }
         }
     }

@@ -3,7 +3,7 @@ package com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.pro
 import androidx.datastore.core.DataStore
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.mapper.toLanguage
 import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.mapper.toLanguagePreference
-import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.model.LanguagePreference
+import com.wisnu.kurniawan.composetodolist.foundation.datasource.preference.model.UserLanguagePreference
 import com.wisnu.kurniawan.composetodolist.foundation.di.DiName
 import com.wisnu.kurniawan.composetodolist.model.Language
 import kotlinx.coroutines.CoroutineDispatcher
@@ -17,11 +17,11 @@ import javax.inject.Named
 
 class LanguageProvider @Inject constructor(
     @Named(DiName.DISPATCHER_IO) private val dispatcher: CoroutineDispatcher,
-    private val languageDataStore: DataStore<LanguagePreference>,
+    private val languageDataStore: DataStore<UserLanguagePreference>,
 ) {
 
     fun getLanguage(): Flow<Language> {
-        return languageDataStore.data.map { it.toLanguage() }
+        return languageDataStore.data.map { it.language.toLanguage() }
             .catch { emit(Language.ENGLISH) }
             .flowOn(dispatcher)
     }
@@ -29,7 +29,11 @@ class LanguageProvider @Inject constructor(
     suspend fun setLanguage(data: Language) {
         withContext(dispatcher) {
             languageDataStore.updateData {
-                data.toLanguagePreference()
+                UserLanguagePreference
+                    .newBuilder()
+                    .setLanguage(
+                        data.toLanguagePreference()
+                    ).build()
             }
         }
     }

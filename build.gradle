@@ -12,6 +12,10 @@ buildscript {
         classpath libs.google.hilt.gradlePlugin
         classpath libs.google.servicesPlugin
         classpath libs.squareup.wire.gradlePlugin
+        classpath libs.google.kspPlugin
+        classpath libs.room.gradlePlugin
+        classpath libs.protobuf.gradlePlugin
+        classpath libs.compose.gradlePlugin
     }
 }
 

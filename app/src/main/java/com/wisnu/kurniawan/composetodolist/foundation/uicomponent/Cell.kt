@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -159,7 +160,7 @@ fun PgToDoItemCell(
                         }
                     }
 
-                    Divider(
+                    HorizontalDivider(
                         modifier = Modifier.padding(start = 56.dp),
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = DividerAlpha)
                     )
