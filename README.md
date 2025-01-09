@@ -24,9 +24,9 @@ Compose playground for learning purpose
 * Android Studio Iguana | 2023.2.1
 * Min SDK 21
 * Target SDK 34
-* AGP 8.3.0
-* Java 11
-* Kotlin 1.9.22
+* AGP 8.3.2
+* Java 17
+* Kotlin 2.0.20
 
 ## Setup
 
