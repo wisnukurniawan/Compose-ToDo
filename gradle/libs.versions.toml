@@ -49,7 +49,7 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 androidx-benchmark-macro = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "androidxMacroBenchmark" }
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "androidxCompose" }
 androidx-compose-material = { group = "androidx.compose.material", name = "material", version.ref = "androidxCompose" }
-androidx-compose-material-navigation = { group = "androidx.compose.material", name = "material-navigation", version = "1.7.0-beta01" }
+androidx-compose-material-navigation = { group = "androidx.compose.material", name = "material-navigation", version = "1.9.0" }
 androidx-compose-material-iconsCore = { group = "androidx.compose.material", name = "material-icons-core", version.ref = "androidxCompose" }
 androidx-compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "androidxCompose" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "androidxComposeMaterial3" }
