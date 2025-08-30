@@ -26,7 +26,7 @@ Compose playground for learning purpose
 * Target SDK 35
 * AGP 8.9.0
 * Java 17
-* Kotlin 2.0.20
+* Kotlin 2.1.10
 
 ## Setup
 
