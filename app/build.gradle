@@ -80,7 +80,7 @@ android {
         }
 
         variant.mergedFlavor.manifestPlaceholders = [
-                APP_NAME   : appName,
+                APP_NAME: appName,
         ]
     }
 
@@ -229,7 +229,16 @@ dependencies {
     // Analytics
     implementation platform(libs.google.firebase)
     implementation 'com.google.firebase:firebase-analytics'
-    implementation 'com.google.firebase:firebase-perf'
+    implementation('com.google.firebase:firebase-perf') {
+        /*
+        Exclusion of protobuf / protolite dependencies is necessary as the
+        datastore-proto brings in protobuf dependencies. These are the source of truth
+        for Now in Android.
+        That's why the duplicate classes from below dependencies are excluded.
+        */
+        exclude group: "com.google.protobuf", module: "protobuf-javalite"
+        exclude group: "com.google.firebase", module: "protolite-well-known-types"
+    }
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation libs.wisnu.foundation.core.analytics
     implementation libs.wisnu.foundation.lib.analyticsmanager

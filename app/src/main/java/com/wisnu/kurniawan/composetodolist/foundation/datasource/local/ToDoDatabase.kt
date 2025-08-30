@@ -81,7 +81,7 @@ abstract class ToDoDatabase : RoomDatabase() {
                         }
                     }
                 )
-                .fallbackToDestructiveMigration()
+                .fallbackToDestructiveMigration(false)
 
             return db.build()
         }

@@ -101,7 +101,7 @@ def getKotlinDirectories(params) {
 
 static def classesDir(variant) {
     if (variant.hasProperty('javaCompileProvider')) {
-        return variant.javaCompileProvider.get().destinationDir
+        return variant.javaCompileProvider.get().destinationDirectory
     } else {
         return variant.javaCompile.destinationDir
     }

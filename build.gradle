@@ -27,8 +27,8 @@ allprojects {
 
     project.ext {
         minSdkVersion = 21
-        targetSdkVersion = 34
-        compileSdkVersion = 34
+        targetSdkVersion = 35
+        compileSdkVersion = 35
         appId = project.properties["application_id"]
         versionCode = Integer.parseInt(project.properties["version_code"])
         versionName = project.properties["version_name"]

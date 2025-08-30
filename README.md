@@ -21,10 +21,10 @@ Compose playground for learning purpose
 
 ## Prerequisites
 
-* Android Studio Iguana | 2023.2.1
+* Android Studio Narwhal Feature Drop | 2025.1.2
 * Min SDK 21
-* Target SDK 34
-* AGP 8.3.2
+* Target SDK 35
+* AGP 8.9.0
 * Java 17
 * Kotlin 2.0.20
 
